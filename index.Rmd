@@ -14,10 +14,113 @@ link-citations: yes
 github-repo: formationR
 ---
 
-# Hello World
+# Bienvenue sur cette formation au logiciel R 
 
-Hi.
+R est un logiciel accessible gratuitement permettant de réaliser des analyses statistiques dans un environnement windows, macOS ou Linux.
 
-Bye.
+## Pourquoi choisir R ?
+Le logiciel est gratuit, très complet, avec une communauté d'utilisateurs très active dans le monde entier. Il est fréquent que les nouvelles méthodes d'analyses statistiques développées dans les équipes académiques soient d'abord mises à disposition sur R.
+
+Le logiciel R repose sur l'utilisation de **scripts** dans lesquels nous allons **programmer** les analyses statistiques. Cette écriture sous forme de programmation peut paraître austère à première vue, mais est indispensable pour permettre la **reproductibilité** et la **transparence** des analyses. La même démarche de programmation est utilisée dans tous les logiciels statistiques professionnels (Stata, SAS, Python, Matlab, etc).
+
+Pour utiliser R, les premières choses à faire sont de :
+
+ - télécharger le logiciel R 
+ - et télécharger un Environnement de Développement Intégré (IDE) comme RStudio.
+
+## Téléchargez le logiciel R
+Vous pouvez télécharger la dernière version stable du logiciel R sur le site du [R project](https://www.r-project.org/). 
+```{r dlR1, echo=FALSE, out.width="100%", fig.align="center", fig.cap="Site du R project, en juillet 2025"}
+knitr::include_graphics("./images/telecharger_R_1.JPG")    
+```
+Cliquez sur "download R", choisissez un site mirroir (par exemple un des sites en France).
+
+Puis téléchargez la version de R en fonction de votre système d'exploitation (Windows, macOS ou Linux).
+```{r dlR2, echo=FALSE, out.width="100%", fig.align="center", fig.cap="Choisissez la version adaptée à votre système d'exploitation"}
+knitr::include_graphics("./images/telecharger_R_2.JPG")    
+```
+Enfin, installez R à partir du fichier d'installation que vous venez de télécharger.
+
+### Ouvrez le logiciel R
+Si vous ouvrez le logiciel R, vous aller trouver l'interface graphique de R (_RGui_ pour _R Graphical user interface_). Il est possible de faire vos analyses statistiques à partir de cette interface graphique, mais elle est très très austère. 
+
+```{r RGui, echo=FALSE, out.width="50%", fig.align="center", fig.cap="L'interface graphique de R (RGui)"}
+knitr::include_graphics("./images/Rgui.JPG")    
+```
+
+Plutôt que d'utiliser cette interface RGui, nous vous recommandons fortement d'utiliser un Environnement de Développement Intégré (IDE) pour utiliser vos logiciels statistiques, comme RStudio qui vous facilitera grandement la vie !
+
+## Téléchargez un IDE (RStudio recommandé)
+RStudio est un environnement qui permet d'utiliser R (bien sûr !), mais également d'autres logiciels de programmation comme Python, SQL, Stan, C++, etc. Cet environnement vous facilitera le travail pour : 
+
+ - éditer vos scripts de programmation, 
+ - accéder à la console, 
+ - visualiser vos environnements de travail avec les fichiers et les objets qu'il contient, 
+ - visualiser vos sorties graphiques et certaines tables d'analyses, 
+ - visualiser vos données, 
+ - visualiser les fichiers d'aide, 
+ - gérer les _packages_ permettant de faire des analyses spécifiques,
+ - et bien d'autres choses encore.
+ 
+Par exemple le tutoriel que vous êtes en train de lire a été créé à partir du package [`bookdown`](https://bookdown.org/) avec les logiciels R et RStudio, 
+
+Vous pouvez télécharger la dernière version de l'IDE [RStudio](https://posit.co/download/rstudio-desktop/) sur le site de la compagnie [Posit](https://posit.co/products/open-source/rstudio/?sid=1). Choisissez la version qui est adaptée à votre système d'exploitation (Windows, macOS ou Linux).
+```{r dlRStudio, echo=FALSE, out.width="100%", fig.align="center", fig.cap="téléchargez RStudio"}
+knitr::include_graphics("./images/telecharger_RStudio_1.JPG")  
+knitr::include_graphics("./images/telecharger_RStudio_2.JPG")    
+```
+Puis, installez RStudio à partir du fichier d'installation que vous venez de télécharger.
+
+### Ouvrez le logiciel Rstudio
+Commencez par ouvrir un **script** 
+
+ - à partir du menu File > New File > R script
+ - ou bien en utilisant le raccourci Ctrl+Maj+N sur windows
+ - ou bien en cliquant sur le petit fichier blanc avec un + vert en haut à gauche, puis choisir "R script"
+
+```{r newscript, echo=FALSE, out.width="50%", fig.align="center", fig.cap="Ouvrir un nouveau script"}
+knitr::include_graphics("./images/newscriptR.JPG")  
+```
+
+L'interface de RStudio contient un menu, 4 quadrants et des sous-menus dans chaque cadrant.
+
+```{r RStudcadrants, echo=FALSE, out.width="100%", fig.align="center", fig.cap="Les 4 cadrants de RStudio"}
+knitr::include_graphics("./images/cadrants_RStudio.JPG")  
+```
+
+Les menus qui vous seront le plus utiles sont :
+
+  - Dans le menu principal, 
+    - le menu _File_ vous permettra de créer de nouveaux fichiers, d'ouvrir des fichiers déjà existants, de sauver vos fichiers, d'importer des bases de données, etc.
+    - le menu _Tools > Install packages..._ pour installer de nouveaux packages
+    - le menu _Tools > Global Options..._ vous permet de choisir la version du logiciel R à utiliser (onglet "R General") ou bien de changer l'aspect graphique de l'environnement RStudio (onglet "Appearance", puis choisissez un "Editor theme", avec différentes interfaces claires ou sombres)
+
+  - Au sein du **script** (cadrant 1) 
+    - le bouton "disquette" pour sauvegarder votre script
+    - le bouton "run" pour faire tourner votre programme d'analyse (les lignes que vous avez sélectionnées). Par exemple, tapez la commande suivante dans le script, sélectionnez la ligne et cliquez sur le bouton "run".
+
+```{r test1, eval=FALSE, include=TRUE}
+print("Hello Toulouse")
+``` 
+et vous devriez voir la commande `> print("Hello Toulouse")` puis son résultat `"Hello Toulouse"` dans l'onglet **console** du cadrant 3.
+
+  - Au sein du cadrant 3, l'onglet le plus utile pour vous sera l'onglet **console**
+    - la console est la même que la console affichée dans l'interface RGui du logiciel R que l'on a vu au paragraphe 1.2.1.
+    - la console commence par afficher la version de R en cours d'utilisation
+    - vous pouvez y saisir des commandes et obtenir directement leurs résultats, par exemple si vous tapez dans la console `4+9`, vous obtiendrez directement le résultat `13`. **Attention, les commandes que vous saisissez directement dans la console ne seront pas sauvegardées. Si vous voulez sauvegarder des commandes, il faut utiliser le _script_ (cadrant 1)**
+    
+```{r test2, echo=TRUE}
+4+9
+``` 
+
+  - Au sein du cadrant 2, l'onglet le plus utile pour vous est l'onglet **Environment**
+    - cet onglet vous permettra de visualiser les "objets" créés pendant vos analyses. 
+    - Par exemple si vous saisissez `v = 1:10` dans la console, vous allez voir apparaître l'objet `v` dans l'environnement de travail (il s'agit d'un vecteur de 1 à 10).
+    
+  - Au sein du cadrant 4, les onglets les plus utiles pour vous sont : 
+    - l'onglet "File" qui contient les dossiers et fichiers au sein d'un dossier de travail (voir le chapitre 3 pour créer et organiser un dossier de travail)
+    - l'onglet "Plots" où vous retrouverez vos sorties graphiques. Au sein de cet onglet, vous trouverez un menu pour exporter vos graphiques selon différents formats. Des boutons permettent également de zoomer et d'effacer les graphiques. Par exemple, si vous saisissez `hist(rnorm(10000))` dans la console, un histogramme d'une distribution normale centrée réduite va apparaître. Vous pouvez effacer la figure en cliquant sur le bouton avec la croix rouge (efface la figure actuelle) ou le balet (efface l'ensemble des figures). 
+    - l'onglet "Packages" où vous pourrez activer, désactiver ou mettre à jour les packages qui ont été téléchargés.
+    - l'onglet "Help" où vous trouverez de l'aide. Par exemple si vous saisissez `help(mean)` dans la console, l'aide de la commande `mean` va s'afficher.
 
 <!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->

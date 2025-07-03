@@ -1,1 +1,13 @@
-hello-world
+fig:dlR1
+fig:dlR2
+fig:RGui
+fig:dlRStudio-1
+fig:dlRStudio-2
+fig:newscript
+fig:RStudcadrants
+bienvenue-sur-cette-formation-au-logiciel-r
+pourquoi-choisir-r
+téléchargez-le-logiciel-r
+ouvrez-le-logiciel-r
+téléchargez-un-ide-rstudio-recommandé
+ouvrez-le-logiciel-rstudio
