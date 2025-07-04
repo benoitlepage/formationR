@@ -117,7 +117,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2025-07-03}
+\date{2025-07-04}
 
 \begin{document}
 \maketitle
@@ -187,11 +187,11 @@ Si vous ouvrez le logiciel R, vous aller trouver l'interface graphique de R (\em
 \caption{L'interface graphique de R (RGui)}\label{fig:RGui}
 \end{figure}
 
-Plutôt que d'utiliser cette interface RGui, nous vous recommandons fortement d'utiliser un Environnement de Développement Intégré (IDE) pour utiliser vos logiciels statistiques, comme RStudio qui vous facilitera grandement la vie !
+Plutôt que d'utiliser cette interface RGui, nous vous recommandons fortement d'utiliser un Environnement de Développement Intégré (IDE), comme RStudio, qui vous facilitera grandement la vie pour utiliser un logiciel statistique qui repose sur de la programmation.
 
 \section{Téléchargez un IDE (RStudio recommandé)}\label{tuxe9luxe9chargez-un-ide-rstudio-recommanduxe9}
 
-RStudio est un environnement qui permet d'utiliser R (bien sûr !), mais également d'autres logiciels de programmation comme Python, SQL, Stan, C++, etc. Cet environnement vous facilitera le travail pour :
+RStudio est un environnement qui permet d'utiliser R, mais également d'autres logiciels de programmation comme Python, SQL, Stan, C++, etc. Cet environnement vous facilitera le travail pour :
 
 \begin{itemize}
 \tightlist
@@ -213,9 +213,9 @@ RStudio est un environnement qui permet d'utiliser R (bien sûr !), mais égalem
   et bien d'autres choses encore.
 \end{itemize}
 
-Par exemple le tutoriel que vous êtes en train de lire a été créé à partir du package \href{https://bookdown.org/}{\texttt{bookdown}} avec les logiciels R et RStudio,
+Par exemple, le tutoriel que vous êtes en train de lire a été créé à partir du package \href{https://bookdown.org/}{\texttt{bookdown}} avec le logiciels R, au sein de l'IDE RStudio,
 
-Vous pouvez télécharger la dernière version de l'IDE \href{https://posit.co/download/rstudio-desktop/}{RStudio} sur le site de la compagnie \href{https://posit.co/products/open-source/rstudio/?sid=1}{Posit}. Choisissez la version qui est adaptée à votre système d'exploitation (Windows, macOS ou Linux).
+Vous pouvez télécharger la dernière version de \href{https://posit.co/download/rstudio-desktop/}{RStudio} sur le site de la compagnie \href{https://posit.co/products/open-source/rstudio/?sid=1}{Posit}. Choisissez la version qui est adaptée à votre système d'exploitation (Windows, macOS ou Linux).
 
 \begin{figure}
 
@@ -236,9 +236,9 @@ Vous pouvez télécharger la dernière version de l'IDE \href{https://posit.co/d
 
 Puis, installez RStudio à partir du fichier d'installation que vous venez de télécharger.
 
-\subsection{Ouvrez le logiciel Rstudio}\label{ouvrez-le-logiciel-rstudio}
+\subsection{Ouvrez l'IDE RStudio}\label{ouvrez-lide-rstudio}
 
-Commencez par ouvrir un \textbf{script}
+Ouvrez RStudio, puis commencez par ouvrir un \textbf{script}
 
 \begin{itemize}
 \tightlist
@@ -259,7 +259,7 @@ Commencez par ouvrir un \textbf{script}
 \caption{Ouvrir un nouveau script}\label{fig:newscript}
 \end{figure}
 
-L'interface de RStudio contient un menu, 4 quadrants et des sous-menus dans chaque cadrant.
+L'interface de RStudio contient un menu, 4 quadrants et des sous-menus et boutons dans chaque cadrant.
 
 \begin{figure}
 
@@ -292,9 +292,9 @@ Les menus qui vous seront le plus utiles sont :
   \begin{itemize}
   \tightlist
   \item
-    le bouton ``disquette'' pour sauvegarder votre script
+    le bouton ``disquette'' permet de sauvegarder votre script
   \item
-    le bouton ``run'' pour faire tourner votre programme d'analyse (les lignes que vous avez sélectionnées). Par exemple, tapez la commande suivante dans le script, sélectionnez la ligne et cliquez sur le bouton ``run''.
+    le bouton ``run'' permet de faire tourner votre programme d'analyse (les lignes que vous avez sélectionnées). Par exemple, tapez la commande suivante dans le script, sélectionnez la ligne et cliquez sur le bouton ``run''.
   \end{itemize}
 \end{itemize}
 
@@ -309,7 +309,7 @@ et vous devriez voir la commande \texttt{\textgreater{}\ print("Hello\ Toulouse"
 \begin{itemize}
 \tightlist
 \item
-  Au sein du cadrant 3, l'onglet le plus utile pour vous sera l'onglet \textbf{console}
+  Au sein du cadrant 3, l'onglet le plus utile pour pour les débutants est l'onglet \textbf{console}
 
   \begin{itemize}
   \tightlist
@@ -335,28 +335,28 @@ et vous devriez voir la commande \texttt{\textgreater{}\ print("Hello\ Toulouse"
 \begin{itemize}
 \tightlist
 \item
-  Au sein du cadrant 2, l'onglet le plus utile pour vous est l'onglet \textbf{Environment}
+  Au sein du cadrant 2, l'onglet le plus utile pour les débutants est l'onglet \textbf{Environment}
 
   \begin{itemize}
   \tightlist
   \item
-    cet onglet vous permettra de visualiser les ``objets'' créés pendant vos analyses.
+    cet onglet vous permettra de visualiser les ``objets R'' créés pendant vos analyses.
   \item
-    Par exemple si vous saisissez \texttt{v\ =\ 1:10} dans la console, vous allez voir apparaître l'objet \texttt{v} dans l'environnement de travail (il s'agit d'un vecteur de 1 à 10).
+    Par exemple si vous saisissez \texttt{v\ \textless{}-\ 1:10} dans la console, vous allez voir apparaître l'objet \texttt{v} dans l'environnement de travail (il s'agit d'un vecteur de 1 à 10, nommé ``v'').
   \end{itemize}
 \item
-  Au sein du cadrant 4, les onglets les plus utiles pour vous sont :
+  Au sein du cadrant 4, les onglets les plus utiles pour les débutants sont :
 
   \begin{itemize}
   \tightlist
   \item
-    l'onglet ``File'' qui contient les dossiers et fichiers au sein d'un dossier de travail (voir le chapitre 3 pour créer et organiser un dossier de travail)
+    l'onglet ``File'' qui contient les dossiers et fichiers au sein d'un dossier de travail (voir le chapitre 3 pour créer et organiser un dossier de travail associé à un ``projet R'')
   \item
     l'onglet ``Plots'' où vous retrouverez vos sorties graphiques. Au sein de cet onglet, vous trouverez un menu pour exporter vos graphiques selon différents formats. Des boutons permettent également de zoomer et d'effacer les graphiques. Par exemple, si vous saisissez \texttt{hist(rnorm(10000))} dans la console, un histogramme d'une distribution normale centrée réduite va apparaître. Vous pouvez effacer la figure en cliquant sur le bouton avec la croix rouge (efface la figure actuelle) ou le balet (efface l'ensemble des figures).
   \item
     l'onglet ``Packages'' où vous pourrez activer, désactiver ou mettre à jour les packages qui ont été téléchargés.
   \item
-    l'onglet ``Help'' où vous trouverez de l'aide. Par exemple si vous saisissez \texttt{help(mean)} dans la console, l'aide de la commande \texttt{mean} va s'afficher.
+    l'onglet ``Help'' où vous trouverez de l'aide. Par exemple si vous saisissez \texttt{help(mean)} dans la console, l'aide de la commande \texttt{mean} va s'afficher. Vous pouvez également utiliser le champ de recherche de fonctions dans le menu ``Help''.
   \end{itemize}
 \end{itemize}
 

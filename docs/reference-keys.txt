@@ -10,4 +10,4 @@ pourquoi-choisir-r
 téléchargez-le-logiciel-r
 ouvrez-le-logiciel-r
 téléchargez-un-ide-rstudio-recommandé
-ouvrez-le-logiciel-rstudio
+ouvrez-lide-rstudio
