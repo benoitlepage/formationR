@@ -97,7 +97,7 @@ Les menus qui vous seront le plus utiles sont :
 
   - Au sein du **script** (cadrant 1) 
     - le bouton "disquette" permet de sauvegarder votre script
-    - le bouton "run" permet de faire tourner votre programme d'analyse (les lignes que vous avez sélectionnées). Par exemple, tapez la commande suivante dans le script, sélectionnez la ligne et cliquez sur le bouton "run".
+    - le bouton "run" permet de faire tourner votre programme d'analyse (les lignes que vous avez sélectionnées). Par exemple, tapez la commande suivante dans le script, sélectionnez la ligne et cliquez sur le bouton "run" (ou avec un raccourci clavier `ctrl`+`entrée` sur windows, ou encore `option`+`entrée` sur macOS).
 
 ```{r test1, eval=FALSE, include=TRUE}
 print("Hello Toulouse")
