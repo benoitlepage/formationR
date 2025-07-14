@@ -3,8 +3,12 @@ title: "Formation R"
 author: "Benoît Lepage"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-# output:
-#   bookdown::gitbook: default
+output:
+  bookdown::gitbook: 
+    config:
+        sharing:
+            facebook: false
+            twitter: false
 #   #bookdown::pdf_book: default
 documentclass: book
 bibliography: [references_formationR.bib]
