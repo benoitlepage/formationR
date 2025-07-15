@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Les objets dans R | Formation R</title>
+  <meta name="description" content="Chapter 2 Les objets dans R | Formation R" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Les objets dans R | Formation R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Chapter 2 Les objets dans R | Formation R" />
+  <meta name="github-repo" content="formationR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Les objets dans R | Formation R" />
+  
+  <meta name="twitter:description" content="Chapter 2 Les objets dans R | Formation R" />
+  
+
+<meta name="author" content="Benoît Lepage" />
+
+
+<meta name="date" content="2025-07-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">formationR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Bienvenue sur cette formation au logiciel R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pourquoi-choisir-r"><i class="fa fa-check"></i><b>1.1</b> Pourquoi choisir R ?</a></li>
+<li class="chapter" data-level="1.2" data-path="01-objets_dans_R.html"><a href="#t%C3%A9l%C3%A9chargez-le-logiciel-r"><i class="fa fa-check"></i><b>1.2</b> Téléchargez le logiciel R</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#ouvrez-le-logiciel-r"><i class="fa fa-check"></i><b>1.2.1</b> Ouvrez le logiciel R</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="01-objets_dans_R.html"><a href="#t%C3%A9l%C3%A9chargez-un-ide-rstudio-recommand%C3%A9"><i class="fa fa-check"></i><b>1.3</b> Téléchargez un IDE (RStudio recommandé)</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#ouvrez-lide-rstudio"><i class="fa fa-check"></i><b>1.3.1</b> Ouvrez l’IDE RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#trouver-de-laide-sur-r"><i class="fa fa-check"></i><b>1.4</b> Trouver de l’aide sur R</a></li>
+<li class="chapter" data-level="1.5" data-path="01-objets_dans_R.html"><a href="#conventions-d%C3%A9criture"><i class="fa fa-check"></i><b>1.5</b> Conventions d’écriture</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html"><i class="fa fa-check"></i><b>2</b> Les objets dans R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#manipuler-les-objets-dans-lenvironnement"><i class="fa fa-check"></i><b>2.1</b> Manipuler les objets dans l’environnement</a></li>
+<li class="chapter" data-level="2.2" data-path="01-objets_dans_R.html"><a href="#principaux-types-de-donn%C3%A9es"><i class="fa fa-check"></i><b>2.2</b> Principaux types de données</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="01-objets_dans_R.html"><a href="#d%C3%A9crire-le-type-de-lobjet-spadesuit"><i class="fa fa-check"></i><b>2.2.1</b> Décrire le type de l’objet <span class="math inline">\(\spadesuit\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="01-objets_dans_R.html"><a href="#principales-structures-de-donn%C3%A9es"><i class="fa fa-check"></i><b>2.3</b> Principales structures de données</a></li>
+<li class="chapter" data-level="2.4" data-path="01-objets_dans_R.html"><a href="#objet-%C3%A0-une-seule-valeur-scalaire-ou-texte"><i class="fa fa-check"></i><b>2.4</b> Objet à une seule valeur (scalaire ou texte)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#scalaires"><i class="fa fa-check"></i><b>2.4.1</b> Scalaires</a></li>
+<li class="chapter" data-level="2.4.2" data-path="01-objets_dans_R.html"><a href="#op%C3%A9rations-math%C3%A9matiques-sur-les-scalaires"><i class="fa fa-check"></i><b>2.4.2</b> Opérations mathématiques sur les scalaires</a></li>
+<li class="chapter" data-level="2.4.3" data-path="01-objets_dans_R.html"><a href="#concat%C3%A9nation-de-cha%C3%AEnes-de-caract%C3%A8res"><i class="fa fa-check"></i><b>2.4.3</b> Concaténation de chaînes de caractères</a></li>
+<li class="chapter" data-level="2.4.4" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#valeurs-logiques-true-et-false"><i class="fa fa-check"></i><b>2.4.4</b> Valeurs logiques <code>TRUE</code> et <code>FALSE</code></a></li>
+<li class="chapter" data-level="2.4.5" data-path="01-objets_dans_R.html"><a href="#op%C3%A9rations-sur-des-valeurs-logiques"><i class="fa fa-check"></i><b>2.4.5</b> Opérations sur des valeurs logiques</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-vecteurs-vector"><i class="fa fa-check"></i><b>2.5</b> Les vecteurs <code>vector()</code></a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="01-objets_dans_R.html"><a href="#cr%C3%A9ation-dun-vecteur-de-valeurs"><i class="fa fa-check"></i><b>2.5.1</b> Création d’un vecteur de valeurs</a></li>
+<li class="chapter" data-level="2.5.2" data-path="01-objets_dans_R.html"><a href="#indi%C3%A7age-dun-vecteur"><i class="fa fa-check"></i><b>2.5.2</b> Indiçage d’un vecteur</a></li>
+<li class="chapter" data-level="2.5.3" data-path="01-objets_dans_R.html"><a href="#les-objets-r-peuvent-poss%C3%A9der-des-attributs-attributes"><i class="fa fa-check"></i><b>2.5.3</b> Les objets R peuvent posséder des attributs <code>attributes()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-listes-list"><i class="fa fa-check"></i><b>2.6</b> Les listes <code>list()</code></a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="01-objets_dans_R.html"><a href="#cr%C3%A9ation-dune-liste"><i class="fa fa-check"></i><b>2.6.1</b> Création d’une liste</a></li>
+<li class="chapter" data-level="2.6.2" data-path="01-objets_dans_R.html"><a href="#indi%C3%A7age-dune-liste"><i class="fa fa-check"></i><b>2.6.2</b> Indiçage d’une liste</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-matrices-matrix"><i class="fa fa-check"></i><b>2.7</b> Les matrices <code>matrix()</code></a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="01-objets_dans_R.html"><a href="#cr%C3%A9ation-dune-matrice"><i class="fa fa-check"></i><b>2.7.1</b> Création d’une matrice</a></li>
+<li class="chapter" data-level="2.7.2" data-path="01-objets_dans_R.html"><a href="#indi%C3%A7age-dune-matrice"><i class="fa fa-check"></i><b>2.7.2</b> Indiçage d’une matrice</a></li>
+<li class="chapter" data-level="2.7.3" data-path="01-objets_dans_R.html"><a href="#matrices-%C3%A0-plus-de-2-dimensions-array"><i class="fa fa-check"></i><b>2.7.3</b> matrices à plus de 2 dimensions <code>array()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="01-objets_dans_R.html"><a href="#les-bases-de-donn%C3%A9es-data.frames"><i class="fa fa-check"></i><b>2.8</b> Les bases de données <code>data.frames()</code></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Formation R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="les-objets-dans-r" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Les objets dans R<a href="les-objets-dans-r.html#les-objets-dans-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="manipuler-les-objets-dans-lenvironnement" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Manipuler les objets dans l’environnement<a href="les-objets-dans-r.html#manipuler-les-objets-dans-lenvironnement" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La programmation R repose sur des <em>objets</em>, qui apparaîtront dans la fenêtre <em>Environment</em> de RStudio.</p>
+<p>Voici quelques commandes de gestion des objets dans votre environnement :</p>
+<ul>
+<li>dans la console, commencez par créer les objets suivants. Pour <strong>assigner une ou plusieurs valeurs à un objet</strong>, on utilise une flèche dirigée vers la gauche <code>&lt;-</code>. Vous verrez apparaître ces objets dans la fenêtre <em>Environment</em>.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="les-objets-dans-r.html#cb4-1" tabindex="-1"></a><span class="co"># note : le signe dièze (#) permet d&#39;ajouter des commentaires dans le code  </span></span>
+<span id="cb4-2"><a href="les-objets-dans-r.html#cb4-2" tabindex="-1"></a><span class="co"># - le 1er objet est un vecteur de 10 entiers de 1 à 10</span></span>
+<span id="cb4-3"><a href="les-objets-dans-r.html#cb4-3" tabindex="-1"></a><span class="co"># - le 2ème objet est un vecteur de 3 lettres A, B et C</span></span>
+<span id="cb4-4"><a href="les-objets-dans-r.html#cb4-4" tabindex="-1"></a><span class="co"># - le 3ème objet est un vecteur de 2 réels, calculés par 2 opérations</span></span>
+<span id="cb4-5"><a href="les-objets-dans-r.html#cb4-5" tabindex="-1"></a><span class="co"># - le 4ème objet est une fonction qui ajoute 2 au vecteur x</span></span>
+<span id="cb4-6"><a href="les-objets-dans-r.html#cb4-6" tabindex="-1"></a><span class="co"># - le 5ème objet est un scalaire égal à 42</span></span>
+<span id="cb4-7"><a href="les-objets-dans-r.html#cb4-7" tabindex="-1"></a>objet_1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) </span>
+<span id="cb4-8"><a href="les-objets-dans-r.html#cb4-8" tabindex="-1"></a>objet_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>) </span>
+<span id="cb4-9"><a href="les-objets-dans-r.html#cb4-9" tabindex="-1"></a>objet_3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span> <span class="sc">/</span> <span class="dv">3</span>, <span class="dv">4</span> <span class="sc">*</span> <span class="dv">5</span>) </span>
+<span id="cb4-10"><a href="les-objets-dans-r.html#cb4-10" tabindex="-1"></a>objet_4 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {x <span class="sc">+</span> <span class="dv">2</span>} </span>
+<span id="cb4-11"><a href="les-objets-dans-r.html#cb4-11" tabindex="-1"></a>objet_5 <span class="ot">&lt;-</span> <span class="dv">42</span> </span></code></pre></div>
+<ul>
+<li>la commande <code>ls()</code> permet de <strong>lister</strong> les objets dans l’environnement.</li>
+<li>la commande <code>rm()</code> permet de <strong>supprimer</strong> (<em>remove</em>) un ou plusieurs objets de l’environnement.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="les-objets-dans-r.html#cb5-1" tabindex="-1"></a><span class="fu">ls</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;objet_1&quot; &quot;objet_2&quot; &quot;objet_3&quot; &quot;objet_4&quot; &quot;objet_5&quot;</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="les-objets-dans-r.html#cb7-1" tabindex="-1"></a><span class="fu">rm</span>(objet_2,objet_5)</span>
+<span id="cb7-2"><a href="les-objets-dans-r.html#cb7-2" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) <span class="co"># pour supprimer tous les objets présents dans l&#39;environnement</span></span></code></pre></div>
+</div>
+<div id="principaux-types-de-données" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Principaux types de données<a href="#principaux-types-de-donn%C3%A9es" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Les données peuvent être de différents types :</p>
+<ul>
+<li>des <strong>nombres</strong> (<code>?numeric</code>). Ces nombres peuvent être des <strong>nombres réels</strong> (<code>?double</code>), par exemple <code>12.43</code>. Il peut également s’agir de <strong>nombres entiers</strong> (<code>?integer</code>). Les nombres entiers sont saisis en ajoutant <code>L</code> à droite du nombre, par exemple <code>5L</code>.</li>
+<li>des <strong>chaînes de caractères textuels</strong> (<code>?character</code>), définis avec des guillemets simples ou doubles , par exemple <code>'bonjour'</code> ou <code>"au revoir"</code></li>
+<li>des <strong>valeurs logiques</strong> (<code>?logical</code>), avec deux valeurs possibles :
+<ul>
+<li>valeur booléenne <em>vraie</em>, notée <code>TRUE</code> ou bien <code>T</code></li>
+<li>valeur booléenne <em>fausse</em>, notée <code>FALSE</code> ou bien <code>F</code></li>
+</ul></li>
+<li>des <strong>variables qualitatives nominales</strong> (<code>?factor</code>) ou <strong>ordinales</strong> (<code>?ordered</code>)</li>
+<li>des <strong>dates</strong> (<code>?Date</code>)</li>
+<li>etc.</li>
+<li>une <strong>valeur manquante</strong> se note <code>NA</code>. L’<strong>ensemble vide</strong> se note <code>NULL</code></li>
+</ul>
+<div id="décrire-le-type-de-lobjet-spadesuit" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Décrire le type de l’objet <span class="math inline">\(\spadesuit\)</span><a href="#d%C3%A9crire-le-type-de-lobjet-spadesuit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>On peut décrire quel est le type de l’objet avec les fonctions <code>typeof</code> (le type le plus élémentaire), <code>mode</code> et <code>storage.mode</code> (type de l’objet et mode de stockage de l’objet selon un regroupement un peu plus large)</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="les-objets-dans-r.html#cb8-1" tabindex="-1"></a><span class="co"># les valeurs réelles (&#39;double&#39;) et les entiers (&#39;integer&#39;) sont de mode &#39;numeric&#39;</span></span>
+<span id="cb8-2"><a href="les-objets-dans-r.html#cb8-2" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fl">2.53</span>) <span class="co"># un réel</span></span>
+<span id="cb8-3"><a href="les-objets-dans-r.html#cb8-3" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">5</span><span class="dt">L</span>) <span class="co"># et un entier</span></span>
+<span id="cb8-4"><a href="les-objets-dans-r.html#cb8-4" tabindex="-1"></a><span class="fu">mode</span>(<span class="fl">2.53</span>) <span class="co"># sont de type &#39;numeric&#39;</span></span>
+<span id="cb8-5"><a href="les-objets-dans-r.html#cb8-5" tabindex="-1"></a><span class="fu">mode</span>(<span class="dv">5</span><span class="dt">L</span>)</span>
+<span id="cb8-6"><a href="les-objets-dans-r.html#cb8-6" tabindex="-1"></a><span class="fu">storage.mode</span>(<span class="fl">2.53</span>)</span>
+<span id="cb8-7"><a href="les-objets-dans-r.html#cb8-7" tabindex="-1"></a><span class="fu">storage.mode</span>(<span class="dv">5</span><span class="dt">L</span>)</span>
+<span id="cb8-8"><a href="les-objets-dans-r.html#cb8-8" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="les-objets-dans-r.html#cb8-9" tabindex="-1"></a><span class="co"># les chaînes de caractères sont de type et de mode &#39;character&#39;</span></span>
+<span id="cb8-10"><a href="les-objets-dans-r.html#cb8-10" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">c</span>(<span class="st">&quot;hello&quot;</span>,<span class="st">&quot;Toulouse&quot;</span>))</span>
+<span id="cb8-11"><a href="les-objets-dans-r.html#cb8-11" tabindex="-1"></a><span class="fu">mode</span>(<span class="fu">c</span>(<span class="st">&quot;hello&quot;</span>,<span class="st">&quot;Toulouse&quot;</span>))</span>
+<span id="cb8-12"><a href="les-objets-dans-r.html#cb8-12" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="les-objets-dans-r.html#cb8-13" tabindex="-1"></a><span class="co"># les valeurs logiques sont de type &#39;logical&#39;</span></span>
+<span id="cb8-14"><a href="les-objets-dans-r.html#cb8-14" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span>))</span>
+<span id="cb8-15"><a href="les-objets-dans-r.html#cb8-15" tabindex="-1"></a><span class="fu">mode</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span>))</span></code></pre></div>
+<table>
+<colgroup>
+<col width="32%" />
+<col width="23%" />
+<col width="20%" />
+<col width="24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"><code>x</code></th>
+<th align="center"><code>typeof(x)</code></th>
+<th align="center"><code>mode(x)</code></th>
+<th align="center"><code>storage.mode(x)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>2.53</code></td>
+<td align="center"><code>"double"</code></td>
+<td align="center"><code>"numeric"</code></td>
+<td align="center"><code>"double"</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>5L</code></td>
+<td align="center"><code>"integer"</code></td>
+<td align="center"><code>"numeric"</code></td>
+<td align="center"><code>"integer"</code></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>"bonjour"</code></td>
+<td align="center"><code>"character"</code></td>
+<td align="center"><code>"character"</code></td>
+<td align="center"><code>"character"</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>"logical"</code></td>
+<td align="center"><code>"logical"</code></td>
+<td align="center"><code>"logical"</code></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>as.Date("2025-07-01")</code></td>
+<td align="center"><code>"double"</code></td>
+<td align="center"><code>"numeric"</code></td>
+<td align="center"><code>"double"</code></td>
+</tr>
+</tbody>
+</table>
+<p>Les fonctions <code>as.numeric</code>, <code>as.integer</code>, <code>as.character</code>, <code>as.logical</code> permettent de définir un objet <em>en tant que</em> numérique, entier, chaîne de caractères, logique.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="les-objets-dans-r.html#cb9-1" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="dv">5</span><span class="dt">L</span>) <span class="co"># définit un nombre entier en tant que nombre réel</span></span>
+<span id="cb9-2"><a href="les-objets-dans-r.html#cb9-2" tabindex="-1"></a><span class="fu">as.integer</span>(<span class="fl">4.95</span>) <span class="co"># définit un réel en tant qu&#39;entier, seul l&#39;entier est conservé</span></span>
+<span id="cb9-3"><a href="les-objets-dans-r.html#cb9-3" tabindex="-1"></a><span class="fu">as.character</span>(<span class="fl">4.95</span>) <span class="co"># définit un nombre en tant que chaîne de caractères</span></span>
+<span id="cb9-4"><a href="les-objets-dans-r.html#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="les-objets-dans-r.html#cb9-5" tabindex="-1"></a><span class="co"># définir une valeur logique TRUE et FALSE en tant que valeur numérique </span></span>
+<span id="cb9-6"><a href="les-objets-dans-r.html#cb9-6" tabindex="-1"></a><span class="co"># ou en tant qu&#39;entier donne les valeurs 1 et 0, respectivement</span></span>
+<span id="cb9-7"><a href="les-objets-dans-r.html#cb9-7" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="cn">TRUE</span>) </span>
+<span id="cb9-8"><a href="les-objets-dans-r.html#cb9-8" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="cn">FALSE</span>) </span>
+<span id="cb9-9"><a href="les-objets-dans-r.html#cb9-9" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="les-objets-dans-r.html#cb9-10" tabindex="-1"></a><span class="co"># définir le nombre 0 en tant que valeur logique donne la valeur FALSE</span></span>
+<span id="cb9-11"><a href="les-objets-dans-r.html#cb9-11" tabindex="-1"></a><span class="fu">as.logical</span>(<span class="dv">0</span>)</span>
+<span id="cb9-12"><a href="les-objets-dans-r.html#cb9-12" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="les-objets-dans-r.html#cb9-13" tabindex="-1"></a><span class="co"># définir tout nombre différent de 0 en tant que valeur logique </span></span>
+<span id="cb9-14"><a href="les-objets-dans-r.html#cb9-14" tabindex="-1"></a><span class="co"># donne la valeur TRUE</span></span>
+<span id="cb9-15"><a href="les-objets-dans-r.html#cb9-15" tabindex="-1"></a><span class="fu">as.logical</span>(<span class="sc">-</span><span class="dv">14</span>)</span>
+<span id="cb9-16"><a href="les-objets-dans-r.html#cb9-16" tabindex="-1"></a><span class="fu">as.logical</span>(<span class="dv">1</span>)</span>
+<span id="cb9-17"><a href="les-objets-dans-r.html#cb9-17" tabindex="-1"></a><span class="fu">as.logical</span>(<span class="fl">4.95</span>)</span></code></pre></div>
+<p>Les fonctions <code>is.numeric</code>, <code>is.integer</code>, <code>is.character</code>, <code>is.logical</code> permettent d’évaluer si un objet est de type numérique, entier, textuel, logique.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="les-objets-dans-r.html#cb10-1" tabindex="-1"></a><span class="fu">is.numeric</span>(<span class="dv">5</span><span class="dt">L</span>) <span class="co"># TRUE, un entier est bien un objet numérique</span></span>
+<span id="cb10-2"><a href="les-objets-dans-r.html#cb10-2" tabindex="-1"></a><span class="fu">is.integer</span>(<span class="fl">4.95</span>) <span class="co"># FALSE, 4.95 n&#39;est pas un entier</span></span>
+<span id="cb10-3"><a href="les-objets-dans-r.html#cb10-3" tabindex="-1"></a><span class="fu">is.numeric</span>(<span class="st">&quot;bonjour&quot;</span>) <span class="co"># FALSE &quot;bonjour&quot; est une chaîne de caractères</span></span>
+<span id="cb10-4"><a href="les-objets-dans-r.html#cb10-4" tabindex="-1"></a><span class="fu">is.character</span>(<span class="st">&quot;bonjour&quot;</span>) <span class="co"># TRUE, &quot;bonjour&quot; est bien une chaîne de caractères</span></span>
+<span id="cb10-5"><a href="les-objets-dans-r.html#cb10-5" tabindex="-1"></a><span class="fu">is.character</span>(<span class="fl">4.95</span>) <span class="co"># FALSE, 4.95 est un objet numérique</span></span>
+<span id="cb10-6"><a href="les-objets-dans-r.html#cb10-6" tabindex="-1"></a><span class="fu">is.logical</span>(<span class="dv">1</span>) <span class="co"># FALSE, 1 est un objet numérique</span></span>
+<span id="cb10-7"><a href="les-objets-dans-r.html#cb10-7" tabindex="-1"></a><span class="fu">is.logical</span>(<span class="fu">as.logical</span>(<span class="dv">1</span>)) <span class="co"># TRUE, as.logical(1) = TRUE, qui est un objet logique</span></span>
+<span id="cb10-8"><a href="les-objets-dans-r.html#cb10-8" tabindex="-1"></a><span class="fu">is.logical</span>(<span class="cn">TRUE</span>) <span class="co"># TRUE est bien un objet logique</span></span></code></pre></div>
+</div>
+</div>
+<div id="principales-structures-de-données" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Principales structures de données<a href="#principales-structures-de-donn%C3%A9es" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Les principales structures de données que nous allons détailler dans la suite de ce chapitre sont :</p>
+<ul>
+<li>les vecteurs (<code>?vector</code>), dont font partie les scalaires (vecteurs à une seule valeur).</li>
+<li>les matrices (<code>?matrix</code>, <code>?array</code>)</li>
+<li>les listes (<code>?list</code>)</li>
+<li>les bases de données (<code>?data.frames</code>). Il existe d’autres formats de base de données qui seront présentés plus tard (avec les packages <code>tidyverse</code> et <code>data.table</code> par exemple)</li>
+</ul>
+</div>
+<div id="objet-à-une-seule-valeur-scalaire-ou-texte" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Objet à une seule valeur (scalaire ou texte)<a href="#objet-%C3%A0-une-seule-valeur-scalaire-ou-texte" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="scalaires" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Scalaires<a href="les-objets-dans-r.html#scalaires" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assignez les valeurs 4 et 5 à deux objets</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="les-objets-dans-r.html#cb11-1" tabindex="-1"></a>x_1 <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb11-2"><a href="les-objets-dans-r.html#cb11-2" tabindex="-1"></a>x_2 <span class="ot">&lt;-</span> <span class="dv">5</span></span></code></pre></div>
+</div>
+<div id="opérations-mathématiques-sur-les-scalaires" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Opérations mathématiques sur les scalaires<a href="#op%C3%A9rations-math%C3%A9matiques-sur-les-scalaires" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="calculatrice" class="section level4 hasAnchor" number="2.4.2.1">
+<h4><span class="header-section-number">2.4.2.1</span> Calculatrice<a href="les-objets-dans-r.html#calculatrice" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>On peut utiliser les opérations classiques, comme sur une calculatrice :</p>
+<ul>
+<li><code>+</code> pour <strong>additionner</strong></li>
+<li><code>-</code> pour <strong>soustraire</strong></li>
+<li><code>*</code> pour <strong>multiplier</strong></li>
+<li><code>/</code> pour <strong>diviser</strong></li>
+<li><code>^</code> pour mettre à la <strong>puissance</strong></li>
+<li><code>e</code> pour la <strong>notation scientifique</strong></li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="les-objets-dans-r.html#cb12-1" tabindex="-1"></a>x_1 <span class="sc">+</span> x_2 <span class="co"># 4 + 5 = 9</span></span>
+<span id="cb12-2"><a href="les-objets-dans-r.html#cb12-2" tabindex="-1"></a><span class="dv">10</span> <span class="sc">-</span> x_1 <span class="co"># 10 - 4 = 6</span></span>
+<span id="cb12-3"><a href="les-objets-dans-r.html#cb12-3" tabindex="-1"></a>x_1 <span class="sc">*</span> x_2 <span class="co">#  4 * 5 = 20</span></span>
+<span id="cb12-4"><a href="les-objets-dans-r.html#cb12-4" tabindex="-1"></a><span class="dv">20</span> <span class="sc">/</span> x_2 <span class="co"># 20 / 5 = 4</span></span>
+<span id="cb12-5"><a href="les-objets-dans-r.html#cb12-5" tabindex="-1"></a>x_1<span class="sc">^</span><span class="dv">2</span> <span class="co">#  4^2 = 16</span></span>
+<span id="cb12-6"><a href="les-objets-dans-r.html#cb12-6" tabindex="-1"></a><span class="dv">10</span><span class="sc">^-</span><span class="dv">1</span> <span class="co"># 1/10 = 0.1</span></span>
+<span id="cb12-7"><a href="les-objets-dans-r.html#cb12-7" tabindex="-1"></a><span class="dv">25</span><span class="sc">^</span>(<span class="fl">0.5</span>) <span class="co"># racine carrée de 25 (puissance 1/2)</span></span>
+<span id="cb12-8"><a href="les-objets-dans-r.html#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="les-objets-dans-r.html#cb12-9" tabindex="-1"></a><span class="co"># notation scientifique pour les grands et petits nombres</span></span>
+<span id="cb12-10"><a href="les-objets-dans-r.html#cb12-10" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span><span class="dv">1000000</span> <span class="co"># 1 pour 1 million = 1e-6</span></span>
+<span id="cb12-11"><a href="les-objets-dans-r.html#cb12-11" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span><span class="fl">1e6</span></span>
+<span id="cb12-12"><a href="les-objets-dans-r.html#cb12-12" tabindex="-1"></a><span class="fl">1e6</span> <span class="sc">*</span> <span class="dv">1000</span> <span class="co"># 1 million * 1000 = 1 milliard</span></span></code></pre></div>
+</div>
+<div id="fonctions-mathématiques" class="section level4 hasAnchor" number="2.4.2.2">
+<h4><span class="header-section-number">2.4.2.2</span> Fonctions mathématiques<a href="#fonctions-math%C3%A9matiques" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Plusieurs fonctions mathématiques de bases sont implémentées nativement dans R :</p>
+<ul>
+<li><code>log(x)</code> ou <code>log(x, base = exp(1)</code> pour le <strong>logarithme</strong> népérien,</li>
+<li><code>log10(x)</code> pour le logarithme base 10, <code>log2(x)</code> pour le logarithme base 2,</li>
+<li><code>log(x, base = b)</code> pour le logarithme base <code>b</code>,</li>
+<li><code>exp(x)</code> pour l’<strong>exponentielle</strong> de <code>x</code></li>
+<li><code>sqrt(x)</code> pour la <strong>racine carrée</strong> de <code>x</code></li>
+<li><code>abs(x)</code> pour la <strong>valeur absolue</strong> de <code>x</code></li>
+<li>les <strong>fonctions trigonométriques</strong> sont implémentées, avec <code>cos(x)</code>, <code>sin(x)</code>, <code>tan(x)</code> (cf. <code>?Trig</code>)</li>
+<li>la <strong>constante <span class="math inline">\(\pi\)</span></strong> est implémentée avec <code>pi</code> (cf. <code>?Constants</code>)</li>
+</ul>
+<p>Si vous appliquer une fonction à une valeur qui ne fait pas partie du domaine de définition de la fonction, le résultat sera une valeur manquante notée <code>NaN</code> (<em>not a number</em>). Un message d’avertissement va apparaître si vous appliquez une fonction en dehors de son domaine de définition.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="les-objets-dans-r.html#cb13-1" tabindex="-1"></a><span class="co"># logarithmes et exponentielles</span></span>
+<span id="cb13-2"><a href="les-objets-dans-r.html#cb13-2" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">1</span>)</span>
+<span id="cb13-3"><a href="les-objets-dans-r.html#cb13-3" tabindex="-1"></a><span class="fu">log10</span>(<span class="dv">100</span>)</span>
+<span id="cb13-4"><a href="les-objets-dans-r.html#cb13-4" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">100</span>, <span class="at">base =</span> <span class="dv">10</span>)</span>
+<span id="cb13-5"><a href="les-objets-dans-r.html#cb13-5" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">1</span>)</span>
+<span id="cb13-6"><a href="les-objets-dans-r.html#cb13-6" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="les-objets-dans-r.html#cb13-7" tabindex="-1"></a><span class="co"># racine carrée</span></span>
+<span id="cb13-8"><a href="les-objets-dans-r.html#cb13-8" tabindex="-1"></a><span class="fu">sqrt</span>(x_2<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb13-9"><a href="les-objets-dans-r.html#cb13-9" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="les-objets-dans-r.html#cb13-10" tabindex="-1"></a><span class="co"># valeur absolue</span></span>
+<span id="cb13-11"><a href="les-objets-dans-r.html#cb13-11" tabindex="-1"></a><span class="fu">abs</span>(<span class="dv">10</span>)</span>
+<span id="cb13-12"><a href="les-objets-dans-r.html#cb13-12" tabindex="-1"></a><span class="fu">abs</span>(<span class="sc">-</span><span class="dv">10</span>)</span>
+<span id="cb13-13"><a href="les-objets-dans-r.html#cb13-13" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="les-objets-dans-r.html#cb13-14" tabindex="-1"></a><span class="co"># fonctions trigonométriques</span></span>
+<span id="cb13-15"><a href="les-objets-dans-r.html#cb13-15" tabindex="-1"></a><span class="fu">cos</span>(<span class="dv">1</span>)</span>
+<span id="cb13-16"><a href="les-objets-dans-r.html#cb13-16" tabindex="-1"></a><span class="fu">sin</span>(<span class="dv">1</span>)</span>
+<span id="cb13-17"><a href="les-objets-dans-r.html#cb13-17" tabindex="-1"></a><span class="fu">tan</span>(<span class="dv">1</span>)</span>
+<span id="cb13-18"><a href="les-objets-dans-r.html#cb13-18" tabindex="-1"></a>pi</span>
+<span id="cb13-19"><a href="les-objets-dans-r.html#cb13-19" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> pi <span class="sc">*</span> <span class="dv">10</span> <span class="co"># circonférence d&#39;un cercle de rayon 10</span></span>
+<span id="cb13-20"><a href="les-objets-dans-r.html#cb13-20" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="les-objets-dans-r.html#cb13-21" tabindex="-1"></a><span class="co"># si on utilise une valeur en dehors du domaine d&#39;application de la fonction</span></span>
+<span id="cb13-22"><a href="les-objets-dans-r.html#cb13-22" tabindex="-1"></a><span class="fu">log</span>(<span class="sc">-</span><span class="dv">1</span>) <span class="co"># -1 est en dehors du domaine de définition de la fonction log</span></span>
+<span id="cb13-23"><a href="les-objets-dans-r.html#cb13-23" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="sc">-</span><span class="dv">2</span>) <span class="co"># -2 est en dehors du domaine de définition de la fonction racine carrée</span></span></code></pre></div>
+</div>
+<div id="fonctions-darrondi-spadesuit" class="section level4 hasAnchor" number="2.4.2.3">
+<h4><span class="header-section-number">2.4.2.3</span> Fonctions d’arrondi <span class="math inline">\(\spadesuit\)</span><a href="les-objets-dans-r.html#fonctions-darrondi-spadesuit" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Plusieurs fonctions sont disponibles dans R pour arrondir une valeur (cf. <code>?Round</code>) :</p>
+<ul>
+<li>la fonction <code>round()</code> est utile pour arrondir les décimales. Il faut préciser en argument, le nombre de chiffres après la virgule. <strong>Attention</strong> : si le nombre se termine par un 5, l’arrondi se fait vers le chiffre pair le plus proche : 4.45 s’arrondit à 4.4 et 4.75 s’arrondit à 4.8</li>
+<li>la fonction <code>signif()</code> arrondit aux chiffres les plus significatifs (les plus grands)</li>
+<li>la fonction <code>floor()</code> arrondit la valeur à l’entier inférieur</li>
+<li>la fonction <code>ceiling()</code> arrondit la valeur à l’entier supérieur</li>
+<li>la fonction <code>trunc()</code></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="les-objets-dans-r.html#cb14-1" tabindex="-1"></a><span class="do">## fonction round()</span></span>
+<span id="cb14-2"><a href="les-objets-dans-r.html#cb14-2" tabindex="-1"></a><span class="co"># l&#39;argument digits permet de définir le nombre de chiffres après la virgule</span></span>
+<span id="cb14-3"><a href="les-objets-dans-r.html#cb14-3" tabindex="-1"></a><span class="co"># exemple si vous voulez arrondir à 2 chiffres après la virgule</span></span>
+<span id="cb14-4"><a href="les-objets-dans-r.html#cb14-4" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">0.09400</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb14-5"><a href="les-objets-dans-r.html#cb14-5" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">0.08600</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb14-6"><a href="les-objets-dans-r.html#cb14-6" tabindex="-1"></a><span class="co"># arroudir à 1 chiffre après la virgule</span></span>
+<span id="cb14-7"><a href="les-objets-dans-r.html#cb14-7" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">4.450</span>, <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb14-8"><a href="les-objets-dans-r.html#cb14-8" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">4.750</span>, <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb14-9"><a href="les-objets-dans-r.html#cb14-9" tabindex="-1"></a><span class="co"># pour arrondir une valeur 5, le résultat va vers le chiffre pair le plus proche</span></span>
+<span id="cb14-10"><a href="les-objets-dans-r.html#cb14-10" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">4.5</span>, <span class="at">digits =</span> <span class="dv">0</span>) <span class="co"># arrondit à l&#39;entier pair le plus proche</span></span>
+<span id="cb14-11"><a href="les-objets-dans-r.html#cb14-11" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">1.5</span>, <span class="at">digits =</span> <span class="dv">0</span>) <span class="co"># arrondit à l&#39;entier pair le plus proche</span></span>
+<span id="cb14-12"><a href="les-objets-dans-r.html#cb14-12" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="les-objets-dans-r.html#cb14-13" tabindex="-1"></a><span class="do">## fonction signif()</span></span>
+<span id="cb14-14"><a href="les-objets-dans-r.html#cb14-14" tabindex="-1"></a><span class="co"># on garde les valeurs les plus significative, définie par l&#39;argument digits</span></span>
+<span id="cb14-15"><a href="les-objets-dans-r.html#cb14-15" tabindex="-1"></a><span class="fu">signif</span>(<span class="fl">123.456789</span>, <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb14-16"><a href="les-objets-dans-r.html#cb14-16" tabindex="-1"></a><span class="fu">signif</span>(<span class="fl">123.456789</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb14-17"><a href="les-objets-dans-r.html#cb14-17" tabindex="-1"></a><span class="fu">signif</span>(<span class="fl">123.456789</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span>
+<span id="cb14-18"><a href="les-objets-dans-r.html#cb14-18" tabindex="-1"></a><span class="fu">signif</span>(<span class="fl">123.456789</span>, <span class="at">digits =</span> <span class="dv">4</span>)</span>
+<span id="cb14-19"><a href="les-objets-dans-r.html#cb14-19" tabindex="-1"></a><span class="fu">signif</span>(<span class="fl">123.456789</span>, <span class="at">digits =</span> <span class="dv">5</span>)</span>
+<span id="cb14-20"><a href="les-objets-dans-r.html#cb14-20" tabindex="-1"></a><span class="co"># la règle d&#39;arrondi vers le chiffre pair le plus proche est également appliquée</span></span>
+<span id="cb14-21"><a href="les-objets-dans-r.html#cb14-21" tabindex="-1"></a><span class="fu">signif</span>(<span class="fl">4.45</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span>
+<span id="cb14-22"><a href="les-objets-dans-r.html#cb14-22" tabindex="-1"></a><span class="fu">signif</span>(<span class="fl">4.45</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb14-23"><a href="les-objets-dans-r.html#cb14-23" tabindex="-1"></a><span class="fu">signif</span>(<span class="fl">4.75</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span>
+<span id="cb14-24"><a href="les-objets-dans-r.html#cb14-24" tabindex="-1"></a><span class="fu">signif</span>(<span class="fl">4.75</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb14-25"><a href="les-objets-dans-r.html#cb14-25" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="les-objets-dans-r.html#cb14-26" tabindex="-1"></a><span class="do">## fonction trunc() supprime simplementles décimales</span></span>
+<span id="cb14-27"><a href="les-objets-dans-r.html#cb14-27" tabindex="-1"></a><span class="co"># note : ici, il n&#39;y a pas d&#39;arrondi vers la chiffre pair la plus proche)</span></span>
+<span id="cb14-28"><a href="les-objets-dans-r.html#cb14-28" tabindex="-1"></a><span class="fu">trunc</span>(<span class="fl">123.456</span>)</span>
+<span id="cb14-29"><a href="les-objets-dans-r.html#cb14-29" tabindex="-1"></a><span class="fu">trunc</span>(<span class="fl">4.5</span>)</span>
+<span id="cb14-30"><a href="les-objets-dans-r.html#cb14-30" tabindex="-1"></a><span class="fu">trunc</span>(<span class="fl">1.5</span>)</span>
+<span id="cb14-31"><a href="les-objets-dans-r.html#cb14-31" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="les-objets-dans-r.html#cb14-32" tabindex="-1"></a><span class="do">## la fonction floor() arrondit à l&#39;entier inférieur</span></span>
+<span id="cb14-33"><a href="les-objets-dans-r.html#cb14-33" tabindex="-1"></a><span class="fu">floor</span>(<span class="fl">4.1</span>)</span>
+<span id="cb14-34"><a href="les-objets-dans-r.html#cb14-34" tabindex="-1"></a><span class="fu">floor</span>(<span class="fl">4.9</span>)</span>
+<span id="cb14-35"><a href="les-objets-dans-r.html#cb14-35" tabindex="-1"></a></span>
+<span id="cb14-36"><a href="les-objets-dans-r.html#cb14-36" tabindex="-1"></a><span class="do">## la fonction ceiling() arrondit à l&#39;entier supérieur</span></span>
+<span id="cb14-37"><a href="les-objets-dans-r.html#cb14-37" tabindex="-1"></a><span class="fu">ceiling</span>(<span class="fl">4.1</span>)</span>
+<span id="cb14-38"><a href="les-objets-dans-r.html#cb14-38" tabindex="-1"></a><span class="fu">ceiling</span>(<span class="fl">4.9</span>)</span></code></pre></div>
+<!-- note : pour poursuivre la discussion sur les arrondis, voir les fonctions sprintf(), format() et getOption("digits") pour l'affichage des valeurs arrondies -->
+</div>
+</div>
+<div id="concaténation-de-chaînes-de-caractères" class="section level3 hasAnchor" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Concaténation de chaînes de caractères<a href="#concat%C3%A9nation-de-cha%C3%AEnes-de-caract%C3%A8res" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>On peut concatener deux objets en chaînes de caractères :</p>
+<ul>
+<li>la fonction <code>paste()</code> concatène les chaînes de caractères en séparant les vecteurs par un espace (argument par défaut, cf <code>?paste</code>). Cet argument peut être modifié.</li>
+<li>la fonction <code>paste0()</code> concatène les chaînes de caractères sans espace.</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="les-objets-dans-r.html#cb15-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="st">&quot;Bonjour&quot;</span></span>
+<span id="cb15-2"><a href="les-objets-dans-r.html#cb15-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="st">&quot;Toulouse&quot;</span></span>
+<span id="cb15-3"><a href="les-objets-dans-r.html#cb15-3" tabindex="-1"></a><span class="fu">paste</span>(x1, x2)</span></code></pre></div>
+<pre><code>## [1] &quot;Bonjour Toulouse&quot;</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="les-objets-dans-r.html#cb17-1" tabindex="-1"></a><span class="fu">paste0</span>(x1, x2)</span></code></pre></div>
+<pre><code>## [1] &quot;BonjourToulouse&quot;</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="les-objets-dans-r.html#cb19-1" tabindex="-1"></a><span class="fu">paste</span>(x1, x2, <span class="at">sep =</span> <span class="st">&quot;, &quot;</span>) <span class="co"># ici on sépare x1 et x2 par une virgule et un espace</span></span></code></pre></div>
+<pre><code>## [1] &quot;Bonjour, Toulouse&quot;</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="les-objets-dans-r.html#cb21-1" tabindex="-1"></a><span class="co"># vous pouvez inclure des nombres qui seront transformés en caractères</span></span>
+<span id="cb21-2"><a href="les-objets-dans-r.html#cb21-2" tabindex="-1"></a><span class="fu">paste0</span>(x1, <span class="dv">123</span>, x2)</span></code></pre></div>
+<pre><code>## [1] &quot;Bonjour123Toulouse&quot;</code></pre>
+</div>
+<div id="valeurs-logiques-true-et-false" class="section level3 hasAnchor" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Valeurs logiques <code>TRUE</code> et <code>FALSE</code><a href="les-objets-dans-r.html#valeurs-logiques-true-et-false" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="evaluer-des-conditions" class="section level4 hasAnchor" number="2.4.4.1">
+<h4><span class="header-section-number">2.4.4.1</span> Evaluer des conditions<a href="les-objets-dans-r.html#evaluer-des-conditions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Nous pouvons utiliser les opérateurs de comparaison ci-dessous pour évaluer des conditions :</p>
+<ul>
+<li><code>==</code> … est égal à …</li>
+<li><code>!=</code> … est différent de …</li>
+<li><code>&lt;</code> … est inférieur à …</li>
+<li><code>&gt;</code> … est supérieur à …</li>
+<li><code>&lt;=</code> … est inférieur ou égal à …</li>
+<li><code>&gt;=</code> … est supérieur ou égal à …</li>
+<li><code>%in%</code> … est inclus dans …</li>
+</ul>
+<p>Par exemple, nous pouvons évaluer les comparaisons suivantes, la réponse attendue est vraie (<code>TRUE</code>) ou fausse (<code>FALSE</code>).</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="les-objets-dans-r.html#cb23-1" tabindex="-1"></a><span class="dv">5</span> <span class="sc">==</span> <span class="dv">10</span> <span class="co"># est-ce que 5 est égal à 10 ?</span></span>
+<span id="cb23-2"><a href="les-objets-dans-r.html#cb23-2" tabindex="-1"></a><span class="dv">5</span> <span class="sc">!=</span> <span class="dv">10</span> <span class="co"># est-ce que 5 est différent de 10 ?</span></span>
+<span id="cb23-3"><a href="les-objets-dans-r.html#cb23-3" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&lt;</span> <span class="dv">10</span> <span class="co"># est-ce que 5 est inférieur à 10 ?</span></span>
+<span id="cb23-4"><a href="les-objets-dans-r.html#cb23-4" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&gt;</span> <span class="dv">10</span> <span class="co"># est-ce que 5 est supérieur à 10 ?</span></span>
+<span id="cb23-5"><a href="les-objets-dans-r.html#cb23-5" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&lt;=</span> <span class="dv">5</span> <span class="co"># est-ce que 5 est inférieur ou égal à 5 ?</span></span>
+<span id="cb23-6"><a href="les-objets-dans-r.html#cb23-6" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&gt;=</span> <span class="dv">5</span> <span class="co"># est-ce que 5 est supérieur ou égal à 5 ?</span></span>
+<span id="cb23-7"><a href="les-objets-dans-r.html#cb23-7" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>) <span class="co"># est-ce que 5 est inclus dans le vecteur (4,5,6) ?</span></span>
+<span id="cb23-8"><a href="les-objets-dans-r.html#cb23-8" tabindex="-1"></a><span class="dv">5</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>) <span class="co"># est-ce que 5 est inclus dans le vecteur (7,8,9) ?</span></span></code></pre></div>
+<p>La fonction <code>identical</code> permet d’évaluer si deux objets sont exactement égaux. Elle peut s’appliquer à des valeurs simples mais aussi à des objets de plus grandes dimensions (vecteurs, matrices, bases de données, …)</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="les-objets-dans-r.html#cb24-1" tabindex="-1"></a><span class="fu">identical</span>(<span class="dv">5</span>, <span class="dv">10</span>) <span class="co"># équivalent à la commande 5 == 10</span></span>
+<span id="cb24-2"><a href="les-objets-dans-r.html#cb24-2" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="co"># les deux vecteurs (1,2,3) sont bien les mêmes</span></span></code></pre></div>
+<p>Une comparaison à une valeur manquante (<code>NA</code>) retournera une valeur manquante.</p>
+<p><strong>Attention</strong>, si vous souhaitez évaluer si une valeur est manquante, il faut utiliser la fonction <code>is.na(x)</code> (plutôt que <code>x == NA</code> qui est déconseillé).</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="les-objets-dans-r.html#cb25-1" tabindex="-1"></a><span class="cn">NA</span> <span class="sc">&lt;</span> <span class="dv">10</span></span>
+<span id="cb25-2"><a href="les-objets-dans-r.html#cb25-2" tabindex="-1"></a><span class="fu">is.na</span>(<span class="dv">10</span>) <span class="co"># éviter d&#39;utiliser 10 == NA pour tester si une valeur est manquante</span></span>
+<span id="cb25-3"><a href="les-objets-dans-r.html#cb25-3" tabindex="-1"></a><span class="fu">is.na</span>(<span class="cn">NA</span>)</span>
+<span id="cb25-4"><a href="les-objets-dans-r.html#cb25-4" tabindex="-1"></a><span class="fu">is.na</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="cn">NA</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="cn">NA</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>))</span></code></pre></div>
+</div>
+</div>
+<div id="opérations-sur-des-valeurs-logiques" class="section level3 hasAnchor" number="2.4.5">
+<h3><span class="header-section-number">2.4.5</span> Opérations sur des valeurs logiques<a href="#op%C3%A9rations-sur-des-valeurs-logiques" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>On peut combiner des valeurs logiques avec les opérateurs logiques ET, OU, et NON (négation logique)</p>
+<ul>
+<li><code>&amp;</code> opérateur ET</li>
+<li><code>|</code> opérateur OU (sur windows, combinaison de touches altgr + 6 ; sur macOS, combinaison de touche alt + maj + L)</li>
+<li><code>!</code> opératuer NON (négation logique : “n’est pas”)</li>
+</ul>
+<p>Les résultats attendus d’une combinaison d’opérateurs logiques sont résumés dans les table de vérité ci-dessous.</p>
+<ul>
+<li>Opérateur ET</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">a</th>
+<th align="center">b</th>
+<th align="center">a ET b</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>TRUE</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>FALSE</code></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>FALSE</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>FALSE</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Opérateur OU</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">a</th>
+<th align="center">b</th>
+<th align="center">a OU b</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>TRUE</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>TRUE</code></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>TRUE</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>FALSE</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Opérateur NON</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">a</th>
+<th align="center">NON a</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>FALSE</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>TRUE</code></td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="les-objets-dans-r.html#cb26-1" tabindex="-1"></a><span class="co"># opérateur ET</span></span>
+<span id="cb26-2"><a href="les-objets-dans-r.html#cb26-2" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">&amp;</span> <span class="cn">TRUE</span></span>
+<span id="cb26-3"><a href="les-objets-dans-r.html#cb26-3" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">&amp;</span> <span class="cn">FALSE</span></span>
+<span id="cb26-4"><a href="les-objets-dans-r.html#cb26-4" tabindex="-1"></a><span class="cn">FALSE</span> <span class="sc">&amp;</span> <span class="cn">TRUE</span></span>
+<span id="cb26-5"><a href="les-objets-dans-r.html#cb26-5" tabindex="-1"></a><span class="cn">FALSE</span> <span class="sc">&amp;</span> <span class="cn">FALSE</span></span>
+<span id="cb26-6"><a href="les-objets-dans-r.html#cb26-6" tabindex="-1"></a>(<span class="dv">5</span> <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">&amp;</span> (<span class="dv">2</span> <span class="sc">!=</span> <span class="dv">5</span>) <span class="co"># TRUE ET TRUE donne TRUE</span></span>
+<span id="cb26-7"><a href="les-objets-dans-r.html#cb26-7" tabindex="-1"></a>(<span class="dv">5</span> <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">&amp;</span> (<span class="dv">2</span> <span class="sc">==</span> <span class="dv">5</span>) <span class="co"># TRUE ET FALSE donne FALSE</span></span>
+<span id="cb26-8"><a href="les-objets-dans-r.html#cb26-8" tabindex="-1"></a>(<span class="dv">5</span> <span class="sc">&lt;</span> <span class="dv">10</span>) <span class="sc">&amp;</span> (<span class="dv">2</span> <span class="sc">==</span> <span class="dv">5</span>) <span class="co"># FALSE ET FALSE donne FALSE</span></span>
+<span id="cb26-9"><a href="les-objets-dans-r.html#cb26-9" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="les-objets-dans-r.html#cb26-10" tabindex="-1"></a><span class="co"># opérateur OU</span></span>
+<span id="cb26-11"><a href="les-objets-dans-r.html#cb26-11" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">|</span> <span class="cn">TRUE</span></span>
+<span id="cb26-12"><a href="les-objets-dans-r.html#cb26-12" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">|</span> <span class="cn">FALSE</span></span>
+<span id="cb26-13"><a href="les-objets-dans-r.html#cb26-13" tabindex="-1"></a><span class="cn">FALSE</span> <span class="sc">|</span> <span class="cn">TRUE</span></span>
+<span id="cb26-14"><a href="les-objets-dans-r.html#cb26-14" tabindex="-1"></a><span class="cn">FALSE</span> <span class="sc">|</span> <span class="cn">FALSE</span></span>
+<span id="cb26-15"><a href="les-objets-dans-r.html#cb26-15" tabindex="-1"></a>(<span class="dv">5</span> <span class="sc">&lt;</span> <span class="dv">10</span>) <span class="sc">|</span> (<span class="dv">2</span> <span class="sc">!=</span> <span class="dv">5</span>) <span class="co"># TRUE OU TRUE donne TRUE</span></span>
+<span id="cb26-16"><a href="les-objets-dans-r.html#cb26-16" tabindex="-1"></a>(<span class="dv">5</span> <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|</span> (<span class="dv">2</span> <span class="sc">!=</span> <span class="dv">5</span>) <span class="co"># FALSE OU TRUE donne TRUE</span></span>
+<span id="cb26-17"><a href="les-objets-dans-r.html#cb26-17" tabindex="-1"></a>(<span class="dv">5</span> <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|</span> (<span class="dv">2</span> <span class="sc">==</span> <span class="dv">5</span>) <span class="co"># FALSE OU FALSE donne FALSE</span></span>
+<span id="cb26-18"><a href="les-objets-dans-r.html#cb26-18" tabindex="-1"></a></span>
+<span id="cb26-19"><a href="les-objets-dans-r.html#cb26-19" tabindex="-1"></a><span class="co"># opérateur NON</span></span>
+<span id="cb26-20"><a href="les-objets-dans-r.html#cb26-20" tabindex="-1"></a><span class="sc">!</span><span class="cn">TRUE</span></span>
+<span id="cb26-21"><a href="les-objets-dans-r.html#cb26-21" tabindex="-1"></a><span class="sc">!</span><span class="cn">FALSE</span></span>
+<span id="cb26-22"><a href="les-objets-dans-r.html#cb26-22" tabindex="-1"></a><span class="sc">!</span>(<span class="dv">5</span> <span class="sc">&lt;</span> <span class="dv">10</span>) <span class="co"># non-TRUE donne FALSE</span></span>
+<span id="cb26-23"><a href="les-objets-dans-r.html#cb26-23" tabindex="-1"></a><span class="sc">!</span>(<span class="dv">5</span> <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="co"># non-FALSE donne TRUE </span></span></code></pre></div>
+<p>Il existe également un opérateur <code>xor()</code> correspondant au OU EXCLUSIF :</p>
+<ul>
+<li>Opérateur OU EXCLUSIF</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">a</th>
+<th align="center">b</th>
+<th align="center">a OU EXCLUSIF b</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>FALSE</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>TRUE</code></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>TRUE</code></td>
+<td align="center"><code>TRUE</code></td>
+</tr>
+<tr class="even">
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>FALSE</code></td>
+<td align="center"><code>FALSE</code></td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="les-objets-dans-r.html#cb27-1" tabindex="-1"></a><span class="co"># opérateur OU EXCLUSIF</span></span>
+<span id="cb27-2"><a href="les-objets-dans-r.html#cb27-2" tabindex="-1"></a><span class="fu">xor</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb27-3"><a href="les-objets-dans-r.html#cb27-3" tabindex="-1"></a><span class="fu">xor</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb27-4"><a href="les-objets-dans-r.html#cb27-4" tabindex="-1"></a><span class="fu">xor</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb27-5"><a href="les-objets-dans-r.html#cb27-5" tabindex="-1"></a><span class="fu">xor</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb27-6"><a href="les-objets-dans-r.html#cb27-6" tabindex="-1"></a><span class="fu">xor</span>((<span class="dv">5</span> <span class="sc">&lt;</span> <span class="dv">10</span>), (<span class="dv">2</span> <span class="sc">!=</span> <span class="dv">5</span>)) <span class="co"># (TRUE) OU exclusif (TRUE) donne FALSE</span></span>
+<span id="cb27-7"><a href="les-objets-dans-r.html#cb27-7" tabindex="-1"></a><span class="fu">xor</span>((<span class="dv">5</span> <span class="sc">&gt;</span> <span class="dv">10</span>), (<span class="dv">2</span> <span class="sc">!=</span> <span class="dv">5</span>)) <span class="co"># (FALSE) OU exclusif (TRUE) donne TRUE</span></span>
+<span id="cb27-8"><a href="les-objets-dans-r.html#cb27-8" tabindex="-1"></a><span class="fu">xor</span>((<span class="dv">2</span> <span class="sc">!=</span> <span class="dv">5</span>), (<span class="dv">5</span> <span class="sc">&gt;</span> <span class="dv">10</span>)) <span class="co"># (TRUE) OU exclusif (FALSE) donne TRUE</span></span>
+<span id="cb27-9"><a href="les-objets-dans-r.html#cb27-9" tabindex="-1"></a><span class="fu">xor</span>((<span class="dv">5</span> <span class="sc">&gt;</span> <span class="dv">10</span>), (<span class="dv">2</span> <span class="sc">==</span> <span class="dv">5</span>)) <span class="co"># (FALSE) OU exclusif (FALSE) donne FALSE</span></span></code></pre></div>
+</div>
+</div>
+<div id="les-vecteurs-vector" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Les vecteurs <code>vector()</code><a href="les-objets-dans-r.html#les-vecteurs-vector" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="création-dun-vecteur-de-valeurs" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Création d’un vecteur de valeurs<a href="#cr%C3%A9ation-dun-vecteur-de-valeurs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>fonction seq, rep</p>
+</div>
+<div id="indiçage-dun-vecteur" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Indiçage d’un vecteur<a href="#indi%C3%A7age-dun-vecteur" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>utiliser l’indiçage pour sélectionner les éléments d’un vecteur</p>
+</div>
+<div id="les-objets-r-peuvent-posséder-des-attributs-attributes" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> Les objets R peuvent posséder des attributs <code>attributes()</code><a href="#les-objets-r-peuvent-poss%C3%A9der-des-attributs-attributes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="les-listes-list" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Les listes <code>list()</code><a href="les-objets-dans-r.html#les-listes-list" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="création-dune-liste" class="section level3 hasAnchor" number="2.6.1">
+<h3><span class="header-section-number">2.6.1</span> Création d’une liste<a href="#cr%C3%A9ation-dune-liste" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Les vecteurs peuvent être reformatés sous forme de liste</p>
+</div>
+<div id="indiçage-dune-liste" class="section level3 hasAnchor" number="2.6.2">
+<h3><span class="header-section-number">2.6.2</span> Indiçage d’une liste<a href="#indi%C3%A7age-dune-liste" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="les-matrices-matrix" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Les matrices <code>matrix()</code><a href="les-objets-dans-r.html#les-matrices-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="création-dune-matrice" class="section level3 hasAnchor" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Création d’une matrice<a href="#cr%C3%A9ation-dune-matrice" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Les vecteurs peuvent être reformatés sous forme de matrice</p>
+</div>
+<div id="indiçage-dune-matrice" class="section level3 hasAnchor" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> Indiçage d’une matrice<a href="#indi%C3%A7age-dune-matrice" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="matrices-à-plus-de-2-dimensions-array" class="section level3 hasAnchor" number="2.7.3">
+<h3><span class="header-section-number">2.7.3</span> matrices à plus de 2 dimensions <code>array()</code><a href="#matrices-%C3%A0-plus-de-2-dimensions-array" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="les-bases-de-données-data.frames" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Les bases de données <code>data.frames()</code><a href="#les-bases-de-donn%C3%A9es-data.frames" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/benoitlepage/formationR/01-objets_dans_R.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

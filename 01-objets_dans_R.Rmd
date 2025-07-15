@@ -1,0 +1,404 @@
+# Les objets dans R
+
+## Manipuler les objets dans l'environnement
+La programmation R repose sur des _objets_, qui apparaîtront dans la fenêtre _Environment_ de RStudio.
+
+Voici quelques commandes de gestion des objets dans votre environnement :
+
+  - dans la console, commencez par créer les objets suivants. Pour **assigner une ou plusieurs valeurs à un objet**, on utilise une flèche dirigée vers la gauche `<-`. Vous verrez apparaître ces objets dans la fenêtre _Environment_.
+
+```{r EnvCmd0, echo=TRUE}
+# note : le signe dièze (#) permet d'ajouter des commentaires dans le code  
+# - le 1er objet est un vecteur de 10 entiers de 1 à 10
+# - le 2ème objet est un vecteur de 3 lettres A, B et C
+# - le 3ème objet est un vecteur de 2 réels, calculés par 2 opérations
+# - le 4ème objet est une fonction qui ajoute 2 au vecteur x
+# - le 5ème objet est un scalaire égal à 42
+objet_1 <- c(1:10) 
+objet_2 <- c("A","B","C") 
+objet_3 <- c(10 / 3, 4 * 5) 
+objet_4 <- function(x) {x + 2} 
+objet_5 <- 42 
+```
+  - la commande `ls()` permet de **lister** les objets dans l'environnement.
+  - la commande `rm()` permet de **supprimer** (_remove_) un ou plusieurs objets de l'environnement.
+```{r EnvCmd1, echo=TRUE}
+ls()
+rm(objet_2,objet_5)
+rm(list = ls()) # pour supprimer tous les objets présents dans l'environnement
+```  
+
+
+## Principaux types de données
+Les données peuvent être de différents types : 
+
+  - des **nombres** (`?numeric`). Ces nombres peuvent être des **nombres réels** (`?double`), par exemple `12.43`. Il peut également s'agir de **nombres entiers** (`?integer`). Les nombres entiers sont saisis en ajoutant `L` à droite du nombre, par exemple `5L`. 
+  - des **chaînes de caractères textuels** (`?character`), définis avec des guillemets simples ou doubles , par exemple `'bonjour'` ou `"au revoir"`
+  - des **valeurs logiques** (`?logical`), avec deux valeurs possibles : 
+    - valeur booléenne _vraie_, notée `TRUE` ou bien `T` 
+    - valeur booléenne _fausse_, notée `FALSE` ou bien `F`
+  - des **variables qualitatives nominales** (`?factor`) ou **ordinales** (`?ordered`)
+  - des **dates** (`?Date`)
+  - etc.
+  - une **valeur manquante** se note `NA`. L'**ensemble vide** se note `NULL`
+
+### Décrire le type de l'objet $\spadesuit$
+On peut décrire quel est le type de l'objet avec les fonctions `typeof` (le type le plus élémentaire), `mode` et `storage.mode` (type de l'objet et mode de stockage de l'objet selon un regroupement un peu plus large)
+```{r typeof, eval=FALSE, include=TRUE}
+# les valeurs réelles ('double') et les entiers ('integer') sont de mode 'numeric'
+typeof(2.53) # un réel
+typeof(5L) # et un entier
+mode(2.53) # sont de type 'numeric'
+mode(5L)
+storage.mode(2.53)
+storage.mode(5L)
+
+# les chaînes de caractères sont de type et de mode 'character'
+typeof(c("hello","Toulouse"))
+mode(c("hello","Toulouse"))
+
+# les valeurs logiques sont de type 'logical'
+typeof(c(TRUE,FALSE,FALSE))
+mode(c(TRUE,FALSE,FALSE))
+```
+
+| `x`                     | `typeof(x)`      | `mode(x)`      | `storage.mode(x)` | 
+|:-----------------------:|:----------------:|:--------------:|:-----------------:|
+| `2.53`                  | `"double"`       | `"numeric"`    | `"double"`        |
+| `5L`                    | `"integer"`      | `"numeric"`    | `"integer"`       |
+| `"bonjour"`             | `"character"`    | `"character"`  | `"character"`     |
+| `TRUE`                  | `"logical"`      | `"logical"`    | `"logical"`       |
+| `as.Date("2025-07-01")` | `"double"`       | `"numeric"`    | `"double"`        |
+
+
+Les fonctions `as.numeric`, `as.integer`, `as.character`, `as.logical` permettent de définir un objet _en tant que_ numérique, entier, chaîne de caractères, logique.
+```{r asFunctions, eval=FALSE, include=TRUE}
+as.numeric(5L) # définit un nombre entier en tant que nombre réel
+as.integer(4.95) # définit un réel en tant qu'entier, seul l'entier est conservé
+as.character(4.95) # définit un nombre en tant que chaîne de caractères
+
+# définir une valeur logique TRUE et FALSE en tant que valeur numérique 
+# ou en tant qu'entier donne les valeurs 1 et 0, respectivement
+as.numeric(TRUE) 
+as.numeric(FALSE) 
+
+# définir le nombre 0 en tant que valeur logique donne la valeur FALSE
+as.logical(0)
+
+# définir tout nombre différent de 0 en tant que valeur logique 
+# donne la valeur TRUE
+as.logical(-14)
+as.logical(1)
+as.logical(4.95)
+```
+
+Les fonctions `is.numeric`, `is.integer`, `is.character`, `is.logical` permettent d'évaluer si un objet est de type numérique, entier, textuel, logique.
+```{r isFunctions, eval=FALSE, include=TRUE}
+is.numeric(5L) # TRUE, un entier est bien un objet numérique
+is.integer(4.95) # FALSE, 4.95 n'est pas un entier
+is.numeric("bonjour") # FALSE "bonjour" est une chaîne de caractères
+is.character("bonjour") # TRUE, "bonjour" est bien une chaîne de caractères
+is.character(4.95) # FALSE, 4.95 est un objet numérique
+is.logical(1) # FALSE, 1 est un objet numérique
+is.logical(as.logical(1)) # TRUE, as.logical(1) = TRUE, qui est un objet logique
+is.logical(TRUE) # TRUE est bien un objet logique
+```
+
+## Principales structures de données
+Les principales structures de données que nous allons détailler dans la suite de ce chapitre sont : 
+
+ - les vecteurs (`?vector`), dont font partie les scalaires (vecteurs à une seule valeur).
+ - les matrices (`?matrix`, `?array`)
+ - les listes (`?list`)
+ - les bases de données (`?data.frames`). Il existe d'autres formats de base de données qui seront présentés plus tard (avec les packages `tidyverse` et `data.table` par exemple)
+ 
+## Objet à une seule valeur (scalaire ou texte)
+### Scalaires
+Assignez les valeurs 4 et 5 à deux objets
+```{r scalaires1, echo=TRUE}
+x_1 <- 4
+x_2 <- 5
+```
+
+### Opérations mathématiques sur les scalaires
+#### Calculatrice
+On peut utiliser les opérations classiques, comme sur une calculatrice : 
+
+  - `+` pour **additionner**
+  - `-` pour **soustraire**
+  - `*` pour **multiplier**
+  - `/` pour **diviser**
+  - `^` pour mettre à la **puissance**
+  - `e` pour la **notation scientifique** 
+```{r operations1, eval=FALSE, include=TRUE}
+x_1 + x_2 # 4 + 5 = 9
+10 - x_1 # 10 - 4 = 6
+x_1 * x_2 #  4 * 5 = 20
+20 / x_2 # 20 / 5 = 4
+x_1^2 #  4^2 = 16
+10^-1 # 1/10 = 0.1
+25^(0.5) # racine carrée de 25 (puissance 1/2)
+
+# notation scientifique pour les grands et petits nombres
+1/1000000 # 1 pour 1 million = 1e-6
+1/1e6
+1e6 * 1000 # 1 million * 1000 = 1 milliard
+```
+
+#### Fonctions mathématiques
+Plusieurs fonctions mathématiques de bases sont implémentées nativement dans R : 
+
+  - `log(x)` ou `log(x, base = exp(1)` pour le **logarithme** népérien,
+  - `log10(x)` pour le logarithme base 10, `log2(x)` pour le logarithme base 2,
+  - `log(x, base = b)` pour le logarithme base `b`,
+  - `exp(x)` pour l'**exponentielle** de `x`
+  - `sqrt(x)` pour la **racine carrée** de `x`
+  - `abs(x)` pour la **valeur absolue** de `x`
+  - les **fonctions trigonométriques** sont implémentées, avec `cos(x)`, `sin(x)`, `tan(x)` (cf. `?Trig`)
+  - la **constante $\pi$** est implémentée avec `pi` (cf. `?Constants`)
+  
+Si vous appliquer une fonction à une valeur qui ne fait pas partie du domaine de définition de la fonction, le résultat sera une valeur manquante notée `NaN` (_not a number_). Un message d'avertissement va apparaître si vous appliquez une fonction en dehors de son domaine de définition.
+```{r operations2, eval=FALSE, include=TRUE}
+# logarithmes et exponentielles
+log(1)
+log10(100)
+log(100, base = 10)
+exp(1)
+
+# racine carrée
+sqrt(x_2^2)
+
+# valeur absolue
+abs(10)
+abs(-10)
+
+# fonctions trigonométriques
+cos(1)
+sin(1)
+tan(1)
+pi
+2 * pi * 10 # circonférence d'un cercle de rayon 10
+
+# si on utilise une valeur en dehors du domaine d'application de la fonction
+log(-1) # -1 est en dehors du domaine de définition de la fonction log
+sqrt(-2) # -2 est en dehors du domaine de définition de la fonction racine carrée
+```
+
+#### Fonctions d'arrondi $\spadesuit$
+
+Plusieurs fonctions sont disponibles dans R pour arrondir une valeur (cf. `?Round`) :
+
+  - la fonction `round()` est utile pour arrondir les décimales. Il faut préciser en argument, le nombre de chiffres après la virgule. **Attention** : si le nombre se termine par un 5, l'arrondi se fait vers le chiffre pair le plus proche : 4.45 s'arrondit à 4.4 et 4.75 s'arrondit à 4.8 
+  - la fonction `signif()` arrondit aux chiffres les plus significatifs (les plus grands)
+  - la fonction `floor()` arrondit la valeur à l'entier inférieur
+  - la fonction `ceiling()` arrondit la valeur à l'entier supérieur
+  - la fonction `trunc()`
+```{r operations3, eval=FALSE, include=TRUE}
+## fonction round()
+# l'argument digits permet de définir le nombre de chiffres après la virgule
+# exemple si vous voulez arrondir à 2 chiffres après la virgule
+round(0.09400, digits = 2)
+round(0.08600, digits = 2)
+# arroudir à 1 chiffre après la virgule
+round(4.450, digits = 1)
+round(4.750, digits = 1)
+# pour arrondir une valeur 5, le résultat va vers le chiffre pair le plus proche
+round(4.5, digits = 0) # arrondit à l'entier pair le plus proche
+round(1.5, digits = 0) # arrondit à l'entier pair le plus proche
+
+## fonction signif()
+# on garde les valeurs les plus significative, définie par l'argument digits
+signif(123.456789, digits = 1)
+signif(123.456789, digits = 2)
+signif(123.456789, digits = 3)
+signif(123.456789, digits = 4)
+signif(123.456789, digits = 5)
+# la règle d'arrondi vers le chiffre pair le plus proche est également appliquée
+signif(4.45, digits = 3)
+signif(4.45, digits = 2)
+signif(4.75, digits = 3)
+signif(4.75, digits = 2)
+
+## fonction trunc() supprime simplementles décimales
+# note : ici, il n'y a pas d'arrondi vers la chiffre pair la plus proche)
+trunc(123.456)
+trunc(4.5)
+trunc(1.5)
+
+## la fonction floor() arrondit à l'entier inférieur
+floor(4.1)
+floor(4.9)
+
+## la fonction ceiling() arrondit à l'entier supérieur
+ceiling(4.1)
+ceiling(4.9)
+```
+
+<!-- note : pour poursuivre la discussion sur les arrondis, voir les fonctions sprintf(), format() et getOption("digits") pour l'affichage des valeurs arrondies -->
+
+### Concaténation de chaînes de caractères
+On peut concatener deux objets en chaînes de caractères :
+
+  - la fonction `paste()` concatène les chaînes de caractères en séparant les vecteurs par un espace (argument par défaut, cf `?paste`). Cet argument peut être modifié.
+  - la fonction `paste0()` concatène les chaînes de caractères sans espace.
+
+```{r paste, echo=TRUE}
+x1 <- "Bonjour"
+x2 <- "Toulouse"
+paste(x1, x2)
+paste0(x1, x2)
+paste(x1, x2, sep = ", ") # ici on sépare x1 et x2 par une virgule et un espace
+
+# vous pouvez inclure des nombres qui seront transformés en caractères
+paste0(x1, 123, x2)
+```
+
+
+### Valeurs logiques `TRUE` et `FALSE`
+#### Evaluer des conditions
+Nous pouvons utiliser les opérateurs de comparaison ci-dessous pour évaluer des conditions : 
+
+ - `==` ... est égal à ...
+ - `!=` ... est différent de ...
+ - `<` ... est inférieur à ...
+ - `>` ... est supérieur à ...
+ - `<=` ... est inférieur ou égal à ...
+ - `>=` ... est supérieur ou égal à ...
+ - `%in%` ... est inclus dans ...
+ 
+Par exemple, nous pouvons évaluer les comparaisons suivantes, la réponse attendue est vraie (`TRUE`) ou fausse (`FALSE`).
+```{r logical1, eval=FALSE, include=TRUE}
+5 == 10 # est-ce que 5 est égal à 10 ?
+5 != 10 # est-ce que 5 est différent de 10 ?
+5 < 10 # est-ce que 5 est inférieur à 10 ?
+5 > 10 # est-ce que 5 est supérieur à 10 ?
+5 <= 5 # est-ce que 5 est inférieur ou égal à 5 ?
+5 >= 5 # est-ce que 5 est supérieur ou égal à 5 ?
+5 %in% c(4,5,6) # est-ce que 5 est inclus dans le vecteur (4,5,6) ?
+5 %in% c(7,8,9) # est-ce que 5 est inclus dans le vecteur (7,8,9) ?
+```
+
+La fonction `identical` permet d'évaluer si deux objets sont exactement égaux. Elle peut s'appliquer à des valeurs simples mais aussi à des objets de plus grandes dimensions (vecteurs, matrices, bases de données, ...)
+```{r logical2, eval=FALSE, include=TRUE}
+identical(5, 10) # équivalent à la commande 5 == 10
+identical(c(1,2,3), c(1,2,3)) # les deux vecteurs (1,2,3) sont bien les mêmes
+```
+
+
+Une comparaison à une valeur manquante (`NA`) retournera une valeur manquante. 
+
+**Attention**, si vous souhaitez évaluer si une valeur est manquante, il faut utiliser la fonction `is.na(x)` (plutôt que `x == NA` qui est déconseillé).
+```{r logical3, eval=FALSE, include=TRUE}
+NA < 10
+is.na(10) # éviter d'utiliser 10 == NA pour tester si une valeur est manquante
+is.na(NA)
+is.na(c(1,2,3,NA,5,6,NA,8,9,10))
+```
+
+### Opérations sur des valeurs logiques
+On peut combiner des valeurs logiques avec les opérateurs logiques ET, OU, et NON (négation logique)
+
+  - `&` opérateur ET
+  - `|` opérateur OU (sur windows, combinaison de touches altgr + 6 ; sur macOS, combinaison de touche alt + maj + L)
+  - `!` opératuer NON (négation logique : "n'est pas")
+
+Les résultats attendus d'une combinaison d'opérateurs logiques sont résumés dans les table de vérité ci-dessous.
+
+  - Opérateur ET 
+
+| a       | b       | a ET b  | 
+|:-------:|:-------:|:-------:|
+| `TRUE`  | `TRUE`  | `TRUE`  |
+| `TRUE`  | `FALSE` | `FALSE` |
+| `FALSE` | `TRUE`  | `FALSE` |
+| `FALSE` | `FALSE` | `FALSE` |
+
+  - Opérateur OU
+
+| a       | b       | a OU b  | 
+|:-------:|:-------:|:-------:|
+| `TRUE`  | `TRUE`  | `TRUE`  |
+| `TRUE`  | `FALSE` | `TRUE`  |
+| `FALSE` | `TRUE`  | `TRUE`  |
+| `FALSE` | `FALSE` | `FALSE` |
+
+  - Opérateur NON
+
+| a        | NON a   |
+|:--------:|:-------:|
+| `TRUE`   | `FALSE` |
+| `FALSE`  | `TRUE`  |
+
+```{r logical4, eval=FALSE, include=TRUE}
+# opérateur ET
+TRUE & TRUE
+TRUE & FALSE
+FALSE & TRUE
+FALSE & FALSE
+(5 > 10) & (2 != 5) # TRUE ET TRUE donne TRUE
+(5 > 10) & (2 == 5) # TRUE ET FALSE donne FALSE
+(5 < 10) & (2 == 5) # FALSE ET FALSE donne FALSE
+
+# opérateur OU
+TRUE | TRUE
+TRUE | FALSE
+FALSE | TRUE
+FALSE | FALSE
+(5 < 10) | (2 != 5) # TRUE OU TRUE donne TRUE
+(5 > 10) | (2 != 5) # FALSE OU TRUE donne TRUE
+(5 > 10) | (2 == 5) # FALSE OU FALSE donne FALSE
+
+# opérateur NON
+!TRUE
+!FALSE
+!(5 < 10) # non-TRUE donne FALSE
+!(5 > 10) # non-FALSE donne TRUE 
+```
+
+Il existe également un opérateur `xor()` correspondant au OU EXCLUSIF : 
+
+  - Opérateur OU EXCLUSIF
+
+| a       | b       | a OU EXCLUSIF b  | 
+|:-------:|:-------:|:----------------:|
+| `TRUE`  | `TRUE`  | `FALSE`          |
+| `TRUE`  | `FALSE` | `TRUE`           |
+| `FALSE` | `TRUE`  | `TRUE`           |
+| `FALSE` | `FALSE` | `FALSE`          |
+
+```{r logical5, eval=FALSE, include=TRUE}
+# opérateur OU EXCLUSIF
+xor(TRUE, TRUE)
+xor(TRUE, FALSE)
+xor(FALSE, TRUE)
+xor(FALSE, FALSE)
+xor((5 < 10), (2 != 5)) # (TRUE) OU exclusif (TRUE) donne FALSE
+xor((5 > 10), (2 != 5)) # (FALSE) OU exclusif (TRUE) donne TRUE
+xor((2 != 5), (5 > 10)) # (TRUE) OU exclusif (FALSE) donne TRUE
+xor((5 > 10), (2 == 5)) # (FALSE) OU exclusif (FALSE) donne FALSE
+```
+
+## Les vecteurs `vector()`
+### Création d'un vecteur de valeurs
+fonction seq, rep 
+
+### Indiçage d'un vecteur
+utiliser l'indiçage pour sélectionner les éléments d'un vecteur
+
+### Les objets R peuvent posséder des attributs `attributes()`
+
+## Les listes `list()`
+### Création d'une liste
+Les vecteurs peuvent être reformatés sous forme de liste
+
+### Indiçage d'une liste
+
+## Les matrices `matrix()`
+### Création d'une matrice
+Les vecteurs peuvent être reformatés sous forme de matrice
+
+### Indiçage d'une matrice
+
+### matrices à plus de 2 dimensions `array()`
+
+## Les bases de données `data.frames()`
