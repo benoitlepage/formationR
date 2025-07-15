@@ -31,6 +31,7 @@ opérations-sur-des-valeurs-logiques
 les-vecteurs-vector
 création-dun-vecteur-de-valeurs
 indiçage-dun-vecteur
+fonctions-statistiques-pour-résumer-une-série-de-valeurs
 les-objets-r-peuvent-posséder-des-attributs-attributes
 les-listes-list
 création-dune-liste

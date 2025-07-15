@@ -381,9 +381,22 @@ xor((5 > 10), (2 == 5)) # (FALSE) OU exclusif (FALSE) donne FALSE
 ## Les vecteurs `vector()`
 ### Création d'un vecteur de valeurs
 fonction seq, rep 
+fonction length()
 
 ### Indiçage d'un vecteur
 utiliser l'indiçage pour sélectionner les éléments d'un vecteur
+
+fonctions which(), any(), all()
+
+### fonctions statistiques pour résumer une série de valeurs
+min() max() median() quantile()
+mean() sd() var()
+sum() prod()
+
+table()
+prop.table()
+unique()
+sort()
 
 ### Les objets R peuvent posséder des attributs `attributes()`
 
