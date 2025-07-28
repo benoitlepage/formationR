@@ -569,17 +569,17 @@ seq(from = 1, to = 9, by = 2) %in% c(1, 2, 3)
 
 c(TRUE, TRUE, FALSE, FALSE) & c(TRUE, FALSE, TRUE, FALSE)
 # TRUE FALSE FALSE FALSE
-# 1er élément avec 1er élément TRUE & TRUE = TRUE
-# 2ème élément avec 1er élément TRUE & FALSE = FALSE
-# 3ème élément avec 1er élément FALSE & TRUE = FALSE
-# 4ème élément avec 1er élément FALSE & FALSE = FALSE
+# 1er élément avec le 1er élément     TRUE & TRUE = TRUE
+# 2ème élément avec le 2ème élément  TRUE & FALSE = FALSE
+# 3ème élément avec le 3ème élément  FALSE & TRUE = FALSE
+# 4ème élément avec le 4ème élément FALSE & FALSE = FALSE
 
 c(TRUE, TRUE, FALSE, FALSE) | c(TRUE, FALSE, TRUE, FALSE)
 # TRUE  TRUE  TRUE FALSE
-# 1er élément avec 1er élément TRUE | TRUE = TRUE
-# 2ème élément avec 1er élément TRUE | FALSE = TRUE
-# 3ème élément avec 1er élément FALSE | TRUE = TRUE
-# 4ème élément avec 1er élément FALSE | FALSE = FALSE
+# 1er élément avec le 1er élément     TRUE | TRUE = TRUE
+# 2ème élément avec le 2ème élément  TRUE | FALSE = TRUE
+# 3ème élément avec le 3ème élément  FALSE | TRUE = TRUE
+# 4ème élément avec le 4ème élément FALSE | FALSE = FALSE
 ```
 
 ### Indiçage d'un vecteur
