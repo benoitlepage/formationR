@@ -117,7 +117,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2025-07-15}
+\date{2025-07-28}
 
 \begin{document}
 \maketitle
@@ -1066,8 +1066,240 @@ a & b & a OU EXCLUSIF b \\
 
 \subsection{Création d'un vecteur de valeurs}\label{cruxe9ation-dun-vecteur-de-valeurs}
 
-fonction seq, rep
-fonction length()
+La fonction \texttt{c()} (pour concaténer) permet de créer des vecteurs de valeurs.
+Ces valeurs doivent être du même type et séparées par une virgule :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Un vecteur de 3 nombres réels}
+\NormalTok{vect\_num }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, pi, }\FloatTok{3.54}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(vect\_num) }\CommentTok{\# [1] 1.000000 3.141593 3.540000}
+
+\CommentTok{\# Un vecteur de 5 entiers}
+\NormalTok{vect\_int }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\DataTypeTok{L}\NormalTok{, }\DecValTok{4}\DataTypeTok{L}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{3}\DataTypeTok{L}\NormalTok{, }\DecValTok{15}\DataTypeTok{L}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{8}\DataTypeTok{L}\NormalTok{) }
+\FunctionTok{print}\NormalTok{(vect\_int) }\CommentTok{\# [1]  5  4 {-}3 15 {-}8}
+
+\CommentTok{\# Si on combine ces 2 vecteurs, on obtient un vecteur de 8 nombres réels }
+\CommentTok{\# (les nombres entiers sont automatiquement transformés en nombres réels pour }
+\CommentTok{\# qu\textquotesingle{}ils soient  tous du même type)}
+\NormalTok{vect\_new }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(vect\_num, vect\_int)}
+\FunctionTok{print}\NormalTok{(vect\_new)}
+\CommentTok{\# 1.000000  3.141593  3.540000  5.000000  4.000000 {-}3.000000 15.000000 {-}8.000000}
+
+\CommentTok{\# Un vecteur de 6 chaînes de caractères}
+\NormalTok{vect\_char }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"XYZ"}\NormalTok{, }\StringTok{"HELLO"}\NormalTok{, }\StringTok{"HOMME"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)}
+\NormalTok{vect\_char }\CommentTok{\# [1] "a"     "B"     "XYZ"   "HELLO" "HOMME" "femme"}
+
+\CommentTok{\# Un vecteur logique}
+\CommentTok{\# pour les valeurs logiques, on peut utiliser les abbréviations T pour TRUE,  }
+\CommentTok{\# et F pour FALSE}
+\NormalTok{vect\_logic }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, F, T, T, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(vect\_logic) }\CommentTok{\# [1]  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE}
+
+\CommentTok{\# la fonction class() permet de décrire le type du vecteur}
+\FunctionTok{class}\NormalTok{(vect\_num) }\CommentTok{\# numeric}
+\FunctionTok{class}\NormalTok{(vect\_int) }\CommentTok{\# vect\_int}
+\FunctionTok{class}\NormalTok{(vect\_new) }\CommentTok{\# numeric}
+\FunctionTok{class}\NormalTok{(vect\_char) }\CommentTok{\# character}
+\FunctionTok{class}\NormalTok{(vect\_logic) }\CommentTok{\# logical}
+
+\CommentTok{\# Si vous créez le vecteur suivant en mélangeant valeurs numériques et }
+\CommentTok{\# chaînes de caractères}
+\NormalTok{vect\_melange }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\StringTok{"trois"}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\CommentTok{\# les valeurs numériques sont transformées de force en chaînes de caractères }
+\CommentTok{\# c("X","X",...,"X","X") pour que toutes les valeurs soient du même type.}
+\FunctionTok{print}\NormalTok{(vect\_melange)}
+\CommentTok{\# [1] "1"     "2"     "trois" "4"}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{\texorpdfstring{Fonction \texttt{length()}}{Fonction length()}}\label{fonction-length}
+
+Les vecteurs sont des objets à 1 seule dimension. On peut décrire le nombre de valeurs qu'il contient avec la commande \texttt{length()} (longueur du vecteur).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{length}\NormalTok{(vect\_num) }\CommentTok{\# vecteur de longueur 3}
+\FunctionTok{length}\NormalTok{(vect\_int) }\CommentTok{\# vecteur de longeur 5}
+\FunctionTok{length}\NormalTok{(vect\_new) }\CommentTok{\# vecteur de longeur 8}
+\FunctionTok{length}\NormalTok{(vect\_char) }\CommentTok{\# vecteur de longeur 6}
+\FunctionTok{length}\NormalTok{(vect\_logic) }\CommentTok{\# vecteur de longeur 8}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Créer une séquence de valeurs}\label{cruxe9er-une-suxe9quence-de-valeurs}
+
+Pour créer une séquence de nombre entiers, ascendante ou descendante de 1 en 1, vous pouvez utiliser la commande \texttt{:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vect\_1a10 }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10} \CommentTok{\# vecteur ascendant}
+\NormalTok{vect\_1a10 }\CommentTok{\# [1]  1  2  3  4  5  6  7  8  9 10}
+
+\NormalTok{vect\_3\_a\_moins5 }\OtherTok{\textless{}{-}} \DecValTok{3}\SpecialCharTok{:{-}}\DecValTok{5} \CommentTok{\# vecteur descendant}
+\NormalTok{vect\_3\_a\_moins5 }\CommentTok{\# [1] 3  2  1  0 {-}1 {-}2 {-}3 {-}4 {-}5}
+\end{Highlighting}
+\end{Shaded}
+
+La commande \texttt{seq()} permet de définir des séquences de manière plus flexible,
+grâce aux arguments \texttt{from}, \texttt{to}, \texttt{by}, \texttt{length.out}, \texttt{along.with} (regardez l'aide \texttt{?seq()}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{1}\NormalTok{, }\AttributeTok{to =} \DecValTok{10}\NormalTok{) }\CommentTok{\# vecteur de 1 à 10, équivalent à la commande 1:10}
+\FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{0}\NormalTok{, }\AttributeTok{to =} \DecValTok{10}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{) }\CommentTok{\# vecteur de 0 à 10, de 2 en 2}
+
+\FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{1}\NormalTok{, }\AttributeTok{to =} \DecValTok{50}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{5}\NormalTok{) }\CommentTok{\# vecteur de 1 à 50, de longueur 5}
+\CommentTok{\# les intervalles entre les valeurs sont calculés automatiquement par la formule}
+\CommentTok{\# (valeur de départ {-} valeur d\textquotesingle{}arrivée) / (longueur totale {-} 1)}
+
+\FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{0}\NormalTok{, }\AttributeTok{to =} \DecValTok{60}\NormalTok{, }\AttributeTok{along.with =} \FunctionTok{c}\NormalTok{(}\StringTok{"dix"}\NormalTok{,}\StringTok{"vingt"}\NormalTok{,}\StringTok{"trente"}\NormalTok{))}
+\CommentTok{\# vecteur de 0 à 60, dont la longueur est égale à la longeur du vecteur}
+\CommentTok{\# c("dix","vingt","trente") (sa longeur est de 3)}
+
+\CommentTok{\# avec l\textquotesingle{}argument \textasciigrave{}by\textasciigrave{}, si le cycle ne tombe pas juste, la séquence s\textquotesingle{}arrête }
+\CommentTok{\# avant la dernière valeur indiquée par \textasciigrave{}to = \textasciigrave{}}
+\FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{1}\NormalTok{, }\AttributeTok{to =} \DecValTok{10}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{)}
+\CommentTok{\# [1] 1 3 5 7 9}
+\CommentTok{\# la séquence ne va pas jusqu\textquotesingle{}à 10, elle s\textquotesingle{}arrête à 9, car 9 + 2 = 11}
+\CommentTok{\# ce qui dépasserait la valeur maximale demandée par \textasciigrave{}to = 10\textasciigrave{}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Créer un vecteur de valeurs répétées}\label{cruxe9er-un-vecteur-de-valeurs-ruxe9puxe9tuxe9es}
+
+La fonction \texttt{rep} permet de créer des vecteurs de valeurs répétées.
+Les arguments \texttt{times}, \texttt{each}, \texttt{length.out} permettent de préciser comment les valeurs doivent être répétées (voir dans l'aide \texttt{?rep})
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rep}\NormalTok{(}\DecValTok{5}\NormalTok{, }\AttributeTok{times =} \DecValTok{3}\NormalTok{) }\CommentTok{\# répète la valeur 5, 3 fois.}
+\CommentTok{\# [1] 5 5 5}
+
+\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\AttributeTok{times =} \DecValTok{3}\NormalTok{) }\CommentTok{\# repète 3 fois le vecteur c(1, 2, 3, 4)}
+\CommentTok{\# [1] 1 2 3 4 1 2 3 4 1 2 3 4}
+
+\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\AttributeTok{each =} \DecValTok{3}\NormalTok{) }\CommentTok{\# chaque élément du vecteur c(1, 2, 3, 4) est répété 3 fois}
+\CommentTok{\# [1] 1 1 1 2 2 2 3 3 3 4 4 4}
+
+\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{10}\NormalTok{) }\CommentTok{\# le vecteur c(1,2,3,4) est répété dans un vecteur }
+\CommentTok{\# dont la longueur totale est de 10}
+\CommentTok{\# [1] 1 2 3 4 1 2 3 4 1 2}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Opérations arithmétiques sur un vecteur}\label{opuxe9rations-arithmuxe9tiques-sur-un-vecteur}
+
+On appliquer une opération arithmétique avec un scalaire (une valeur simple) à chacun des éléments d'un vecteur :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# additionne +2 à chaque élément de la séquence c(1,2,3,4,5)}
+\FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{1}\NormalTok{, }\AttributeTok{to =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+} \DecValTok{2} \CommentTok{\# cela donne 3 4 5 6 7}
+
+\CommentTok{\# soustrait {-}2 à chaque élément de la séquence c(1,2,3,4,5)}
+\FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{1}\NormalTok{, }\AttributeTok{to =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{{-}} \DecValTok{2} \CommentTok{\# cela donne {-}1  0  1  2  3}
+
+\CommentTok{\# multiplie par à chaque élément de la séquence c(1,2,3,4,5)}
+\FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{1}\NormalTok{, }\AttributeTok{to =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{*} \DecValTok{5} \CommentTok{\# cela donne 5 10 15 20 25}
+
+\CommentTok{\# divise par 5 chaque élément de la séquence c(1,2,3,4,5)}
+\FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{1}\NormalTok{, }\AttributeTok{to =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{/} \DecValTok{5} \CommentTok{\# cela donne 0.2 0.4 0.6 0.8 1.0}
+\end{Highlighting}
+\end{Shaded}
+
+Si vous appliquez une opération arithmétique entre deux vecteurs de même longueur,
+l'opération se fera entre les 1ers éléments de chaque vecteur, puis entre les 2èmes
+éléments de chaque vecteur, puis etc
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vec\_A }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{vec\_B }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\SpecialCharTok{+}\DecValTok{1}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\SpecialCharTok{+}\DecValTok{2}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{)}
+
+\CommentTok{\# addition : c((1 + ({-}1)), (2 + 1), (3 + ({-}2)), (4 + 2), (5 + ({-}5)))}
+\NormalTok{vec\_A }\SpecialCharTok{+}\NormalTok{ vec\_B }\CommentTok{\# 0 3 1 6 0}
+
+\CommentTok{\# soustraction : c((1 {-} ({-}1)), (2 {-} 1), (3 {-} ({-}2)), (4 {-} 2), (5 {-} ({-}5)))}
+\NormalTok{vec\_A }\SpecialCharTok{{-}}\NormalTok{ vec\_B }\CommentTok{\# 2  1  5  2 10}
+
+\CommentTok{\# multiplication : c((1 * ({-}1)), (2 * 1), (3 * ({-}2)), (4 * 2), (5 * ({-}5)))}
+\NormalTok{vec\_A }\SpecialCharTok{*}\NormalTok{ vec\_B  }\CommentTok{\# {-}1   2  {-}6   8 {-}25}
+
+\CommentTok{\# division : c((1 / ({-}1)), (2 / 1), (3 / ({-}2)), (4 / 2), (5 / ({-}5)))}
+\NormalTok{vec\_A }\SpecialCharTok{/}\NormalTok{ vec\_B }\CommentTok{\# {-}1.0  2.0 {-}1.5  2.0 {-}1.0}
+\end{Highlighting}
+\end{Shaded}
+
+Si vous appliquez une opération arithmétique entre deux vecteurs de longueur différente,
+l'opération se fera entre les 1ers éléments de chaque vecteur, puis entre les 2èmes
+éléments de chaque vecteur, etc. Lorsqu'on arrive au bout du vecteur le plus court,
+les opérations continuent en reprenant à partir de la première valeur du vecteur
+le plus court. Un message d'avertissement vous prévient également lorsque la longueur
+du vecteur le plus long n'est pas un multiple de la longueur du vecteur le plus court (mais cela n'empêche pas l'opération de se faire).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vec\_A }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{vec\_C }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+
+\CommentTok{\# addition : c((1 + 1), (2 + 2), (3 + 3), (4 + 1), (5 + 2))}
+\NormalTok{vec\_A }\SpecialCharTok{+}\NormalTok{ vec\_C }\CommentTok{\# 2 4 6 5 7}
+
+\CommentTok{\# soustraction : c((1 {-} 1), (2 {-} 2), (3 {-} 3), (4 {-} 1), (5 {-} 2))}
+\NormalTok{vec\_A }\SpecialCharTok{{-}}\NormalTok{ vec\_C }\CommentTok{\# 0 0 0 3 3}
+
+\CommentTok{\# multiplication : c((1 * 1), (2 * 2), (3 * 3), (4 * 1), (5 * 2))}
+\NormalTok{vec\_A }\SpecialCharTok{*}\NormalTok{ vec\_C  }\CommentTok{\# 1  4  9  4 10}
+
+\CommentTok{\# division : c((1 / 1), (2 / 2), (3 / 3), (4 / 1), (5 / 2))}
+\NormalTok{vec\_A }\SpecialCharTok{/}\NormalTok{ vec\_C }\CommentTok{\# 1.0 1.0 1.0 4.0 2.5}
+\end{Highlighting}
+\end{Shaded}
+
+On peut combiner des vecteurs de chaînes de caractères à des vecteurs numériques :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{paste0}\NormalTok{(}\StringTok{"L"}\NormalTok{, }\FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{1}\NormalTok{, }\AttributeTok{to =} \DecValTok{10}\NormalTok{)) }
+\CommentTok{\# on obtient le vecteur :}
+\CommentTok{\# "L1"  "L2"  "L3"  "L4"  "L5"  "L6"  "L7"  "L8"  "L9"  "L10"}
+
+\FunctionTok{paste0}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{,}\StringTok{"B"}\NormalTok{,}\StringTok{"C"}\NormalTok{), }\FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{1}\NormalTok{, }\AttributeTok{to =} \DecValTok{10}\NormalTok{))}
+\CommentTok{\# on obtient le vecteur : }
+\CommentTok{\# "A1"  "B2"  "C3"  "A4"  "B5"  "C6"  "A7"  "B8"  "C9"  "A10"}
+\end{Highlighting}
+\end{Shaded}
+
+On peut faire des opérations sur des vecteurs logiques (voir les tables de vérité plus haut) :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{) }\SpecialCharTok{\%in\%} \FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{1}\NormalTok{, }\AttributeTok{to =} \DecValTok{9}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{)}
+\CommentTok{\# TRUE FALSE  TRUE}
+\CommentTok{\# les valeurs 1 et 3 sont bien comprise dans le vecteur c(1, 3, 5, 7, 9), }
+\CommentTok{\# mais pas la valeur 2}
+
+\FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{1}\NormalTok{, }\AttributeTok{to =} \DecValTok{9}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\CommentTok{\# TRUE  TRUE FALSE FALSE FALSE}
+\CommentTok{\# les valeurs 1 et 3 sont bien comprise dans le vecteur c(1, 2, 3), }
+\CommentTok{\# mais pas les valeurs 5, 7 et 9}
+
+\FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{\&} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)}
+\CommentTok{\# TRUE FALSE FALSE FALSE}
+\CommentTok{\# 1er élément avec 1er élément TRUE \& TRUE = TRUE}
+\CommentTok{\# 2ème élément avec 1er élément TRUE \& FALSE = FALSE}
+\CommentTok{\# 3ème élément avec 1er élément FALSE \& TRUE = FALSE}
+\CommentTok{\# 4ème élément avec 1er élément FALSE \& FALSE = FALSE}
+
+\FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{|} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)}
+\CommentTok{\# TRUE  TRUE  TRUE FALSE}
+\CommentTok{\# 1er élément avec 1er élément TRUE | TRUE = TRUE}
+\CommentTok{\# 2ème élément avec 1er élément TRUE | FALSE = TRUE}
+\CommentTok{\# 3ème élément avec 1er élément FALSE | TRUE = TRUE}
+\CommentTok{\# 4ème élément avec 1er élément FALSE | FALSE = FALSE}
+\end{Highlighting}
+\end{Shaded}
 
 \subsection{Indiçage d'un vecteur}\label{indiuxe7age-dun-vecteur}
 
@@ -1085,8 +1317,6 @@ table()
 prop.table()
 unique()
 sort()
-
-\subsection{\texorpdfstring{Les objets R peuvent posséder des attributs \texttt{attributes()}}{Les objets R peuvent posséder des attributs attributes()}}\label{les-objets-r-peuvent-possuxe9der-des-attributs-attributes}
 
 \section{\texorpdfstring{Les listes \texttt{list()}}{Les listes list()}}\label{les-listes-list}
 
@@ -1107,5 +1337,7 @@ Les vecteurs peuvent être reformatés sous forme de matrice
 \subsection{\texorpdfstring{matrices à plus de 2 dimensions \texttt{array()}}{matrices à plus de 2 dimensions array()}}\label{matrices-uxe0-plus-de-2-dimensions-array}
 
 \section{\texorpdfstring{Les bases de données \texttt{data.frames()}}{Les bases de données data.frames()}}\label{les-bases-de-donnuxe9es-data.frames}
+
+\section{\texorpdfstring{Les objets R peuvent posséder des attributs \texttt{attributes()}}{Les objets R peuvent posséder des attributs attributes()}}\label{les-objets-r-peuvent-possuxe9der-des-attributs-attributes}
 
 \end{document}

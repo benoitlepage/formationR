@@ -23,7 +23,7 @@
 <meta name="author" content="Benoît Lepage" />
 
 
-<meta name="date" content="2025-07-15" />
+<meta name="date" content="2025-07-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -173,9 +173,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-vecteurs-vector"><i class="fa fa-check"></i><b>2.5</b> Les vecteurs <code>vector()</code></a>
 <ul>
 <li class="chapter" data-level="2.5.1" data-path="01-objets_dans_R.html"><a href="#cr%C3%A9ation-dun-vecteur-de-valeurs"><i class="fa fa-check"></i><b>2.5.1</b> Création d’un vecteur de valeurs</a></li>
-<li class="chapter" data-level="2.5.2" data-path="01-objets_dans_R.html"><a href="#indi%C3%A7age-dun-vecteur"><i class="fa fa-check"></i><b>2.5.2</b> Indiçage d’un vecteur</a></li>
-<li class="chapter" data-level="2.5.3" data-path="01-objets_dans_R.html"><a href="#fonctions-statistiques-pour-r%C3%A9sumer-une-s%C3%A9rie-de-valeurs"><i class="fa fa-check"></i><b>2.5.3</b> fonctions statistiques pour résumer une série de valeurs</a></li>
-<li class="chapter" data-level="2.5.4" data-path="01-objets_dans_R.html"><a href="#les-objets-r-peuvent-poss%C3%A9der-des-attributs-attributes"><i class="fa fa-check"></i><b>2.5.4</b> Les objets R peuvent posséder des attributs <code>attributes()</code></a></li>
+<li class="chapter" data-level="2.5.2" data-path="01-objets_dans_R.html"><a href="#op%C3%A9rations-arithm%C3%A9tiques-sur-un-vecteur"><i class="fa fa-check"></i><b>2.5.2</b> Opérations arithmétiques sur un vecteur</a></li>
+<li class="chapter" data-level="2.5.3" data-path="01-objets_dans_R.html"><a href="#indi%C3%A7age-dun-vecteur"><i class="fa fa-check"></i><b>2.5.3</b> Indiçage d’un vecteur</a></li>
+<li class="chapter" data-level="2.5.4" data-path="01-objets_dans_R.html"><a href="#fonctions-statistiques-pour-r%C3%A9sumer-une-s%C3%A9rie-de-valeurs"><i class="fa fa-check"></i><b>2.5.4</b> fonctions statistiques pour résumer une série de valeurs</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-listes-list"><i class="fa fa-check"></i><b>2.6</b> Les listes <code>list()</code></a>
 <ul>
@@ -189,6 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.7.3" data-path="01-objets_dans_R.html"><a href="#matrices-%C3%A0-plus-de-2-dimensions-array"><i class="fa fa-check"></i><b>2.7.3</b> matrices à plus de 2 dimensions <code>array()</code></a></li>
 </ul></li>
 <li class="chapter" data-level="2.8" data-path="01-objets_dans_R.html"><a href="#les-bases-de-donn%C3%A9es-data.frames"><i class="fa fa-check"></i><b>2.8</b> Les bases de données <code>data.frames()</code></a></li>
+<li class="chapter" data-level="2.9" data-path="01-objets_dans_R.html"><a href="#les-objets-r-peuvent-poss%C3%A9der-des-attributs-attributes"><i class="fa fa-check"></i><b>2.9</b> Les objets R peuvent posséder des attributs <code>attributes()</code></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -707,16 +708,193 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.5</span> Les vecteurs <code>vector()</code><a href="les-objets-dans-r.html#les-vecteurs-vector" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="création-dun-vecteur-de-valeurs" class="section level3 hasAnchor" number="2.5.1">
 <h3><span class="header-section-number">2.5.1</span> Création d’un vecteur de valeurs<a href="#cr%C3%A9ation-dun-vecteur-de-valeurs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>fonction seq, rep
-fonction length()</p>
+<p>La fonction <code>c()</code> (pour concaténer) permet de créer des vecteurs de valeurs.
+Ces valeurs doivent être du même type et séparées par une virgule :</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="les-objets-dans-r.html#cb28-1" tabindex="-1"></a><span class="co"># Un vecteur de 3 nombres réels</span></span>
+<span id="cb28-2"><a href="les-objets-dans-r.html#cb28-2" tabindex="-1"></a>vect_num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, pi, <span class="fl">3.54</span>)</span>
+<span id="cb28-3"><a href="les-objets-dans-r.html#cb28-3" tabindex="-1"></a><span class="fu">print</span>(vect_num) <span class="co"># [1] 1.000000 3.141593 3.540000</span></span>
+<span id="cb28-4"><a href="les-objets-dans-r.html#cb28-4" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="les-objets-dans-r.html#cb28-5" tabindex="-1"></a><span class="co"># Un vecteur de 5 entiers</span></span>
+<span id="cb28-6"><a href="les-objets-dans-r.html#cb28-6" tabindex="-1"></a>vect_int <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span><span class="dt">L</span>, <span class="dv">4</span><span class="dt">L</span>, <span class="sc">-</span><span class="dv">3</span><span class="dt">L</span>, <span class="dv">15</span><span class="dt">L</span>, <span class="sc">-</span><span class="dv">8</span><span class="dt">L</span>) </span>
+<span id="cb28-7"><a href="les-objets-dans-r.html#cb28-7" tabindex="-1"></a><span class="fu">print</span>(vect_int) <span class="co"># [1]  5  4 -3 15 -8</span></span>
+<span id="cb28-8"><a href="les-objets-dans-r.html#cb28-8" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="les-objets-dans-r.html#cb28-9" tabindex="-1"></a><span class="co"># Si on combine ces 2 vecteurs, on obtient un vecteur de 8 nombres réels </span></span>
+<span id="cb28-10"><a href="les-objets-dans-r.html#cb28-10" tabindex="-1"></a><span class="co"># (les nombres entiers sont automatiquement transformés en nombres réels pour </span></span>
+<span id="cb28-11"><a href="les-objets-dans-r.html#cb28-11" tabindex="-1"></a><span class="co"># qu&#39;ils soient  tous du même type)</span></span>
+<span id="cb28-12"><a href="les-objets-dans-r.html#cb28-12" tabindex="-1"></a>vect_new <span class="ot">&lt;-</span> <span class="fu">c</span>(vect_num, vect_int)</span>
+<span id="cb28-13"><a href="les-objets-dans-r.html#cb28-13" tabindex="-1"></a><span class="fu">print</span>(vect_new)</span>
+<span id="cb28-14"><a href="les-objets-dans-r.html#cb28-14" tabindex="-1"></a><span class="co"># 1.000000  3.141593  3.540000  5.000000  4.000000 -3.000000 15.000000 -8.000000</span></span>
+<span id="cb28-15"><a href="les-objets-dans-r.html#cb28-15" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="les-objets-dans-r.html#cb28-16" tabindex="-1"></a><span class="co"># Un vecteur de 6 chaînes de caractères</span></span>
+<span id="cb28-17"><a href="les-objets-dans-r.html#cb28-17" tabindex="-1"></a>vect_char <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;XYZ&quot;</span>, <span class="st">&quot;HELLO&quot;</span>, <span class="st">&quot;HOMME&quot;</span>, <span class="st">&quot;femme&quot;</span>)</span>
+<span id="cb28-18"><a href="les-objets-dans-r.html#cb28-18" tabindex="-1"></a>vect_char <span class="co"># [1] &quot;a&quot;     &quot;B&quot;     &quot;XYZ&quot;   &quot;HELLO&quot; &quot;HOMME&quot; &quot;femme&quot;</span></span>
+<span id="cb28-19"><a href="les-objets-dans-r.html#cb28-19" tabindex="-1"></a></span>
+<span id="cb28-20"><a href="les-objets-dans-r.html#cb28-20" tabindex="-1"></a><span class="co"># Un vecteur logique</span></span>
+<span id="cb28-21"><a href="les-objets-dans-r.html#cb28-21" tabindex="-1"></a><span class="co"># pour les valeurs logiques, on peut utiliser les abbréviations T pour TRUE,  </span></span>
+<span id="cb28-22"><a href="les-objets-dans-r.html#cb28-22" tabindex="-1"></a><span class="co"># et F pour FALSE</span></span>
+<span id="cb28-23"><a href="les-objets-dans-r.html#cb28-23" tabindex="-1"></a>vect_logic <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, F, T, T, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb28-24"><a href="les-objets-dans-r.html#cb28-24" tabindex="-1"></a><span class="fu">print</span>(vect_logic) <span class="co"># [1]  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE</span></span>
+<span id="cb28-25"><a href="les-objets-dans-r.html#cb28-25" tabindex="-1"></a></span>
+<span id="cb28-26"><a href="les-objets-dans-r.html#cb28-26" tabindex="-1"></a><span class="co"># la fonction class() permet de décrire le type du vecteur</span></span>
+<span id="cb28-27"><a href="les-objets-dans-r.html#cb28-27" tabindex="-1"></a><span class="fu">class</span>(vect_num) <span class="co"># numeric</span></span>
+<span id="cb28-28"><a href="les-objets-dans-r.html#cb28-28" tabindex="-1"></a><span class="fu">class</span>(vect_int) <span class="co"># vect_int</span></span>
+<span id="cb28-29"><a href="les-objets-dans-r.html#cb28-29" tabindex="-1"></a><span class="fu">class</span>(vect_new) <span class="co"># numeric</span></span>
+<span id="cb28-30"><a href="les-objets-dans-r.html#cb28-30" tabindex="-1"></a><span class="fu">class</span>(vect_char) <span class="co"># character</span></span>
+<span id="cb28-31"><a href="les-objets-dans-r.html#cb28-31" tabindex="-1"></a><span class="fu">class</span>(vect_logic) <span class="co"># logical</span></span>
+<span id="cb28-32"><a href="les-objets-dans-r.html#cb28-32" tabindex="-1"></a></span>
+<span id="cb28-33"><a href="les-objets-dans-r.html#cb28-33" tabindex="-1"></a><span class="co"># Si vous créez le vecteur suivant en mélangeant valeurs numériques et </span></span>
+<span id="cb28-34"><a href="les-objets-dans-r.html#cb28-34" tabindex="-1"></a><span class="co"># chaînes de caractères</span></span>
+<span id="cb28-35"><a href="les-objets-dans-r.html#cb28-35" tabindex="-1"></a>vect_melange <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="st">&quot;trois&quot;</span>,<span class="dv">4</span>)</span>
+<span id="cb28-36"><a href="les-objets-dans-r.html#cb28-36" tabindex="-1"></a><span class="co"># les valeurs numériques sont transformées de force en chaînes de caractères </span></span>
+<span id="cb28-37"><a href="les-objets-dans-r.html#cb28-37" tabindex="-1"></a><span class="co"># c(&quot;X&quot;,&quot;X&quot;,...,&quot;X&quot;,&quot;X&quot;) pour que toutes les valeurs soient du même type.</span></span>
+<span id="cb28-38"><a href="les-objets-dans-r.html#cb28-38" tabindex="-1"></a><span class="fu">print</span>(vect_melange)</span>
+<span id="cb28-39"><a href="les-objets-dans-r.html#cb28-39" tabindex="-1"></a><span class="co"># [1] &quot;1&quot;     &quot;2&quot;     &quot;trois&quot; &quot;4&quot;</span></span></code></pre></div>
+<div id="fonction-length" class="section level4 hasAnchor" number="2.5.1.1">
+<h4><span class="header-section-number">2.5.1.1</span> Fonction <code>length()</code><a href="les-objets-dans-r.html#fonction-length" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Les vecteurs sont des objets à 1 seule dimension. On peut décrire le nombre de valeurs qu’il contient avec la commande <code>length()</code> (longueur du vecteur).</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="les-objets-dans-r.html#cb29-1" tabindex="-1"></a><span class="fu">length</span>(vect_num) <span class="co"># vecteur de longueur 3</span></span>
+<span id="cb29-2"><a href="les-objets-dans-r.html#cb29-2" tabindex="-1"></a><span class="fu">length</span>(vect_int) <span class="co"># vecteur de longeur 5</span></span>
+<span id="cb29-3"><a href="les-objets-dans-r.html#cb29-3" tabindex="-1"></a><span class="fu">length</span>(vect_new) <span class="co"># vecteur de longeur 8</span></span>
+<span id="cb29-4"><a href="les-objets-dans-r.html#cb29-4" tabindex="-1"></a><span class="fu">length</span>(vect_char) <span class="co"># vecteur de longeur 6</span></span>
+<span id="cb29-5"><a href="les-objets-dans-r.html#cb29-5" tabindex="-1"></a><span class="fu">length</span>(vect_logic) <span class="co"># vecteur de longeur 8</span></span></code></pre></div>
 </div>
-<div id="indiçage-dun-vecteur" class="section level3 hasAnchor" number="2.5.2">
-<h3><span class="header-section-number">2.5.2</span> Indiçage d’un vecteur<a href="#indi%C3%A7age-dun-vecteur" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="créer-une-séquence-de-valeurs" class="section level4 hasAnchor" number="2.5.1.2">
+<h4><span class="header-section-number">2.5.1.2</span> Créer une séquence de valeurs<a href="#cr%C3%A9er-une-s%C3%A9quence-de-valeurs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Pour créer une séquence de nombre entiers, ascendante ou descendante de 1 en 1, vous pouvez utiliser la commande <code>:</code></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="les-objets-dans-r.html#cb30-1" tabindex="-1"></a>vect_1a10 <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="co"># vecteur ascendant</span></span>
+<span id="cb30-2"><a href="les-objets-dans-r.html#cb30-2" tabindex="-1"></a>vect_1a10 <span class="co"># [1]  1  2  3  4  5  6  7  8  9 10</span></span>
+<span id="cb30-3"><a href="les-objets-dans-r.html#cb30-3" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="les-objets-dans-r.html#cb30-4" tabindex="-1"></a>vect_3_a_moins5 <span class="ot">&lt;-</span> <span class="dv">3</span><span class="sc">:-</span><span class="dv">5</span> <span class="co"># vecteur descendant</span></span>
+<span id="cb30-5"><a href="les-objets-dans-r.html#cb30-5" tabindex="-1"></a>vect_3_a_moins5 <span class="co"># [1] 3  2  1  0 -1 -2 -3 -4 -5</span></span></code></pre></div>
+<p>La commande <code>seq()</code> permet de définir des séquences de manière plus flexible,
+grâce aux arguments <code>from</code>, <code>to</code>, <code>by</code>, <code>length.out</code>, <code>along.with</code> (regardez l’aide <code>?seq()</code>).</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="les-objets-dans-r.html#cb31-1" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">10</span>) <span class="co"># vecteur de 1 à 10, équivalent à la commande 1:10</span></span>
+<span id="cb31-2"><a href="les-objets-dans-r.html#cb31-2" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>) <span class="co"># vecteur de 0 à 10, de 2 en 2</span></span>
+<span id="cb31-3"><a href="les-objets-dans-r.html#cb31-3" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="les-objets-dans-r.html#cb31-4" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">50</span>, <span class="at">length.out =</span> <span class="dv">5</span>) <span class="co"># vecteur de 1 à 50, de longueur 5</span></span>
+<span id="cb31-5"><a href="les-objets-dans-r.html#cb31-5" tabindex="-1"></a><span class="co"># les intervalles entre les valeurs sont calculés automatiquement par la formule</span></span>
+<span id="cb31-6"><a href="les-objets-dans-r.html#cb31-6" tabindex="-1"></a><span class="co"># (valeur de départ - valeur d&#39;arrivée) / (longueur totale - 1)</span></span>
+<span id="cb31-7"><a href="les-objets-dans-r.html#cb31-7" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="les-objets-dans-r.html#cb31-8" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">60</span>, <span class="at">along.with =</span> <span class="fu">c</span>(<span class="st">&quot;dix&quot;</span>,<span class="st">&quot;vingt&quot;</span>,<span class="st">&quot;trente&quot;</span>))</span>
+<span id="cb31-9"><a href="les-objets-dans-r.html#cb31-9" tabindex="-1"></a><span class="co"># vecteur de 0 à 60, dont la longueur est égale à la longeur du vecteur</span></span>
+<span id="cb31-10"><a href="les-objets-dans-r.html#cb31-10" tabindex="-1"></a><span class="co"># c(&quot;dix&quot;,&quot;vingt&quot;,&quot;trente&quot;) (sa longeur est de 3)</span></span>
+<span id="cb31-11"><a href="les-objets-dans-r.html#cb31-11" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="les-objets-dans-r.html#cb31-12" tabindex="-1"></a><span class="co"># avec l&#39;argument `by`, si le cycle ne tombe pas juste, la séquence s&#39;arrête </span></span>
+<span id="cb31-13"><a href="les-objets-dans-r.html#cb31-13" tabindex="-1"></a><span class="co"># avant la dernière valeur indiquée par `to = `</span></span>
+<span id="cb31-14"><a href="les-objets-dans-r.html#cb31-14" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
+<span id="cb31-15"><a href="les-objets-dans-r.html#cb31-15" tabindex="-1"></a><span class="co"># [1] 1 3 5 7 9</span></span>
+<span id="cb31-16"><a href="les-objets-dans-r.html#cb31-16" tabindex="-1"></a><span class="co"># la séquence ne va pas jusqu&#39;à 10, elle s&#39;arrête à 9, car 9 + 2 = 11</span></span>
+<span id="cb31-17"><a href="les-objets-dans-r.html#cb31-17" tabindex="-1"></a><span class="co"># ce qui dépasserait la valeur maximale demandée par `to = 10`</span></span></code></pre></div>
+</div>
+<div id="créer-un-vecteur-de-valeurs-répétées" class="section level4 hasAnchor" number="2.5.1.3">
+<h4><span class="header-section-number">2.5.1.3</span> Créer un vecteur de valeurs répétées<a href="#cr%C3%A9er-un-vecteur-de-valeurs-r%C3%A9p%C3%A9t%C3%A9es" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>La fonction <code>rep</code> permet de créer des vecteurs de valeurs répétées.
+Les arguments <code>times</code>, <code>each</code>, <code>length.out</code> permettent de préciser comment les valeurs doivent être répétées (voir dans l’aide <code>?rep</code>)</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="les-objets-dans-r.html#cb32-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">5</span>, <span class="at">times =</span> <span class="dv">3</span>) <span class="co"># répète la valeur 5, 3 fois.</span></span>
+<span id="cb32-2"><a href="les-objets-dans-r.html#cb32-2" tabindex="-1"></a><span class="co"># [1] 5 5 5</span></span>
+<span id="cb32-3"><a href="les-objets-dans-r.html#cb32-3" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="les-objets-dans-r.html#cb32-4" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">times =</span> <span class="dv">3</span>) <span class="co"># repète 3 fois le vecteur c(1, 2, 3, 4)</span></span>
+<span id="cb32-5"><a href="les-objets-dans-r.html#cb32-5" tabindex="-1"></a><span class="co"># [1] 1 2 3 4 1 2 3 4 1 2 3 4</span></span>
+<span id="cb32-6"><a href="les-objets-dans-r.html#cb32-6" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="les-objets-dans-r.html#cb32-7" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">each =</span> <span class="dv">3</span>) <span class="co"># chaque élément du vecteur c(1, 2, 3, 4) est répété 3 fois</span></span>
+<span id="cb32-8"><a href="les-objets-dans-r.html#cb32-8" tabindex="-1"></a><span class="co"># [1] 1 1 1 2 2 2 3 3 3 4 4 4</span></span>
+<span id="cb32-9"><a href="les-objets-dans-r.html#cb32-9" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="les-objets-dans-r.html#cb32-10" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">length.out =</span> <span class="dv">10</span>) <span class="co"># le vecteur c(1,2,3,4) est répété dans un vecteur </span></span>
+<span id="cb32-11"><a href="les-objets-dans-r.html#cb32-11" tabindex="-1"></a><span class="co"># dont la longueur totale est de 10</span></span>
+<span id="cb32-12"><a href="les-objets-dans-r.html#cb32-12" tabindex="-1"></a><span class="co"># [1] 1 2 3 4 1 2 3 4 1 2</span></span></code></pre></div>
+</div>
+</div>
+<div id="opérations-arithmétiques-sur-un-vecteur" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Opérations arithmétiques sur un vecteur<a href="#op%C3%A9rations-arithm%C3%A9tiques-sur-un-vecteur" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>On appliquer une opération arithmétique avec un scalaire (une valeur simple) à chacun des éléments d’un vecteur :</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="les-objets-dans-r.html#cb33-1" tabindex="-1"></a><span class="co"># additionne +2 à chaque élément de la séquence c(1,2,3,4,5)</span></span>
+<span id="cb33-2"><a href="les-objets-dans-r.html#cb33-2" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">5</span>) <span class="sc">+</span> <span class="dv">2</span> <span class="co"># cela donne 3 4 5 6 7</span></span>
+<span id="cb33-3"><a href="les-objets-dans-r.html#cb33-3" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="les-objets-dans-r.html#cb33-4" tabindex="-1"></a><span class="co"># soustrait -2 à chaque élément de la séquence c(1,2,3,4,5)</span></span>
+<span id="cb33-5"><a href="les-objets-dans-r.html#cb33-5" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">5</span>) <span class="sc">-</span> <span class="dv">2</span> <span class="co"># cela donne -1  0  1  2  3</span></span>
+<span id="cb33-6"><a href="les-objets-dans-r.html#cb33-6" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="les-objets-dans-r.html#cb33-7" tabindex="-1"></a><span class="co"># multiplie par à chaque élément de la séquence c(1,2,3,4,5)</span></span>
+<span id="cb33-8"><a href="les-objets-dans-r.html#cb33-8" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">5</span>) <span class="sc">*</span> <span class="dv">5</span> <span class="co"># cela donne 5 10 15 20 25</span></span>
+<span id="cb33-9"><a href="les-objets-dans-r.html#cb33-9" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="les-objets-dans-r.html#cb33-10" tabindex="-1"></a><span class="co"># divise par 5 chaque élément de la séquence c(1,2,3,4,5)</span></span>
+<span id="cb33-11"><a href="les-objets-dans-r.html#cb33-11" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">5</span>) <span class="sc">/</span> <span class="dv">5</span> <span class="co"># cela donne 0.2 0.4 0.6 0.8 1.0</span></span></code></pre></div>
+<p>Si vous appliquez une opération arithmétique entre deux vecteurs de même longueur,
+l’opération se fera entre les 1ers éléments de chaque vecteur, puis entre les 2èmes
+éléments de chaque vecteur, puis etc</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="les-objets-dans-r.html#cb34-1" tabindex="-1"></a>vec_A <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb34-2"><a href="les-objets-dans-r.html#cb34-2" tabindex="-1"></a>vec_B <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">+</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="sc">+</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">5</span>)</span>
+<span id="cb34-3"><a href="les-objets-dans-r.html#cb34-3" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="les-objets-dans-r.html#cb34-4" tabindex="-1"></a><span class="co"># addition : c((1 + (-1)), (2 + 1), (3 + (-2)), (4 + 2), (5 + (-5)))</span></span>
+<span id="cb34-5"><a href="les-objets-dans-r.html#cb34-5" tabindex="-1"></a>vec_A <span class="sc">+</span> vec_B <span class="co"># 0 3 1 6 0</span></span>
+<span id="cb34-6"><a href="les-objets-dans-r.html#cb34-6" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="les-objets-dans-r.html#cb34-7" tabindex="-1"></a><span class="co"># soustraction : c((1 - (-1)), (2 - 1), (3 - (-2)), (4 - 2), (5 - (-5)))</span></span>
+<span id="cb34-8"><a href="les-objets-dans-r.html#cb34-8" tabindex="-1"></a>vec_A <span class="sc">-</span> vec_B <span class="co"># 2  1  5  2 10</span></span>
+<span id="cb34-9"><a href="les-objets-dans-r.html#cb34-9" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="les-objets-dans-r.html#cb34-10" tabindex="-1"></a><span class="co"># multiplication : c((1 * (-1)), (2 * 1), (3 * (-2)), (4 * 2), (5 * (-5)))</span></span>
+<span id="cb34-11"><a href="les-objets-dans-r.html#cb34-11" tabindex="-1"></a>vec_A <span class="sc">*</span> vec_B  <span class="co"># -1   2  -6   8 -25</span></span>
+<span id="cb34-12"><a href="les-objets-dans-r.html#cb34-12" tabindex="-1"></a></span>
+<span id="cb34-13"><a href="les-objets-dans-r.html#cb34-13" tabindex="-1"></a><span class="co"># division : c((1 / (-1)), (2 / 1), (3 / (-2)), (4 / 2), (5 / (-5)))</span></span>
+<span id="cb34-14"><a href="les-objets-dans-r.html#cb34-14" tabindex="-1"></a>vec_A <span class="sc">/</span> vec_B <span class="co"># -1.0  2.0 -1.5  2.0 -1.0</span></span></code></pre></div>
+<p>Si vous appliquez une opération arithmétique entre deux vecteurs de longueur différente,
+l’opération se fera entre les 1ers éléments de chaque vecteur, puis entre les 2èmes
+éléments de chaque vecteur, etc. Lorsqu’on arrive au bout du vecteur le plus court,
+les opérations continuent en reprenant à partir de la première valeur du vecteur
+le plus court. Un message d’avertissement vous prévient également lorsque la longueur
+du vecteur le plus long n’est pas un multiple de la longueur du vecteur le plus court (mais cela n’empêche pas l’opération de se faire).</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="les-objets-dans-r.html#cb35-1" tabindex="-1"></a>vec_A <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb35-2"><a href="les-objets-dans-r.html#cb35-2" tabindex="-1"></a>vec_C <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb35-3"><a href="les-objets-dans-r.html#cb35-3" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="les-objets-dans-r.html#cb35-4" tabindex="-1"></a><span class="co"># addition : c((1 + 1), (2 + 2), (3 + 3), (4 + 1), (5 + 2))</span></span>
+<span id="cb35-5"><a href="les-objets-dans-r.html#cb35-5" tabindex="-1"></a>vec_A <span class="sc">+</span> vec_C <span class="co"># 2 4 6 5 7</span></span>
+<span id="cb35-6"><a href="les-objets-dans-r.html#cb35-6" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="les-objets-dans-r.html#cb35-7" tabindex="-1"></a><span class="co"># soustraction : c((1 - 1), (2 - 2), (3 - 3), (4 - 1), (5 - 2))</span></span>
+<span id="cb35-8"><a href="les-objets-dans-r.html#cb35-8" tabindex="-1"></a>vec_A <span class="sc">-</span> vec_C <span class="co"># 0 0 0 3 3</span></span>
+<span id="cb35-9"><a href="les-objets-dans-r.html#cb35-9" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="les-objets-dans-r.html#cb35-10" tabindex="-1"></a><span class="co"># multiplication : c((1 * 1), (2 * 2), (3 * 3), (4 * 1), (5 * 2))</span></span>
+<span id="cb35-11"><a href="les-objets-dans-r.html#cb35-11" tabindex="-1"></a>vec_A <span class="sc">*</span> vec_C  <span class="co"># 1  4  9  4 10</span></span>
+<span id="cb35-12"><a href="les-objets-dans-r.html#cb35-12" tabindex="-1"></a></span>
+<span id="cb35-13"><a href="les-objets-dans-r.html#cb35-13" tabindex="-1"></a><span class="co"># division : c((1 / 1), (2 / 2), (3 / 3), (4 / 1), (5 / 2))</span></span>
+<span id="cb35-14"><a href="les-objets-dans-r.html#cb35-14" tabindex="-1"></a>vec_A <span class="sc">/</span> vec_C <span class="co"># 1.0 1.0 1.0 4.0 2.5</span></span></code></pre></div>
+<p>On peut combiner des vecteurs de chaînes de caractères à des vecteurs numériques :</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="les-objets-dans-r.html#cb36-1" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&quot;L&quot;</span>, <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">10</span>)) </span>
+<span id="cb36-2"><a href="les-objets-dans-r.html#cb36-2" tabindex="-1"></a><span class="co"># on obtient le vecteur :</span></span>
+<span id="cb36-3"><a href="les-objets-dans-r.html#cb36-3" tabindex="-1"></a><span class="co"># &quot;L1&quot;  &quot;L2&quot;  &quot;L3&quot;  &quot;L4&quot;  &quot;L5&quot;  &quot;L6&quot;  &quot;L7&quot;  &quot;L8&quot;  &quot;L9&quot;  &quot;L10&quot;</span></span>
+<span id="cb36-4"><a href="les-objets-dans-r.html#cb36-4" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="les-objets-dans-r.html#cb36-5" tabindex="-1"></a><span class="fu">paste0</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>), <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">10</span>))</span>
+<span id="cb36-6"><a href="les-objets-dans-r.html#cb36-6" tabindex="-1"></a><span class="co"># on obtient le vecteur : </span></span>
+<span id="cb36-7"><a href="les-objets-dans-r.html#cb36-7" tabindex="-1"></a><span class="co"># &quot;A1&quot;  &quot;B2&quot;  &quot;C3&quot;  &quot;A4&quot;  &quot;B5&quot;  &quot;C6&quot;  &quot;A7&quot;  &quot;B8&quot;  &quot;C9&quot;  &quot;A10&quot;</span></span></code></pre></div>
+<p>On peut faire des opérations sur des vecteurs logiques (voir les tables de vérité plus haut) :</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="les-objets-dans-r.html#cb37-1" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="sc">%in%</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">9</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
+<span id="cb37-2"><a href="les-objets-dans-r.html#cb37-2" tabindex="-1"></a><span class="co"># TRUE FALSE  TRUE</span></span>
+<span id="cb37-3"><a href="les-objets-dans-r.html#cb37-3" tabindex="-1"></a><span class="co"># les valeurs 1 et 3 sont bien comprise dans le vecteur c(1, 3, 5, 7, 9), </span></span>
+<span id="cb37-4"><a href="les-objets-dans-r.html#cb37-4" tabindex="-1"></a><span class="co"># mais pas la valeur 2</span></span>
+<span id="cb37-5"><a href="les-objets-dans-r.html#cb37-5" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="les-objets-dans-r.html#cb37-6" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">9</span>, <span class="at">by =</span> <span class="dv">2</span>) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb37-7"><a href="les-objets-dans-r.html#cb37-7" tabindex="-1"></a><span class="co"># TRUE  TRUE FALSE FALSE FALSE</span></span>
+<span id="cb37-8"><a href="les-objets-dans-r.html#cb37-8" tabindex="-1"></a><span class="co"># les valeurs 1 et 3 sont bien comprise dans le vecteur c(1, 2, 3), </span></span>
+<span id="cb37-9"><a href="les-objets-dans-r.html#cb37-9" tabindex="-1"></a><span class="co"># mais pas les valeurs 5, 7 et 9</span></span>
+<span id="cb37-10"><a href="les-objets-dans-r.html#cb37-10" tabindex="-1"></a></span>
+<span id="cb37-11"><a href="les-objets-dans-r.html#cb37-11" tabindex="-1"></a><span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>) <span class="sc">&amp;</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb37-12"><a href="les-objets-dans-r.html#cb37-12" tabindex="-1"></a><span class="co"># TRUE FALSE FALSE FALSE</span></span>
+<span id="cb37-13"><a href="les-objets-dans-r.html#cb37-13" tabindex="-1"></a><span class="co"># 1er élément avec 1er élément TRUE &amp; TRUE = TRUE</span></span>
+<span id="cb37-14"><a href="les-objets-dans-r.html#cb37-14" tabindex="-1"></a><span class="co"># 2ème élément avec 1er élément TRUE &amp; FALSE = FALSE</span></span>
+<span id="cb37-15"><a href="les-objets-dans-r.html#cb37-15" tabindex="-1"></a><span class="co"># 3ème élément avec 1er élément FALSE &amp; TRUE = FALSE</span></span>
+<span id="cb37-16"><a href="les-objets-dans-r.html#cb37-16" tabindex="-1"></a><span class="co"># 4ème élément avec 1er élément FALSE &amp; FALSE = FALSE</span></span>
+<span id="cb37-17"><a href="les-objets-dans-r.html#cb37-17" tabindex="-1"></a></span>
+<span id="cb37-18"><a href="les-objets-dans-r.html#cb37-18" tabindex="-1"></a><span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>) <span class="sc">|</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb37-19"><a href="les-objets-dans-r.html#cb37-19" tabindex="-1"></a><span class="co"># TRUE  TRUE  TRUE FALSE</span></span>
+<span id="cb37-20"><a href="les-objets-dans-r.html#cb37-20" tabindex="-1"></a><span class="co"># 1er élément avec 1er élément TRUE | TRUE = TRUE</span></span>
+<span id="cb37-21"><a href="les-objets-dans-r.html#cb37-21" tabindex="-1"></a><span class="co"># 2ème élément avec 1er élément TRUE | FALSE = TRUE</span></span>
+<span id="cb37-22"><a href="les-objets-dans-r.html#cb37-22" tabindex="-1"></a><span class="co"># 3ème élément avec 1er élément FALSE | TRUE = TRUE</span></span>
+<span id="cb37-23"><a href="les-objets-dans-r.html#cb37-23" tabindex="-1"></a><span class="co"># 4ème élément avec 1er élément FALSE | FALSE = FALSE</span></span></code></pre></div>
+</div>
+<div id="indiçage-dun-vecteur" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> Indiçage d’un vecteur<a href="#indi%C3%A7age-dun-vecteur" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>utiliser l’indiçage pour sélectionner les éléments d’un vecteur</p>
 <p>fonctions which(), any(), all()</p>
 </div>
-<div id="fonctions-statistiques-pour-résumer-une-série-de-valeurs" class="section level3 hasAnchor" number="2.5.3">
-<h3><span class="header-section-number">2.5.3</span> fonctions statistiques pour résumer une série de valeurs<a href="#fonctions-statistiques-pour-r%C3%A9sumer-une-s%C3%A9rie-de-valeurs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="fonctions-statistiques-pour-résumer-une-série-de-valeurs" class="section level3 hasAnchor" number="2.5.4">
+<h3><span class="header-section-number">2.5.4</span> fonctions statistiques pour résumer une série de valeurs<a href="#fonctions-statistiques-pour-r%C3%A9sumer-une-s%C3%A9rie-de-valeurs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>min() max() median() quantile()
 mean() sd() var()
 sum() prod()</p>
@@ -724,9 +902,6 @@ sum() prod()</p>
 prop.table()
 unique()
 sort()</p>
-</div>
-<div id="les-objets-r-peuvent-posséder-des-attributs-attributes" class="section level3 hasAnchor" number="2.5.4">
-<h3><span class="header-section-number">2.5.4</span> Les objets R peuvent posséder des attributs <code>attributes()</code><a href="#les-objets-r-peuvent-poss%C3%A9der-des-attributs-attributes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 </div>
 <div id="les-listes-list" class="section level2 hasAnchor" number="2.6">
@@ -754,6 +929,9 @@ sort()</p>
 </div>
 <div id="les-bases-de-données-data.frames" class="section level2 hasAnchor" number="2.8">
 <h2><span class="header-section-number">2.8</span> Les bases de données <code>data.frames()</code><a href="#les-bases-de-donn%C3%A9es-data.frames" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="les-objets-r-peuvent-posséder-des-attributs-attributes" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Les objets R peuvent posséder des attributs <code>attributes()</code><a href="#les-objets-r-peuvent-poss%C3%A9der-des-attributs-attributes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>

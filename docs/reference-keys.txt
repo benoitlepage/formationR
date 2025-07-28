@@ -30,9 +30,12 @@ evaluer-des-conditions
 opérations-sur-des-valeurs-logiques
 les-vecteurs-vector
 création-dun-vecteur-de-valeurs
+fonction-length
+créer-une-séquence-de-valeurs
+créer-un-vecteur-de-valeurs-répétées
+opérations-arithmétiques-sur-un-vecteur
 indiçage-dun-vecteur
 fonctions-statistiques-pour-résumer-une-série-de-valeurs
-les-objets-r-peuvent-posséder-des-attributs-attributes
 les-listes-list
 création-dune-liste
 indiçage-dune-liste
@@ -41,3 +44,4 @@ création-dune-matrice
 indiçage-dune-matrice
 matrices-à-plus-de-2-dimensions-array
 les-bases-de-données-data.frames
+les-objets-r-peuvent-posséder-des-attributs-attributes

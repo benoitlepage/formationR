@@ -380,8 +380,207 @@ xor((5 > 10), (2 == 5)) # (FALSE) OU exclusif (FALSE) donne FALSE
 
 ## Les vecteurs `vector()`
 ### Création d'un vecteur de valeurs
-fonction seq, rep 
-fonction length()
+La fonction `c()` (pour concaténer) permet de créer des vecteurs de valeurs. 
+Ces valeurs doivent être du même type et séparées par une virgule :
+```{r vector1, eval=FALSE, include=TRUE}
+# Un vecteur de 3 nombres réels
+vect_num <- c(1, pi, 3.54)
+print(vect_num) # [1] 1.000000 3.141593 3.540000
+
+# Un vecteur de 5 entiers
+vect_int <- c(5L, 4L, -3L, 15L, -8L) 
+print(vect_int) # [1]  5  4 -3 15 -8
+
+# Si on combine ces 2 vecteurs, on obtient un vecteur de 8 nombres réels 
+# (les nombres entiers sont automatiquement transformés en nombres réels pour 
+# qu'ils soient  tous du même type)
+vect_new <- c(vect_num, vect_int)
+print(vect_new)
+# 1.000000  3.141593  3.540000  5.000000  4.000000 -3.000000 15.000000 -8.000000
+
+# Un vecteur de 6 chaînes de caractères
+vect_char <- c("a", "B", "XYZ", "HELLO", "HOMME", "femme")
+vect_char # [1] "a"     "B"     "XYZ"   "HELLO" "HOMME" "femme"
+
+# Un vecteur logique
+# pour les valeurs logiques, on peut utiliser les abbréviations T pour TRUE,  
+# et F pour FALSE
+vect_logic <- c(TRUE, FALSE, FALSE, F, T, T, FALSE, TRUE)
+print(vect_logic) # [1]  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE
+
+# la fonction class() permet de décrire le type du vecteur
+class(vect_num) # numeric
+class(vect_int) # vect_int
+class(vect_new) # numeric
+class(vect_char) # character
+class(vect_logic) # logical
+
+# Si vous créez le vecteur suivant en mélangeant valeurs numériques et 
+# chaînes de caractères
+vect_melange <- c(1,2,"trois",4)
+# les valeurs numériques sont transformées de force en chaînes de caractères 
+# c("X","X",...,"X","X") pour que toutes les valeurs soient du même type.
+print(vect_melange)
+# [1] "1"     "2"     "trois" "4"
+```
+
+#### Fonction `length()`
+Les vecteurs sont des objets à 1 seule dimension. On peut décrire le nombre de valeurs qu'il contient avec la commande `length()` (longueur du vecteur).
+```{r vector2, eval=FALSE, include=TRUE}
+length(vect_num) # vecteur de longueur 3
+length(vect_int) # vecteur de longeur 5
+length(vect_new) # vecteur de longeur 8
+length(vect_char) # vecteur de longeur 6
+length(vect_logic) # vecteur de longeur 8
+```
+
+
+#### Créer une séquence de valeurs
+Pour créer une séquence de nombre entiers, ascendante ou descendante de 1 en 1, vous pouvez utiliser la commande `:`
+```{r vector3, eval=FALSE, include=TRUE}
+vect_1a10 <- 1:10 # vecteur ascendant
+vect_1a10 # [1]  1  2  3  4  5  6  7  8  9 10
+
+vect_3_a_moins5 <- 3:-5 # vecteur descendant
+vect_3_a_moins5 # [1] 3  2  1  0 -1 -2 -3 -4 -5
+```
+
+La commande `seq()` permet de définir des séquences de manière plus flexible, 
+grâce aux arguments `from`, `to`, `by`, `length.out`, `along.with` (regardez l'aide `?seq()`).
+```{r vector4, eval=FALSE, include=TRUE}
+seq(from = 1, to = 10) # vecteur de 1 à 10, équivalent à la commande 1:10
+seq(from = 0, to = 10, by = 2) # vecteur de 0 à 10, de 2 en 2
+
+seq(from = 1, to = 50, length.out = 5) # vecteur de 1 à 50, de longueur 5
+# les intervalles entre les valeurs sont calculés automatiquement par la formule
+# (valeur de départ - valeur d'arrivée) / (longueur totale - 1)
+
+seq(from = 0, to = 60, along.with = c("dix","vingt","trente"))
+# vecteur de 0 à 60, dont la longueur est égale à la longeur du vecteur
+# c("dix","vingt","trente") (sa longeur est de 3)
+
+# avec l'argument `by`, si le cycle ne tombe pas juste, la séquence s'arrête 
+# avant la dernière valeur indiquée par `to = `
+seq(from = 1, to = 10, by = 2)
+# [1] 1 3 5 7 9
+# la séquence ne va pas jusqu'à 10, elle s'arrête à 9, car 9 + 2 = 11
+# ce qui dépasserait la valeur maximale demandée par `to = 10`
+```
+
+#### Créer un vecteur de valeurs répétées 
+La fonction `rep` permet de créer des vecteurs de valeurs répétées. 
+Les arguments `times`, `each`, `length.out` permettent de préciser comment les valeurs doivent être répétées  (voir dans l'aide `?rep`) 
+```{r vector5, eval=FALSE, include=TRUE}
+rep(5, times = 3) # répète la valeur 5, 3 fois.
+# [1] 5 5 5
+
+rep(1:4, times = 3) # repète 3 fois le vecteur c(1, 2, 3, 4)
+# [1] 1 2 3 4 1 2 3 4 1 2 3 4
+
+rep(1:4, each = 3) # chaque élément du vecteur c(1, 2, 3, 4) est répété 3 fois
+# [1] 1 1 1 2 2 2 3 3 3 4 4 4
+
+rep(1:4, length.out = 10) # le vecteur c(1,2,3,4) est répété dans un vecteur 
+# dont la longueur totale est de 10
+# [1] 1 2 3 4 1 2 3 4 1 2
+```
+
+### Opérations arithmétiques sur un vecteur
+On appliquer une opération arithmétique avec un scalaire (une valeur simple) à chacun des éléments d'un vecteur : 
+```{r vector6, eval=FALSE, include=TRUE}
+# additionne +2 à chaque élément de la séquence c(1,2,3,4,5)
+seq(from = 1, to = 5) + 2 # cela donne 3 4 5 6 7
+
+# soustrait -2 à chaque élément de la séquence c(1,2,3,4,5)
+seq(from = 1, to = 5) - 2 # cela donne -1  0  1  2  3
+
+# multiplie par à chaque élément de la séquence c(1,2,3,4,5)
+seq(from = 1, to = 5) * 5 # cela donne 5 10 15 20 25
+
+# divise par 5 chaque élément de la séquence c(1,2,3,4,5)
+seq(from = 1, to = 5) / 5 # cela donne 0.2 0.4 0.6 0.8 1.0
+```
+
+Si vous appliquez une opération arithmétique entre deux vecteurs de même longueur, 
+l'opération se fera entre les 1ers éléments de chaque vecteur, puis entre les 2èmes 
+éléments de chaque vecteur, puis etc
+```{r vector7, eval=FALSE, include=TRUE}
+vec_A <- c(1, 2, 3, 4, 5)
+vec_B <- c(-1, +1, -2, +2, -5)
+
+# addition : c((1 + (-1)), (2 + 1), (3 + (-2)), (4 + 2), (5 + (-5)))
+vec_A + vec_B # 0 3 1 6 0
+
+# soustraction : c((1 - (-1)), (2 - 1), (3 - (-2)), (4 - 2), (5 - (-5)))
+vec_A - vec_B # 2  1  5  2 10
+
+# multiplication : c((1 * (-1)), (2 * 1), (3 * (-2)), (4 * 2), (5 * (-5)))
+vec_A * vec_B  # -1   2  -6   8 -25
+
+# division : c((1 / (-1)), (2 / 1), (3 / (-2)), (4 / 2), (5 / (-5)))
+vec_A / vec_B # -1.0  2.0 -1.5  2.0 -1.0
+```
+
+Si vous appliquez une opération arithmétique entre deux vecteurs de longueur différente, 
+l'opération se fera entre les 1ers éléments de chaque vecteur, puis entre les 2èmes 
+éléments de chaque vecteur, etc. Lorsqu'on arrive au bout du vecteur le plus court, 
+les opérations continuent en reprenant à partir de la première valeur du vecteur 
+le plus court. Un message d'avertissement vous prévient également lorsque la longueur 
+du vecteur le plus long n'est pas un multiple de la longueur du vecteur le plus court (mais cela n'empêche pas l'opération de se faire).
+```{r vector8, eval=FALSE, include=TRUE}
+vec_A <- c(1, 2, 3, 4, 5)
+vec_C <- c(1, 2, 3)
+
+# addition : c((1 + 1), (2 + 2), (3 + 3), (4 + 1), (5 + 2))
+vec_A + vec_C # 2 4 6 5 7
+
+# soustraction : c((1 - 1), (2 - 2), (3 - 3), (4 - 1), (5 - 2))
+vec_A - vec_C # 0 0 0 3 3
+
+# multiplication : c((1 * 1), (2 * 2), (3 * 3), (4 * 1), (5 * 2))
+vec_A * vec_C  # 1  4  9  4 10
+
+# division : c((1 / 1), (2 / 2), (3 / 3), (4 / 1), (5 / 2))
+vec_A / vec_C # 1.0 1.0 1.0 4.0 2.5
+```
+
+On peut combiner des vecteurs de chaînes de caractères à des vecteurs numériques :
+```{r vector9, eval=FALSE, include=TRUE}
+paste0("L", seq(from = 1, to = 10)) 
+# on obtient le vecteur :
+# "L1"  "L2"  "L3"  "L4"  "L5"  "L6"  "L7"  "L8"  "L9"  "L10"
+
+paste0(c("A","B","C"), seq(from = 1, to = 10))
+# on obtient le vecteur : 
+# "A1"  "B2"  "C3"  "A4"  "B5"  "C6"  "A7"  "B8"  "C9"  "A10"
+```
+
+On peut faire des opérations sur des vecteurs logiques (voir les tables de vérité plus haut) : 
+```{r vector10, eval=FALSE, include=TRUE}
+c(1, 2, 3) %in% seq(from = 1, to = 9, by = 2)
+# TRUE FALSE  TRUE
+# les valeurs 1 et 3 sont bien comprise dans le vecteur c(1, 3, 5, 7, 9), 
+# mais pas la valeur 2
+
+seq(from = 1, to = 9, by = 2) %in% c(1, 2, 3)
+# TRUE  TRUE FALSE FALSE FALSE
+# les valeurs 1 et 3 sont bien comprise dans le vecteur c(1, 2, 3), 
+# mais pas les valeurs 5, 7 et 9
+
+c(TRUE, TRUE, FALSE, FALSE) & c(TRUE, FALSE, TRUE, FALSE)
+# TRUE FALSE FALSE FALSE
+# 1er élément avec 1er élément TRUE & TRUE = TRUE
+# 2ème élément avec 1er élément TRUE & FALSE = FALSE
+# 3ème élément avec 1er élément FALSE & TRUE = FALSE
+# 4ème élément avec 1er élément FALSE & FALSE = FALSE
+
+c(TRUE, TRUE, FALSE, FALSE) | c(TRUE, FALSE, TRUE, FALSE)
+# TRUE  TRUE  TRUE FALSE
+# 1er élément avec 1er élément TRUE | TRUE = TRUE
+# 2ème élément avec 1er élément TRUE | FALSE = TRUE
+# 3ème élément avec 1er élément FALSE | TRUE = TRUE
+# 4ème élément avec 1er élément FALSE | FALSE = FALSE
+```
 
 ### Indiçage d'un vecteur
 utiliser l'indiçage pour sélectionner les éléments d'un vecteur
@@ -398,7 +597,6 @@ prop.table()
 unique()
 sort()
 
-### Les objets R peuvent posséder des attributs `attributes()`
 
 ## Les listes `list()`
 ### Création d'une liste
@@ -415,3 +613,6 @@ Les vecteurs peuvent être reformatés sous forme de matrice
 ### matrices à plus de 2 dimensions `array()`
 
 ## Les bases de données `data.frames()`
+
+
+## Les objets R peuvent posséder des attributs `attributes()`
