@@ -141,6 +141,7 @@ De nombreuses ressources sont disponibles pour vous aider à utiliser R :
   - Les pages d'aide en ligne de R, qui apparaîssent directement dans RStudio. Vous pouvez obtenir de l'aide sur des fonctions et des packages : 
     - en appliquant une recherche par mot clé dans le champ de recherche de l'onglet "help"
     - en utilisant directement dans la console la fonction `help.search()` ou `??` associée à un mot clé (par exemple `help.search(student)` ou `??student`), ou la fonction `help()` associée à une fonction (par exemple `help(t.test)` ou `?t.test`)
+    - quand vous rencontrerez une nouvelle fonction (dans ce cours ou bien dans votre pratique), nous vous conseillons d'aller systématiquement regarder l'aide de cette fonction pour bien comprendre comment l'utiliser.
     - Ces pages d'aide suivent la structure suivante : 
       - une partie "Description" qui décrit en quelques phrases ce que fait la fonction
       - une partie "Usage" qui décrit la syntaxe de la fonction avec ses arguments

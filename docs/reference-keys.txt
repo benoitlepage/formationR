@@ -30,7 +30,9 @@ evaluer-des-conditions
 opérations-sur-des-valeurs-logiques
 les-vecteurs-vector
 création-dun-vecteur-de-valeurs
+vecteur-dune-variable-qualitative
 fonction-length
+nommer-names-les-éléments-dun-vecteur
 créer-une-séquence-de-valeurs
 créer-un-vecteur-de-valeurs-répétées
 opérations-arithmétiques-sur-un-vecteur

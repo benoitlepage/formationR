@@ -117,7 +117,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2025-07-28}
+\date{2025-07-31}
 
 \begin{document}
 \maketitle
@@ -375,6 +375,8 @@ De nombreuses ressources sont disponibles pour vous aider à utiliser R :
   \item
     en utilisant directement dans la console la fonction \texttt{help.search()} ou \texttt{??} associée à un mot clé (par exemple \texttt{help.search(student)} ou \texttt{??student}), ou la fonction \texttt{help()} associée à une fonction (par exemple \texttt{help(t.test)} ou \texttt{?t.test})
   \item
+    quand vous rencontrerez une nouvelle fonction (dans ce cours ou bien dans votre pratique), nous vous conseillons d'aller systématiquement regarder l'aide de cette fonction pour bien comprendre comment l'utiliser.
+  \item
     Ces pages d'aide suivent la structure suivante :
 
     \begin{itemize}
@@ -475,7 +477,7 @@ Voici quelques commandes de gestion des objets dans votre environnement :
 \CommentTok{\# {-} le 1er objet est un vecteur de 10 entiers de 1 à 10}
 \CommentTok{\# {-} le 2ème objet est un vecteur de 3 lettres A, B et C}
 \CommentTok{\# {-} le 3ème objet est un vecteur de 2 réels, calculés par 2 opérations}
-\CommentTok{\# {-} le 4ème objet est une fonction qui ajoute 2 au vecteur x}
+\CommentTok{\# {-} le 4ème objet est une fonction qui ajoute 2 aux éléments du vecteur x}
 \CommentTok{\# {-} le 5ème objet est un scalaire égal à 42}
 \NormalTok{objet\_1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }
 \NormalTok{objet\_2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{,}\StringTok{"B"}\NormalTok{,}\StringTok{"C"}\NormalTok{) }
@@ -509,6 +511,20 @@ Voici quelques commandes de gestion des objets dans votre environnement :
 \FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{()) }\CommentTok{\# pour supprimer tous les objets présents dans l\textquotesingle{}environnement}
 \end{Highlighting}
 \end{Shaded}
+
+Conseils pour nommer un objet dans R :
+
+\begin{itemize}
+\tightlist
+\item
+  Utiliser des noms courts, mais lisibles, faciles à comprendre
+\item
+  Les noms doivent commencer par une lettre (pas par un nombre) et ne peuvent pas contenir d'espace. A noter qu'ils peuvent contenir des points, comme par exemple \texttt{nom.variable}.
+\item
+  Evitez d'utiliser des noms de variables et de fonctions déjà existants dans R (par exemple \texttt{mean} qui risque de porter à confusion avec la fonction \texttt{mean()} : il vaut mieux utiliser \texttt{mean\_variable})
+\item
+  Ecrire en minuscule avec underscore pour séparer les mots (par exemple \texttt{date\_naissance})
+\end{itemize}
 
 \section{Principaux types de données}\label{principaux-types-de-donnuxe9es}
 
@@ -1067,7 +1083,7 @@ a & b & a OU EXCLUSIF b \\
 \subsection{Création d'un vecteur de valeurs}\label{cruxe9ation-dun-vecteur-de-valeurs}
 
 La fonction \texttt{c()} (pour concaténer) permet de créer des vecteurs de valeurs.
-Ces valeurs doivent être du même type et séparées par une virgule :
+Ces valeurs doivent toutes être du même type et séparées par une virgule :
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1113,6 +1129,79 @@ Ces valeurs doivent être du même type et séparées par une virgule :
 \end{Highlighting}
 \end{Shaded}
 
+\subsubsection{Vecteur d'une variable qualitative}\label{vecteur-dune-variable-qualitative}
+
+Les variables qualitatives sont de type \texttt{factor} (pour des variables qualitatives nominales) ou de type \texttt{ordered} (pour les variables qualitatives ordinales).
+
+Par exemple, on va partir d'une variable codée avec des nombres que l'on souhaite interpréter comme les catégories d'une variable qualitative : ``0 = non'', ``1 = oui'', ``9 = ne sais pas''.
+
+Les fonctions \texttt{factor()} et \texttt{as.factor()} permettent de définir une variable qualitative nominale. De même, les fonctions \texttt{ordered()} et \texttt{as.ordered()} permettent de définir une variable qualitative ordinale.
+
+Les objets de type \texttt{factor} (ou \texttt{ordered}) ont une liste d'\textbf{attributs} que l'on peut obtenir par la fonction \texttt{attributes()}.
+Par défaut, les fonctions \texttt{factor()} et \texttt{ordered()} vont créer des \texttt{levels}, correspondant aux catégories de la variable qualitative. Pour cela, il va utiliser chaque valeur unique, les ranger de la plus petite à la plus grande, et transformer ces valeurs en chaînes de caractères.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# On commence avec la variable saisie sous forme de vecteur d\textquotesingle{}entiers}
+\NormalTok{var\_1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# vous pouvez définir ce vecteur numérique en "factor"}
+\NormalTok{var\_quali }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(var\_1)  }\CommentTok{\# autre possibilité : var.quali \textless{}{-} factor(var\_1)}
+\FunctionTok{print}\NormalTok{(var\_quali)}
+\FunctionTok{class}\NormalTok{(var\_quali)}
+
+\CommentTok{\# les fonction "is.factor" ou "is.ordered" permettent de vérifier si le type de }
+\CommentTok{\# l\textquotesingle{}objet est bien une variable qualitative nominale ("factor") ou ordinale }
+\CommentTok{\# ("ordered")}
+\FunctionTok{is.factor}\NormalTok{(var\_1) }\CommentTok{\# FALSE, l\textquotesingle{}objet "var\_1" est un vecteur numérique}
+\FunctionTok{is.factor}\NormalTok{(var\_quali) }\CommentTok{\# TRUE, l\textquotesingle{}objet "var.quali" est bien de type "factor"}
+
+\CommentTok{\# La variable var.quali a des attributs, que l\textquotesingle{}on va enregistre dans un nouvel }
+\CommentTok{\# objet "attr\_var.quali"}
+\NormalTok{attr\_var\_quali }\OtherTok{\textless{}{-}} \FunctionTok{attributes}\NormalTok{(var\_quali)}
+\FunctionTok{class}\NormalTok{(attr\_var\_quali) }\CommentTok{\# les attributs sont un objet de type "list"}
+\NormalTok{attr\_var\_quali}
+\CommentTok{\# la liste contient deux sous{-}objets "levels" et "class". }
+\CommentTok{\# On peut obtenir les sous{-}objets de la liste avec l\textquotesingle{}opérateur dollar "$"}
+\NormalTok{attr\_var\_quali}\SpecialCharTok{$}\NormalTok{levels }\CommentTok{\# "0" "1" "9"}
+\NormalTok{attr\_var\_quali}\SpecialCharTok{$}\NormalTok{class }\CommentTok{\# factor}
+
+\FunctionTok{class}\NormalTok{(attr\_var\_quali}\SpecialCharTok{$}\NormalTok{levels) }
+\CommentTok{\# les levels sont définis comme une chaîne de caractères, rangés du plus petit}
+\CommentTok{\# au plus grand }
+\end{Highlighting}
+\end{Shaded}
+
+Alternativement, on peut attribuer des étiquettes \texttt{labels\ =\ c("non",\ "oui",\ "ne\ sait\ pas")} à la place des \texttt{levels\ =\ c("0","1","9")}. Attention, les étiquettes doivent être indiquées dans le même ordre que les \texttt{levels} (du code le plus petit au plus grand) (cf.~\texttt{?factor}).
+
+Si vous souhaitez retransformer la variable en format numérique, vous pouvez appliquer la fonction \texttt{as.numeric} au facteur. Toutefois, une nouvelle numérotation par défaut sera appliquée en commançant par la valeur 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# On reprend la variable précédente (avec de possibles valeurs manquantes NA)}
+\NormalTok{var\_1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\DecValTok{0}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# on renseigne les arguments }
+\NormalTok{var\_quali }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(var\_1,}
+                    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"non"}\NormalTok{, }\StringTok{"oui"}\NormalTok{, }\StringTok{"ne sait pas"}\NormalTok{))}
+\NormalTok{var\_quali}
+\CommentTok{\# si l\textquotesingle{}on demande d\textquotesingle{}imprimer la variable, les valeurs apparaîssent à présent}
+\CommentTok{\# sous leurs étiquettes }
+
+\NormalTok{attr\_var\_quali }\OtherTok{\textless{}{-}} \FunctionTok{attributes}\NormalTok{(var\_quali)}
+\NormalTok{attr\_var\_quali}\SpecialCharTok{$}\NormalTok{levels}
+\CommentTok{\# les levels sont à présent le vecteur de caractère c("non","oui","ne sait pas")}
+
+\NormalTok{new\_var\_quali }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(var\_quali)}
+\NormalTok{new\_var\_quali}
+\CommentTok{\# [1]  1  3  1  1  2  3 NA  1 NA  3  2  3  1  2  2}
+
+\CommentTok{\# si vous voulez que les manquants soient considérés comme une catégorie}
+\CommentTok{\# en tant que telle, on peut utiliser la fonction "addNA"}
+\FunctionTok{addNA}\NormalTok{(var\_quali, }\AttributeTok{ifany =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \subsubsection{\texorpdfstring{Fonction \texttt{length()}}{Fonction length()}}\label{fonction-length}
 
 Les vecteurs sont des objets à 1 seule dimension. On peut décrire le nombre de valeurs qu'il contient avec la commande \texttt{length()} (longueur du vecteur).
@@ -1120,10 +1209,31 @@ Les vecteurs sont des objets à 1 seule dimension. On peut décrire le nombre de
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{length}\NormalTok{(vect\_num) }\CommentTok{\# vecteur de longueur 3}
-\FunctionTok{length}\NormalTok{(vect\_int) }\CommentTok{\# vecteur de longeur 5}
-\FunctionTok{length}\NormalTok{(vect\_new) }\CommentTok{\# vecteur de longeur 8}
-\FunctionTok{length}\NormalTok{(vect\_char) }\CommentTok{\# vecteur de longeur 6}
-\FunctionTok{length}\NormalTok{(vect\_logic) }\CommentTok{\# vecteur de longeur 8}
+\FunctionTok{length}\NormalTok{(vect\_int) }\CommentTok{\# vecteur de longueur 5}
+\FunctionTok{length}\NormalTok{(vect\_new) }\CommentTok{\# vecteur de longueur 8}
+\FunctionTok{length}\NormalTok{(vect\_char) }\CommentTok{\# vecteur de longueur 6}
+\FunctionTok{length}\NormalTok{(vect\_logic) }\CommentTok{\# vecteur de longueur 8}
+\FunctionTok{length}\NormalTok{(var\_quali) }\CommentTok{\# vecteur de longueur 15}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{\texorpdfstring{Nommer (\texttt{names()}) les éléments d'un vecteur}{Nommer (names()) les éléments d'un vecteur}}\label{nommer-names-les-uxe9luxe9ments-dun-vecteur}
+
+Il est possible d'associer des noms à chaque éléments d'un vecteur, à l'aide d'un vecteur de chaînes de caractères. Ces noms seront attachés aux attributs du vecteur.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# on créer un vecteur de scores de satisfaction entre 1 et 5}
+\CommentTok{\# 1 = non satisfait}
+\CommentTok{\# 2 = un peu satisfait}
+\CommentTok{\# 3 = moyennement satisfait}
+\CommentTok{\# 4 = plutôt satisfait}
+\CommentTok{\# 5 = très satisfait}
+\NormalTok{satisf }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+
+\CommentTok{\# on associe des noms aux valeurs 1,2,3,4,5}
+\FunctionTok{names}\NormalTok{(satisf) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"non"}\NormalTok{,}\StringTok{"plutôt"}\NormalTok{,}\StringTok{"un peu"}\NormalTok{,}\StringTok{"moyen"}\NormalTok{,}\StringTok{"non"}\NormalTok{,}\StringTok{"moyen"}\NormalTok{,}\StringTok{"un peu"}\NormalTok{,}
+                   \StringTok{"très"}\NormalTok{,}\StringTok{"plutôt"}\NormalTok{,}\StringTok{"très,moyen"}\NormalTok{,}\StringTok{"un peu"}\NormalTok{,}\StringTok{"moyen"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1303,9 +1413,10 @@ On peut faire des opérations sur des vecteurs logiques (voir les tables de vér
 
 \subsection{Indiçage d'un vecteur}\label{indiuxe7age-dun-vecteur}
 
+Pour sélection des sous-ensembles de valeurs au sein d'un vecteur, R utilise un
 utiliser l'indiçage pour sélectionner les éléments d'un vecteur
 
-fonctions which(), any(), all()
+fonctions which(), match(), any(), all()
 
 \subsection{fonctions statistiques pour résumer une série de valeurs}\label{fonctions-statistiques-pour-ruxe9sumer-une-suxe9rie-de-valeurs}
 
