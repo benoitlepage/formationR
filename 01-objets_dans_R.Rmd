@@ -1,21 +1,26 @@
 # Les objets dans R
 
-## Manipuler les objets dans l'environnement
 La programmation R repose sur des _objets_, qui apparaîtront dans la fenêtre _Environment_ de RStudio.
 
+Les objets les plus élémentaires dans R sont des **vecteurs**. Un vecteur contient une série de valeurs (des nombres, des chaînes de caractères, ou des données plus complexes). Il y a deux types de vecteurs : 
+
+  - les **vecteurs atomiques** (les valeurs d'un vecteur atomique doivent toujours être du même type),
+  - les **listes** (les valeurs d'une liste peuvent être de différents types). 
+  
+## Manipuler les objets dans l'environnement
 Voici quelques commandes de gestion des objets dans votre environnement :
 
   - dans la console, commencez par créer les objets suivants. Pour **assigner une ou plusieurs valeurs à un objet**, on utilise une flèche dirigée vers la gauche `<-`. Vous verrez apparaître ces objets dans la fenêtre _Environment_.
 
 ```{r EnvCmd0, echo=TRUE}
 # note : le signe dièze (#) permet d'ajouter des commentaires dans le code  
-# - le 1er objet est un vecteur de 10 entiers de 1 à 10
+# - le 1er objet est un vecteur de 10 nombres entiers de 1 à 10
 # - le 2ème objet est un vecteur de 3 lettres A, B et C
 # - le 3ème objet est un vecteur de 2 réels, calculés par 2 opérations
 # - le 4ème objet est une fonction qui ajoute 2 aux éléments du vecteur x
 # - le 5ème objet est un scalaire égal à 42
 objet_1 <- c(1:10) 
-objet_2 <- c("A","B","C") 
+objet_2 <- c("A", "B", "C") 
 objet_3 <- c(10 / 3, 4 * 5) 
 objet_4 <- function(x) {x + 2} 
 objet_5 <- 42 
@@ -24,7 +29,7 @@ objet_5 <- 42
   - la commande `rm()` permet de **supprimer** (_remove_) un ou plusieurs objets de l'environnement.
 ```{r EnvCmd1, echo=TRUE}
 ls()
-rm(objet_2,objet_5)
+rm(objet_2, objet_5)
 rm(list = ls()) # pour supprimer tous les objets présents dans l'environnement
 ```  
 
@@ -36,36 +41,51 @@ Conseils pour nommer un objet dans R :
   - Ecrire en minuscule avec underscore pour séparer les mots (par exemple `date_naissance`)
 
 ## Principaux types de données
-Les données peuvent être de différents types : 
+Les données peuvent être de différents types. Les 4 principaux types sont :  
 
-  - des **nombres** (`?numeric`). Ces nombres peuvent être des **nombres réels** (`?double`), par exemple `12.43`. Il peut également s'agir de **nombres entiers** (`?integer`). Les nombres entiers sont saisis en ajoutant `L` à droite du nombre, par exemple `5L`. 
-  - des **chaînes de caractères textuels** (`?character`), définis avec des guillemets simples ou doubles , par exemple `'bonjour'` ou `"au revoir"`
-  - des **valeurs logiques** (`?logical`), avec deux valeurs possibles : 
+  - les **nombres réels** (`?double`), par exemple `12.43`. 
+  - les **nombres entiers** (`?integer`). Les nombres entiers sont saisis en ajoutant `L` à droite du nombre, par exemple `5L`. 
+  - les **chaînes de caractères textuels** (`?character`), définis avec des guillemets simples ou doubles , par exemple `'bonjour'` ou `"au revoir"`
+  - les **valeurs logiques** (`?logical`), avec deux valeurs possibles : 
     - valeur booléenne _vraie_, notée `TRUE` ou bien `T` 
     - valeur booléenne _fausse_, notée `FALSE` ou bien `F`
-  - des **variables qualitatives nominales** (`?factor`) ou **ordinales** (`?ordered`)
-  - des **dates** (`?Date`)
-  - etc.
-  - une **valeur manquante** se note `NA`. L'**ensemble vide** se note `NULL`
+    
+On peut également trouver des types de données un peu plus sophistiquées, construites à partir des principaux types : 
+
+  - des **variables qualitatives** qui peuvent être **nominales** (`?factor`) ou **ordinales** (`?ordered`). Ces variables sont construites sur des nombres entiers.
+  - des **dates** (`?Date`), qui sont construites sur des nombres réels.
+  - des **dates-heure** (`?POSIXct`), qui sont construites sur des nombres réels.
+  - des **durées** (`?difftime`), construites sur des nombres réels.
+
+On a également un vecteur particulier qui est le **vecteur nul** et se note `NULL`. Le vecteur nul a une longueur de 0 et ne peut avoir aucun attribut (les notions de longueur et d'attribut d'un vecteur seront vues plus bas).
+
+### Données manquantes
+Quel que soit le type de données, les données manquantes se notent `NA` (not applicable). 
+
+Attention à ne pas confondre le vecteur nul `NULL` et les données manquante `NA`.
 
 ### Décrire le type de l'objet $\spadesuit$
-On peut décrire quel est le type de l'objet avec les fonctions `typeof` (le type le plus élémentaire), `mode` et `storage.mode` (type de l'objet et mode de stockage de l'objet selon un regroupement un peu plus large)
+Les paragraphes avec un $\spadesuit$ présentent des notions plus avancées, si vous êtes en phase d'apprentissage, vous pouvez aller directement au paragraphe suivant.
+
+On peut décrire quel est le type de l'objet avec les fonctions `typeof` (le type le plus élémentaire), `mode` et `storage.mode` (mode de l'objet et mode de stockage de l'objet selon un regroupement un peu plus large).
+
+Par exemple, les nombres réels (`double`) et les nombres entiers (`integer`) sont du mode `numeric`.    
 ```{r typeof, eval=FALSE, include=TRUE}
 # les valeurs réelles ('double') et les entiers ('integer') sont de mode 'numeric'
 typeof(2.53) # un réel
 typeof(5L) # et un entier
-mode(2.53) # sont de type 'numeric'
+mode(2.53) # sont de mode 'numeric'
 mode(5L)
 storage.mode(2.53)
 storage.mode(5L)
 
 # les chaînes de caractères sont de type et de mode 'character'
-typeof(c("hello","Toulouse"))
-mode(c("hello","Toulouse"))
+typeof(c("hello", "Toulouse"))
+mode(c("hello", "Toulouse"))
 
 # les valeurs logiques sont de type 'logical'
-typeof(c(TRUE,FALSE,FALSE))
-mode(c(TRUE,FALSE,FALSE))
+typeof(c(TRUE, FALSE, FALSE))
+mode(c(TRUE, FALSE, FALSE))
 ```
 
 | `x`                     | `typeof(x)`      | `mode(x)`      | `storage.mode(x)` | 
@@ -77,9 +97,9 @@ mode(c(TRUE,FALSE,FALSE))
 | `as.Date("2025-07-01")` | `"double"`       | `"numeric"`    | `"double"`        |
 
 
-Les fonctions `as.numeric`, `as.integer`, `as.character`, `as.logical` permettent de définir un objet _en tant que_ numérique, entier, chaîne de caractères, logique.
+Les fonctions `as.double`, `as.integer`, `as.character`, `as.logical` permettent de forcer par coercition le type d'un objet _en tant que_ réel, entier, chaîne de caractères, logique.
 ```{r asFunctions, eval=FALSE, include=TRUE}
-as.numeric(5L) # définit un nombre entier en tant que nombre réel
+as.double(5L) # définit un nombre entier en tant que nombre réel
 as.integer(4.95) # définit un réel en tant qu'entier, seul l'entier est conservé
 as.character(4.95) # définit un nombre en tant que chaîne de caractères
 
@@ -98,10 +118,11 @@ as.logical(1)
 as.logical(4.95)
 ```
 
-Les fonctions `is.numeric`, `is.integer`, `is.character`, `is.logical` permettent d'évaluer si un objet est de type numérique, entier, textuel, logique.
+Les fonctions `is.double`, `is.integer`, `is.character`, `is.logical` permettent d'évaluer si un objet est de type réel, entier, textuel, logique.
 ```{r isFunctions, eval=FALSE, include=TRUE}
-is.numeric(5L) # TRUE, un entier est bien un objet numérique
-is.integer(4.95) # FALSE, 4.95 n'est pas un entier
+is.double(5L) # FALSE, un nombre de type "entier" n'est pas de type "réel"
+              # attention, en math, les nombres entiers font partie des réels !
+is.integer(4.95) # FALSE, un nombre de type "réel" n'est pas de type "entier"
 is.numeric("bonjour") # FALSE "bonjour" est une chaîne de caractères
 is.character("bonjour") # TRUE, "bonjour" est bien une chaîne de caractères
 is.character(4.95) # FALSE, 4.95 est un objet numérique
@@ -113,10 +134,10 @@ is.logical(TRUE) # TRUE est bien un objet logique
 ## Principales structures de données
 Les principales structures de données que nous allons détailler dans la suite de ce chapitre sont : 
 
- - les vecteurs (`?vector`), dont font partie les scalaires (vecteurs à une seule valeur).
- - les matrices (`?matrix`, `?array`)
- - les listes (`?list`)
- - les bases de données (`?data.frames`). Il existe d'autres formats de base de données qui seront présentés plus tard (avec les packages `tidyverse` et `data.table` par exemple)
+ - les **vecteurs atomiques** (`?c()`), qui doivent toujours comporter des valeurs du même type. Les vecteurs qui ne comportent qu'une seule valeur sont appelés des "scalaires" ;
+ - les **listes** (`?list`), qui sont également des vecteurs, mais peuvent comporter des valeurs de types différents ;
+ - les **matrices** (`?matrix`, `?array`), qui sont des vecteurs atomiques réarrangés sous forme de tables à 2 dimensions ou plus ;
+ - les **bases de données** (`?data.frames`). Les bases de données sont des listes de vecteurs atomiques de même longueur. Il existe d'autres formats de base de données qui seront présentés plus tard (avec les packages `tidyverse` et `data.table`).
  
 ## Objet à une seule valeur (scalaire ou texte)
 ### Scalaires
@@ -154,7 +175,7 @@ x_1^2 #  4^2 = 16
 #### Fonctions mathématiques
 Plusieurs fonctions mathématiques de bases sont implémentées nativement dans R : 
 
-  - `log(x)` ou `log(x, base = exp(1)` pour le **logarithme** népérien,
+  - `log(x)` ou `log(x, base = exp(1))` pour le **logarithme** népérien,
   - `log10(x)` pour le logarithme base 10, `log2(x)` pour le logarithme base 2,
   - `log(x, base = b)` pour le logarithme base `b`,
   - `exp(x)` pour l'**exponentielle** de `x`
@@ -164,6 +185,8 @@ Plusieurs fonctions mathématiques de bases sont implémentées nativement dans 
   - la **constante $\pi$** est implémentée avec `pi` (cf. `?Constants`)
   
 Si vous appliquer une fonction à une valeur qui ne fait pas partie du domaine de définition de la fonction, le résultat sera une valeur manquante notée `NaN` (_not a number_). Un message d'avertissement va apparaître si vous appliquez une fonction en dehors de son domaine de définition.
+
+Les notions de + l'infini et - l'infini sont notées `Inf` et `-Inf`.
 ```{r operations2, eval=FALSE, include=TRUE}
 # logarithmes et exponentielles
 log(1)
@@ -186,8 +209,12 @@ pi
 2 * pi * 10 # circonférence d'un cercle de rayon 10
 
 # si on utilise une valeur en dehors du domaine d'application de la fonction
-log(-1) # -1 est en dehors du domaine de définition de la fonction log
+log(-1) # NaN, car -1 est en dehors du domaine de définition de la fonction log
 sqrt(-2) # -2 est en dehors du domaine de définition de la fonction racine carrée
+
+# notions de + ou - l'infini
+1 / 0 # [1] Inf
+-1 / 0 # [1] -Inf
 ```
 
 #### Fonctions d'arrondi $\spadesuit$
@@ -198,46 +225,45 @@ Plusieurs fonctions sont disponibles dans R pour arrondir une valeur (cf. `?Roun
   - la fonction `signif()` arrondit aux chiffres les plus significatifs (les plus grands)
   - la fonction `floor()` arrondit la valeur à l'entier inférieur
   - la fonction `ceiling()` arrondit la valeur à l'entier supérieur
-  - la fonction `trunc()`
+  - la fonction `trunc()` ne garde que les entiers, sans arrondir
 ```{r operations3, eval=FALSE, include=TRUE}
 ## fonction round()
 # l'argument digits permet de définir le nombre de chiffres après la virgule
 # exemple si vous voulez arrondir à 2 chiffres après la virgule
-round(0.09400, digits = 2)
-round(0.08600, digits = 2)
+round(0.09400, digits = 2) # 0.09
+round(0.08600, digits = 2) # 0.09
 # arroudir à 1 chiffre après la virgule
-round(4.450, digits = 1)
-round(4.750, digits = 1)
+round(4.450, digits = 1) # 4.4 ; arrondit au chiffre pari plus proche
+round(4.750, digits = 1) # 4.8 ; arrondit au chiffre pari la plus proche
 # pour arrondir une valeur 5, le résultat va vers le chiffre pair le plus proche
-round(4.5, digits = 0) # arrondit à l'entier pair le plus proche
-round(1.5, digits = 0) # arrondit à l'entier pair le plus proche
+round(4.5, digits = 0) # 4 ; arrondit au chiffre pair le plus proche
+round(1.5, digits = 0) # 2 ; arrondit au chiffre pair le plus proche
 
 ## fonction signif()
 # on garde les valeurs les plus significative, définie par l'argument digits
-signif(123.456789, digits = 1)
-signif(123.456789, digits = 2)
-signif(123.456789, digits = 3)
-signif(123.456789, digits = 4)
-signif(123.456789, digits = 5)
-# la règle d'arrondi vers le chiffre pair le plus proche est également appliquée
-signif(4.45, digits = 3)
-signif(4.45, digits = 2)
-signif(4.75, digits = 3)
-signif(4.75, digits = 2)
+signif(123.456789, digits = 1) # 100
+signif(123.456789, digits = 2) # 120
+signif(123.456789, digits = 3) # 123
+signif(123.456789, digits = 4) # 123.5
+signif(123.456789, digits = 5) # 123.46 arrondit au chiffre pair le plus proche 
+signif(4.45, digits = 3) # 4.45
+signif(4.45, digits = 2) # 4.4 ; arrondit au chiffre pair le plus proche 
+signif(4.75, digits = 3) # 4.75
+signif(4.75, digits = 2) # 4.8 ; arrondit au chiffre pair le plus proche 
 
-## fonction trunc() supprime simplementles décimales
+## fonction trunc() supprime simplement les décimales
 # note : ici, il n'y a pas d'arrondi vers la chiffre pair la plus proche)
-trunc(123.456)
-trunc(4.5)
-trunc(1.5)
+trunc(123.456) # 123
+trunc(4.5) # 4
+trunc(1.5) # 1
 
 ## la fonction floor() arrondit à l'entier inférieur
-floor(4.1)
-floor(4.9)
+floor(4.1) # 4
+floor(4.9) # 4
 
 ## la fonction ceiling() arrondit à l'entier supérieur
-ceiling(4.1)
-ceiling(4.9)
+ceiling(4.1) # 5
+ceiling(4.9) # 5
 ```
 
 <!-- note : pour poursuivre la discussion sur les arrondis, voir les fonctions sprintf(), format() et getOption("digits") pour l'affichage des valeurs arrondies -->
@@ -306,7 +332,7 @@ On peut combiner des valeurs logiques avec les opérateurs logiques ET, OU, et N
 
   - `&` opérateur ET
   - `|` opérateur OU (sur windows, combinaison de touches altgr + 6 ; sur macOS, combinaison de touche alt + maj + L)
-  - `!` opératuer NON (négation logique : "n'est pas")
+  - `!` opérateur NON (négation logique : "n'est pas")
 
 Les résultats attendus d'une combinaison d'opérateurs logiques sont résumés dans les table de vérité ci-dessous.
 
@@ -361,7 +387,7 @@ FALSE | FALSE
 !(5 > 10) # non-FALSE donne TRUE 
 ```
 
-Il existe également un opérateur `xor()` correspondant au OU EXCLUSIF : 
+Il existe également un opérateur `xor()` correspondant au OU EXCLUSIF (mais il semble peu utilisé en pratique) : 
 
   - Opérateur OU EXCLUSIF
 
@@ -384,147 +410,44 @@ xor((2 != 5), (5 > 10)) # (TRUE) OU exclusif (FALSE) donne TRUE
 xor((5 > 10), (2 == 5)) # (FALSE) OU exclusif (FALSE) donne FALSE
 ```
 
-## Les vecteurs `vector()`
-### Création d'un vecteur de valeurs
-La fonction `c()` (pour concaténer) permet de créer des vecteurs de valeurs. 
-Ces valeurs doivent toutes être du même type et séparées par une virgule :
-```{r vector1, eval=FALSE, include=TRUE}
-# Un vecteur de 3 nombres réels
-vect_num <- c(1, pi, 3.54)
-print(vect_num) # [1] 1.000000 3.141593 3.540000
+## Les vecteurs atomiques `c()`
+### Création d'un vecteur atomique
+La fonction `c()` (pour concaténer) permet de créer des vecteurs atomiques. 
+Les valeurs d'un vecteur atomique doivent toutes être du même type et séparées par une virgule.
 
-# Un vecteur de 5 entiers
+
+```{r vector1, eval=FALSE, include=TRUE}
+## Un vecteur de 3 nombres réels :
+vect_dbl <- c(1, pi, 3.54)
+print(vect_dbl) # [1] 1.000000 3.141593 3.540000
+
+## Un vecteur de 5 entiers :
 vect_int <- c(5L, 4L, -3L, 15L, -8L) 
 print(vect_int) # [1]  5  4 -3 15 -8
 
-# Si on combine ces 2 vecteurs, on obtient un vecteur de 8 nombres réels 
-# (les nombres entiers sont automatiquement transformés en nombres réels pour 
-# qu'ils soient  tous du même type)
-vect_new <- c(vect_num, vect_int)
-print(vect_new)
-# 1.000000  3.141593  3.540000  5.000000  4.000000 -3.000000 15.000000 -8.000000
+## Un vecteur de 4 chaînes de caractères :
+vect_char <- c("a", "B", "XYZ", "HELLO")
+vect_char # [1] "a"     "B"     "XYZ"   "HELLO" 
 
-# Un vecteur de 6 chaînes de caractères
-vect_char <- c("a", "B", "XYZ", "HELLO", "HOMME", "femme")
-vect_char # [1] "a"     "B"     "XYZ"   "HELLO" "HOMME" "femme"
-
-# Un vecteur logique
-# pour les valeurs logiques, on peut utiliser les abbréviations T pour TRUE,  
-# et F pour FALSE
-vect_logic <- c(TRUE, FALSE, FALSE, F, T, T, FALSE, TRUE)
-print(vect_logic) # [1]  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE
-
-# la fonction class() permet de décrire le type du vecteur
-class(vect_num) # numeric
-class(vect_int) # vect_int
-class(vect_new) # numeric
-class(vect_char) # character
-class(vect_logic) # logical
-
-# Si vous créez le vecteur suivant en mélangeant valeurs numériques et 
-# chaînes de caractères
-vect_melange <- c(1,2,"trois",4)
-# les valeurs numériques sont transformées de force en chaînes de caractères 
-# c("X","X",...,"X","X") pour que toutes les valeurs soient du même type.
-print(vect_melange)
-# [1] "1"     "2"     "trois" "4"
+## Un vecteur logique :
+## pour les valeurs logiques, on peut utiliser les abbréviations T pour TRUE,  
+## et F pour FALSE
+vect_logic <- c(TRUE, FALSE, FALSE, F, T, T)
+print(vect_logic) # [1]  TRUE FALSE FALSE FALSE  TRUE  TRUE
 ```
 
-#### Vecteur d'une variable qualitative
-Les variables qualitatives sont de type `factor` (pour des variables qualitatives nominales) ou de type `ordered` (pour les variables qualitatives ordinales).
-
-Par exemple, on va partir d'une variable codée avec des nombres que l'on souhaite interpréter comme les catégories d'une variable qualitative : "0 = non", "1 = oui", "9 = ne sais pas".
-
-Les fonctions `factor()` et `as.factor()` permettent de définir une variable qualitative nominale. De même, les fonctions `ordered()` et `as.ordered()` permettent de définir une variable qualitative ordinale.
-
-Les objets de type `factor` (ou `ordered`) ont une liste d'**attributs** que l'on peut obtenir par la fonction `attributes()`. 
-Par défaut, les fonctions `factor()` et `ordered()` vont créer des `levels`, correspondant aux catégories de la variable qualitative. Pour cela, il va utiliser chaque valeur unique, les ranger de la plus petite à la plus grande, et transformer ces valeurs en chaînes de caractères.
-```{r factor1, eval=FALSE, include=TRUE}
-# On commence avec la variable saisie sous forme de vecteur d'entiers
-var_1 <- c(0, 9, 0, 0, 1, 9, 1, 0, 0, 9, 1, 9, 0, 1, 1)
-
-# vous pouvez définir ce vecteur numérique en "factor"
-var_quali <- as.factor(var_1)  # autre possibilité : var.quali <- factor(var_1)
-print(var_quali)
-class(var_quali)
-
-# les fonction "is.factor" ou "is.ordered" permettent de vérifier si le type de 
-# l'objet est bien une variable qualitative nominale ("factor") ou ordinale 
-# ("ordered")
-is.factor(var_1) # FALSE, l'objet "var_1" est un vecteur numérique
-is.factor(var_quali) # TRUE, l'objet "var.quali" est bien de type "factor"
-
-# La variable var.quali a des attributs, que l'on va enregistre dans un nouvel 
-# objet "attr_var.quali"
-attr_var_quali <- attributes(var_quali)
-class(attr_var_quali) # les attributs sont un objet de type "list"
-attr_var_quali
-# la liste contient deux sous-objets "levels" et "class". 
-# On peut obtenir les sous-objets de la liste avec l'opérateur dollar "$"
-attr_var_quali$levels # "0" "1" "9"
-attr_var_quali$class # factor
-
-class(attr_var_quali$levels) 
-# les levels sont définis comme une chaîne de caractères, rangés du plus petit
-# au plus grand 
-```
-
-Alternativement, on peut attribuer des étiquettes `labels = c("non", "oui", "ne sait pas")` à la place des `levels = c("0","1","9")`. Attention, les étiquettes doivent être indiquées dans le même ordre que les `levels` (du code le plus petit au plus grand) (cf. `?factor`). 
-
-Si vous souhaitez retransformer la variable en format numérique, vous pouvez appliquer la fonction `as.numeric` au facteur. Toutefois, une nouvelle numérotation par défaut sera appliquée en commançant par la valeur 1. 
-```{r factor2, eval=FALSE, include=TRUE}
-# On reprend la variable précédente (avec de possibles valeurs manquantes NA)
-var_1 <- c(0, 2, 0, 0, 1, 2, NA, 0, NA, 2, 1, 2, 0, 1, 1)
-
-# on renseigne les arguments 
-var_quali <- factor(var_1,
-                    labels = c("non", "oui", "ne sait pas"))
-var_quali
-# si l'on demande d'imprimer la variable, les valeurs apparaîssent à présent
-# sous leurs étiquettes 
-
-attr_var_quali <- attributes(var_quali)
-attr_var_quali$levels
-# les levels sont à présent le vecteur de caractère c("non","oui","ne sait pas")
-
-new_var_quali <- as.numeric(var_quali)
-new_var_quali
-# [1]  1  3  1  1  2  3 NA  1 NA  3  2  3  1  2  2
-
-# si vous voulez que les manquants soient considérés comme une catégorie
-# en tant que telle, on peut utiliser la fonction "addNA"
-addNA(var_quali, ifany = TRUE)
+Vous pouvez également combiner plusieurs vecteurs pour créer un vecteur plus long en indiquant plusieurs vecteurs au sein de la fonction `c()`.
+```{r vector1bisbis, eval=FALSE, include=TRUE}
+vect1 <- c(1, 2, 3)
+vect2 <- c(4, 5, 6)
+vect3 <- c(7, 8, 9)
+vect_combine <- c(vect1, vect2, vect3)
+vect_combine
+# [1] 1 2 3 4 5 6 7 8 9
 ```
 
 
-#### Fonction `length()`
-Les vecteurs sont des objets à 1 seule dimension. On peut décrire le nombre de valeurs qu'il contient avec la commande `length()` (longueur du vecteur).
-```{r vector2, eval=FALSE, include=TRUE}
-length(vect_num) # vecteur de longueur 3
-length(vect_int) # vecteur de longueur 5
-length(vect_new) # vecteur de longueur 8
-length(vect_char) # vecteur de longueur 6
-length(vect_logic) # vecteur de longueur 8
-length(var_quali) # vecteur de longueur 15
-```
-
-#### Nommer (`names()`) les éléments d'un vecteur
-Il est possible d'associer des noms à chaque éléments d'un vecteur, à l'aide d'un vecteur de chaînes de caractères. Ces noms seront attachés aux attributs du vecteur.
-```{r namesvector, eval=FALSE, include=TRUE}
-# on créer un vecteur de scores de satisfaction entre 1 et 5
-# 1 = non satisfait
-# 2 = un peu satisfait
-# 3 = moyennement satisfait
-# 4 = plutôt satisfait
-# 5 = très satisfait
-satisf <- c(1,4,2,3,1,3,2,5,4,5,3,2,3)
-
-# on associe des noms aux valeurs 1,2,3,4,5
-names(satisf) <- c("non","plutôt","un peu","moyen","non","moyen","un peu",
-                   "très","plutôt","très,moyen","un peu","moyen")
-```
-
-#### Créer une séquence de valeurs
+### Créer une séquence de valeurs
 Pour créer une séquence de nombre entiers, ascendante ou descendante de 1 en 1, vous pouvez utiliser la commande `:`
 ```{r vector3, eval=FALSE, include=TRUE}
 vect_1a10 <- 1:10 # vecteur ascendant
@@ -544,19 +467,35 @@ seq(from = 1, to = 50, length.out = 5) # vecteur de 1 à 50, de longueur 5
 # les intervalles entre les valeurs sont calculés automatiquement par la formule
 # (valeur de départ - valeur d'arrivée) / (longueur totale - 1)
 
-seq(from = 0, to = 60, along.with = c("dix","vingt","trente"))
+seq(from = 0, to = 60, along.with = c("dix", "vingt", "trente"))
 # vecteur de 0 à 60, dont la longueur est égale à la longeur du vecteur
 # c("dix","vingt","trente") (sa longeur est de 3)
 
-# avec l'argument `by`, si le cycle ne tombe pas juste, la séquence s'arrête 
-# avant la dernière valeur indiquée par `to = `
+# avec l'argument 'by', si le cycle ne tombe pas juste, la séquence s'arrête 
+# avant la dernière valeur indiquée par 'to = '
 seq(from = 1, to = 10, by = 2)
 # [1] 1 3 5 7 9
 # la séquence ne va pas jusqu'à 10, elle s'arrête à 9, car 9 + 2 = 11
-# ce qui dépasserait la valeur maximale demandée par `to = 10`
+# ce qui dépasserait la valeur maximale demandée par 'to = 10'
 ```
 
-#### Créer un vecteur de valeurs répétées 
+On peut combiner des vecteurs de chaînes de caractères à des vecteurs numériques :
+```{r vector9, eval=FALSE, include=TRUE}
+paste0("L", seq(from = 1, to = 10)) 
+# on obtient le vecteur :
+# "L1"  "L2"  "L3"  "L4"  "L5"  "L6"  "L7"  "L8"  "L9"  "L10"
+# dans cet exemple, le vecteur à une seule valeur c("L") est "recyclé" pour être
+# concaténé à chacun des éléments du vecteur c(1,2,3,4,5,6,7,8,9,10)
+
+paste0(c("A", "B", "C"), seq(from = 1, to = 10))
+# on obtient le vecteur : 
+# "A1"  "B2"  "C3"  "A4"  "B5"  "C6"  "A7"  "B8"  "C9"  "A10"
+# ici, le vecteur c("A", "B", "C") est "recyclé" pour être concaténé à chaque 
+# élément du vecteur seq(1,10)
+```
+
+
+### Créer un vecteur de valeurs répétées 
 La fonction `rep` permet de créer des vecteurs de valeurs répétées. 
 Les arguments `times`, `each`, `length.out` permettent de préciser comment les valeurs doivent être répétées  (voir dans l'aide `?rep`) 
 ```{r vector5, eval=FALSE, include=TRUE}
@@ -570,29 +509,27 @@ rep(1:4, each = 3) # chaque élément du vecteur c(1, 2, 3, 4) est répété 3 f
 # [1] 1 1 1 2 2 2 3 3 3 4 4 4
 
 rep(1:4, length.out = 10) # le vecteur c(1,2,3,4) est répété dans un vecteur 
-# dont la longueur totale est de 10
+                          # dont la longueur totale est de 10
 # [1] 1 2 3 4 1 2 3 4 1 2
 ```
 
 ### Opérations arithmétiques sur un vecteur
 On appliquer une opération arithmétique avec un scalaire (une valeur simple) à chacun des éléments d'un vecteur : 
 ```{r vector6, eval=FALSE, include=TRUE}
-# additionne +2 à chaque élément de la séquence c(1,2,3,4,5)
+## additionne +2 à chaque élément de la séquence c(1,2,3,4,5)
 seq(from = 1, to = 5) + 2 # cela donne 3 4 5 6 7
 
-# soustrait -2 à chaque élément de la séquence c(1,2,3,4,5)
+## soustrait -2 à chaque élément de la séquence c(1,2,3,4,5)
 seq(from = 1, to = 5) - 2 # cela donne -1  0  1  2  3
 
-# multiplie par à chaque élément de la séquence c(1,2,3,4,5)
+## multiplie par à chaque élément de la séquence c(1,2,3,4,5)
 seq(from = 1, to = 5) * 5 # cela donne 5 10 15 20 25
 
-# divise par 5 chaque élément de la séquence c(1,2,3,4,5)
+## divise par 5 chaque élément de la séquence c(1,2,3,4,5)
 seq(from = 1, to = 5) / 5 # cela donne 0.2 0.4 0.6 0.8 1.0
 ```
 
-Si vous appliquez une opération arithmétique entre deux vecteurs de même longueur, 
-l'opération se fera entre les 1ers éléments de chaque vecteur, puis entre les 2èmes 
-éléments de chaque vecteur, puis etc
+Si vous appliquez une opération arithmétique entre deux vecteurs de même longueur, l'opération se fera entre les 1ers éléments de chaque vecteur, puis entre les 2èmes éléments de chaque vecteur, etc.
 ```{r vector7, eval=FALSE, include=TRUE}
 vec_A <- c(1, 2, 3, 4, 5)
 vec_B <- c(-1, +1, -2, +2, -5)
@@ -610,52 +547,40 @@ vec_A * vec_B  # -1   2  -6   8 -25
 vec_A / vec_B # -1.0  2.0 -1.5  2.0 -1.0
 ```
 
-Si vous appliquez une opération arithmétique entre deux vecteurs de longueur différente, 
-l'opération se fera entre les 1ers éléments de chaque vecteur, puis entre les 2èmes 
-éléments de chaque vecteur, etc. Lorsqu'on arrive au bout du vecteur le plus court, 
-les opérations continuent en reprenant à partir de la première valeur du vecteur 
-le plus court. Un message d'avertissement vous prévient également lorsque la longueur 
-du vecteur le plus long n'est pas un multiple de la longueur du vecteur le plus court (mais cela n'empêche pas l'opération de se faire).
+Si vous appliquez une opération arithmétique entre deux vecteurs de longueur différente, l'opération se fera entre les 1ers éléments de chaque vecteur, puis entre les 2èmes éléments de chaque vecteur, etc. Lorsqu'on arrive au bout du vecteur le plus court, les opérations continuent en reprenant à partir de la première valeur du vecteur le plus court (le vecteur est "recyclé"). Un message d'avertissement vous prévient également lorsque la longueur du vecteur le plus long n'est pas un multiple de la longueur du vecteur le plus court (mais cela n'empêche pas l'opération de se faire).
 ```{r vector8, eval=FALSE, include=TRUE}
 vec_A <- c(1, 2, 3, 4, 5)
 vec_C <- c(1, 2, 3)
 
-# addition : c((1 + 1), (2 + 2), (3 + 3), (4 + 1), (5 + 2))
 vec_A + vec_C # 2 4 6 5 7
+# addition : c((1 + 1), (2 + 2), (3 + 3), (4 + 1), (5 + 2))
 
-# soustraction : c((1 - 1), (2 - 2), (3 - 3), (4 - 1), (5 - 2))
 vec_A - vec_C # 0 0 0 3 3
+# soustraction : c((1 - 1), (2 - 2), (3 - 3), (4 - 1), (5 - 2))
 
-# multiplication : c((1 * 1), (2 * 2), (3 * 3), (4 * 1), (5 * 2))
 vec_A * vec_C  # 1  4  9  4 10
+# multiplication : c((1 * 1), (2 * 2), (3 * 3), (4 * 1), (5 * 2))
 
-# division : c((1 / 1), (2 / 2), (3 / 3), (4 / 1), (5 / 2))
 vec_A / vec_C # 1.0 1.0 1.0 4.0 2.5
+# division : c((1 / 1), (2 / 2), (3 / 3), (4 / 1), (5 / 2))
 ```
 
-On peut combiner des vecteurs de chaînes de caractères à des vecteurs numériques :
-```{r vector9, eval=FALSE, include=TRUE}
-paste0("L", seq(from = 1, to = 10)) 
-# on obtient le vecteur :
-# "L1"  "L2"  "L3"  "L4"  "L5"  "L6"  "L7"  "L8"  "L9"  "L10"
-
-paste0(c("A","B","C"), seq(from = 1, to = 10))
-# on obtient le vecteur : 
-# "A1"  "B2"  "C3"  "A4"  "B5"  "C6"  "A7"  "B8"  "C9"  "A10"
-```
-
-On peut faire des opérations sur des vecteurs logiques (voir les tables de vérité plus haut) : 
+### Opérations logiques sur un vecteur
+On peut faire des opérations logiques sur des vecteurs (voir les tables de vérité plus haut) : 
 ```{r vector10, eval=FALSE, include=TRUE}
+### 1) Est-ce que les éléments de c(1,2,3) sont inclus dans c(1,3,5,7,9) ?
 c(1, 2, 3) %in% seq(from = 1, to = 9, by = 2)
 # TRUE FALSE  TRUE
 # les valeurs 1 et 3 sont bien comprise dans le vecteur c(1, 3, 5, 7, 9), 
 # mais pas la valeur 2
 
+### 2) Est-ce que les éléments de c(1,3,5,7,9) sont inclus dans c(1,2,3) ?
 seq(from = 1, to = 9, by = 2) %in% c(1, 2, 3)
 # TRUE  TRUE FALSE FALSE FALSE
 # les valeurs 1 et 3 sont bien comprise dans le vecteur c(1, 2, 3), 
 # mais pas les valeurs 5, 7 et 9
 
+### 3) opération ET entre les éléments de deux vecteurs logiques
 c(TRUE, TRUE, FALSE, FALSE) & c(TRUE, FALSE, TRUE, FALSE)
 # TRUE FALSE FALSE FALSE
 # 1er élément avec le 1er élément     TRUE & TRUE = TRUE
@@ -663,12 +588,317 @@ c(TRUE, TRUE, FALSE, FALSE) & c(TRUE, FALSE, TRUE, FALSE)
 # 3ème élément avec le 3ème élément  FALSE & TRUE = FALSE
 # 4ème élément avec le 4ème élément FALSE & FALSE = FALSE
 
+### 4) opération OU entre les éléments de deux vecteurs logiques
 c(TRUE, TRUE, FALSE, FALSE) | c(TRUE, FALSE, TRUE, FALSE)
 # TRUE  TRUE  TRUE FALSE
 # 1er élément avec le 1er élément     TRUE | TRUE = TRUE
 # 2ème élément avec le 2ème élément  TRUE | FALSE = TRUE
 # 3ème élément avec le 3ème élément  FALSE | TRUE = TRUE
 # 4ème élément avec le 4ème élément FALSE | FALSE = FALSE
+```
+
+
+### Principe de coercition
+Commes les valeurs d'un vecteur atomique doivent toutes être du même type, si vous combinez des vecteurs dont les valeurs sont de types différents, R va transformer le résultat dans un seul type de valeur, par **coercition** (_coercion_). Les règles de coercition sont les suivantes : 
+
+  - combiner un vecteur `character` avec d'autres types (`double`, `integer` ou `logical`) résulte en un vecteur `character` (les valeurs sont toutes transformées en format caractère `"X"`)
+  - combiner un vecteur `double` (réel) avec un `integer` ou `logical` résulte en un vecteur `double` (les entiers sont transformés en réels, et les valeurs logiques `TRUE` deviennent `1` et `FALSE` deviennent `0`, en format de réels)
+  - combiner un vecteur `integer` (entier) avec un `logical` résulte en un vecteur `integer` (les valeurs logiques `TRUE` deviennent `1L`, et les valeurs `FALSE` deviennent `0L`, en format d'entiers).
+
+```{r vector1bis, eval=FALSE, include=TRUE}
+vect_dbl <- c(1, pi, 3.54) # un vecteur de réels
+vect_int <- c(5L, 4L, -3L, 15L, -8L) # un vecteur d'entiers
+vect_char <- c("a", "B", "XYZ", "HELLO") # un vecteur de caractères
+vect_logic <- c(TRUE, FALSE, FALSE, F, T, T) # un vecteur logique
+
+## On vérifie ce principe de coercition
+vect1 <- c(vect_dbl, vect_int, vect_char, vect_logic)
+vect1
+typeof(vect1) # "character"
+
+vect2 <- c(vect_dbl, vect_int,  vect_logic)
+vect2
+typeof(vect2) # "double"
+
+vect3 <- c(vect_int,  vect_logic)
+vect3
+typeof(vect3) # "integer"
+```
+
+### Attributs d'un vecteur
+Un vecteur a deux principaux attributs : 
+
+  - sa **classe**, que l'on peut obtenir avec la fonction `class()`
+  - sa **longueur**, c'est-à-dire le nombre de valeurs qu'il contient, que l'on peut obtenir avec la fonction `length()`
+
+Pour décrire de manière résumé les attributs d'un vecteur, vous pouvez utiliser la fonction `str()` : cette fonction vous indiquera la classe du vecteur, sa longueur et affichera également les premières valeurs. C'est la fonction qui est appliquée pour décrire les objets dans la fenêtre "environnement" de RStudio.
+```{r vector1ter, eval=FALSE, include=TRUE}
+## on reprend les vecteurs vus précédemment : 
+vect_dbl <- c(1, pi, 3.54)
+vect_int <- c(5L, 4L, -3L, 15L, -8L) 
+vect_char <- c("a", "B", "XYZ", "HELLO")
+vect_logic <- c(TRUE, FALSE, FALSE, F, T, T)
+
+## la fonction class() permet de décrire le type du vecteur
+class(vect_dbl) # numeric   # note ici, R indique "numeric" plutôt que "double"
+class(vect_int) # integer
+class(vect_char) # character
+class(vect_logic) # logical
+
+## la fonction length() permet de décrire la longueur du vecteur (c'est à dire
+## le nombre d'éléments qu'il contient)
+length(vect_dbl) # 3
+length(vect_int) # 5
+length(vect_char) # 4
+length(vect_logic) # 6
+
+## description sommaire des attributs des vecteurs
+str(vect_dbl) # num [1:3] 1 3.14 3.54
+str(vect_int) # num [1:3] 1 3.14 3.54 
+# note que la fonction indique "numeric" plutôt que "integer" 
+str(vect_char) # chr [1:4] "a" "B" "XYZ" "HELLO"
+str(vect_logic) # logi [1:6] TRUE FALSE FALSE FALSE TRUE TRUE
+```
+
+Il est possible d'ajouter des attributs à un vecteur. Les attributs peuvent être considérés comme des méta-données associées au vecteur. 
+
+Un des attributs les plus fréquents est de nommer chaque élément d'un vecteur avec la fonction `names()` : on associe un vecteur de noms (en caractères) aux valeurs du vecteur.
+```{r attrname, eval=FALSE, include=TRUE}
+## par exemple, si on crée le vecteur de réels suivant
+sex <- c(1, 1, 2, 1, 2, 2)
+names(sex) <- c("homme", "homme", "femme", "homme", "femme", "femme")
+sex
+# homme homme femme homme femme femme     le nom apparaît au dessus des valeurs
+#     1     1     2     1     2     2
+
+## mais on peut nommer les valeurs de façons parfaitement arbitraire : 
+vect_bizarre <- c(1, 2, 3, 4, 5)
+names(vect_bizarre) <- c("un", "trois", "douze", "douze", "2")
+vect_bizarre
+# un trois douze douze     2              le nom apparaît au dessus des valeurs
+#  1     2     3     4     5
+```
+
+La fonction `attr()` permet d'obtenir ou de définir un attribut spécifique (pour compléter les méta-données). La fonction `attributes()` indique l'ensemble des attribus associés à un vecteur.
+```{r attrsuit, eval=FALSE, include=TRUE}
+## La fonction attr() permet de récupérer des attributs spécifiques
+attr(sex, "names")
+# [1] "homme" "homme" "femme" "homme" "femme" "femme"
+
+## Cette fonction permet également de définir de nouveux attributs
+## Ci-dessous, on définit un nouvel attribut "var_name" auquel on associe 
+## la valeur "Sexe du participant" pour stocker la méta-donnée indiquant le 
+## nom complet de la variable.
+attr(sex, "var_name") <- c("Sexe du participant")
+sex
+# homme homme femme homme femme femme 
+#     1     1     2     1     2     2 
+# attr(,"var_name")
+# [1] "Sexe du participant"
+
+## La fonction attributes() permet de décrire l'ensemble des attributs du vecteur
+attributes(sex)
+# $names
+# [1] "homme" "homme" "femme" "homme" "femme" "femme"
+# 
+# $var_name
+# [1] "Sexe du participant"
+
+## On peut récupérer également chaque attribut avec l'opérateur dollar $
+attributes(sex)$names
+# [1] "homme" "homme" "femme" "homme" "femme" "femme"
+attributes(sex)$var_name
+# [1] "Sexe du participant"
+```
+
+
+### Vecteurs de type `factor` 
+Les vecteurs de types `factor` sont utiles pour ajouter certaines contraintes propres aux variables qualitatives. Ce sont des vecteurs qui contiennent uniquement des valeurs prédéfinies (connues dès le protocole de l'expérience). Par exemple, en amont de l'expérience, on peut avoir défini que le niveau d'étude se mesurera avec 3 modalités : "lycée","bac", et "université".
+
+Cette caractérisation sera utile pour utiliser la variable dans des contextes précis, par exemple : 
+
+  - dans un modèle de régression (où on veut que le logiciel créé automatiquement des indicatrices pour prendre en compte cette variable qualitative de manière adaptée), 
+  - pour représenter graphiquement la variable (par exemple, identifier automatiquement que ces valeurs doivent être décrites avec un diagramme en barres plutôt qu'en box-plot). 
+  - dans des analyes descriptive, cela permettra d'identifier directement si certaines modalités de réponses n'apparaîssent pas la série de valeurs (le décompte sera de 0).
+
+Les vecteurs de type `factor` sont construits par dessus des vecteurs d'entiers, avec 2 attributs : 
+
+  - un attribut `class`, qui indique "factor" et permet d'identifier ce vecteur en tant que `factor`. 
+  - un attribut `levels`, qui définit les valeurs possibles (définies a priori). Dans notre exemple, ce sont les 3 valeurs "lycée","bac", et "université". 
+
+Pour créer un vecteur de type factor, on utilise la fonction `factor()`. Par défaut, R va identifier les 3 valeurs uniques présentes dans le vecteur, puis les ranger de la plus petite à la plus grande (selon la valeur numérique ou l'ordre alphabétique) pour créer l'attribut `levels`. L'attribut levels est un vecteur de caractères.
+```{r factor1, eval=FALSE, include=TRUE}
+## Exemple avec une variable mesurant le niveau d'étude :
+fact_1 <- factor(c("univ", "bac", "bac", "lycée", "univ", "lycée", "bac"))
+fact_1
+# [1] univ  bac   bac   lycée univ  lycée bac  
+# Levels: bac lycée univ
+
+## on peut récupérer les 2 attributs de ce 'factor' avec la fonction attributes()
+attributes(fact_1)  
+# $levels
+# [1] "bac"   "lycée" "univ" 
+# $class
+# [1] "factor"
+
+## l'attribut 'levels' est un vecteur de caractères, rangé par ordre alphabétique
+attributes(fact_1)$levels 
+# [1] "bac"   "lycée" "univ"
+
+## Un entier est associé à chaque élément de l'attribut 'levels'  : 
+## "bac" est associé à 1,
+## "lycée" est associé à 2,
+## "univ" est associé à 3
+##
+## si on force par coercition à afficher le vecteur au format d'entiers :
+as.integer(fact_1)
+# [1] 3 1 1 2 3 2 1
+```
+On aurait sans doute préféré que l'ordre des `levels` commence avec le "lycée" et termine avec "univ". Pour cela il est possible de définir nous même le vecteur de levels avec l'argument `levels` de la fonction `factor` :
+```{r factor1bis, eval=FALSE, include=TRUE}
+## On utilise l'argument 'levels' directement dans la fonction 'factor' :
+fact_1bis <- factor(c("univ", "bac", "bac", "lycée", "univ", "lycée", "bac"),
+                    levels = c("lycée", "bac", "univ"))
+fact_1bis
+# [1] univ  bac   bac   lycée univ  lycée bac  
+# Levels: lycée bac univ
+
+# cette fois ci, les levels sont dans l'ordre qui nous convient.
+
+## Un entier est associé à chaque élément de l'attribut 'levels', en suivant 
+## l'ordre de ses éléments 
+# "lycée" est associé à 1,
+# "bac" est associé à 2,
+# "univ" est associé à 3
+#
+# si on force par coercition à afficher le vecteur au format d'entiers :
+as.integer(fact_1bis)
+# [1] 3 2 2 1 3 1 2
+```
+
+
+Si la variable qualitative a été codée avec un codage numérique, on peut également appliquer la fonction `factor()`. Prenons l'exemple de la variable "tendance" codée : -1 pour une diminution, 0 pour une stabilité, et 1 pour une augmentation.
+```{r factor2, eval=FALSE, include=TRUE}
+## Exemple avec une variable mesurant une tendance sous force de codage numérique :
+fact_2 <- factor(c(0, 1, 0, -1, 0, 0, -1, 1, -1, 0, 1, 1))
+fact_2
+#  [1] 0  1  0  -1 0  0  -1 1  -1 0  1  1 
+# Levels: -1 0 1
+
+str(fact_2)
+# Factor w/ 3 levels "-1","0","1": 2 3 2 1 2 2 1 3 1 2 ...
+## Après transformation du vecteur en 'factor', les valeurs -1, 0 et 1 vont 
+## apparaître sous format de caractères "-1", "0" et "1".
+
+## R a identifié automatiquement les 3 valeurs uniques : -1, 0, et 1, 
+## les a rangé de la plus petite à la plus grande.
+attributes(fact_2)
+# $levels
+# [1] "-1" "0"  "1" 
+# $class
+# [1] "factor"
+
+# Un entier est associé à chaque élément de l'attribut 'levels'  : 
+# "-1" est associé à 1,
+# "0" est associé à 2,
+# "1" est associé à 3
+#
+# si on force par coercition à afficher le vecteur au format d'entiers :
+as.integer(fact_2)
+# [1] 2 3 2 1 2 2 1 3 1 2 3 3
+```
+On peut noter que les entiers sur lesquels les vecteurs `factor` sont construits commencent toujours à 1 et augmente de 1 en 1. Il n'est pas possible de faire autrement (par exemple d'associer une valeur 0 à une des modalités de réponses).
+
+On voit que les vecteurs de type `factor` ne sont pas pratiques pour manipuler de manière flexibles le codage de variables qualitatives (attribuer les codes et les étiquettes de manière flexible). Pour une meilleure gestion des méta-données (des noms de variables, des codages et des étiquettes associées aux modalités de réponses), il est préférable de créer une base de données des méta-données. Nous verrons comment faire au chapitre 3.
+
+Les variables qualitatives peuvent également être définis comme des **facteurs ordonnés** avec la fonction `ordered`. Cela peut être utile pour des variables à utiliser dans le cadre de régression multinomiales par exemple. Le comportement d'un vecteur de type `ordered` est très proche de celui d'un `factor` (le type `ordered` est une petite variation du type `factor`). 
+```{r factor1ter, eval=FALSE, include=TRUE}
+## La variable de niveau d'étude est une variable qualitative ordinale, 
+## on peut la définir également en tant que vecteur 'ordered'
+fact_1ter <- ordered(c("univ", "bac", "bac", "lycée", "univ", "lycée", "bac"),
+                    levels = c("lycée", "bac", "univ"))
+fact_1ter
+# [1] univ  bac   bac   lycée univ  lycée bac  
+# Levels: lycée < bac < univ                
+## on voit que R considère que "univ" est supérieur à "bac", lui même supérieur
+## à "lycée"
+
+attributes(fact_1ter)
+# $levels
+# [1] "lycée" "bac"   "univ" 
+# 
+# $class
+# [1] "ordered" "factor"
+## le vecteur est à la fois de type "factor" et de type "ordered"
+
+## Un entier est associé à chaque élément de l'attribut 'levels', en suivant 
+## l'ordre de ses éléments 
+# "lycée" est associé à 1,
+# "bac" est associé à 2,
+# "univ" est associé à 3
+#
+# si on force par coercition à afficher le vecteur au format d'entiers :
+as.integer(fact_1ter)
+# [1] 3 2 2 1 3 1 2
+```
+
+### Vecteurs de type `Date` ou `Date-time`
+Les vecteurs de type `Date` ou `Date-time` sont construits à partir de valeurs réelles, avec un attribut permettant de les prendre en compte comme des "dates" ou des "dates-heures".
+
+Les **vecteurs de types `Date`** ont un attribut de classe égale à `"Date"`. La valeur réelle sous jacente correspond au nombre de jours depuis le 1er janvier 1970. Le vecteur affiche ses valeurs au format "aaaa-mm-jj" pour indiquer l'année, le mois et le jour, séparés d'un tiret et entre guillemets. On peut saisir des valeurs de dates avec un vecteur de caractères au sein de la fonction `as.Date()`
+```{r date, eval=FALSE, include=TRUE}
+## on saisie un vecteur de 2 dates :
+vect_dt <- as.Date(c("1970-01-31", "1971-01-01"))
+vect_dt
+
+typeof(vect_dt)
+# [1] "double"      les valeurs sous-jacente sont des réels
+
+attributes(vect_dt)
+# $class
+# [1] "Date"
+
+## si on force le vecteur vect_dt à donner les valeurs au format de réels, 
+## on retrouve le nombre de jours depuis le 1er janvier 1970.
+as.double(vect_dt)
+# [1]  30 365
+```
+
+Les **vecteurs de types "Date-time"** indiquent une date et une heure. La valeur réelle sous jacente correspond au nombre de secondes depuis le 1er janvier 1970. Ces vecteurs ont deux attributs : 
+
+  - un attribut de classe égale à `POSIXct` pour _Portable Operating System Inerface - calender time_ (ou encore `POSIXlt`, pour _Portable Operating System - local time_, mais ce format semble moins pratique pour une base de données). 
+  - un attribut de fuseau horaire `tzone` (pour _time zone_). Cet attribut aura simplement un effet sur l'heure affiché, la valeur réelle sous-jacente reste la même.
+
+Le vecteur affiche ses valeurs au format "aaaa-mm-jj hh:mm" pour indiquer l'année, le mois, le jour, l'heure et les minutes, entre guillemets. On peut saisir des valeurs de dates avec un vecteurs de caractères au sein de la fonction `as.POSIXct()`
+```{r datetime, eval=FALSE, include=TRUE}
+## on saisie un vecteur de 2 dates-heures :
+vect_dt_time <- as.POSIXct(c("1970-01-01 01:30", "1971-01-02 00:00"), 
+                             tz = "UTC") # pour le fuseau du méridien de Greenwich
+vect_dt_time # [1] "1970-01-01 01:30:00 UTC" "1971-01-02 00:00:00 UTC"
+
+typeof(vect_dt_time)
+# [1] "double"      les valeurs sous-jacentes sont des réels
+
+attributes(vect_dt_time)
+# $class
+# [1] "POSIXct" "POSIXt" 
+# 
+# $tzone
+# [1] "UTC"
+
+## si on force le vecteur vect_dt_time à donner les valeurs au format de réels, 
+## on retrouve le nombre de secondes depuis le 1er janvier 1970 à minuit (00:00).
+as.double(vect_dt_time)
+# [1]    5400 31622400
+
+# Entre le 1er janvier 1970 à minuit et le 1er janvier 1970 à 1h30, il s'est 
+# écoulé 60 * 90 secondes = 5400 secondes.
+
+## Si vous souhaitez appliquer le fuseau horaire de Paris à ces valeurs :
+attr(vect_dt_time, "tzone") <- "Europe/Paris"
+vect_dt_time
+# [1] "1970-01-01 02:30:00 CET" "1971-01-02 01:00:00 CET"
+## la valeur s'affiche avec 1 heure de décalage (par rapport à Londres)
 ```
 
 ### Indiçage d'un vecteur

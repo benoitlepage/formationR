@@ -23,7 +23,7 @@
 <meta name="author" content="Benoît Lepage" />
 
 
-<meta name="date" content="2025-07-31" />
+<meta name="date" content="2025-08-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -159,7 +159,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#manipuler-les-objets-dans-lenvironnement"><i class="fa fa-check"></i><b>2.1</b> Manipuler les objets dans l’environnement</a></li>
 <li class="chapter" data-level="2.2" data-path=""><a href="#principaux-types-de-donn%C3%A9es"><i class="fa fa-check"></i><b>2.2</b> Principaux types de données</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path=""><a href="#d%C3%A9crire-le-type-de-lobjet-spadesuit"><i class="fa fa-check"></i><b>2.2.1</b> Décrire le type de l’objet <span class="math inline">\(\spadesuit\)</span></a></li>
+<li class="chapter" data-level="2.2.1" data-path=""><a href="#donn%C3%A9es-manquantes"><i class="fa fa-check"></i><b>2.2.1</b> Données manquantes</a></li>
+<li class="chapter" data-level="2.2.2" data-path=""><a href="#d%C3%A9crire-le-type-de-lobjet-spadesuit"><i class="fa fa-check"></i><b>2.2.2</b> Décrire le type de l’objet <span class="math inline">\(\spadesuit\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path=""><a href="#principales-structures-de-donn%C3%A9es"><i class="fa fa-check"></i><b>2.3</b> Principales structures de données</a></li>
 <li class="chapter" data-level="2.4" data-path=""><a href="#objet-%C3%A0-une-seule-valeur-scalaire-ou-texte"><i class="fa fa-check"></i><b>2.4</b> Objet à une seule valeur (scalaire ou texte)</a>
@@ -170,12 +171,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.4" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#valeurs-logiques-true-et-false"><i class="fa fa-check"></i><b>2.4.4</b> Valeurs logiques <code>TRUE</code> et <code>FALSE</code></a></li>
 <li class="chapter" data-level="2.4.5" data-path=""><a href="#op%C3%A9rations-sur-des-valeurs-logiques"><i class="fa fa-check"></i><b>2.4.5</b> Opérations sur des valeurs logiques</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-vecteurs-vector"><i class="fa fa-check"></i><b>2.5</b> Les vecteurs <code>vector()</code></a>
+<li class="chapter" data-level="2.5" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-vecteurs-atomiques-c"><i class="fa fa-check"></i><b>2.5</b> Les vecteurs atomiques <code>c()</code></a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path=""><a href="#cr%C3%A9ation-dun-vecteur-de-valeurs"><i class="fa fa-check"></i><b>2.5.1</b> Création d’un vecteur de valeurs</a></li>
-<li class="chapter" data-level="2.5.2" data-path=""><a href="#op%C3%A9rations-arithm%C3%A9tiques-sur-un-vecteur"><i class="fa fa-check"></i><b>2.5.2</b> Opérations arithmétiques sur un vecteur</a></li>
-<li class="chapter" data-level="2.5.3" data-path=""><a href="#indi%C3%A7age-dun-vecteur"><i class="fa fa-check"></i><b>2.5.3</b> Indiçage d’un vecteur</a></li>
-<li class="chapter" data-level="2.5.4" data-path=""><a href="#fonctions-statistiques-pour-r%C3%A9sumer-une-s%C3%A9rie-de-valeurs"><i class="fa fa-check"></i><b>2.5.4</b> fonctions statistiques pour résumer une série de valeurs</a></li>
+<li class="chapter" data-level="2.5.1" data-path=""><a href="#cr%C3%A9ation-dun-vecteur-atomique"><i class="fa fa-check"></i><b>2.5.1</b> Création d’un vecteur atomique</a></li>
+<li class="chapter" data-level="2.5.2" data-path=""><a href="#cr%C3%A9er-une-s%C3%A9quence-de-valeurs"><i class="fa fa-check"></i><b>2.5.2</b> Créer une séquence de valeurs</a></li>
+<li class="chapter" data-level="2.5.3" data-path=""><a href="#cr%C3%A9er-un-vecteur-de-valeurs-r%C3%A9p%C3%A9t%C3%A9es"><i class="fa fa-check"></i><b>2.5.3</b> Créer un vecteur de valeurs répétées</a></li>
+<li class="chapter" data-level="2.5.4" data-path=""><a href="#op%C3%A9rations-arithm%C3%A9tiques-sur-un-vecteur"><i class="fa fa-check"></i><b>2.5.4</b> Opérations arithmétiques sur un vecteur</a></li>
+<li class="chapter" data-level="2.5.5" data-path=""><a href="#op%C3%A9rations-logiques-sur-un-vecteur"><i class="fa fa-check"></i><b>2.5.5</b> Opérations logiques sur un vecteur</a></li>
+<li class="chapter" data-level="2.5.6" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#principe-de-coercition"><i class="fa fa-check"></i><b>2.5.6</b> Principe de coercition</a></li>
+<li class="chapter" data-level="2.5.7" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#attributs-dun-vecteur"><i class="fa fa-check"></i><b>2.5.7</b> Attributs d’un vecteur</a></li>
+<li class="chapter" data-level="2.5.8" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#vecteurs-de-type-factor"><i class="fa fa-check"></i><b>2.5.8</b> Vecteurs de type <code>factor</code></a></li>
+<li class="chapter" data-level="2.5.9" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#vecteurs-de-type-date-ou-date-time"><i class="fa fa-check"></i><b>2.5.9</b> Vecteurs de type <code>Date</code> ou <code>Date-time</code></a></li>
+<li class="chapter" data-level="2.5.10" data-path=""><a href="#indi%C3%A7age-dun-vecteur"><i class="fa fa-check"></i><b>2.5.10</b> Indiçage d’un vecteur</a></li>
+<li class="chapter" data-level="2.5.11" data-path=""><a href="#fonctions-statistiques-pour-r%C3%A9sumer-une-s%C3%A9rie-de-valeurs"><i class="fa fa-check"></i><b>2.5.11</b> fonctions statistiques pour résumer une série de valeurs</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-listes-list"><i class="fa fa-check"></i><b>2.6</b> Les listes <code>list()</code></a>
 <ul>

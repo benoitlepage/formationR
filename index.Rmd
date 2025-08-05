@@ -154,8 +154,9 @@ De nombreuses ressources sont disponibles pour vous aider à utiliser R :
     - pour les [commandes R bases](https://rstudio.github.io/cheatsheets/base-r.pdf)
     - des [bonnes pratiques sur R](https://rstudio.github.io/cheatsheets/R-best-practice.pdf)
     - méthodes de visualisation avec le package [ggplot2](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf)
+    - méthodes de manipulation de données avec le package [tidyr](https://rstudio.github.io/cheatsheets/html/tidyr.html)
+    - méthodes de transformation de données avec le package [dplyr](https://rstudio.github.io/cheatsheets/html/data-transformation.html)
     - l'utilisation du package [data.table](https://rstudio.github.io/cheatsheets/datatable.pdf)
-    - l'utilisation du package [dplyr](https://dplyr.tidyverse.org/) et sa [fiche dplyr](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
     - l'utilisation du package [stringr](https://rstudio.github.io/cheatsheets/html/strings.html) pour manipuler les chaînes de caractères, avec la [fiche stringr](https://rstudio.github.io/cheatsheets/strings.pdf) 
     - la manipulation de dates [Dates and times with lubridate](https://rstudio.github.io/cheatsheets/html/lubridate.html) et la [fiche lubridate](https://rstudio.github.io/cheatsheets/lubridate.pdf)
   - De nombreux livres et tutoriels disponibles gratuitement en ligne :
