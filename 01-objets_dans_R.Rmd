@@ -13,12 +13,12 @@ Voici quelques commandes de gestion des objets dans votre environnement :
   - dans la console, commencez par créer les objets suivants. Pour **assigner une ou plusieurs valeurs à un objet**, on utilise une flèche dirigée vers la gauche `<-`. Vous verrez apparaître ces objets dans la fenêtre _Environment_.
 
 ```{r EnvCmd0, echo=TRUE}
-# note : le signe dièze (#) permet d'ajouter des commentaires dans le code  
-# - le 1er objet est un vecteur de 10 nombres entiers de 1 à 10
-# - le 2ème objet est un vecteur de 3 lettres A, B et C
-# - le 3ème objet est un vecteur de 2 réels, calculés par 2 opérations
-# - le 4ème objet est une fonction qui ajoute 2 aux éléments du vecteur x
-# - le 5ème objet est un scalaire égal à 42
+## note : le signe dièze (#) permet d'ajouter des commentaires dans le code  
+## - le 1er objet est un vecteur de 10 nombres entiers de 1 à 10
+## - le 2ème objet est un vecteur de 3 lettres A, B et C
+## - le 3ème objet est un vecteur de 2 réels, calculés par 2 opérations
+## - le 4ème objet est une fonction qui ajoute 2 aux éléments du vecteur x
+## - le 5ème objet est un scalaire égal à 42
 objet_1 <- c(1:10) 
 objet_2 <- c("A", "B", "C") 
 objet_3 <- c(10 / 3, 4 * 5) 
@@ -62,7 +62,7 @@ On a également un vecteur particulier qui est le **vecteur nul** et se note `NU
 ### Données manquantes
 Quel que soit le type de données, les données manquantes se notent `NA` (not applicable). 
 
-Attention à ne pas confondre le vecteur nul `NULL` et les données manquante `NA`.
+Attention à ne pas confondre le vecteur nul `NULL` et les données manquantes `NA`.
 
 ### Décrire le type de l'objet $\spadesuit$
 Les paragraphes avec un $\spadesuit$ présentent des notions plus avancées, si vous êtes en phase d'apprentissage, vous pouvez aller directement au paragraphe suivant.
@@ -71,7 +71,7 @@ On peut décrire quel est le type de l'objet avec les fonctions `typeof` (le typ
 
 Par exemple, les nombres réels (`double`) et les nombres entiers (`integer`) sont du mode `numeric`.    
 ```{r typeof, eval=FALSE, include=TRUE}
-# les valeurs réelles ('double') et les entiers ('integer') sont de mode 'numeric'
+## les valeurs réelles ('double') et les entiers ('integer') sont de mode 'numeric'
 typeof(2.53) # un réel
 typeof(5L) # et un entier
 mode(2.53) # sont de mode 'numeric'
@@ -79,11 +79,11 @@ mode(5L)
 storage.mode(2.53)
 storage.mode(5L)
 
-# les chaînes de caractères sont de type et de mode 'character'
+## les chaînes de caractères sont de type et de mode 'character'
 typeof(c("hello", "Toulouse"))
 mode(c("hello", "Toulouse"))
 
-# les valeurs logiques sont de type 'logical'
+## les valeurs logiques sont de type 'logical'
 typeof(c(TRUE, FALSE, FALSE))
 mode(c(TRUE, FALSE, FALSE))
 ```
@@ -103,16 +103,16 @@ as.double(5L) # définit un nombre entier en tant que nombre réel
 as.integer(4.95) # définit un réel en tant qu'entier, seul l'entier est conservé
 as.character(4.95) # définit un nombre en tant que chaîne de caractères
 
-# définir une valeur logique TRUE et FALSE en tant que valeur numérique 
-# ou en tant qu'entier donne les valeurs 1 et 0, respectivement
+## définir une valeur logique TRUE et FALSE en tant que valeur numérique 
+## ou en tant qu'entier donne les valeurs 1 et 0, respectivement
 as.numeric(TRUE) 
 as.numeric(FALSE) 
 
-# définir le nombre 0 en tant que valeur logique donne la valeur FALSE
+## définir le nombre 0 en tant que valeur logique donne la valeur FALSE
 as.logical(0)
 
-# définir tout nombre différent de 0 en tant que valeur logique 
-# donne la valeur TRUE
+## définir tout nombre différent de 0 en tant que valeur logique 
+## donne la valeur TRUE
 as.logical(-14)
 as.logical(1)
 as.logical(4.95)
@@ -166,7 +166,7 @@ x_1^2 #  4^2 = 16
 10^-1 # 1/10 = 0.1
 25^(0.5) # racine carrée de 25 (puissance 1/2)
 
-# notation scientifique pour les grands et petits nombres
+## notation scientifique pour les grands et petits nombres
 1/1000000 # 1 pour 1 million = 1e-6
 1/1e6
 1e6 * 1000 # 1 million * 1000 = 1 milliard
@@ -188,31 +188,31 @@ Si vous appliquer une fonction à une valeur qui ne fait pas partie du domaine d
 
 Les notions de + l'infini et - l'infini sont notées `Inf` et `-Inf`.
 ```{r operations2, eval=FALSE, include=TRUE}
-# logarithmes et exponentielles
+## logarithmes et exponentielles
 log(1)
 log10(100)
 log(100, base = 10)
 exp(1)
 
-# racine carrée
+## racine carrée
 sqrt(x_2^2)
 
-# valeur absolue
+## valeur absolue
 abs(10)
 abs(-10)
 
-# fonctions trigonométriques
+## fonctions trigonométriques
 cos(1)
 sin(1)
 tan(1)
 pi
 2 * pi * 10 # circonférence d'un cercle de rayon 10
 
-# si on utilise une valeur en dehors du domaine d'application de la fonction
+## si on utilise une valeur en dehors du domaine d'application de la fonction
 log(-1) # NaN, car -1 est en dehors du domaine de définition de la fonction log
 sqrt(-2) # -2 est en dehors du domaine de définition de la fonction racine carrée
 
-# notions de + ou - l'infini
+## notions de + ou - l'infini
 1 / 0 # [1] Inf
 -1 / 0 # [1] -Inf
 ```
@@ -221,7 +221,7 @@ sqrt(-2) # -2 est en dehors du domaine de définition de la fonction racine carr
 
 Plusieurs fonctions sont disponibles dans R pour arrondir une valeur (cf. `?Round`) :
 
-  - la fonction `round()` est utile pour arrondir les décimales. Il faut préciser en argument, le nombre de chiffres après la virgule. **Attention** : si le nombre se termine par un 5, l'arrondi se fait vers le chiffre pair le plus proche : 4.45 s'arrondit à 4.4 et 4.75 s'arrondit à 4.8 
+  - la fonction `round()` est utile pour arrondir les décimales. Il faut préciser en argument le nombre de chiffres après la virgule. **Attention** : si le nombre se termine par un 5, l'arrondi se fait vers le chiffre pair le plus proche : 4,45 s'arrondit à 4,4 (la valeur arrondie inférieure) et 4,75 s'arrondit à 4,8 (la valeur arrondie supérieure)
   - la fonction `signif()` arrondit aux chiffres les plus significatifs (les plus grands)
   - la fonction `floor()` arrondit la valeur à l'entier inférieur
   - la fonction `ceiling()` arrondit la valeur à l'entier supérieur
@@ -252,7 +252,7 @@ signif(4.75, digits = 3) # 4.75
 signif(4.75, digits = 2) # 4.8 ; arrondit au chiffre pair le plus proche 
 
 ## fonction trunc() supprime simplement les décimales
-# note : ici, il n'y a pas d'arrondi vers la chiffre pair la plus proche)
+# note : ici, il n'y a pas d'arrondi vers la chiffre pair la plus proche
 trunc(123.456) # 123
 trunc(4.5) # 4
 trunc(1.5) # 1
@@ -271,7 +271,7 @@ ceiling(4.9) # 5
 ### Concaténation de chaînes de caractères
 On peut concatener deux objets en chaînes de caractères :
 
-  - la fonction `paste()` concatène les chaînes de caractères en séparant les vecteurs par un espace (argument par défaut, cf `?paste`). Cet argument peut être modifié.
+  - la fonction `paste()` concatène les chaînes de caractères en séparant les valeurs par un espace (argument par défaut, cf `?paste`). Cet argument peut être modifié.
   - la fonction `paste0()` concatène les chaînes de caractères sans espace.
 
 ```{r paste, echo=TRUE}
@@ -288,7 +288,7 @@ paste0(x1, 123, x2)
 
 ### Valeurs logiques `TRUE` et `FALSE`
 #### Evaluer des conditions
-Nous pouvons utiliser les opérateurs de comparaison ci-dessous pour évaluer des conditions : 
+Nous pouvons utiliser les opérateurs de comparaison ci-dessous (utiles pour évaluer des conditions) : 
 
  - `==` ... est égal à ...
  - `!=` ... est différent de ...
@@ -317,11 +317,12 @@ identical(c(1,2,3), c(1,2,3)) # les deux vecteurs (1,2,3) sont bien les mêmes
 ```
 
 
-Une comparaison à une valeur manquante (`NA`) retournera une valeur manquante. 
+Une comparaison à une valeur manquante (`NA`) retournera une valeur manquante.
 
 **Attention**, si vous souhaitez évaluer si une valeur est manquante, il faut utiliser la fonction `is.na(x)` (plutôt que `x == NA` qui est déconseillé).
 ```{r logical3, eval=FALSE, include=TRUE}
-NA < 10
+NA < 10 # retourne une valeur manquante (pas de solution à cette condition)
+
 is.na(10) # éviter d'utiliser 10 == NA pour tester si une valeur est manquante
 is.na(NA)
 is.na(c(1,2,3,NA,5,6,NA,8,9,10))
@@ -362,7 +363,7 @@ Les résultats attendus d'une combinaison d'opérateurs logiques sont résumés 
 | `FALSE`  | `TRUE`  |
 
 ```{r logical4, eval=FALSE, include=TRUE}
-# opérateur ET
+## opérateur ET
 TRUE & TRUE
 TRUE & FALSE
 FALSE & TRUE
@@ -371,7 +372,7 @@ FALSE & FALSE
 (5 > 10) & (2 == 5) # TRUE ET FALSE donne FALSE
 (5 < 10) & (2 == 5) # FALSE ET FALSE donne FALSE
 
-# opérateur OU
+## opérateur OU
 TRUE | TRUE
 TRUE | FALSE
 FALSE | TRUE
@@ -380,12 +381,29 @@ FALSE | FALSE
 (5 > 10) | (2 != 5) # FALSE OU TRUE donne TRUE
 (5 > 10) | (2 == 5) # FALSE OU FALSE donne FALSE
 
-# opérateur NON
+## opérateur NON
 !TRUE
 !FALSE
 !(5 < 10) # non-TRUE donne FALSE
 !(5 > 10) # non-FALSE donne TRUE 
 ```
+
+Une opération logique avec une valeur manquante retournera une valeur manquante, sauf si l'information manquante n'est pas bloquante pour l'opération.
+```{r logicalNA, eval=FALSE, include=TRUE}
+## opérateur NON
+!NA # retourne une valeur manquante
+
+## opérateur ET
+TRUE & NA # retourne une valeur manquante
+FALSE & NA # retourne une valeur FALSE (car la réponse est fausse, quelle que 
+           # soit la valeur qui aurait été à la place de NA)
+
+## opérateur OU
+FALSE | NA # retourne une valeur manquante
+TRUE | NA # retourne une valeur TRUE (car la réponse est vraie, quelle que 
+           # soit la valeur qui aurait été à la place de NA)
+```
+
 
 Il existe également un opérateur `xor()` correspondant au OU EXCLUSIF (mais il semble peu utilisé en pratique) : 
 
@@ -597,6 +615,41 @@ c(TRUE, TRUE, FALSE, FALSE) | c(TRUE, FALSE, TRUE, FALSE)
 # 4ème élément avec le 4ème élément FALSE | FALSE = FALSE
 ```
 
+#### Quelques fonctions logiques utiles
+Les fonctions suivantes sont souvent utilisées pour réaliser des opérations logiques : 
+
+  - la fonction `which()` indique la "position" des réponses vraies dans un vecteur de tests logiques
+  - la fonction `any()` retourne un résultat `TRUE` si la condition entre parenthèse est vraie pour au moins une des valeurs du vecteur, sinon le résultat est `FALSE`
+  - la fonction `all()` retourne un résultat `TRUE` si la condition entre parenthèse est vraie pour toutes les valeurs du vecteur, sinon le résultat est `FALSE`
+
+  <!-- - la fonction `match()`  -->
+  <!-- match(vect_test, c(1.5, 15)) -->
+```{r logicalfunctions, eval=FALSE, include=TRUE}
+## Commençons avec ce vecteur de réels
+vect_test <- c(1.5, 5.83, 3.2, 15, 9.99)
+
+## pour connaître la position des valeurs supérieures à 5 dans ce vecteur :
+which(vect_test > 5)
+# [1] 2 4 5
+# la 2ème valeur (5.83), la 4ème valeur (15) et la 5ème valeur (9.99)
+# dans le vecteur sont supérieures à 5
+
+## ce sont les positions des réponses 'TRUE' à l'opération logique :
+vect_test > 5
+# [1] FALSE  TRUE FALSE  TRUE  TRUE
+
+## Est-ce qu'une de ces valeurs est inférieure à 3 ?
+any(vect_test < 3) # TRUE
+
+## Est-ce qu'une de ces valeurs est inférieure à 1 ?
+any(vect_test < 1) # FALSE
+
+## Est-ce que l'ensemble de ces valeurs est inférieure à 3 ?
+all(vect_test < 3) #  FALSE
+
+## Est-ce que l'ensemble de ces valeurs sont supérieures à 1 ?
+all(vect_test > 1) # TRUE
+```
 
 ### Principe de coercition
 Commes les valeurs d'un vecteur atomique doivent toutes être du même type, si vous combinez des vecteurs dont les valeurs sont de types différents, R va transformer le résultat dans un seul type de valeur, par **coercition** (_coercion_). Les règles de coercition sont les suivantes : 
@@ -616,11 +669,11 @@ vect1 <- c(vect_dbl, vect_int, vect_char, vect_logic)
 vect1
 typeof(vect1) # "character"
 
-vect2 <- c(vect_dbl, vect_int,  vect_logic)
+vect2 <- c(vect_dbl, vect_int, vect_logic)
 vect2
 typeof(vect2) # "double"
 
-vect3 <- c(vect_int,  vect_logic)
+vect3 <- c(vect_int, vect_logic)
 vect3
 typeof(vect3) # "integer"
 ```
@@ -640,7 +693,8 @@ vect_char <- c("a", "B", "XYZ", "HELLO")
 vect_logic <- c(TRUE, FALSE, FALSE, F, T, T)
 
 ## la fonction class() permet de décrire le type du vecteur
-class(vect_dbl) # numeric   # note ici, R indique "numeric" plutôt que "double"
+class(vect_dbl) # numeric     Note : ici, R indique le mode "numeric" plutôt que 
+                #                    le type "double"
 class(vect_int) # integer
 class(vect_char) # character
 class(vect_logic) # logical
@@ -655,7 +709,8 @@ length(vect_logic) # 6
 ## description sommaire des attributs des vecteurs
 str(vect_dbl) # num [1:3] 1 3.14 3.54
 str(vect_int) # num [1:3] 1 3.14 3.54 
-# note que la fonction indique "numeric" plutôt que "integer" 
+              # note : la fonction str() indique le mode "numeric" plutôt que 
+              #        que le type "integer" 
 str(vect_char) # chr [1:4] "a" "B" "XYZ" "HELLO"
 str(vect_logic) # logi [1:6] TRUE FALSE FALSE FALSE TRUE TRUE
 ```
@@ -679,7 +734,7 @@ vect_bizarre
 #  1     2     3     4     5
 ```
 
-La fonction `attr()` permet d'obtenir ou de définir un attribut spécifique (pour compléter les méta-données). La fonction `attributes()` indique l'ensemble des attribus associés à un vecteur.
+La fonction `attr()` permet d'obtenir ou de définir un attribut spécifique (pour compléter les méta-données). La fonction `attributes()` indique l'ensemble des attributs associés à un vecteur.
 ```{r attrsuit, eval=FALSE, include=TRUE}
 ## La fonction attr() permet de récupérer des attributs spécifiques
 attr(sex, "names")
@@ -713,13 +768,13 @@ attributes(sex)$var_name
 
 
 ### Vecteurs de type `factor` 
-Les vecteurs de types `factor` sont utiles pour ajouter certaines contraintes propres aux variables qualitatives. Ce sont des vecteurs qui contiennent uniquement des valeurs prédéfinies (connues dès le protocole de l'expérience). Par exemple, en amont de l'expérience, on peut avoir défini que le niveau d'étude se mesurera avec 3 modalités : "lycée","bac", et "université".
+Les vecteurs de types `factor` sont utiles pour ajouter certaines contraintes propres aux variables qualitatives. Ce sont des vecteurs qui contiennent uniquement des valeurs prédéfinies (connues dès le protocole de l'expérience). Par exemple, en amont de l'expérience, on peut avoir défini que le niveau d'étude se mesurera avec 3 modalités : "lycée", "bac", et "université".
 
 Cette caractérisation sera utile pour utiliser la variable dans des contextes précis, par exemple : 
 
-  - dans un modèle de régression (où on veut que le logiciel créé automatiquement des indicatrices pour prendre en compte cette variable qualitative de manière adaptée), 
+  - dans un modèle de régression (où on veut que le logiciel créé automatiquement des indicatrices pour prendre en compte cette variable qualitative de manière adéquate), 
   - pour représenter graphiquement la variable (par exemple, identifier automatiquement que ces valeurs doivent être décrites avec un diagramme en barres plutôt qu'en box-plot). 
-  - dans des analyes descriptive, cela permettra d'identifier directement si certaines modalités de réponses n'apparaîssent pas la série de valeurs (le décompte sera de 0).
+  - dans des analyes descriptives, cela permettra d'identifier directement si certaines modalités de réponses n'apparaîssent pas au sein des valeurs observées (le décompte pour cette modalité de réponse sera égal à 0).
 
 Les vecteurs de type `factor` sont construits par dessus des vecteurs d'entiers, avec 2 attributs : 
 
@@ -746,10 +801,12 @@ attributes(fact_1)$levels
 # [1] "bac"   "lycée" "univ"
 
 ## Un entier est associé à chaque élément de l'attribut 'levels'  : 
-## "bac" est associé à 1,
-## "lycée" est associé à 2,
-## "univ" est associé à 3
-##
+##  - "bac" est associé à 1,
+##  - "lycée" est associé à 2,
+##  - "univ" est associé à 3
+str(fact_1)
+# Factor w/ 3 levels "bac","lycée",..: 3 1 1 2 3 2 1
+
 ## si on force par coercition à afficher le vecteur au format d'entiers :
 as.integer(fact_1)
 # [1] 3 1 1 2 3 2 1
@@ -767,11 +824,11 @@ fact_1bis
 
 ## Un entier est associé à chaque élément de l'attribut 'levels', en suivant 
 ## l'ordre de ses éléments 
-# "lycée" est associé à 1,
-# "bac" est associé à 2,
-# "univ" est associé à 3
-#
-# si on force par coercition à afficher le vecteur au format d'entiers :
+##  - "lycée" est associé à 1,
+##  - "bac" est associé à 2,
+##  - "univ" est associé à 3
+
+## si on force par coercition à afficher le vecteur au format d'entiers :
 as.integer(fact_1bis)
 # [1] 3 2 2 1 3 1 2
 ```
@@ -798,20 +855,20 @@ attributes(fact_2)
 # $class
 # [1] "factor"
 
-# Un entier est associé à chaque élément de l'attribut 'levels'  : 
-# "-1" est associé à 1,
-# "0" est associé à 2,
-# "1" est associé à 3
-#
-# si on force par coercition à afficher le vecteur au format d'entiers :
+## Un entier est associé à chaque élément de l'attribut 'levels'  : 
+## "-1" est associé à 1,
+## "0" est associé à 2,
+## "1" est associé à 3
+
+## si on force par coercition à afficher le vecteur au format d'entiers :
 as.integer(fact_2)
 # [1] 2 3 2 1 2 2 1 3 1 2 3 3
 ```
 On peut noter que les entiers sur lesquels les vecteurs `factor` sont construits commencent toujours à 1 et augmente de 1 en 1. Il n'est pas possible de faire autrement (par exemple d'associer une valeur 0 à une des modalités de réponses).
 
-On voit que les vecteurs de type `factor` ne sont pas pratiques pour manipuler de manière flexibles le codage de variables qualitatives (attribuer les codes et les étiquettes de manière flexible). Pour une meilleure gestion des méta-données (des noms de variables, des codages et des étiquettes associées aux modalités de réponses), il est préférable de créer une base de données des méta-données. Nous verrons comment faire au chapitre 3.
+On voit que les vecteurs de type `factor` ne sont pas pratiques pour manipuler de manière flexible le codage de variables qualitatives (attribuer les codes et les étiquettes de manière flexible). Pour une meilleure gestion des méta-données (des noms de variables, des codages et des étiquettes associées aux modalités de réponses), il est préférable de créer une base de données des méta-données. Nous verrons comment faire au chapitre 3.
 
-Les variables qualitatives peuvent également être définis comme des **facteurs ordonnés** avec la fonction `ordered`. Cela peut être utile pour des variables à utiliser dans le cadre de régression multinomiales par exemple. Le comportement d'un vecteur de type `ordered` est très proche de celui d'un `factor` (le type `ordered` est une petite variation du type `factor`). 
+Les variables qualitatives peuvent également être définies comme des **facteurs ordonnés** avec la fonction `ordered`. Cela peut être utile pour des variables à utiliser dans le cadre de régression multinomiales par exemple. Le comportement d'un vecteur de type `ordered` est très proche de celui d'un `factor` (le type `ordered` est une petite variation du type `factor`). 
 ```{r factor1ter, eval=FALSE, include=TRUE}
 ## La variable de niveau d'étude est une variable qualitative ordinale, 
 ## on peut la définir également en tant que vecteur 'ordered'
@@ -833,11 +890,11 @@ attributes(fact_1ter)
 
 ## Un entier est associé à chaque élément de l'attribut 'levels', en suivant 
 ## l'ordre de ses éléments 
-# "lycée" est associé à 1,
-# "bac" est associé à 2,
-# "univ" est associé à 3
-#
-# si on force par coercition à afficher le vecteur au format d'entiers :
+##  - "lycée" est associé à 1,
+##  - "bac" est associé à 2,
+##  - "univ" est associé à 3
+
+## si on force par coercition à afficher le vecteur au format d'entiers :
 as.integer(fact_1ter)
 # [1] 3 2 2 1 3 1 2
 ```
@@ -860,14 +917,15 @@ attributes(vect_dt)
 
 ## si on force le vecteur vect_dt à donner les valeurs au format de réels, 
 ## on retrouve le nombre de jours depuis le 1er janvier 1970.
+## (respectivement, 30 jours et 365 jours dans cet exemple)
 as.double(vect_dt)
 # [1]  30 365
 ```
 
 Les **vecteurs de types "Date-time"** indiquent une date et une heure. La valeur réelle sous jacente correspond au nombre de secondes depuis le 1er janvier 1970. Ces vecteurs ont deux attributs : 
 
-  - un attribut de classe égale à `POSIXct` pour _Portable Operating System Inerface - calender time_ (ou encore `POSIXlt`, pour _Portable Operating System - local time_, mais ce format semble moins pratique pour une base de données). 
-  - un attribut de fuseau horaire `tzone` (pour _time zone_). Cet attribut aura simplement un effet sur l'heure affiché, la valeur réelle sous-jacente reste la même.
+  - un attribut de classe égale à `POSIXct` pour _Portable Operating System Interface - calender time_ (ou encore `POSIXlt`, pour _Portable Operating System - local time_, mais ce format semble moins pratique pour une base de données). 
+  - un attribut de fuseau horaire `tzone` (pour _time zone_). Cet attribut aura simplement un effet sur l'heure affichée, la valeur réelle sous-jacente reste la même.
 
 Le vecteur affiche ses valeurs au format "aaaa-mm-jj hh:mm" pour indiquer l'année, le mois, le jour, l'heure et les minutes, entre guillemets. On peut saisir des valeurs de dates avec un vecteurs de caractères au sein de la fonction `as.POSIXct()`
 ```{r datetime, eval=FALSE, include=TRUE}
@@ -901,38 +959,994 @@ vect_dt_time
 ## la valeur s'affiche avec 1 heure de décalage (par rapport à Londres)
 ```
 
-### Indiçage d'un vecteur
-Pour sélection des sous-ensembles de valeurs au sein d'un vecteur, R utilise un
-utiliser l'indiçage pour sélectionner les éléments d'un vecteur
+### Sélection par indexation
+Pour sélectionner des sous-ensembles de valeurs au sein d'un vecteur, une des méthodes très utilisée dans R est **l'indexation**, en ajoutant des crochets `[]` à la fin d'un vecteur. L'indexation se fait principalement selon 3 approches : 
 
-fonctions which(), match(), any(), all()
+  - en indiquant la **position** des valeurs que l'on veut sélectionner
+  - en indiquant le **nom** des valeurs que l'on veut sélectionner (définis selon l'attribut `name` du vecteur)
+  - en indiquant une **condition**, seules les valeurs dont la condition est "vraies" (`TRUE`) seront sélectionnées
 
-### fonctions statistiques pour résumer une série de valeurs
-min() max() median() quantile()
-mean() sd() var()
-sum() prod()
+#### Indexation sur la position
+On peut sélectionner un sous-ensemble d'un vecteur en indiquant entre crochets `[]` la position des valeurs que l'on souhaite sélectionner. Il est également possible d'exclure des valeurs en indiquant un signe `-` devant la position de la valeur. 
 
-table()
-prop.table()
-unique()
-sort()
+Si vous indiquez une (ou plusieurs) positions plus grande(s) que la longueur du vecteur, on obtient des données manquantes.
+```{r index1, eval=FALSE, include=TRUE}
+## On reprend le vecteur de réels suivant :
+vect_test <- c(1.5, 5.83, 3.2, 15, 9.99)
+
+## Pour sélectionner la 4ème valeur (15), on peut utiliser la notation []
+vect_test[4]
+# [1] 15
+
+## Pour sélectionner la 1ère, la 2ème et la 5ème valeur : 
+vect_test[c(1, 2, 5)]
+# [1] 1.50 5.83 9.99
+
+## l'ordre dans lequel on indique la position définie l'ordre dans lequel le 
+## résultat est donné :
+vect_test[c(5, 1, 2)]
+# [1] 9.99 1.50 5.83
+
+## Pour sélectionner les valeurs en position 3, 4 et 5, on peut utiliser la 
+## la notation de séquence ":"
+vect_test[3:5]
+# [1]  3.20 15.00  9.99
+
+## Pour exclure des valeurs de la sélection, on peut utilise le signe "-"
+vect_test[-c(1, 2, 5)]
+# [1]  3.2 15.0     
+# il garde la 3ème et la 4ème valeur, après avoir exclu les valeurs aux 
+# positions 1, 2 et 5
+
+## Si on indique des positions plus grande que la longueur du vecteur, 
+## on obtient des données manquantes : 
+vect_test[c(1, 3, 8, 9)]
+# [1] 1.5 3.2  NA  NA
+```
+
+#### Indexation sur le nom
+Il est également possible de sélectionner un sous-ensemble d'un vecteur en indiquant entre crochets `[]` le nom indiqué dans l'attribut `name` du vecteur. 
+```{r index2, eval=FALSE, include=TRUE}
+## On reprend les deux vecteurs nommés vus précédemment :
+sex <- c(1, 1, 2, 1, 2, 2)
+names(sex) <- c("homme", "homme", "femme", "homme", "femme", "femme")
+sex
+# homme homme femme homme femme femme     le nom apparaît au dessus des valeurs
+#     1     1     2     1     2     2
+
+vect_bizarre <- c(1, 2, 3, 4, 5)
+names(vect_bizarre) <- c("un", "trois", "douze", "douze", "2")
+vect_bizarre
+# un trois douze douze     2 
+#  1     2     3     4     5
+
+## Par exemple en sélectionnant les valeurs de sex nommées "homme", on obtient
+sex["homme"]
+# homme 
+#     1
+
+## En sélectionnant les valeurs de vect_bizarres nommées "un" et "trois" :
+vect_bizarre[c("un", "trois")]
+# un trois 
+#  1     2
+
+## En sélectionnant les valeurs de vect_bizarres nommées "douze", on obtient
+vect_bizarre["douze"]
+# douze 
+#     3
+
+# avec cette méthode d'indexation, on ne peut pas retrouver la deuxième valeur
+# associée au nom "douze" (la valeur 4) de vect_bizarre
+
+## Attention, cette méthode d'indexation fonctionne uniquement avec les noms
+## donné dans l'attribut name()
+## Cela ne fonctionne pas avec les valeurs d'un vecteur caractères :
+sex_char <- c("homme", "homme", "femme", "homme", "femme", "femme")
+sex_char
+names(sex_char)
+# NULL          l'attribut "names" de ce vecteur caractère ne contient rien
+
+sex_char["homme"]
+# [1] NA           # l'indexation n'a rien sélectionné car l'attribut names
+                   # ne contient aucun nom
+```
+
+En pratique, on voit que lorsque l'attribut `names` contient des noms en doublons, seule la première valeur associée à ces noms en est sélectionnée.
+
+#### Indexation sur une condition
+Il est enfin possible de sélection les valeurs à l'aide d'un vecteur logique de même longueur que le vecteur sur lequel on travaille. Les valeurs en position `TRUE` seront sélectionnées, les valeurs en position `FALSE` seront exclues.
+
+On peut se servir de cette approche pour sélectionner les valeurs en appliquant une opération logique.
+
+```{r index3, eval=FALSE, include=TRUE}
+vect_test <- c(1.50, 5.83, 3.20, 15.00, 9.99)
+
+## On peut indiquer entre crochet les valeurs que l'on veut sélectionner avec 
+## TRUE dans la position corespondante
+vect_test[c(TRUE, FALSE, TRUE, TRUE, FALSE)]
+# [1]  1.5  3.2 15.0
+
+## On peut ainsi directement appliquer une condition pour sélectionner les 
+## valeurs correspondant à cette condition.
+## Par exemple, pour sélectionner les valeurs supérieure à 5 : 
+vect_test[vect_test > 5]
+# [1]  5.83 15.00  9.99
+
+## Pour sélectionner les valeurs égale à 5.83 ou à 9.99
+vect_test[vect_test == 5.83 | vect_test == 9.99]
+# [1] 5.83 9.99
+
+## ou encore
+vect_test[vect_test %in% c(5.83, 9.99)]
+# [1] 5.83 9.99
+
+## Attention, si vous utilisez en indexation un vecteur logique plus court,
+## R va automatiquement recycler le vecteur logique
+vect_test[c(TRUE, FALSE, TRUE)]
+# [1]  1.5  3.2 15.0
+
+# ici, R a recyclé les valeurs logique en appliquant 
+# c(TRUE, FALSE, TRUE) au 3 premières valeurs de vect_test, soit 1.5 et 3.2
+# puis a recyclé le vacteur logique pour les 3 denières valeurs de vect_test
+# en appliquant c(TRUE, FALSE). Le dernier TRUE n'est pas utilisé
+# ce qui sélectionne la 4ème valeur 15.0, mais pas la dernière.
+```
+
+#### Assignation par indexation 
+Cette méthode de sélection des éléments d'un vecteur peut être utilisée pour remplacer certaines valeurs du vecteur.
+```{r index4, eval=FALSE, include=TRUE}
+vect_test <- c(1.50, 5.83, 3.20, 15.00, 9.99)
+
+## Par exemple, on veut remplacer les valeurs 5.83 et 9.99 par les valeurs
+## 2.2 et une valeur manquante NA
+
+## Ces deux valeurs occupent la position 2 et la position 5 :
+vect_test[c(2, 5)] <- c(2, NA)
+vect_test
+# [1]  1.5  2.0  3.2 15.0   NA
+## Les valeurs ont été changées au sein du vecteur
+```
+
+
+### Fonctions statistiques pour résumer une série de valeurs
+#### Variables quantitatives
+Pour décrire les paramètres de la distribution d'une variable quantitative (d'un vecteur de valeurs réelles ou d'entiers), les fonctions suivantes peuvent être utilisées :
+
+  - `mean()`, `sd()` et `var()` permettent de calculer respectivement la moyenne, l'écart-type (_standard deviation_) et la variance d'une variable
+  - `min()`, `max()`, `median()` et `quantile()` permettent de calculer respectivement le minimum, le maximum, la médiane et les quantiles d'une variable. Pour la fonction quantile, il faut préciser en argument les probabilités correspondant aux quantiles demandés, par exemple `probs = c(0, 0.25, 0.5, 0.75, 1)` permet d'obtenir le minimum, le 1er quartile (25ème percentile), la médiane (50ème percentile), le 3ème quartile (75ème percentile) et le maximum. 
+  - `sum()` permet de calculer la somme des valeurs, `prod()` permet de calculer le produit des valeurs
+
+Pour toutes ces fonctions, en présence de données manquantes, le résultat sera également une donnée manquante, à moins d'ajouter l'argument `na.rm = TRUE` (_remove NA_) qui supprime les données manquantes et permet de calculer ces paramètres à partir des valeurs non-manquantes.
+
+**Note pour la fonction `quantile`:** La méthode de calcul des quantiles est données par l'argument `type`. Par défaut, la méthode appliquée est le "Type 7", utilisée par le logiciel S (ancètre du logiciel R). Le logiciel SAS utilise la méthode de "Type 2", les logiciels Stata, SPSS et Minitab utilisent la méthode de "Type 6". En fonction du type choisi, les résultats peuvent être légèrement différents. cf. `?quantile()`
+
+```{r statquanti, eval=FALSE, include=TRUE}
+## on va calculer les paramètres statistique pour la variable quantitative :
+var_quanti <- c(4.5, 2.0, 5.5, 10.4, 8.7, NA, 3.2, 4.0, 1.3, NA, 5.7, 1.7)
+# on voit qu'elle contient 2 valeurs manquantes
+
+## Si on applique les fonctions mean(), sd(), etc, le résultat sera manquant
+mean(var_quanti) # NA
+sd(var_quanti) # NA
+var(var_quanti) # NA
+
+## Pour calculer les paramètres après avoir exclu les données manquantes, 
+## il faut ajouter l'argument 'na.rm = TRUE'
+mean(var_quanti, na.rm = TRUE) # 4.7
+sd(var_quanti, na.rm = TRUE) # 2.995552
+var(var_quanti, na.rm = TRUE) # 8.973333
+
+min(var_quanti, na.rm = TRUE) # 1.3
+max(var_quanti, na.rm = TRUE) # 10.4
+median(var_quanti, na.rm = TRUE) # 4.25
+quantile(var_quanti, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE)
+#   0%   25%   50%   75%  100% 
+# 1.30  2.30  4.25  5.65 10.40
+
+quantile(var_quanti, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE, type = 6)
+#    0%    25%    50%    75%   100% 
+# 1.300  1.925  4.250  6.450 10.400 
+# une autre méthode de calcul des quantiles peut donner des résultats 
+# légèrement différents (ici type 6 correspond à la méthode de Stata ou de SPSS)
+
+sum(var_quanti, na.rm = TRUE) # 47
+prod(var_quanti, na.rm = TRUE) # 722162.4
+
+## La fonction var() applique la formule d'une variance estimée
+## à partir d'un échantillon de taille n: 
+## (somme de (x - moyenne)^2) / (n - 1)
+sum((var_quanti[!is.na(var_quanti)] - mean(var_quanti, na.rm = TRUE))^2) / 9
+# [1] 8.973333 (ici n-1 = 9, car il y a 10 valeurs non-manquantes)
+```
+
+
+#### Variables qualitatives
+Pour décrire une variable qualitative, on peut utiliser les fonctions : 
+
+  - `table()` qui calcule les effectifs au sein de chaque modalité de réponse
+  - `prop.table()` ou `proportions()` qui calcule les pourcentages à partir de la fonction `table` précédente.
+
+Les données manquantes sont gérées par l'argument `useNA` avec 3 possibilités : 
+
+  - `useNA = "no"`, les données manquantes ne sont pas prises en compte (appliqué par défaut)
+  - `useNA = "ifany"`, les données manquantes sont dénombrées s'il en existe
+  - `useNA = "always"`, les données manquantes sont toujours dénombrées
+
+
+```{r statquali, eval=FALSE, include=TRUE}
+## on crée 3 variables qualitatives selon 3 formats différents 
+## (selon un codage numérique, en format caractère, ou en type "factor")
+var_quali1 <- c(0, 2, NA, 1, 2, 0, 1, NA, 1, 2, 0, 1, 1)
+var_quali2 <- c("homme", "homme", NA, "femme", "homme", "femme", "femme", NA, 
+                "homme", "femme", "femme", "homme", "femme")
+var_quali3 <- factor(c("collège", "univ", "bac", "bac", "univ", NA, "collège", 
+                       "bac", "bac", "collège", NA, "univ"), 
+                     levels = c("primaire", "collège", "bac", "univ"))
+
+## la fonction table permet de dénombrer le nombre de réponses par modalité
+table(var_quali1)
+# var_quali1
+# 0 1 2 
+# 3 5 3
+# la valeur 0 apparaît 3 fois, la valeur 1 apparaît 5 fois, la valeur 2 apparaît
+# 3 fois
+
+table(var_quali2)
+# var_quali2
+# femme homme 
+#     6     5
+
+table(var_quali3)
+# var_quali3
+# primaire  collège      bac     univ 
+#        0        3        4        3
+## On note que pour la variable de type "factor", R décrit les résultats pour 
+## l'ensemble des modalités possibles (ici, 4 modalités possibles, même si 
+## aucun résultat "primaire" n'a été observé). C'est un des intérêts des 
+## vecteurs de type "factor".
+
+## Ce ne serait pas le cas avec un vecteur de type caractère : 
+table(as.character(var_quali3))
+# bac collège    univ 
+#   4       3       3   ici la catégorie "primaire" n'est pas décomptée !
+#                       de plus les valeurs sont rangées par ordre alphabétique
+#                       plutôt que l'ordre indiqué dans l'attribut 'levels'
+#                       du vecteur de type 'factor'.
+
+## Les pourcentages peuvent ensuite être obtenus à partir de ces tables
+## avec la fonction prop.table() ou proportions()
+prop.table(table(var_quali1))
+# var_quali1
+#         0         1         2 
+# 0.2727273 0.4545455 0.2727273   (c'est à dire 27.3%, 45.4% et 27.3%)
+
+prop.table(table(var_quali2))
+# var_quali2
+#     femme     homme 
+# 0.5454545 0.4545455       (54.5% de femmes et 45.5% d'hommes)
+
+prop.table(table(var_quali3))
+# var_quali3
+# primaire  collège      bac     univ 
+#      0.0      0.3      0.4      0.3     (0%, 30%, 40% et 30%)
+
+
+## si on applique l'argument useNA = "ifany", les manquants sont considérées
+## comme une modalité de réponse en tant que telle
+table(var_quali2, useNA = "ifany")
+# var_quali2
+# femme homme  <NA>    # ici la modalité <NA> est ajoutée
+#     6     5     2
+proportions(table(var_quali2, useNA = "ifany"))
+# var_quali2
+#     femme     homme      <NA>
+# 0.4615385 0.3846154 0.1538462 # les % sont calculés sur les 3 catégories
+
+## Si on applique l'argument useNA = "always", la catégorie manquante est ajoutée
+## comme précédemment
+table(var_quali2, useNA = "always")
+# var_quali2
+# femme homme  <NA> 
+#     6     5     2
+
+## Si on applique l'argument useNA = "always" a une variable qui n'a pas de 
+## données manquante, la colonne NA sera quand même ajouté (et compte 0 manquant)
+table(c("homme", "homme", "femme", "homme", "femme", "femme", 
+        "homme", "femme", "femme", "homme", "femme"), 
+      useNA = "always")
+# femme homme  <NA> 
+#     6     5     0
+```
+
+Il est également utile de connaître la fonction `unique` qui liste les valeurs qui apparaîssent au moins une fois dans un vecteur.
+```{r statquali2, eval=FALSE, include=TRUE}
+## Par exemple avec la variable : 
+var_quali <- c("homme", "home", NA, "femme", "homme", "femme", "femme", NA, 
+                "homme", "femme", "Femme", "homme", "femme")
+unique(var_quali)
+# [1] "homme" "home"  NA      "femme" "Femme"
+# on voit que Femme et home font partie des réponses données, 
+# cela peut correspondre à des erreurs de saisie (une majuscule a été donnée
+# à une réponse "femme" et une réponse "homme" a été saisie avec un "m" manquant)
+```
 
 
 ## Les listes `list()`
-### Création d'une liste
-Les vecteurs peuvent être reformatés sous forme de liste
+Les **listes** sont des **vecteurs dont les éléments peuvent être de différents types et de différentes dimensions**. Par exemple, une même liste peut contenir des vecteurs, des matrices, des bases de données, des fonctions ... (une liste peut même contenir d'autres listes !) 
 
-### Indiçage d'une liste
+### Création d'une liste
+Pour créer une liste, on utilise la fonction `list()`. Chaque élément de la liste est séparé par une virgule. Par exemple, on crée ci-dessous un liste qui contient 6 éléments : 
+
+  1) un vecteur d'entiers, de longueur 10
+  2) un vecteurs de réels, de longueur 4
+  3) un vecteurs de chaînes de caractères, de longueur 3
+  4) un vecteur logique, de longueur 7
+  5) une matrice de 5 lignes et 2 colonnes
+  6) une base de données de 3 variables avec 10 valeurs chacune
+  
+```{r list1, eval=FALSE, include=TRUE}
+exemple_list <- list(1:10, # un vecteur séquentiel d'entiers, de longueur 10
+                     c(1.5, pi, 14, 6.48), # un vecteur de réels
+                     c("aa", "hello", "TOULOUSE"), # un vecteur de caractères
+                     c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE), # logique
+                     matrix(data = 1:10, nrow = 5, ncol = 2), # un matrice
+                     data.frame(id = 1:10,                # une base de données
+                                sex = c(1,2,1,1,1,2,2,1,2,2),
+                                age = c(49,23,43,50,40,37,20,47,26,44)))
+exemple_list
+# [[1]]
+#  [1]  1  2  3  4  5  6  7  8  9 10
+# 
+# [[2]]
+# [1]  1.500000  3.141593 14.000000  6.480000
+# 
+# [[3]]
+# [1] "aa"       "hello"    "TOULOUSE"
+# 
+# [[4]]
+# [1]  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE
+# 
+# [[5]]
+#      [,1] [,2]
+# [1,]    1    6
+# [2,]    2    7
+# [3,]    3    8
+# [4,]    4    9
+# [5,]    5   10
+# 
+# [[6]]
+#    id sex age
+# 1   1   1  49
+# 2   2   2  23
+# 3   3   1  43
+# 4   4   1  50
+# 5   5   1  40
+# 6   6   2  37
+# 7   7   2  20
+# 8   8   1  47
+# 9   9   2  26
+# 10 10   2  44
+```
+
+### Attributs d'une liste
+Comme pour les vecteurs atomiques, les listes ont un attribut de classe (`class()`) et de longueur (`length()`).
+```{r list2, eval=FALSE, include=TRUE}
+class(exemple_list) 
+# [1] "list"
+length(exemple_list)  
+# [1] 6               # notre liste d'exemple contient 6 éléments
+```
+
+L'attribut `name` est permet de nommer les différents éléments d'une liste.
+```{r list3, eval=FALSE, include=TRUE}
+names(exemple_list) <- c("vect_int", "vect_dbl", "vect_char", "vect_logic", 
+                         "mat", "df")
+
+attributes(exemple_list)
+# $names
+# [1] "vect_int"   "vect_dbl"   "vect_char"  "vect_logic" "mat"   "df"
+
+exemple_list
+# $vect_int                                              # les noms remplacent
+#  [1]  1  2  3  4  5  6  7  8  9 10                     # la numérotation 
+#                                                        # précédente : 
+# $vect_dbl                                              #  [[1]], [[2]], [[3]], 
+# [1]  1.500000  3.141593 14.000000  6.480000            #  [[4]], [[5]], [[6]]
+# 
+# $vect_char
+# [1] "aa"       "hello"    "TOULOUSE"
+# 
+# $vect_logic
+# [1]  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE
+# 
+# $mat
+#      [,1] [,2]
+# [1,]    1    6
+# [2,]    2    7
+# [3,]    3    8
+# [4,]    4    9
+# [5,]    5   10
+# 
+# $df
+#    id sex age
+# 1   1   1  49
+# 2   2   2  23
+# 3   3   1  43
+# 4   4   1  50
+# 5   5   1  40
+# 6   6   2  37
+# 7   7   2  20
+# 8   8   1  47
+# 9   9   2  26
+# 10 10   2  44
+```
+
+### Indexation des éléments d'une liste
+On peut sélectionner un seul élément d'une liste : 
+
+  - par indexation sur la position, avec un double crochet `[[ ]]`
+  - ou par indexation sur le nom, avec l'opérateur dollard `$` 
+  
+On peut sélectionner un ou plusieurs éléments d'une liste :
+
+  - par indexation sur la position des éléments, avec un simple crochet `[ ]`
+  - par indexation à l'aide d'un vecteur de noms, avec un simple crochet `[ ]`
+
+```{r list4, eval=FALSE, include=TRUE}
+## Sélection d'un seul élément dans une liste
+##  - par indexation sur la position avec le double crochet [[ ]]
+exemple_list[[5]]
+#      [,1] [,2]
+# [1,]    1    6
+# [2,]    2    7
+# [3,]    3    8
+# [4,]    4    9
+# [5,]    5   10
+
+##  - par indexation sur le nom, avec l'opérateur dollard $
+exemple_list$vect_dbl
+# [1]  1.500000  3.141593 14.000000  6.480000
+
+## l'opérateur dollard est une notation abrégée d'une indexation par le nom 
+##  entre double crochet :
+exemple_list[["vect_dbl"]]
+
+## Sélection d'un ou plusieurs éléments dans une liste avec le simple crochet : 
+## Par exemple, pour sélectionner les élément 1 (vect_int), 2 (vect_dbl),
+## et 5 (matrice nommée "mat")
+exemple_list[c(1, 2, 5)]
+# $vect_int
+#  [1]  1  2  3  4  5  6  7  8  9 10
+# 
+# $vect_dbl
+# [1]  1.500000  3.141593 14.000000  6.480000
+# 
+# $mat
+#      [,1] [,2]
+# [1,]    1    6
+# [2,]    2    7
+# [3,]    3    8
+# [4,]    4    9
+# [5,]    5   10
+
+## On obtient le même résultat avec les noms des éléments, dans un vecteur 
+## de caractères entre simples crochets : 
+exemple_list[c("vect_int", "vect_dbl", "mat")]
+```
+
+**Remarque :** les attributs d'un objet sont stockés sous un format de liste
+```{r list5, eval=FALSE, include=TRUE}
+fact_1bis <- factor(c("univ", "bac", "bac", "lycée", "univ", "lycée", "bac"),
+                    levels = c("lycée", "bac", "univ"))
+
+attributes(fact_1bis)
+# $levels
+# [1] "lycée" "bac"   "univ" 
+# 
+# $class
+# [1] "factor"
+
+length(attributes(fact_1bis))
+# [1] 2
+
+class(attributes(fact_1bis))
+# [1] "list"
+
+## les attributs de fact_1bis sont une liste contenant 2 vecteurs : 
+##  - 1 vecteur nommé "levels", de caractères, de longueur 3
+##  - 1 vecter nommé "class" contenant la valeur "factor"
+```
 
 ## Les matrices `matrix()`
+Une matrice est une table contenant des données, dont les dimensions sont données par : 
+
+  - le nombre de lignes (en premier)
+  - le nombre de colonnes (en deuxième)
+  
+Par exemple, une matrice de dimensions (5, 3) est une table de 5 lignes et 3 colonnes.
+
+Dans R, **une matrice est un vecteur avec un attribut de dimensions**, indiquant le nombre de lignes et de colonnes.
+
 ### Création d'une matrice
-Les vecteurs peuvent être reformatés sous forme de matrice
+On peut créer une matrice à partir d'un vecteur (d'entiers, de réels, de caractères ou de valeurs logiques) auquel on ajoute un attribut de dimension avec la fonction `dim()`. 
+```{r matrix1, eval=FALSE, include=TRUE}
+## A partir du vecteur d'entiers de 1 à 15, 
+seq_1a15 <- 1:15
+seq_1a15 
+# [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
+class(seq_1a15) 
+# [1] "integer"
 
-### Indiçage d'une matrice
+## on va créer une matrice de dimensions (5, 3) en ajoutant un attribut de 
+## dimensions avec la fonction dim() 
+dim(seq_1a15) <- c(5, 3)
+seq_1a15
+#      [,1] [,2] [,3]
+# [1,]    1    6   11
+# [2,]    2    7   12
+# [3,]    3    8   13
+# [4,]    4    9   14
+# [5,]    5   10   15
+class(seq_1a15)
+# [1] "matrix" "array"  # la classe de l'objet est maintenant une matrice
 
-### matrices à plus de 2 dimensions `array()`
+attributes(seq_1a15)    # le vecteur seq_1a15 a un nouvel attribut nommé "dim"
+# $dim
+# [1] 5 3
 
-## Les bases de données `data.frames()`
+## A noter que si l'on attribue une dimension de matrice qui ne correspond pas à 
+## la longueur du vecteur, cela nous donne un message d'erreur
+dim(seq_1a15) <- c(7, 2) # matrice de 7 lignes et 2 colonnes = 14 valeurs
+dim(seq_1a15) <- c(4, 4) # matrice de 4 lignes et 4 colonnes = 16 valeurs
+```
+A noter qu'avec cette méthode, les valeurs ont été rangées par colonne, en 3 colonnes de 5 lignes.
+
+Il est possible d'ajouter un attribut de noms de lignes et un attribut de noms de colonnes à un objet de classe `matrix`, avec les fonctions `rownames()` et `colnames()`.
+```{r matrix2, eval=FALSE, include=TRUE}
+## Ajouter un attribut de nom de lignes :
+rownames(seq_1a15) <- c("id_1", "id_2", "id_3", "id_4", "id_5")
+
+## Ajouter un attribut de nom de colonnes : 
+colnames(seq_1a15) <- c("aa", "bb", "cc")
+seq_1a15
+#      aa bb cc
+# id_1  1  6 11
+# id_2  2  7 12
+# id_3  3  8 13
+# id_4  4  9 14
+# id_5  5 10 15
+
+attributes(seq_1a15)
+# $dim
+# [1] 5 3
+# 
+# $dimnames
+# $dimnames[[1]]
+# [1] "id_1" "id_2" "id_3" "id_4" "id_5"
+# 
+# $dimnames[[2]]
+# [1] "aa" "bb" "cc"
+
+## Les attributs du vecteur "seq_1a15" sont une liste de deux attributs : 
+##  1) la dimension de la matrice, nommée "dim"
+##  2) les noms des dimensions (nommée "dimnames"), qui est une liste contenant :
+##      - le vecteur dimnames[[1]] (noms des lignes)
+##      - le vecteur dimnames[[2]] (noms des colonnes)
+```
+
+Pour créer une matrice, on peut également utiliser la fonction `matrix()` qui permet d'indiquer directement les arguments : 
+
+  - `nrow = ` et `ncol = ` pour définir le nombre de lignes et de colonnes
+  - `byrow =` qui permet de ranger les valeurs par lignes (en indiquant `TRUE`) ou de les ranger par colonne (en indiquant `FALSE`)
+  - `dimnames` permet d'indiquer une liste contenant un vecteur de nom de lignes et un vecteur de nom de colonnes.
+```{r matrix3, eval=FALSE, include=TRUE}
+## On utilise la fonction matrix()
+mat1 <- matrix(1:15, # le vecteur de valeurs à utiliser
+               nrow = 5, # 5 lignes
+               ncol = 3, # 3 colonnes
+               byrow = FALSE,  # range les valeur par colonne (pas par rang) 
+               dimnames = list(c("id_1", "id_2", "id_3", "id_4", "id_5"),
+                               c("aa", "bb", "cc")))
+mat1
+#      aa bb cc
+# id_1  1  6 11
+# id_2  2  7 12
+# id_3  3  8 13
+# id_4  4  9 14
+# id_5  5 10 15
+
+attributes(mat1)
+# $dim
+# [1] 5 3
+# 
+# $dimnames
+# $dimnames[[1]]
+# [1] "id_1" "id_2" "id_3" "id_4" "id_5"
+# 
+# $dimnames[[2]]
+# [1] "aa" "bb" "cc"
+
+## on peut choisir de ranger les valeurs par rang plutôt que par colonne : 
+mat2 <- matrix(1:15, # le vecteur de valeurs à utiliser
+               nrow = 5, # 5 lignes
+               ncol = 3, # 3 colonnes
+               byrow = TRUE)  # range les valeur par rang +++ 
+mat2
+#       [,1] [,2] [,3]
+# [1,]    1    2    3
+# [2,]    4    5    6
+# [3,]    7    8    9
+# [4,]   10   11   12
+# [5,]   13   14   15
+```
+
+Il est possible de **combiner deux matrices** : 
+
+  - par rangs avec la fonction `rbind()`
+  - ou par colonnes avec fonction `cbind()`
+```{r matrix4, eval=FALSE, include=TRUE}
+## Combiner les 2 matrices, mat1 et mat2, par rang : 
+rbind(mat1, mat2)
+#      aa bb cc
+# id_1  1  6 11
+# id_2  2  7 12
+# id_3  3  8 13
+# id_4  4  9 14
+# id_5  5 10 15
+#       1  2  3
+#       4  5  6
+#       7  8  9
+#      10 11 12
+#      13 14 15
+
+## Combiner les 2 matrices, mat1 et mat2, par colonne : 
+cbind(mat1, mat2)
+#      aa bb cc         
+# id_1  1  6 11  1  2  3
+# id_2  2  7 12  4  5  6
+# id_3  3  8 13  7  8  9
+# id_4  4  9 14 10 11 12
+# id_5  5 10 15 13 14 15
+```
+  
+### Sélection par indexation au sein d'une matrice
+Il est possible de sélectionner un partie de la matrice en indiquant la ligne et la colonne qui nous intéressent, avec la méthode d'indexation par simple crochet `[ , ]`. On indique entre crochets : les lignes que l'on veut sélectionner, suivies d'une virgule, puis les colonnes que l'on veut sélectionner.
+
+L'indexation fonctionne : 
+
+  - sur la position (en indiquant les numéros de lignes et de colonnes entre crochets)
+  - ou sur le nom (en indiquant les noms de lignes et de colonnes entre crochets)
+  - ou sur un vecteur logique pour les lignes et un vecteur logique pour les colonnes
+
+```{r matrix5, eval=FALSE, include=TRUE}
+## on reprend la matrice mat1 définie précédemment
+mat1
+#      aa bb cc
+# id_1  1  6 11
+# id_2  2  7 12
+# id_3  3  8 13
+# id_4  4  9 14
+# id_5  5 10 15
+
+## Pour sélectionner la valeur au croisement de la ligne 3 et de la colonne 2 :
+mat1[3,2] # [1] 8
+
+## Pour sélectionner une ligne entière, on indique juste une position de ligne 
+## (valeur avant la virgule entre crochets) :
+mat1[3,]
+# aa bb cc 
+#  3  8 13      # c'est la 3ème ligne de la matrice
+
+## Pour sélectionner une colonne entière, on indique juste une position de 
+## colonne (valeur après la virgule entre crochets) :
+mat1[,2]
+# id_1 id_2 id_3 id_4 id_5 
+#    6    7    8    9   10      # valeurs au sein de la 2ème colonne
+
+## Pour sélectionner les valeurs au sein des colonnes 1 et 3, 
+## et des lignes 3, 4 et 5 : 
+mat1[3:5, c(1,3)]
+#      aa cc
+# id_3  3 13
+# id_4  4 14
+# id_5  5 15
+
+## On peut obtenir les mêmes séléctions en utilisant les noms de lignes et de 
+## colonnes : 
+mat1["id_3", "bb"] # croisement de la ligne 3 et de la colonne 2
+mat1["id_3",] # sélection de la 3ème ligne
+mat1[,"bb"] # sélection de la 2ème colonne
+mat1[c("id_3", "id_4", "id_5"), c("aa", "cc")] # lignes 3 à 5 ; colonnes 1 et 3 
+
+## On peut obtenir les mêmes séléctions en utilisant des vecteurs logiques : 
+mat1[c(FALSE, FALSE, TRUE, FALSE, FALSE), c(FALSE, TRUE, FALSE)]
+mat1[c(FALSE, FALSE, TRUE, FALSE, FALSE),]
+mat1[, c(FALSE, TRUE, FALSE)]
+mat1[c(FALSE, FALSE, TRUE, TRUE, TRUE), c(TRUE, FALSE, TRUE)]
+```
 
 
-## Les objets R peuvent posséder des attributs `attributes()`
+### Collection de plusieurs matrices, `array()` $\spadesuit$
+Il est possible d'ajouter des dimensions à l'attribut `dim()` : cela combine plusieurs matrices de même dimension au sein d'une "collection" de matrices (_array_).
+
+Les dimensions d'un _array_ sont définies par la fonction `dim()` : 
+  
+  - les deux premiers chiffres indiquent le nombres de lignes et de colonnes des matrices (comme précédemment)
+  - le 3ème chiffre indique le nombre de matrices que l'on veut combiner
+  - il est possible d'ajouter encore d'autres dimensions pour faire des _arrays_ dans des _arrays_ ...
+
+Par exemple, on peut ranger les valeurs de 1 à 30 dans un _array_ de deux matrices de dimensions (5, 3)
+
+```{r matrix6, eval=FALSE, include=TRUE}
+## A partir du vecteur d'entiers de 1 à 30, 
+seq_1a30 <- 1:30
+
+## on va créer un array de dimensions (5, 3, 2) en ajoutant un attribut de 
+## dimensions avec la fonction dim() 
+dim(seq_1a30) <- c(5, 3, 2)
+seq_1a30
+# , , 1
+# 
+#      [,1] [,2] [,3]
+# [1,]    1    6   11
+# [2,]    2    7   12
+# [3,]    3    8   13
+# [4,]    4    9   14
+# [5,]    5   10   15
+# 
+# , , 2
+# 
+#      [,1] [,2] [,3]
+# [1,]   16   21   26
+# [2,]   17   22   27
+# [3,]   18   23   28
+# [4,]   19   24   29
+# [5,]   20   25   30
+class(seq_1a30)
+# [1] "array"  # la classe de l'objet est maintenant un "array"
+
+## On peut ajouter un attribut de noms aux différentes dimensions à l'aide d'une 
+## liste de noms : 
+dimnames(seq_1a30) <- list(noms_rang = c("id_1", "id_2", "id_3", "id_4", "id_5"),
+                           noms_col = c("aa", "bb", "cc"), 
+                           noms_mat = c("mat_1", "mat_2"))
+
+attributes(seq_1a30) # le vecteur seq_1a30 a un attribut de dimension à 3 valeurs
+# $dim
+# [1] 5 3 2
+#
+# $dimnames
+# $dimnames$noms_rang
+# [1] "id_1" "id_2" "id_3" "id_4" "id_5"
+# 
+# $dimnames$noms_col
+# [1] "aa" "bb" "cc"
+# 
+# $dimnames$noms_mat
+# [1] "mat_1" "mat_2"
+
+seq_1a30 # à présent, les noms de matrices, de rangs et de colonnes apparaîsse 
+         # à la place des numéros
+```
+
+La sélection par indexation fonctionne de la même manière que pour les matrices, mais avec une dimension supplémentaire à ajouter : avec 3 valeurs (ou 3 vecteurs de valeurs) séparées par une virgule entre simples crochets `[ , , ]`
+```{r matrix7, eval=FALSE, include=TRUE}
+## pour sélectionner la valeur à l'intersection de la 4ème ligne et 3ème colonne,
+## au sein de la 2ème matrice : 
+seq_1a30[4,3,2] # [1] 29
+
+## Si on sélectionne uniquement la 4ère ligne des deux matrices
+seq_1a30[4,,]
+#         noms_mat
+# noms_col mat_1 mat_2
+#       aa     4    19
+#       bb     9    24
+#       cc    14    29
+## Le résultat n'est pas intuitifs : les 2 lignes ont été réassemblée sous 
+## forme de matrice à 2 colonnes !
+
+## On peut sélectionner uniquement la 3ème colonne des deux matrices
+seq_1a30[,3,]
+#          noms_mat
+# noms_rang mat_1 mat_2
+#      id_1    11    26
+#      id_2    12    27
+#      id_3    13    28
+#      id_4    14    29
+#      id_5    15    30
+
+## On peut sélectionner uniquement la 2ème matrice
+seq_1a30[,,2]
+#          noms_col
+# noms_rang aa bb cc
+#      id_1 16 21 26
+#      id_2 17 22 27
+#      id_3 18 23 28
+#      id_4 19 24 29
+#      id_5 20 25 30
+```
+
+## Les bases de données `data.frame()`
+Le format de base des bases de données dans R est le `data.frame()`. 
+
+Un `data.frame` correspond à une liste de vecteurs atomiques ayant tous la même longueur (la longueur des vecteurs correspondant au nombre d'individus dans la base de données).
+
+Un _data frame_ peut donc être manipulé comme on manipule une liste. Il peut combiner des vecteurs atomiques de différents types (réels, entiers, chaînes de caractères, logiques, facteurs, date, date-heure, etc), et où chaque vecteur peut être nommé (l'attribut `name` permet d'attribuer des noms aux variables).
+
+Vous pouvez récupérer différents exemples de base de données disponibles dans R base, dont la liste est disponible en tapant `library(help = "datasets")`.
+
+```{r df1, eval=FALSE, include=TRUE}
+## Par exemple la base 'women' contient 15 observations de taille (en pouces) et 
+## poids (en livres) de femmes américaines
+?women
+
+women
+#    height weight
+# 1      58    115
+# 2      59    117
+# 3      60    120
+# 4      61    123
+# 5      62    126
+# 6      63    129
+# 7      64    132
+# 8      65    135
+# 9      66    139
+# 10     67    142
+# 11     68    146
+# 12     69    150
+# 13     70    154
+# 14     71    159
+# 15     72    164
+
+class(women)
+# [1] "data.frame"
+```
+
+
+### Création d'un _data frame_
+On peut créer un data.frame contenant différents types de variables avec la fonction `data.frame()`.
+```{r df2, eval=FALSE, include=TRUE}
+## Par exemple, on créée une base de données de 10 individus et 4 variables : 
+df <- data.frame(id = c(1:10),
+                 age = c(42.5, 27.9, 60, 74.5, 38, 25.2, 53.4, 46.6, 34.2, 39.6), 
+                 sex = c("M", "F", "F", "M", "M", "F", "M", "F", "F", "M"),
+                 dt_vis = c("2025-12-08", "2025-02-04", "2022-04-22", 
+                            "2023-10-29", "2023-01-31", "2024-12-17", 
+                            "2025-09-13", "2025-11-07", "2022-04-25", 
+                            "2023-08-02"))
+df
+#    id  age sex     dt_vis
+# 1   1 42.5   M 2025-12-08
+# 2   2 27.9   F 2025-02-04
+# 3   3 60.0   F 2022-04-22
+# 4   4 74.5   M 2023-10-29
+# 5   5 38.0   M 2023-01-31
+# 6   6 25.2   F 2024-12-17
+# 7   7 53.4   M 2025-09-13
+# 8   8 46.6   F 2025-11-07
+# 9   9 34.2   F 2022-04-25
+# 10 10 39.6   M 2023-08-02
+
+
+## Les fonctions head() et tail() permettent de visualiser les premières
+## et les dernières lignes d'une base de données
+head(df)
+#   id  age sex     dt_vis
+# 1  1 42.5   M 2025-12-08
+# 2  2 27.9   F 2025-02-04
+# 3  3 60.0   F 2022-04-22
+# 4  4 74.5   M 2023-10-29
+# 5  5 38.0   M 2023-01-31
+# 6  6 25.2   F 2024-12-17
+
+tail(df)
+#    id  age sex     dt_vis
+# 5   5 38.0   M 2023-01-31
+# 6   6 25.2   F 2024-12-17
+# 7   7 53.4   M 2025-09-13
+# 8   8 46.6   F 2025-11-07
+# 9   9 34.2   F 2022-04-25
+# 10 10 39.6   M 2023-08-02
+
+## la fonction View() de R studio permet de visualiser la base de donnée
+View(df)
+
+## cet objet est de class "data.frame"
+class(df)
+
+## Un data.frame est bien un objet de format "list" : 
+is.list(df) # [1] TRUE
+
+## Un data.frame est une liste qui possède des attributs de noms de variables
+## de class et de noms de rangs : 
+attributes(df)
+# $names
+# [1] "id"     "age"    "sex"    "dt_vis"
+# 
+# $class
+# [1] "data.frame"
+# 
+# $row.names
+#  [1]  1  2  3  4  5  6  7  8  9 10
+
+## On peut ainsi récupérer les noms des variables avec la fonction 'names()'
+names(df)
+# [1] "id"     "age"    "sex"    "dt_vis" 
+## l'attribut 'names' est un vecteur de caractère dont la longueur est égale 
+## au nombre de variables
+
+## un data frame a 2 dimensions correspondant au nombre de lignes et de colonnes 
+## (comme une matrice)
+dim(df)
+# [1] 10  4          # il y a bien 10 lignes et 4 colonnes
+```
+
+
+### Sélection par indexation
+On peut sélectionner une variable en appliquant le même principe que pour sélectionner un élément d'une liste : 
+
+  - par indexation du numéro de la variable entre double crochet `[[ ]]`
+  - par indexation du nom de la variable entre double crochet `[[ ]]`, ou bien en utilisant l'opérateur dollard `$` suivi du nom de variable
+```{r df3, eval=FALSE, include=TRUE}
+## Sélection par la position de la variable age (2ème variable de la base)
+df[[2]] 
+# [1] 42.5 27.9 60.0 74.5 38.0 25.2 53.4 46.6 34.2 39.6
+
+## Sélection pa le nom de la variable age
+df[["age"]]
+# [1] 42.5 27.9 60.0 74.5 38.0 25.2 53.4 46.6 34.2 39.6
+
+## Sélection de la variable age par l'opérateur dollard, 
+df$age # équivalent à df[["age"]]
+#[1] 42.5 27.9 60.0 74.5 38.0 25.2 53.4 46.6 34.2 39.6
+```
+
+On peut sélectionner le croisement de une (ou plusieurs) ligne(s) et de une (ou plusieurs) colonnes comme pour les matrices, en utilisant les simples crochets où les lignes et les colonnes correspondantes sont séparées par une virgule `[ , ]`  
+
+  - par indexation sur la position de la ligne et de la colonne,
+  - par indexation sur le nom de la ligne et le nom de la variable 
+  - ou en utilisant un vecteur logique de conditions 
+
+```{r df4, eval=FALSE, include=TRUE}
+## On peut sélectionner la position des lignes 2,4 et 9, 
+## et des colonnes "age" et "sex" (colonnes 2 et 3)
+df[c(2, 4, 9), c(2, 3)]
+#    age sex
+# 2 27.9   F
+# 4 74.5   M
+# 9 34.2   F
+
+## On peut également sélectionner sur le noms des lignes et des colonnes
+df[c("2", "4", "9"), c("age", "sex")] # donne le même résultat
+
+## On peut mélanger les différents types d'indexation
+df[c(2, 4, 9), c("age", "sex")]
+
+## On peut sélectionner les lignes correspondant à une condition, 
+## par exemple, sélectionner les lignes correspondant aux femmes de plus de 40 ans
+df[df$sex == "F" & df$age > 40, c("age", "sex")]
+#    age sex
+# 3 60.0   F
+# 8 46.6   F
+```
+
+Il est également possible d'utiliser la fonction `subset()`, qui prend pour arguments `subset =` avec des conditions pour sélectionner des lignes, et `select = ` pour sélectionner des colonnes.
+```{r df5, eval=FALSE, include=TRUE}
+## On peut sélectionner les colonnes id, age et sex, 
+## chez les femmes de plus de 40 ans
+subset(df, 
+       subset = c(sex == "F" & age > 40), 
+       select = c(id, age, sex))
+#   id  age sex
+# 3  3 60.0   F
+# 8  8 46.6   F
+```
+
+
+### Autres formats de bases de données
+ D'autres formats de bases de données ont été proposés dans R, notamment : 
+
+  - les `tibble` qui sont associés à l'environement `tidyverse`
+  - les `data.table` associées au package `data.table`
+
+Pour le début de la formation, nous allons nous concentrer sur les bases au format `data.frame` (qui sont le format R base des bases de données). Nous verrons ensuite comment utiliser les formats `tibble` et `data.table`. 

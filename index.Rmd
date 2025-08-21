@@ -11,6 +11,7 @@ output:
             twitter: false
 #   #bookdown::pdf_book: default
 documentclass: book
+geometry: margin=0.79in
 bibliography: [references_formationR.bib]
 biblio-style: apalike
 description: "Formation R"

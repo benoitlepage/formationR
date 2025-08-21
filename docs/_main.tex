@@ -36,6 +36,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[margin=0.79in]{geometry}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -117,7 +118,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2025-08-06}
+\date{2025-08-21}
 
 \begin{document}
 \maketitle
@@ -485,12 +486,12 @@ Voici quelques commandes de gestion des objets dans votre environnement :
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# note : le signe dièze (\#) permet d\textquotesingle{}ajouter des commentaires dans le code  }
-\CommentTok{\# {-} le 1er objet est un vecteur de 10 nombres entiers de 1 à 10}
-\CommentTok{\# {-} le 2ème objet est un vecteur de 3 lettres A, B et C}
-\CommentTok{\# {-} le 3ème objet est un vecteur de 2 réels, calculés par 2 opérations}
-\CommentTok{\# {-} le 4ème objet est une fonction qui ajoute 2 aux éléments du vecteur x}
-\CommentTok{\# {-} le 5ème objet est un scalaire égal à 42}
+\DocumentationTok{\#\# note : le signe dièze (\#) permet d\textquotesingle{}ajouter des commentaires dans le code  }
+\DocumentationTok{\#\# {-} le 1er objet est un vecteur de 10 nombres entiers de 1 à 10}
+\DocumentationTok{\#\# {-} le 2ème objet est un vecteur de 3 lettres A, B et C}
+\DocumentationTok{\#\# {-} le 3ème objet est un vecteur de 2 réels, calculés par 2 opérations}
+\DocumentationTok{\#\# {-} le 4ème objet est une fonction qui ajoute 2 aux éléments du vecteur x}
+\DocumentationTok{\#\# {-} le 5ème objet est un scalaire égal à 42}
 \NormalTok{objet\_1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) }
 \NormalTok{objet\_2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"C"}\NormalTok{) }
 \NormalTok{objet\_3 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{10} \SpecialCharTok{/} \DecValTok{3}\NormalTok{, }\DecValTok{4} \SpecialCharTok{*} \DecValTok{5}\NormalTok{) }
@@ -582,7 +583,7 @@ On a également un vecteur particulier qui est le \textbf{vecteur nul} et se not
 
 Quel que soit le type de données, les données manquantes se notent \texttt{NA} (not applicable).
 
-Attention à ne pas confondre le vecteur nul \texttt{NULL} et les données manquante \texttt{NA}.
+Attention à ne pas confondre le vecteur nul \texttt{NULL} et les données manquantes \texttt{NA}.
 
 \subsection{\texorpdfstring{Décrire le type de l'objet \(\spadesuit\)}{Décrire le type de l'objet \textbackslash spadesuit}}\label{duxe9crire-le-type-de-lobjet-spadesuit}
 
@@ -594,7 +595,7 @@ Par exemple, les nombres réels (\texttt{double}) et les nombres entiers (\textt
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# les valeurs réelles (\textquotesingle{}double\textquotesingle{}) et les entiers (\textquotesingle{}integer\textquotesingle{}) sont de mode \textquotesingle{}numeric\textquotesingle{}}
+\DocumentationTok{\#\# les valeurs réelles (\textquotesingle{}double\textquotesingle{}) et les entiers (\textquotesingle{}integer\textquotesingle{}) sont de mode \textquotesingle{}numeric\textquotesingle{}}
 \FunctionTok{typeof}\NormalTok{(}\FloatTok{2.53}\NormalTok{) }\CommentTok{\# un réel}
 \FunctionTok{typeof}\NormalTok{(}\DecValTok{5}\DataTypeTok{L}\NormalTok{) }\CommentTok{\# et un entier}
 \FunctionTok{mode}\NormalTok{(}\FloatTok{2.53}\NormalTok{) }\CommentTok{\# sont de mode \textquotesingle{}numeric\textquotesingle{}}
@@ -602,11 +603,11 @@ Par exemple, les nombres réels (\texttt{double}) et les nombres entiers (\textt
 \FunctionTok{storage.mode}\NormalTok{(}\FloatTok{2.53}\NormalTok{)}
 \FunctionTok{storage.mode}\NormalTok{(}\DecValTok{5}\DataTypeTok{L}\NormalTok{)}
 
-\CommentTok{\# les chaînes de caractères sont de type et de mode \textquotesingle{}character\textquotesingle{}}
+\DocumentationTok{\#\# les chaînes de caractères sont de type et de mode \textquotesingle{}character\textquotesingle{}}
 \FunctionTok{typeof}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"hello"}\NormalTok{, }\StringTok{"Toulouse"}\NormalTok{))}
 \FunctionTok{mode}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"hello"}\NormalTok{, }\StringTok{"Toulouse"}\NormalTok{))}
 
-\CommentTok{\# les valeurs logiques sont de type \textquotesingle{}logical\textquotesingle{}}
+\DocumentationTok{\#\# les valeurs logiques sont de type \textquotesingle{}logical\textquotesingle{}}
 \FunctionTok{typeof}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{))}
 \FunctionTok{mode}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{))}
 \end{Highlighting}
@@ -646,16 +647,16 @@ Les fonctions \texttt{as.double}, \texttt{as.integer}, \texttt{as.character}, \t
 \FunctionTok{as.integer}\NormalTok{(}\FloatTok{4.95}\NormalTok{) }\CommentTok{\# définit un réel en tant qu\textquotesingle{}entier, seul l\textquotesingle{}entier est conservé}
 \FunctionTok{as.character}\NormalTok{(}\FloatTok{4.95}\NormalTok{) }\CommentTok{\# définit un nombre en tant que chaîne de caractères}
 
-\CommentTok{\# définir une valeur logique TRUE et FALSE en tant que valeur numérique }
-\CommentTok{\# ou en tant qu\textquotesingle{}entier donne les valeurs 1 et 0, respectivement}
+\DocumentationTok{\#\# définir une valeur logique TRUE et FALSE en tant que valeur numérique }
+\DocumentationTok{\#\# ou en tant qu\textquotesingle{}entier donne les valeurs 1 et 0, respectivement}
 \FunctionTok{as.numeric}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{) }
 \FunctionTok{as.numeric}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{) }
 
-\CommentTok{\# définir le nombre 0 en tant que valeur logique donne la valeur FALSE}
+\DocumentationTok{\#\# définir le nombre 0 en tant que valeur logique donne la valeur FALSE}
 \FunctionTok{as.logical}\NormalTok{(}\DecValTok{0}\NormalTok{)}
 
-\CommentTok{\# définir tout nombre différent de 0 en tant que valeur logique }
-\CommentTok{\# donne la valeur TRUE}
+\DocumentationTok{\#\# définir tout nombre différent de 0 en tant que valeur logique }
+\DocumentationTok{\#\# donne la valeur TRUE}
 \FunctionTok{as.logical}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{14}\NormalTok{)}
 \FunctionTok{as.logical}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \FunctionTok{as.logical}\NormalTok{(}\FloatTok{4.95}\NormalTok{)}
@@ -739,7 +740,7 @@ On peut utiliser les opérations classiques, comme sur une calculatrice :
 \DecValTok{10}\SpecialCharTok{\^{}{-}}\DecValTok{1} \CommentTok{\# 1/10 = 0.1}
 \DecValTok{25}\SpecialCharTok{\^{}}\NormalTok{(}\FloatTok{0.5}\NormalTok{) }\CommentTok{\# racine carrée de 25 (puissance 1/2)}
 
-\CommentTok{\# notation scientifique pour les grands et petits nombres}
+\DocumentationTok{\#\# notation scientifique pour les grands et petits nombres}
 \DecValTok{1}\SpecialCharTok{/}\DecValTok{1000000} \CommentTok{\# 1 pour 1 million = 1e{-}6}
 \DecValTok{1}\SpecialCharTok{/}\FloatTok{1e6}
 \FloatTok{1e6} \SpecialCharTok{*} \DecValTok{1000} \CommentTok{\# 1 million * 1000 = 1 milliard}
@@ -776,31 +777,31 @@ Les notions de + l'infini et - l'infini sont notées \texttt{Inf} et \texttt{-In
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# logarithmes et exponentielles}
+\DocumentationTok{\#\# logarithmes et exponentielles}
 \FunctionTok{log}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \FunctionTok{log10}\NormalTok{(}\DecValTok{100}\NormalTok{)}
 \FunctionTok{log}\NormalTok{(}\DecValTok{100}\NormalTok{, }\AttributeTok{base =} \DecValTok{10}\NormalTok{)}
 \FunctionTok{exp}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 
-\CommentTok{\# racine carrée}
+\DocumentationTok{\#\# racine carrée}
 \FunctionTok{sqrt}\NormalTok{(x\_2}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
 
-\CommentTok{\# valeur absolue}
+\DocumentationTok{\#\# valeur absolue}
 \FunctionTok{abs}\NormalTok{(}\DecValTok{10}\NormalTok{)}
 \FunctionTok{abs}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{)}
 
-\CommentTok{\# fonctions trigonométriques}
+\DocumentationTok{\#\# fonctions trigonométriques}
 \FunctionTok{cos}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \FunctionTok{sin}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \FunctionTok{tan}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \NormalTok{pi}
 \DecValTok{2} \SpecialCharTok{*}\NormalTok{ pi }\SpecialCharTok{*} \DecValTok{10} \CommentTok{\# circonférence d\textquotesingle{}un cercle de rayon 10}
 
-\CommentTok{\# si on utilise une valeur en dehors du domaine d\textquotesingle{}application de la fonction}
+\DocumentationTok{\#\# si on utilise une valeur en dehors du domaine d\textquotesingle{}application de la fonction}
 \FunctionTok{log}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{) }\CommentTok{\# NaN, car {-}1 est en dehors du domaine de définition de la fonction log}
 \FunctionTok{sqrt}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{) }\CommentTok{\# {-}2 est en dehors du domaine de définition de la fonction racine carrée}
 
-\CommentTok{\# notions de + ou {-} l\textquotesingle{}infini}
+\DocumentationTok{\#\# notions de + ou {-} l\textquotesingle{}infini}
 \DecValTok{1} \SpecialCharTok{/} \DecValTok{0} \CommentTok{\# [1] Inf}
 \SpecialCharTok{{-}}\DecValTok{1} \SpecialCharTok{/} \DecValTok{0} \CommentTok{\# [1] {-}Inf}
 \end{Highlighting}
@@ -813,7 +814,7 @@ Plusieurs fonctions sont disponibles dans R pour arrondir une valeur (cf.~\textt
 \begin{itemize}
 \tightlist
 \item
-  la fonction \texttt{round()} est utile pour arrondir les décimales. Il faut préciser en argument, le nombre de chiffres après la virgule. \textbf{Attention} : si le nombre se termine par un 5, l'arrondi se fait vers le chiffre pair le plus proche : 4.45 s'arrondit à 4.4 et 4.75 s'arrondit à 4.8
+  la fonction \texttt{round()} est utile pour arrondir les décimales. Il faut préciser en argument le nombre de chiffres après la virgule. \textbf{Attention} : si le nombre se termine par un 5, l'arrondi se fait vers le chiffre pair le plus proche : 4,45 s'arrondit à 4,4 (la valeur arrondie inférieure) et 4,75 s'arrondit à 4,8 (la valeur arrondie supérieure)
 \item
   la fonction \texttt{signif()} arrondit aux chiffres les plus significatifs (les plus grands)
 \item
@@ -851,7 +852,7 @@ Plusieurs fonctions sont disponibles dans R pour arrondir une valeur (cf.~\textt
 \FunctionTok{signif}\NormalTok{(}\FloatTok{4.75}\NormalTok{, }\AttributeTok{digits =} \DecValTok{2}\NormalTok{) }\CommentTok{\# 4.8 ; arrondit au chiffre pair le plus proche }
 
 \DocumentationTok{\#\# fonction trunc() supprime simplement les décimales}
-\CommentTok{\# note : ici, il n\textquotesingle{}y a pas d\textquotesingle{}arrondi vers la chiffre pair la plus proche)}
+\CommentTok{\# note : ici, il n\textquotesingle{}y a pas d\textquotesingle{}arrondi vers la chiffre pair la plus proche}
 \FunctionTok{trunc}\NormalTok{(}\FloatTok{123.456}\NormalTok{) }\CommentTok{\# 123}
 \FunctionTok{trunc}\NormalTok{(}\FloatTok{4.5}\NormalTok{) }\CommentTok{\# 4}
 \FunctionTok{trunc}\NormalTok{(}\FloatTok{1.5}\NormalTok{) }\CommentTok{\# 1}
@@ -873,7 +874,7 @@ On peut concatener deux objets en chaînes de caractères :
 \begin{itemize}
 \tightlist
 \item
-  la fonction \texttt{paste()} concatène les chaînes de caractères en séparant les vecteurs par un espace (argument par défaut, cf \texttt{?paste}). Cet argument peut être modifié.
+  la fonction \texttt{paste()} concatène les chaînes de caractères en séparant les valeurs par un espace (argument par défaut, cf \texttt{?paste}). Cet argument peut être modifié.
 \item
   la fonction \texttt{paste0()} concatène les chaînes de caractères sans espace.
 \end{itemize}
@@ -925,7 +926,7 @@ On peut concatener deux objets en chaînes de caractères :
 
 \subsubsection{Evaluer des conditions}\label{evaluer-des-conditions}
 
-Nous pouvons utiliser les opérateurs de comparaison ci-dessous pour évaluer des conditions :
+Nous pouvons utiliser les opérateurs de comparaison ci-dessous (utiles pour évaluer des conditions) :
 
 \begin{itemize}
 \tightlist
@@ -975,7 +976,8 @@ Une comparaison à une valeur manquante (\texttt{NA}) retournera une valeur manq
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ConstantTok{NA} \SpecialCharTok{\textless{}} \DecValTok{10}
+\ConstantTok{NA} \SpecialCharTok{\textless{}} \DecValTok{10} \CommentTok{\# retourne une valeur manquante (pas de solution à cette condition)}
+
 \FunctionTok{is.na}\NormalTok{(}\DecValTok{10}\NormalTok{) }\CommentTok{\# éviter d\textquotesingle{}utiliser 10 == NA pour tester si une valeur est manquante}
 \FunctionTok{is.na}\NormalTok{(}\ConstantTok{NA}\NormalTok{)}
 \FunctionTok{is.na}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{))}
@@ -1055,7 +1057,7 @@ a & NON a \\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# opérateur ET}
+\DocumentationTok{\#\# opérateur ET}
 \ConstantTok{TRUE} \SpecialCharTok{\&} \ConstantTok{TRUE}
 \ConstantTok{TRUE} \SpecialCharTok{\&} \ConstantTok{FALSE}
 \ConstantTok{FALSE} \SpecialCharTok{\&} \ConstantTok{TRUE}
@@ -1064,7 +1066,7 @@ a & NON a \\
 \NormalTok{(}\DecValTok{5} \SpecialCharTok{\textgreater{}} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\&}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{==} \DecValTok{5}\NormalTok{) }\CommentTok{\# TRUE ET FALSE donne FALSE}
 \NormalTok{(}\DecValTok{5} \SpecialCharTok{\textless{}} \DecValTok{10}\NormalTok{) }\SpecialCharTok{\&}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{==} \DecValTok{5}\NormalTok{) }\CommentTok{\# FALSE ET FALSE donne FALSE}
 
-\CommentTok{\# opérateur OU}
+\DocumentationTok{\#\# opérateur OU}
 \ConstantTok{TRUE} \SpecialCharTok{|} \ConstantTok{TRUE}
 \ConstantTok{TRUE} \SpecialCharTok{|} \ConstantTok{FALSE}
 \ConstantTok{FALSE} \SpecialCharTok{|} \ConstantTok{TRUE}
@@ -1073,11 +1075,30 @@ a & NON a \\
 \NormalTok{(}\DecValTok{5} \SpecialCharTok{\textgreater{}} \DecValTok{10}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{!=} \DecValTok{5}\NormalTok{) }\CommentTok{\# FALSE OU TRUE donne TRUE}
 \NormalTok{(}\DecValTok{5} \SpecialCharTok{\textgreater{}} \DecValTok{10}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{==} \DecValTok{5}\NormalTok{) }\CommentTok{\# FALSE OU FALSE donne FALSE}
 
-\CommentTok{\# opérateur NON}
+\DocumentationTok{\#\# opérateur NON}
 \SpecialCharTok{!}\ConstantTok{TRUE}
 \SpecialCharTok{!}\ConstantTok{FALSE}
 \SpecialCharTok{!}\NormalTok{(}\DecValTok{5} \SpecialCharTok{\textless{}} \DecValTok{10}\NormalTok{) }\CommentTok{\# non{-}TRUE donne FALSE}
 \SpecialCharTok{!}\NormalTok{(}\DecValTok{5} \SpecialCharTok{\textgreater{}} \DecValTok{10}\NormalTok{) }\CommentTok{\# non{-}FALSE donne TRUE }
+\end{Highlighting}
+\end{Shaded}
+
+Une opération logique avec une valeur manquante retournera une valeur manquante, sauf si l'information manquante n'est pas bloquante pour l'opération.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# opérateur NON}
+\SpecialCharTok{!}\ConstantTok{NA} \CommentTok{\# retourne une valeur manquante}
+
+\DocumentationTok{\#\# opérateur ET}
+\ConstantTok{TRUE} \SpecialCharTok{\&} \ConstantTok{NA} \CommentTok{\# retourne une valeur manquante}
+\ConstantTok{FALSE} \SpecialCharTok{\&} \ConstantTok{NA} \CommentTok{\# retourne une valeur FALSE (car la réponse est fausse, quelle que }
+           \CommentTok{\# soit la valeur qui aurait été à la place de NA)}
+
+\DocumentationTok{\#\# opérateur OU}
+\ConstantTok{FALSE} \SpecialCharTok{|} \ConstantTok{NA} \CommentTok{\# retourne une valeur manquante}
+\ConstantTok{TRUE} \SpecialCharTok{|} \ConstantTok{NA} \CommentTok{\# retourne une valeur TRUE (car la réponse est vraie, quelle que }
+           \CommentTok{\# soit la valeur qui aurait été à la place de NA)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1335,6 +1356,49 @@ On peut faire des opérations logiques sur des vecteurs (voir les tables de vér
 \end{Highlighting}
 \end{Shaded}
 
+\subsubsection{Quelques fonctions logiques utiles}\label{quelques-fonctions-logiques-utiles}
+
+Les fonctions suivantes sont souvent utilisées pour réaliser des opérations logiques :
+
+\begin{itemize}
+\tightlist
+\item
+  la fonction \texttt{which()} indique la ``position'' des réponses vraies dans un vecteur de tests logiques
+\item
+  la fonction \texttt{any()} retourne un résultat \texttt{TRUE} si la condition entre parenthèse est vraie pour au moins une des valeurs du vecteur, sinon le résultat est \texttt{FALSE}
+\item
+  la fonction \texttt{all()} retourne un résultat \texttt{TRUE} si la condition entre parenthèse est vraie pour toutes les valeurs du vecteur, sinon le résultat est \texttt{FALSE}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Commençons avec ce vecteur de réels}
+\NormalTok{vect\_test }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{1.5}\NormalTok{, }\FloatTok{5.83}\NormalTok{, }\FloatTok{3.2}\NormalTok{, }\DecValTok{15}\NormalTok{, }\FloatTok{9.99}\NormalTok{)}
+
+\DocumentationTok{\#\# pour connaître la position des valeurs supérieures à 5 dans ce vecteur :}
+\FunctionTok{which}\NormalTok{(vect\_test }\SpecialCharTok{\textgreater{}} \DecValTok{5}\NormalTok{)}
+\CommentTok{\# [1] 2 4 5}
+\CommentTok{\# la 2ème valeur (5.83), la 4ème valeur (15) et la 5ème valeur (9.99)}
+\CommentTok{\# dans le vecteur sont supérieures à 5}
+
+\DocumentationTok{\#\# ce sont les positions des réponses \textquotesingle{}TRUE\textquotesingle{} à l\textquotesingle{}opération logique :}
+\NormalTok{vect\_test }\SpecialCharTok{\textgreater{}} \DecValTok{5}
+\CommentTok{\# [1] FALSE  TRUE FALSE  TRUE  TRUE}
+
+\DocumentationTok{\#\# Est{-}ce qu\textquotesingle{}une de ces valeurs est inférieure à 3 ?}
+\FunctionTok{any}\NormalTok{(vect\_test }\SpecialCharTok{\textless{}} \DecValTok{3}\NormalTok{) }\CommentTok{\# TRUE}
+
+\DocumentationTok{\#\# Est{-}ce qu\textquotesingle{}une de ces valeurs est inférieure à 1 ?}
+\FunctionTok{any}\NormalTok{(vect\_test }\SpecialCharTok{\textless{}} \DecValTok{1}\NormalTok{) }\CommentTok{\# FALSE}
+
+\DocumentationTok{\#\# Est{-}ce que l\textquotesingle{}ensemble de ces valeurs est inférieure à 3 ?}
+\FunctionTok{all}\NormalTok{(vect\_test }\SpecialCharTok{\textless{}} \DecValTok{3}\NormalTok{) }\CommentTok{\#  FALSE}
+
+\DocumentationTok{\#\# Est{-}ce que l\textquotesingle{}ensemble de ces valeurs sont supérieures à 1 ?}
+\FunctionTok{all}\NormalTok{(vect\_test }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{) }\CommentTok{\# TRUE}
+\end{Highlighting}
+\end{Shaded}
+
 \subsection{Principe de coercition}\label{principe-de-coercition}
 
 Commes les valeurs d'un vecteur atomique doivent toutes être du même type, si vous combinez des vecteurs dont les valeurs sont de types différents, R va transformer le résultat dans un seul type de valeur, par \textbf{coercition} (\emph{coercion}). Les règles de coercition sont les suivantes :
@@ -1361,11 +1425,11 @@ Commes les valeurs d'un vecteur atomique doivent toutes être du même type, si 
 \NormalTok{vect1}
 \FunctionTok{typeof}\NormalTok{(vect1) }\CommentTok{\# "character"}
 
-\NormalTok{vect2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(vect\_dbl, vect\_int,  vect\_logic)}
+\NormalTok{vect2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(vect\_dbl, vect\_int, vect\_logic)}
 \NormalTok{vect2}
 \FunctionTok{typeof}\NormalTok{(vect2) }\CommentTok{\# "double"}
 
-\NormalTok{vect3 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(vect\_int,  vect\_logic)}
+\NormalTok{vect3 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(vect\_int, vect\_logic)}
 \NormalTok{vect3}
 \FunctionTok{typeof}\NormalTok{(vect3) }\CommentTok{\# "integer"}
 \end{Highlighting}
@@ -1394,7 +1458,8 @@ Pour décrire de manière résumé les attributs d'un vecteur, vous pouvez utili
 \NormalTok{vect\_logic }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, F, T, T)}
 
 \DocumentationTok{\#\# la fonction class() permet de décrire le type du vecteur}
-\FunctionTok{class}\NormalTok{(vect\_dbl) }\CommentTok{\# numeric   \# note ici, R indique "numeric" plutôt que "double"}
+\FunctionTok{class}\NormalTok{(vect\_dbl) }\CommentTok{\# numeric     Note : ici, R indique le mode "numeric" plutôt que }
+                \CommentTok{\#                    le type "double"}
 \FunctionTok{class}\NormalTok{(vect\_int) }\CommentTok{\# integer}
 \FunctionTok{class}\NormalTok{(vect\_char) }\CommentTok{\# character}
 \FunctionTok{class}\NormalTok{(vect\_logic) }\CommentTok{\# logical}
@@ -1409,7 +1474,8 @@ Pour décrire de manière résumé les attributs d'un vecteur, vous pouvez utili
 \DocumentationTok{\#\# description sommaire des attributs des vecteurs}
 \FunctionTok{str}\NormalTok{(vect\_dbl) }\CommentTok{\# num [1:3] 1 3.14 3.54}
 \FunctionTok{str}\NormalTok{(vect\_int) }\CommentTok{\# num [1:3] 1 3.14 3.54 }
-\CommentTok{\# note que la fonction indique "numeric" plutôt que "integer" }
+              \CommentTok{\# note : la fonction str() indique le mode "numeric" plutôt que }
+              \CommentTok{\#        que le type "integer" }
 \FunctionTok{str}\NormalTok{(vect\_char) }\CommentTok{\# chr [1:4] "a" "B" "XYZ" "HELLO"}
 \FunctionTok{str}\NormalTok{(vect\_logic) }\CommentTok{\# logi [1:6] TRUE FALSE FALSE FALSE TRUE TRUE}
 \end{Highlighting}
@@ -1437,7 +1503,7 @@ Un des attributs les plus fréquents est de nommer chaque élément d'un vecteur
 \end{Highlighting}
 \end{Shaded}
 
-La fonction \texttt{attr()} permet d'obtenir ou de définir un attribut spécifique (pour compléter les méta-données). La fonction \texttt{attributes()} indique l'ensemble des attribus associés à un vecteur.
+La fonction \texttt{attr()} permet d'obtenir ou de définir un attribut spécifique (pour compléter les méta-données). La fonction \texttt{attributes()} indique l'ensemble des attributs associés à un vecteur.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1474,18 +1540,18 @@ La fonction \texttt{attr()} permet d'obtenir ou de définir un attribut spécifi
 
 \subsection{\texorpdfstring{Vecteurs de type \texttt{factor}}{Vecteurs de type factor}}\label{vecteurs-de-type-factor}
 
-Les vecteurs de types \texttt{factor} sont utiles pour ajouter certaines contraintes propres aux variables qualitatives. Ce sont des vecteurs qui contiennent uniquement des valeurs prédéfinies (connues dès le protocole de l'expérience). Par exemple, en amont de l'expérience, on peut avoir défini que le niveau d'étude se mesurera avec 3 modalités : ``lycée'',``bac'', et ``université''.
+Les vecteurs de types \texttt{factor} sont utiles pour ajouter certaines contraintes propres aux variables qualitatives. Ce sont des vecteurs qui contiennent uniquement des valeurs prédéfinies (connues dès le protocole de l'expérience). Par exemple, en amont de l'expérience, on peut avoir défini que le niveau d'étude se mesurera avec 3 modalités : ``lycée'', ``bac'', et ``université''.
 
 Cette caractérisation sera utile pour utiliser la variable dans des contextes précis, par exemple :
 
 \begin{itemize}
 \tightlist
 \item
-  dans un modèle de régression (où on veut que le logiciel créé automatiquement des indicatrices pour prendre en compte cette variable qualitative de manière adaptée),
+  dans un modèle de régression (où on veut que le logiciel créé automatiquement des indicatrices pour prendre en compte cette variable qualitative de manière adéquate),
 \item
   pour représenter graphiquement la variable (par exemple, identifier automatiquement que ces valeurs doivent être décrites avec un diagramme en barres plutôt qu'en box-plot).
 \item
-  dans des analyes descriptive, cela permettra d'identifier directement si certaines modalités de réponses n'apparaîssent pas la série de valeurs (le décompte sera de 0).
+  dans des analyes descriptives, cela permettra d'identifier directement si certaines modalités de réponses n'apparaîssent pas au sein des valeurs observées (le décompte pour cette modalité de réponse sera égal à 0).
 \end{itemize}
 
 Les vecteurs de type \texttt{factor} sont construits par dessus des vecteurs d'entiers, avec 2 attributs :
@@ -1520,10 +1586,12 @@ Pour créer un vecteur de type factor, on utilise la fonction \texttt{factor()}.
 \CommentTok{\# [1] "bac"   "lycée" "univ"}
 
 \DocumentationTok{\#\# Un entier est associé à chaque élément de l\textquotesingle{}attribut \textquotesingle{}levels\textquotesingle{}  : }
-\DocumentationTok{\#\# "bac" est associé à 1,}
-\DocumentationTok{\#\# "lycée" est associé à 2,}
-\DocumentationTok{\#\# "univ" est associé à 3}
-\DocumentationTok{\#\#}
+\DocumentationTok{\#\#  {-} "bac" est associé à 1,}
+\DocumentationTok{\#\#  {-} "lycée" est associé à 2,}
+\DocumentationTok{\#\#  {-} "univ" est associé à 3}
+\FunctionTok{str}\NormalTok{(fact\_1)}
+\CommentTok{\# Factor w/ 3 levels "bac","lycée",..: 3 1 1 2 3 2 1}
+
 \DocumentationTok{\#\# si on force par coercition à afficher le vecteur au format d\textquotesingle{}entiers :}
 \FunctionTok{as.integer}\NormalTok{(fact\_1)}
 \CommentTok{\# [1] 3 1 1 2 3 2 1}
@@ -1545,11 +1613,11 @@ On aurait sans doute préféré que l'ordre des \texttt{levels} commence avec le
 
 \DocumentationTok{\#\# Un entier est associé à chaque élément de l\textquotesingle{}attribut \textquotesingle{}levels\textquotesingle{}, en suivant }
 \DocumentationTok{\#\# l\textquotesingle{}ordre de ses éléments }
-\CommentTok{\# "lycée" est associé à 1,}
-\CommentTok{\# "bac" est associé à 2,}
-\CommentTok{\# "univ" est associé à 3}
-\CommentTok{\#}
-\CommentTok{\# si on force par coercition à afficher le vecteur au format d\textquotesingle{}entiers :}
+\DocumentationTok{\#\#  {-} "lycée" est associé à 1,}
+\DocumentationTok{\#\#  {-} "bac" est associé à 2,}
+\DocumentationTok{\#\#  {-} "univ" est associé à 3}
+
+\DocumentationTok{\#\# si on force par coercition à afficher le vecteur au format d\textquotesingle{}entiers :}
 \FunctionTok{as.integer}\NormalTok{(fact\_1bis)}
 \CommentTok{\# [1] 3 2 2 1 3 1 2}
 \end{Highlighting}
@@ -1578,12 +1646,12 @@ Si la variable qualitative a été codée avec un codage numérique, on peut ég
 \CommentTok{\# $class}
 \CommentTok{\# [1] "factor"}
 
-\CommentTok{\# Un entier est associé à chaque élément de l\textquotesingle{}attribut \textquotesingle{}levels\textquotesingle{}  : }
-\CommentTok{\# "{-}1" est associé à 1,}
-\CommentTok{\# "0" est associé à 2,}
-\CommentTok{\# "1" est associé à 3}
-\CommentTok{\#}
-\CommentTok{\# si on force par coercition à afficher le vecteur au format d\textquotesingle{}entiers :}
+\DocumentationTok{\#\# Un entier est associé à chaque élément de l\textquotesingle{}attribut \textquotesingle{}levels\textquotesingle{}  : }
+\DocumentationTok{\#\# "{-}1" est associé à 1,}
+\DocumentationTok{\#\# "0" est associé à 2,}
+\DocumentationTok{\#\# "1" est associé à 3}
+
+\DocumentationTok{\#\# si on force par coercition à afficher le vecteur au format d\textquotesingle{}entiers :}
 \FunctionTok{as.integer}\NormalTok{(fact\_2)}
 \CommentTok{\# [1] 2 3 2 1 2 2 1 3 1 2 3 3}
 \end{Highlighting}
@@ -1591,9 +1659,9 @@ Si la variable qualitative a été codée avec un codage numérique, on peut ég
 
 On peut noter que les entiers sur lesquels les vecteurs \texttt{factor} sont construits commencent toujours à 1 et augmente de 1 en 1. Il n'est pas possible de faire autrement (par exemple d'associer une valeur 0 à une des modalités de réponses).
 
-On voit que les vecteurs de type \texttt{factor} ne sont pas pratiques pour manipuler de manière flexibles le codage de variables qualitatives (attribuer les codes et les étiquettes de manière flexible). Pour une meilleure gestion des méta-données (des noms de variables, des codages et des étiquettes associées aux modalités de réponses), il est préférable de créer une base de données des méta-données. Nous verrons comment faire au chapitre 3.
+On voit que les vecteurs de type \texttt{factor} ne sont pas pratiques pour manipuler de manière flexible le codage de variables qualitatives (attribuer les codes et les étiquettes de manière flexible). Pour une meilleure gestion des méta-données (des noms de variables, des codages et des étiquettes associées aux modalités de réponses), il est préférable de créer une base de données des méta-données. Nous verrons comment faire au chapitre 3.
 
-Les variables qualitatives peuvent également être définis comme des \textbf{facteurs ordonnés} avec la fonction \texttt{ordered}. Cela peut être utile pour des variables à utiliser dans le cadre de régression multinomiales par exemple. Le comportement d'un vecteur de type \texttt{ordered} est très proche de celui d'un \texttt{factor} (le type \texttt{ordered} est une petite variation du type \texttt{factor}).
+Les variables qualitatives peuvent également être définies comme des \textbf{facteurs ordonnés} avec la fonction \texttt{ordered}. Cela peut être utile pour des variables à utiliser dans le cadre de régression multinomiales par exemple. Le comportement d'un vecteur de type \texttt{ordered} est très proche de celui d'un \texttt{factor} (le type \texttt{ordered} est une petite variation du type \texttt{factor}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1617,11 +1685,11 @@ Les variables qualitatives peuvent également être définis comme des \textbf{f
 
 \DocumentationTok{\#\# Un entier est associé à chaque élément de l\textquotesingle{}attribut \textquotesingle{}levels\textquotesingle{}, en suivant }
 \DocumentationTok{\#\# l\textquotesingle{}ordre de ses éléments }
-\CommentTok{\# "lycée" est associé à 1,}
-\CommentTok{\# "bac" est associé à 2,}
-\CommentTok{\# "univ" est associé à 3}
-\CommentTok{\#}
-\CommentTok{\# si on force par coercition à afficher le vecteur au format d\textquotesingle{}entiers :}
+\DocumentationTok{\#\#  {-} "lycée" est associé à 1,}
+\DocumentationTok{\#\#  {-} "bac" est associé à 2,}
+\DocumentationTok{\#\#  {-} "univ" est associé à 3}
+
+\DocumentationTok{\#\# si on force par coercition à afficher le vecteur au format d\textquotesingle{}entiers :}
 \FunctionTok{as.integer}\NormalTok{(fact\_1ter)}
 \CommentTok{\# [1] 3 2 2 1 3 1 2}
 \end{Highlighting}
@@ -1648,6 +1716,7 @@ Les \textbf{vecteurs de types \texttt{Date}} ont un attribut de classe égale à
 
 \DocumentationTok{\#\# si on force le vecteur vect\_dt à donner les valeurs au format de réels, }
 \DocumentationTok{\#\# on retrouve le nombre de jours depuis le 1er janvier 1970.}
+\DocumentationTok{\#\# (respectivement, 30 jours et 365 jours dans cet exemple)}
 \FunctionTok{as.double}\NormalTok{(vect\_dt)}
 \CommentTok{\# [1]  30 365}
 \end{Highlighting}
@@ -1658,9 +1727,9 @@ Les \textbf{vecteurs de types ``Date-time''} indiquent une date et une heure. La
 \begin{itemize}
 \tightlist
 \item
-  un attribut de classe égale à \texttt{POSIXct} pour \emph{Portable Operating System Inerface - calender time} (ou encore \texttt{POSIXlt}, pour \emph{Portable Operating System - local time}, mais ce format semble moins pratique pour une base de données).
+  un attribut de classe égale à \texttt{POSIXct} pour \emph{Portable Operating System Interface - calender time} (ou encore \texttt{POSIXlt}, pour \emph{Portable Operating System - local time}, mais ce format semble moins pratique pour une base de données).
 \item
-  un attribut de fuseau horaire \texttt{tzone} (pour \emph{time zone}). Cet attribut aura simplement un effet sur l'heure affiché, la valeur réelle sous-jacente reste la même.
+  un attribut de fuseau horaire \texttt{tzone} (pour \emph{time zone}). Cet attribut aura simplement un effet sur l'heure affichée, la valeur réelle sous-jacente reste la même.
 \end{itemize}
 
 Le vecteur affiche ses valeurs au format ``aaaa-mm-jj hh:mm'' pour indiquer l'année, le mois, le jour, l'heure et les minutes, entre guillemets. On peut saisir des valeurs de dates avec un vecteurs de caractères au sein de la fonction \texttt{as.POSIXct()}
@@ -1698,44 +1767,1159 @@ Le vecteur affiche ses valeurs au format ``aaaa-mm-jj hh:mm'' pour indiquer l'an
 \end{Highlighting}
 \end{Shaded}
 
-\subsection{Indiçage d'un vecteur}\label{indiuxe7age-dun-vecteur}
+\subsection{Sélection par indexation}\label{suxe9lection-par-indexation}
 
-Pour sélection des sous-ensembles de valeurs au sein d'un vecteur, R utilise un
-utiliser l'indiçage pour sélectionner les éléments d'un vecteur
+Pour sélectionner des sous-ensembles de valeurs au sein d'un vecteur, une des méthodes très utilisée dans R est \textbf{l'indexation}, en ajoutant des crochets \texttt{{[}{]}} à la fin d'un vecteur. L'indexation se fait principalement selon 3 approches :
 
-fonctions which(), match(), any(), all()
+\begin{itemize}
+\tightlist
+\item
+  en indiquant la \textbf{position} des valeurs que l'on veut sélectionner
+\item
+  en indiquant le \textbf{nom} des valeurs que l'on veut sélectionner (définis selon l'attribut \texttt{name} du vecteur)
+\item
+  en indiquant une \textbf{condition}, seules les valeurs dont la condition est ``vraies'' (\texttt{TRUE}) seront sélectionnées
+\end{itemize}
 
-\subsection{fonctions statistiques pour résumer une série de valeurs}\label{fonctions-statistiques-pour-ruxe9sumer-une-suxe9rie-de-valeurs}
+\subsubsection{Indexation sur la position}\label{indexation-sur-la-position}
 
-min() max() median() quantile()
-mean() sd() var()
-sum() prod()
+On peut sélectionner un sous-ensemble d'un vecteur en indiquant entre crochets \texttt{{[}{]}} la position des valeurs que l'on souhaite sélectionner. Il est également possible d'exclure des valeurs en indiquant un signe \texttt{-} devant la position de la valeur.
 
-table()
-prop.table()
-unique()
-sort()
+Si vous indiquez une (ou plusieurs) positions plus grande(s) que la longueur du vecteur, on obtient des données manquantes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On reprend le vecteur de réels suivant :}
+\NormalTok{vect\_test }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{1.5}\NormalTok{, }\FloatTok{5.83}\NormalTok{, }\FloatTok{3.2}\NormalTok{, }\DecValTok{15}\NormalTok{, }\FloatTok{9.99}\NormalTok{)}
+
+\DocumentationTok{\#\# Pour sélectionner la 4ème valeur (15), on peut utiliser la notation []}
+\NormalTok{vect\_test[}\DecValTok{4}\NormalTok{]}
+\CommentTok{\# [1] 15}
+
+\DocumentationTok{\#\# Pour sélectionner la 1ère, la 2ème et la 5ème valeur : }
+\NormalTok{vect\_test[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{)]}
+\CommentTok{\# [1] 1.50 5.83 9.99}
+
+\DocumentationTok{\#\# l\textquotesingle{}ordre dans lequel on indique la position définie l\textquotesingle{}ordre dans lequel le }
+\DocumentationTok{\#\# résultat est donné :}
+\NormalTok{vect\_test[}\FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)]}
+\CommentTok{\# [1] 9.99 1.50 5.83}
+
+\DocumentationTok{\#\# Pour sélectionner les valeurs en position 3, 4 et 5, on peut utiliser la }
+\DocumentationTok{\#\# la notation de séquence ":"}
+\NormalTok{vect\_test[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{]}
+\CommentTok{\# [1]  3.20 15.00  9.99}
+
+\DocumentationTok{\#\# Pour exclure des valeurs de la sélection, on peut utilise le signe "{-}"}
+\NormalTok{vect\_test[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{)]}
+\CommentTok{\# [1]  3.2 15.0     }
+\CommentTok{\# il garde la 3ème et la 4ème valeur, après avoir exclu les valeurs aux }
+\CommentTok{\# positions 1, 2 et 5}
+
+\DocumentationTok{\#\# Si on indique des positions plus grande que la longueur du vecteur, }
+\DocumentationTok{\#\# on obtient des données manquantes : }
+\NormalTok{vect\_test[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{)]}
+\CommentTok{\# [1] 1.5 3.2  NA  NA}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Indexation sur le nom}\label{indexation-sur-le-nom}
+
+Il est également possible de sélectionner un sous-ensemble d'un vecteur en indiquant entre crochets \texttt{{[}{]}} le nom indiqué dans l'attribut \texttt{name} du vecteur.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On reprend les deux vecteurs nommés vus précédemment :}
+\NormalTok{sex }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\FunctionTok{names}\NormalTok{(sex) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"homme"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)}
+\NormalTok{sex}
+\CommentTok{\# homme homme femme homme femme femme     le nom apparaît au dessus des valeurs}
+\CommentTok{\#     1     1     2     1     2     2}
+
+\NormalTok{vect\_bizarre }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\FunctionTok{names}\NormalTok{(vect\_bizarre) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"un"}\NormalTok{, }\StringTok{"trois"}\NormalTok{, }\StringTok{"douze"}\NormalTok{, }\StringTok{"douze"}\NormalTok{, }\StringTok{"2"}\NormalTok{)}
+\NormalTok{vect\_bizarre}
+\CommentTok{\# un trois douze douze     2 }
+\CommentTok{\#  1     2     3     4     5}
+
+\DocumentationTok{\#\# Par exemple en sélectionnant les valeurs de sex nommées "homme", on obtient}
+\NormalTok{sex[}\StringTok{"homme"}\NormalTok{]}
+\CommentTok{\# homme }
+\CommentTok{\#     1}
+
+\DocumentationTok{\#\# En sélectionnant les valeurs de vect\_bizarres nommées "un" et "trois" :}
+\NormalTok{vect\_bizarre[}\FunctionTok{c}\NormalTok{(}\StringTok{"un"}\NormalTok{, }\StringTok{"trois"}\NormalTok{)]}
+\CommentTok{\# un trois }
+\CommentTok{\#  1     2}
+
+\DocumentationTok{\#\# En sélectionnant les valeurs de vect\_bizarres nommées "douze", on obtient}
+\NormalTok{vect\_bizarre[}\StringTok{"douze"}\NormalTok{]}
+\CommentTok{\# douze }
+\CommentTok{\#     3}
+
+\CommentTok{\# avec cette méthode d\textquotesingle{}indexation, on ne peut pas retrouver la deuxième valeur}
+\CommentTok{\# associée au nom "douze" (la valeur 4) de vect\_bizarre}
+
+\DocumentationTok{\#\# Attention, cette méthode d\textquotesingle{}indexation fonctionne uniquement avec les noms}
+\DocumentationTok{\#\# donné dans l\textquotesingle{}attribut name()}
+\DocumentationTok{\#\# Cela ne fonctionne pas avec les valeurs d\textquotesingle{}un vecteur caractères :}
+\NormalTok{sex\_char }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"homme"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)}
+\NormalTok{sex\_char}
+\FunctionTok{names}\NormalTok{(sex\_char)}
+\CommentTok{\# NULL          l\textquotesingle{}attribut "names" de ce vecteur caractère ne contient rien}
+
+\NormalTok{sex\_char[}\StringTok{"homme"}\NormalTok{]}
+\CommentTok{\# [1] NA           \# l\textquotesingle{}indexation n\textquotesingle{}a rien sélectionné car l\textquotesingle{}attribut names}
+                   \CommentTok{\# ne contient aucun nom}
+\end{Highlighting}
+\end{Shaded}
+
+En pratique, on voit que lorsque l'attribut \texttt{names} contient des noms en doublons, seule la première valeur associée à ces noms en est sélectionnée.
+
+\subsubsection{Indexation sur une condition}\label{indexation-sur-une-condition}
+
+Il est enfin possible de sélection les valeurs à l'aide d'un vecteur logique de même longueur que le vecteur sur lequel on travaille. Les valeurs en position \texttt{TRUE} seront sélectionnées, les valeurs en position \texttt{FALSE} seront exclues.
+
+On peut se servir de cette approche pour sélectionner les valeurs en appliquant une opération logique.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vect\_test }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{1.50}\NormalTok{, }\FloatTok{5.83}\NormalTok{, }\FloatTok{3.20}\NormalTok{, }\FloatTok{15.00}\NormalTok{, }\FloatTok{9.99}\NormalTok{)}
+
+\DocumentationTok{\#\# On peut indiquer entre crochet les valeurs que l\textquotesingle{}on veut sélectionner avec }
+\DocumentationTok{\#\# TRUE dans la position corespondante}
+\NormalTok{vect\_test[}\FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)]}
+\CommentTok{\# [1]  1.5  3.2 15.0}
+
+\DocumentationTok{\#\# On peut ainsi directement appliquer une condition pour sélectionner les }
+\DocumentationTok{\#\# valeurs correspondant à cette condition.}
+\DocumentationTok{\#\# Par exemple, pour sélectionner les valeurs supérieure à 5 : }
+\NormalTok{vect\_test[vect\_test }\SpecialCharTok{\textgreater{}} \DecValTok{5}\NormalTok{]}
+\CommentTok{\# [1]  5.83 15.00  9.99}
+
+\DocumentationTok{\#\# Pour sélectionner les valeurs égale à 5.83 ou à 9.99}
+\NormalTok{vect\_test[vect\_test }\SpecialCharTok{==} \FloatTok{5.83} \SpecialCharTok{|}\NormalTok{ vect\_test }\SpecialCharTok{==} \FloatTok{9.99}\NormalTok{]}
+\CommentTok{\# [1] 5.83 9.99}
+
+\DocumentationTok{\#\# ou encore}
+\NormalTok{vect\_test[vect\_test }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\FloatTok{5.83}\NormalTok{, }\FloatTok{9.99}\NormalTok{)]}
+\CommentTok{\# [1] 5.83 9.99}
+
+\DocumentationTok{\#\# Attention, si vous utilisez en indexation un vecteur logique plus court,}
+\DocumentationTok{\#\# R va automatiquement recycler le vecteur logique}
+\NormalTok{vect\_test[}\FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{)]}
+\CommentTok{\# [1]  1.5  3.2 15.0}
+
+\CommentTok{\# ici, R a recyclé les valeurs logique en appliquant }
+\CommentTok{\# c(TRUE, FALSE, TRUE) au 3 premières valeurs de vect\_test, soit 1.5 et 3.2}
+\CommentTok{\# puis a recyclé le vacteur logique pour les 3 denières valeurs de vect\_test}
+\CommentTok{\# en appliquant c(TRUE, FALSE). Le dernier TRUE n\textquotesingle{}est pas utilisé}
+\CommentTok{\# ce qui sélectionne la 4ème valeur 15.0, mais pas la dernière.}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Assignation par indexation}\label{assignation-par-indexation}
+
+Cette méthode de sélection des éléments d'un vecteur peut être utilisée pour remplacer certaines valeurs du vecteur.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vect\_test }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{1.50}\NormalTok{, }\FloatTok{5.83}\NormalTok{, }\FloatTok{3.20}\NormalTok{, }\FloatTok{15.00}\NormalTok{, }\FloatTok{9.99}\NormalTok{)}
+
+\DocumentationTok{\#\# Par exemple, on veut remplacer les valeurs 5.83 et 9.99 par les valeurs}
+\DocumentationTok{\#\# 2.2 et une valeur manquante NA}
+
+\DocumentationTok{\#\# Ces deux valeurs occupent la position 2 et la position 5 :}
+\NormalTok{vect\_test[}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\ConstantTok{NA}\NormalTok{)}
+\NormalTok{vect\_test}
+\CommentTok{\# [1]  1.5  2.0  3.2 15.0   NA}
+\DocumentationTok{\#\# Les valeurs ont été changées au sein du vecteur}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Fonctions statistiques pour résumer une série de valeurs}\label{fonctions-statistiques-pour-ruxe9sumer-une-suxe9rie-de-valeurs}
+
+\subsubsection{Variables quantitatives}\label{variables-quantitatives}
+
+Pour décrire les paramètres de la distribution d'une variable quantitative (d'un vecteur de valeurs réelles ou d'entiers), les fonctions suivantes peuvent être utilisées :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{mean()}, \texttt{sd()} et \texttt{var()} permettent de calculer respectivement la moyenne, l'écart-type (\emph{standard deviation}) et la variance d'une variable
+\item
+  \texttt{min()}, \texttt{max()}, \texttt{median()} et \texttt{quantile()} permettent de calculer respectivement le minimum, le maximum, la médiane et les quantiles d'une variable. Pour la fonction quantile, il faut préciser en argument les probabilités correspondant aux quantiles demandés, par exemple \texttt{probs\ =\ c(0,\ 0.25,\ 0.5,\ 0.75,\ 1)} permet d'obtenir le minimum, le 1er quartile (25ème percentile), la médiane (50ème percentile), le 3ème quartile (75ème percentile) et le maximum.
+\item
+  \texttt{sum()} permet de calculer la somme des valeurs, \texttt{prod()} permet de calculer le produit des valeurs
+\end{itemize}
+
+Pour toutes ces fonctions, en présence de données manquantes, le résultat sera également une donnée manquante, à moins d'ajouter l'argument \texttt{na.rm\ =\ TRUE} (\emph{remove NA}) qui supprime les données manquantes et permet de calculer ces paramètres à partir des valeurs non-manquantes.
+
+\textbf{Note pour la fonction \texttt{quantile}:} La méthode de calcul des quantiles est données par l'argument \texttt{type}. Par défaut, la méthode appliquée est le ``Type 7'', utilisée par le logiciel S (ancètre du logiciel R). Le logiciel SAS utilise la méthode de ``Type 2'', les logiciels Stata, SPSS et Minitab utilisent la méthode de ``Type 6''. En fonction du type choisi, les résultats peuvent être légèrement différents. cf.~\texttt{?quantile()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# on va calculer les paramètres statistique pour la variable quantitative :}
+\NormalTok{var\_quanti }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{4.5}\NormalTok{, }\FloatTok{2.0}\NormalTok{, }\FloatTok{5.5}\NormalTok{, }\FloatTok{10.4}\NormalTok{, }\FloatTok{8.7}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\FloatTok{3.2}\NormalTok{, }\FloatTok{4.0}\NormalTok{, }\FloatTok{1.3}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\FloatTok{5.7}\NormalTok{, }\FloatTok{1.7}\NormalTok{)}
+\CommentTok{\# on voit qu\textquotesingle{}elle contient 2 valeurs manquantes}
+
+\DocumentationTok{\#\# Si on applique les fonctions mean(), sd(), etc, le résultat sera manquant}
+\FunctionTok{mean}\NormalTok{(var\_quanti) }\CommentTok{\# NA}
+\FunctionTok{sd}\NormalTok{(var\_quanti) }\CommentTok{\# NA}
+\FunctionTok{var}\NormalTok{(var\_quanti) }\CommentTok{\# NA}
+
+\DocumentationTok{\#\# Pour calculer les paramètres après avoir exclu les données manquantes, }
+\DocumentationTok{\#\# il faut ajouter l\textquotesingle{}argument \textquotesingle{}na.rm = TRUE\textquotesingle{}}
+\FunctionTok{mean}\NormalTok{(var\_quanti, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 4.7}
+\FunctionTok{sd}\NormalTok{(var\_quanti, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 2.995552}
+\FunctionTok{var}\NormalTok{(var\_quanti, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 8.973333}
+
+\FunctionTok{min}\NormalTok{(var\_quanti, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 1.3}
+\FunctionTok{max}\NormalTok{(var\_quanti, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 10.4}
+\FunctionTok{median}\NormalTok{(var\_quanti, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 4.25}
+\FunctionTok{quantile}\NormalTok{(var\_quanti, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\CommentTok{\#   0\%   25\%   50\%   75\%  100\% }
+\CommentTok{\# 1.30  2.30  4.25  5.65 10.40}
+
+\FunctionTok{quantile}\NormalTok{(var\_quanti, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{type =} \DecValTok{6}\NormalTok{)}
+\CommentTok{\#    0\%    25\%    50\%    75\%   100\% }
+\CommentTok{\# 1.300  1.925  4.250  6.450 10.400 }
+\CommentTok{\# une autre méthode de calcul des quantiles peut donner des résultats }
+\CommentTok{\# légèrement différents (ici type 6 correspond à la méthode de Stata ou de SPSS)}
+
+\FunctionTok{sum}\NormalTok{(var\_quanti, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 47}
+\FunctionTok{prod}\NormalTok{(var\_quanti, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 722162.4}
+
+\DocumentationTok{\#\# La fonction var() applique la formule d\textquotesingle{}une variance estimée}
+\DocumentationTok{\#\# à partir d\textquotesingle{}un échantillon de taille n: }
+\DocumentationTok{\#\# (somme de (x {-} moyenne)\^{}2) / (n {-} 1)}
+\FunctionTok{sum}\NormalTok{((var\_quanti[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(var\_quanti)] }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(var\_quanti, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{/} \DecValTok{9}
+\CommentTok{\# [1] 8.973333 (ici n{-}1 = 9, car il y a 10 valeurs non{-}manquantes)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Variables qualitatives}\label{variables-qualitatives}
+
+Pour décrire une variable qualitative, on peut utiliser les fonctions :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{table()} qui calcule les effectifs au sein de chaque modalité de réponse
+\item
+  \texttt{prop.table()} ou \texttt{proportions()} qui calcule les pourcentages à partir de la fonction \texttt{table} précédente.
+\end{itemize}
+
+Les données manquantes sont gérées par l'argument \texttt{useNA} avec 3 possibilités :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{useNA\ =\ "no"}, les données manquantes ne sont pas prises en compte (appliqué par défaut)
+\item
+  \texttt{useNA\ =\ "ifany"}, les données manquantes sont dénombrées s'il en existe
+\item
+  \texttt{useNA\ =\ "always"}, les données manquantes sont toujours dénombrées
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# on crée 3 variables qualitatives selon 3 formats différents }
+\DocumentationTok{\#\# (selon un codage numérique, en format caractère, ou en type "factor")}
+\NormalTok{var\_quali1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{var\_quali2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"homme"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }
+                \StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)}
+\NormalTok{var\_quali3 }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"collège"}\NormalTok{, }\StringTok{"univ"}\NormalTok{, }\StringTok{"bac"}\NormalTok{, }\StringTok{"bac"}\NormalTok{, }\StringTok{"univ"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\StringTok{"collège"}\NormalTok{, }
+                       \StringTok{"bac"}\NormalTok{, }\StringTok{"bac"}\NormalTok{, }\StringTok{"collège"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\StringTok{"univ"}\NormalTok{), }
+                     \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"primaire"}\NormalTok{, }\StringTok{"collège"}\NormalTok{, }\StringTok{"bac"}\NormalTok{, }\StringTok{"univ"}\NormalTok{))}
+
+\DocumentationTok{\#\# la fonction table permet de dénombrer le nombre de réponses par modalité}
+\FunctionTok{table}\NormalTok{(var\_quali1)}
+\CommentTok{\# var\_quali1}
+\CommentTok{\# 0 1 2 }
+\CommentTok{\# 3 5 3}
+\CommentTok{\# la valeur 0 apparaît 3 fois, la valeur 1 apparaît 5 fois, la valeur 2 apparaît}
+\CommentTok{\# 3 fois}
+
+\FunctionTok{table}\NormalTok{(var\_quali2)}
+\CommentTok{\# var\_quali2}
+\CommentTok{\# femme homme }
+\CommentTok{\#     6     5}
+
+\FunctionTok{table}\NormalTok{(var\_quali3)}
+\CommentTok{\# var\_quali3}
+\CommentTok{\# primaire  collège      bac     univ }
+\CommentTok{\#        0        3        4        3}
+\DocumentationTok{\#\# On note que pour la variable de type "factor", R décrit les résultats pour }
+\DocumentationTok{\#\# l\textquotesingle{}ensemble des modalités possibles (ici, 4 modalités possibles, même si }
+\DocumentationTok{\#\# aucun résultat "primaire" n\textquotesingle{}a été observé). C\textquotesingle{}est un des intérêts des }
+\DocumentationTok{\#\# vecteurs de type "factor".}
+
+\DocumentationTok{\#\# Ce ne serait pas le cas avec un vecteur de type caractère : }
+\FunctionTok{table}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(var\_quali3))}
+\CommentTok{\# bac collège    univ }
+\CommentTok{\#   4       3       3   ici la catégorie "primaire" n\textquotesingle{}est pas décomptée !}
+\CommentTok{\#                       de plus les valeurs sont rangées par ordre alphabétique}
+\CommentTok{\#                       plutôt que l\textquotesingle{}ordre indiqué dans l\textquotesingle{}attribut \textquotesingle{}levels\textquotesingle{}}
+\CommentTok{\#                       du vecteur de type \textquotesingle{}factor\textquotesingle{}.}
+
+\DocumentationTok{\#\# Les pourcentages peuvent ensuite être obtenus à partir de ces tables}
+\DocumentationTok{\#\# avec la fonction prop.table() ou proportions()}
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(var\_quali1))}
+\CommentTok{\# var\_quali1}
+\CommentTok{\#         0         1         2 }
+\CommentTok{\# 0.2727273 0.4545455 0.2727273   (c\textquotesingle{}est à dire 27.3\%, 45.4\% et 27.3\%)}
+
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(var\_quali2))}
+\CommentTok{\# var\_quali2}
+\CommentTok{\#     femme     homme }
+\CommentTok{\# 0.5454545 0.4545455       (54.5\% de femmes et 45.5\% d\textquotesingle{}hommes)}
+
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(var\_quali3))}
+\CommentTok{\# var\_quali3}
+\CommentTok{\# primaire  collège      bac     univ }
+\CommentTok{\#      0.0      0.3      0.4      0.3     (0\%, 30\%, 40\% et 30\%)}
+
+
+\DocumentationTok{\#\# si on applique l\textquotesingle{}argument useNA = "ifany", les manquants sont considérées}
+\DocumentationTok{\#\# comme une modalité de réponse en tant que telle}
+\FunctionTok{table}\NormalTok{(var\_quali2, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
+\CommentTok{\# var\_quali2}
+\CommentTok{\# femme homme  \textless{}NA\textgreater{}    \# ici la modalité \textless{}NA\textgreater{} est ajoutée}
+\CommentTok{\#     6     5     2}
+\FunctionTok{proportions}\NormalTok{(}\FunctionTok{table}\NormalTok{(var\_quali2, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{))}
+\CommentTok{\# var\_quali2}
+\CommentTok{\#     femme     homme      \textless{}NA\textgreater{}}
+\CommentTok{\# 0.4615385 0.3846154 0.1538462 \# les \% sont calculés sur les 3 catégories}
+
+\DocumentationTok{\#\# Si on applique l\textquotesingle{}argument useNA = "always", la catégorie manquante est ajoutée}
+\DocumentationTok{\#\# comme précédemment}
+\FunctionTok{table}\NormalTok{(var\_quali2, }\AttributeTok{useNA =} \StringTok{"always"}\NormalTok{)}
+\CommentTok{\# var\_quali2}
+\CommentTok{\# femme homme  \textless{}NA\textgreater{} }
+\CommentTok{\#     6     5     2}
+
+\DocumentationTok{\#\# Si on applique l\textquotesingle{}argument useNA = "always" a une variable qui n\textquotesingle{}a pas de }
+\DocumentationTok{\#\# données manquante, la colonne NA sera quand même ajouté (et compte 0 manquant)}
+\FunctionTok{table}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"homme"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }
+        \StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{), }
+      \AttributeTok{useNA =} \StringTok{"always"}\NormalTok{)}
+\CommentTok{\# femme homme  \textless{}NA\textgreater{} }
+\CommentTok{\#     6     5     0}
+\end{Highlighting}
+\end{Shaded}
+
+Il est également utile de connaître la fonction \texttt{unique} qui liste les valeurs qui apparaîssent au moins une fois dans un vecteur.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Par exemple avec la variable : }
+\NormalTok{var\_quali }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"homme"}\NormalTok{, }\StringTok{"home"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }
+                \StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{, }\StringTok{"Femme"}\NormalTok{, }\StringTok{"homme"}\NormalTok{, }\StringTok{"femme"}\NormalTok{)}
+\FunctionTok{unique}\NormalTok{(var\_quali)}
+\CommentTok{\# [1] "homme" "home"  NA      "femme" "Femme"}
+\CommentTok{\# on voit que Femme et home font partie des réponses données, }
+\CommentTok{\# cela peut correspondre à des erreurs de saisie (une majuscule a été donnée}
+\CommentTok{\# à une réponse "femme" et une réponse "homme" a été saisie avec un "m" manquant)}
+\end{Highlighting}
+\end{Shaded}
 
 \section{\texorpdfstring{Les listes \texttt{list()}}{Les listes list()}}\label{les-listes-list}
 
+Les \textbf{listes} sont des \textbf{vecteurs dont les éléments peuvent être de différents types et de différentes dimensions}. Par exemple, une même liste peut contenir des vecteurs, des matrices, des bases de données, des fonctions \ldots{} (une liste peut même contenir d'autres listes !)
+
 \subsection{Création d'une liste}\label{cruxe9ation-dune-liste}
 
-Les vecteurs peuvent être reformatés sous forme de liste
+Pour créer une liste, on utilise la fonction \texttt{list()}. Chaque élément de la liste est séparé par une virgule. Par exemple, on crée ci-dessous un liste qui contient 6 éléments :
 
-\subsection{Indiçage d'une liste}\label{indiuxe7age-dune-liste}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  un vecteur d'entiers, de longueur 10
+\item
+  un vecteurs de réels, de longueur 4
+\item
+  un vecteurs de chaînes de caractères, de longueur 3
+\item
+  un vecteur logique, de longueur 7
+\item
+  une matrice de 5 lignes et 2 colonnes
+\item
+  une base de données de 3 variables avec 10 valeurs chacune
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{exemple\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, }\CommentTok{\# un vecteur séquentiel d\textquotesingle{}entiers, de longueur 10}
+                     \FunctionTok{c}\NormalTok{(}\FloatTok{1.5}\NormalTok{, pi, }\DecValTok{14}\NormalTok{, }\FloatTok{6.48}\NormalTok{), }\CommentTok{\# un vecteur de réels}
+                     \FunctionTok{c}\NormalTok{(}\StringTok{"aa"}\NormalTok{, }\StringTok{"hello"}\NormalTok{, }\StringTok{"TOULOUSE"}\NormalTok{), }\CommentTok{\# un vecteur de caractères}
+                     \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{), }\CommentTok{\# logique}
+                     \FunctionTok{matrix}\NormalTok{(}\AttributeTok{data =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{5}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{), }\CommentTok{\# un matrice}
+                     \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{id =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{,                }\CommentTok{\# une base de données}
+                                \AttributeTok{sex =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{),}
+                                \AttributeTok{age =} \FunctionTok{c}\NormalTok{(}\DecValTok{49}\NormalTok{,}\DecValTok{23}\NormalTok{,}\DecValTok{43}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DecValTok{37}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{47}\NormalTok{,}\DecValTok{26}\NormalTok{,}\DecValTok{44}\NormalTok{)))}
+\NormalTok{exemple\_list}
+\CommentTok{\# [[1]]}
+\CommentTok{\#  [1]  1  2  3  4  5  6  7  8  9 10}
+\CommentTok{\# }
+\CommentTok{\# [[2]]}
+\CommentTok{\# [1]  1.500000  3.141593 14.000000  6.480000}
+\CommentTok{\# }
+\CommentTok{\# [[3]]}
+\CommentTok{\# [1] "aa"       "hello"    "TOULOUSE"}
+\CommentTok{\# }
+\CommentTok{\# [[4]]}
+\CommentTok{\# [1]  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE}
+\CommentTok{\# }
+\CommentTok{\# [[5]]}
+\CommentTok{\#      [,1] [,2]}
+\CommentTok{\# [1,]    1    6}
+\CommentTok{\# [2,]    2    7}
+\CommentTok{\# [3,]    3    8}
+\CommentTok{\# [4,]    4    9}
+\CommentTok{\# [5,]    5   10}
+\CommentTok{\# }
+\CommentTok{\# [[6]]}
+\CommentTok{\#    id sex age}
+\CommentTok{\# 1   1   1  49}
+\CommentTok{\# 2   2   2  23}
+\CommentTok{\# 3   3   1  43}
+\CommentTok{\# 4   4   1  50}
+\CommentTok{\# 5   5   1  40}
+\CommentTok{\# 6   6   2  37}
+\CommentTok{\# 7   7   2  20}
+\CommentTok{\# 8   8   1  47}
+\CommentTok{\# 9   9   2  26}
+\CommentTok{\# 10 10   2  44}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Attributs d'une liste}\label{attributs-dune-liste}
+
+Comme pour les vecteurs atomiques, les listes ont un attribut de classe (\texttt{class()}) et de longueur (\texttt{length()}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(exemple\_list) }
+\CommentTok{\# [1] "list"}
+\FunctionTok{length}\NormalTok{(exemple\_list)  }
+\CommentTok{\# [1] 6               \# notre liste d\textquotesingle{}exemple contient 6 éléments}
+\end{Highlighting}
+\end{Shaded}
+
+L'attribut \texttt{name} est permet de nommer les différents éléments d'une liste.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(exemple\_list) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"vect\_int"}\NormalTok{, }\StringTok{"vect\_dbl"}\NormalTok{, }\StringTok{"vect\_char"}\NormalTok{, }\StringTok{"vect\_logic"}\NormalTok{, }
+                         \StringTok{"mat"}\NormalTok{, }\StringTok{"df"}\NormalTok{)}
+
+\FunctionTok{attributes}\NormalTok{(exemple\_list)}
+\CommentTok{\# $names}
+\CommentTok{\# [1] "vect\_int"   "vect\_dbl"   "vect\_char"  "vect\_logic" "mat"   "df"}
+
+\NormalTok{exemple\_list}
+\CommentTok{\# $vect\_int                                              \# les noms remplacent}
+\CommentTok{\#  [1]  1  2  3  4  5  6  7  8  9 10                     \# la numérotation }
+\CommentTok{\#                                                        \# précédente : }
+\CommentTok{\# $vect\_dbl                                              \#  [[1]], [[2]], [[3]], }
+\CommentTok{\# [1]  1.500000  3.141593 14.000000  6.480000            \#  [[4]], [[5]], [[6]]}
+\CommentTok{\# }
+\CommentTok{\# $vect\_char}
+\CommentTok{\# [1] "aa"       "hello"    "TOULOUSE"}
+\CommentTok{\# }
+\CommentTok{\# $vect\_logic}
+\CommentTok{\# [1]  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE}
+\CommentTok{\# }
+\CommentTok{\# $mat}
+\CommentTok{\#      [,1] [,2]}
+\CommentTok{\# [1,]    1    6}
+\CommentTok{\# [2,]    2    7}
+\CommentTok{\# [3,]    3    8}
+\CommentTok{\# [4,]    4    9}
+\CommentTok{\# [5,]    5   10}
+\CommentTok{\# }
+\CommentTok{\# $df}
+\CommentTok{\#    id sex age}
+\CommentTok{\# 1   1   1  49}
+\CommentTok{\# 2   2   2  23}
+\CommentTok{\# 3   3   1  43}
+\CommentTok{\# 4   4   1  50}
+\CommentTok{\# 5   5   1  40}
+\CommentTok{\# 6   6   2  37}
+\CommentTok{\# 7   7   2  20}
+\CommentTok{\# 8   8   1  47}
+\CommentTok{\# 9   9   2  26}
+\CommentTok{\# 10 10   2  44}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Indexation des éléments d'une liste}\label{indexation-des-uxe9luxe9ments-dune-liste}
+
+On peut sélectionner un seul élément d'une liste :
+
+\begin{itemize}
+\tightlist
+\item
+  par indexation sur la position, avec un double crochet \texttt{{[}{[}\ {]}{]}}
+\item
+  ou par indexation sur le nom, avec l'opérateur dollard \texttt{\$}
+\end{itemize}
+
+On peut sélectionner un ou plusieurs éléments d'une liste :
+
+\begin{itemize}
+\tightlist
+\item
+  par indexation sur la position des éléments, avec un simple crochet \texttt{{[}\ {]}}
+\item
+  par indexation à l'aide d'un vecteur de noms, avec un simple crochet \texttt{{[}\ {]}}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Sélection d\textquotesingle{}un seul élément dans une liste}
+\DocumentationTok{\#\#  {-} par indexation sur la position avec le double crochet [[ ]]}
+\NormalTok{exemple\_list[[}\DecValTok{5}\NormalTok{]]}
+\CommentTok{\#      [,1] [,2]}
+\CommentTok{\# [1,]    1    6}
+\CommentTok{\# [2,]    2    7}
+\CommentTok{\# [3,]    3    8}
+\CommentTok{\# [4,]    4    9}
+\CommentTok{\# [5,]    5   10}
+
+\DocumentationTok{\#\#  {-} par indexation sur le nom, avec l\textquotesingle{}opérateur dollard $}
+\NormalTok{exemple\_list}\SpecialCharTok{$}\NormalTok{vect\_dbl}
+\CommentTok{\# [1]  1.500000  3.141593 14.000000  6.480000}
+
+\DocumentationTok{\#\# l\textquotesingle{}opérateur dollard est une notation abrégée d\textquotesingle{}une indexation par le nom }
+\DocumentationTok{\#\#  entre double crochet :}
+\NormalTok{exemple\_list[[}\StringTok{"vect\_dbl"}\NormalTok{]]}
+
+\DocumentationTok{\#\# Sélection d\textquotesingle{}un ou plusieurs éléments dans une liste avec le simple crochet : }
+\DocumentationTok{\#\# Par exemple, pour sélectionner les élément 1 (vect\_int), 2 (vect\_dbl),}
+\DocumentationTok{\#\# et 5 (matrice nommée "mat")}
+\NormalTok{exemple\_list[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{)]}
+\CommentTok{\# $vect\_int}
+\CommentTok{\#  [1]  1  2  3  4  5  6  7  8  9 10}
+\CommentTok{\# }
+\CommentTok{\# $vect\_dbl}
+\CommentTok{\# [1]  1.500000  3.141593 14.000000  6.480000}
+\CommentTok{\# }
+\CommentTok{\# $mat}
+\CommentTok{\#      [,1] [,2]}
+\CommentTok{\# [1,]    1    6}
+\CommentTok{\# [2,]    2    7}
+\CommentTok{\# [3,]    3    8}
+\CommentTok{\# [4,]    4    9}
+\CommentTok{\# [5,]    5   10}
+
+\DocumentationTok{\#\# On obtient le même résultat avec les noms des éléments, dans un vecteur }
+\DocumentationTok{\#\# de caractères entre simples crochets : }
+\NormalTok{exemple\_list[}\FunctionTok{c}\NormalTok{(}\StringTok{"vect\_int"}\NormalTok{, }\StringTok{"vect\_dbl"}\NormalTok{, }\StringTok{"mat"}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Remarque :} les attributs d'un objet sont stockés sous un format de liste
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fact\_1bis }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"univ"}\NormalTok{, }\StringTok{"bac"}\NormalTok{, }\StringTok{"bac"}\NormalTok{, }\StringTok{"lycée"}\NormalTok{, }\StringTok{"univ"}\NormalTok{, }\StringTok{"lycée"}\NormalTok{, }\StringTok{"bac"}\NormalTok{),}
+                    \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"lycée"}\NormalTok{, }\StringTok{"bac"}\NormalTok{, }\StringTok{"univ"}\NormalTok{))}
+
+\FunctionTok{attributes}\NormalTok{(fact\_1bis)}
+\CommentTok{\# $levels}
+\CommentTok{\# [1] "lycée" "bac"   "univ" }
+\CommentTok{\# }
+\CommentTok{\# $class}
+\CommentTok{\# [1] "factor"}
+
+\FunctionTok{length}\NormalTok{(}\FunctionTok{attributes}\NormalTok{(fact\_1bis))}
+\CommentTok{\# [1] 2}
+
+\FunctionTok{class}\NormalTok{(}\FunctionTok{attributes}\NormalTok{(fact\_1bis))}
+\CommentTok{\# [1] "list"}
+
+\DocumentationTok{\#\# les attributs de fact\_1bis sont une liste contenant 2 vecteurs : }
+\DocumentationTok{\#\#  {-} 1 vecteur nommé "levels", de caractères, de longueur 3}
+\DocumentationTok{\#\#  {-} 1 vecter nommé "class" contenant la valeur "factor"}
+\end{Highlighting}
+\end{Shaded}
 
 \section{\texorpdfstring{Les matrices \texttt{matrix()}}{Les matrices matrix()}}\label{les-matrices-matrix}
 
+Une matrice est une table contenant des données, dont les dimensions sont données par :
+
+\begin{itemize}
+\tightlist
+\item
+  le nombre de lignes (en premier)
+\item
+  le nombre de colonnes (en deuxième)
+\end{itemize}
+
+Par exemple, une matrice de dimensions (5, 3) est une table de 5 lignes et 3 colonnes.
+
+Dans R, \textbf{une matrice est un vecteur avec un attribut de dimensions}, indiquant le nombre de lignes et de colonnes.
+
 \subsection{Création d'une matrice}\label{cruxe9ation-dune-matrice}
 
-Les vecteurs peuvent être reformatés sous forme de matrice
+On peut créer une matrice à partir d'un vecteur (d'entiers, de réels, de caractères ou de valeurs logiques) auquel on ajoute un attribut de dimension avec la fonction \texttt{dim()}.
 
-\subsection{Indiçage d'une matrice}\label{indiuxe7age-dune-matrice}
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# A partir du vecteur d\textquotesingle{}entiers de 1 à 15, }
+\NormalTok{seq\_1a15 }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{15}
+\NormalTok{seq\_1a15 }
+\CommentTok{\# [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15}
+\FunctionTok{class}\NormalTok{(seq\_1a15) }
+\CommentTok{\# [1] "integer"}
 
-\subsection{\texorpdfstring{matrices à plus de 2 dimensions \texttt{array()}}{matrices à plus de 2 dimensions array()}}\label{matrices-uxe0-plus-de-2-dimensions-array}
+\DocumentationTok{\#\# on va créer une matrice de dimensions (5, 3) en ajoutant un attribut de }
+\DocumentationTok{\#\# dimensions avec la fonction dim() }
+\FunctionTok{dim}\NormalTok{(seq\_1a15) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{seq\_1a15}
+\CommentTok{\#      [,1] [,2] [,3]}
+\CommentTok{\# [1,]    1    6   11}
+\CommentTok{\# [2,]    2    7   12}
+\CommentTok{\# [3,]    3    8   13}
+\CommentTok{\# [4,]    4    9   14}
+\CommentTok{\# [5,]    5   10   15}
+\FunctionTok{class}\NormalTok{(seq\_1a15)}
+\CommentTok{\# [1] "matrix" "array"  \# la classe de l\textquotesingle{}objet est maintenant une matrice}
 
-\section{\texorpdfstring{Les bases de données \texttt{data.frames()}}{Les bases de données data.frames()}}\label{les-bases-de-donnuxe9es-data.frames}
+\FunctionTok{attributes}\NormalTok{(seq\_1a15)    }\CommentTok{\# le vecteur seq\_1a15 a un nouvel attribut nommé "dim"}
+\CommentTok{\# $dim}
+\CommentTok{\# [1] 5 3}
 
-\section{\texorpdfstring{Les objets R peuvent posséder des attributs \texttt{attributes()}}{Les objets R peuvent posséder des attributs attributes()}}\label{les-objets-r-peuvent-possuxe9der-des-attributs-attributes}
+\DocumentationTok{\#\# A noter que si l\textquotesingle{}on attribue une dimension de matrice qui ne correspond pas à }
+\DocumentationTok{\#\# la longueur du vecteur, cela nous donne un message d\textquotesingle{}erreur}
+\FunctionTok{dim}\NormalTok{(seq\_1a15) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{2}\NormalTok{) }\CommentTok{\# matrice de 7 lignes et 2 colonnes = 14 valeurs}
+\FunctionTok{dim}\NormalTok{(seq\_1a15) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{) }\CommentTok{\# matrice de 4 lignes et 4 colonnes = 16 valeurs}
+\end{Highlighting}
+\end{Shaded}
+
+A noter qu'avec cette méthode, les valeurs ont été rangées par colonne, en 3 colonnes de 5 lignes.
+
+Il est possible d'ajouter un attribut de noms de lignes et un attribut de noms de colonnes à un objet de classe \texttt{matrix}, avec les fonctions \texttt{rownames()} et \texttt{colnames()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Ajouter un attribut de nom de lignes :}
+\FunctionTok{rownames}\NormalTok{(seq\_1a15) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"id\_1"}\NormalTok{, }\StringTok{"id\_2"}\NormalTok{, }\StringTok{"id\_3"}\NormalTok{, }\StringTok{"id\_4"}\NormalTok{, }\StringTok{"id\_5"}\NormalTok{)}
+
+\DocumentationTok{\#\# Ajouter un attribut de nom de colonnes : }
+\FunctionTok{colnames}\NormalTok{(seq\_1a15) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"aa"}\NormalTok{, }\StringTok{"bb"}\NormalTok{, }\StringTok{"cc"}\NormalTok{)}
+\NormalTok{seq\_1a15}
+\CommentTok{\#      aa bb cc}
+\CommentTok{\# id\_1  1  6 11}
+\CommentTok{\# id\_2  2  7 12}
+\CommentTok{\# id\_3  3  8 13}
+\CommentTok{\# id\_4  4  9 14}
+\CommentTok{\# id\_5  5 10 15}
+
+\FunctionTok{attributes}\NormalTok{(seq\_1a15)}
+\CommentTok{\# $dim}
+\CommentTok{\# [1] 5 3}
+\CommentTok{\# }
+\CommentTok{\# $dimnames}
+\CommentTok{\# $dimnames[[1]]}
+\CommentTok{\# [1] "id\_1" "id\_2" "id\_3" "id\_4" "id\_5"}
+\CommentTok{\# }
+\CommentTok{\# $dimnames[[2]]}
+\CommentTok{\# [1] "aa" "bb" "cc"}
+
+\DocumentationTok{\#\# Les attributs du vecteur "seq\_1a15" sont une liste de deux attributs : }
+\DocumentationTok{\#\#  1) la dimension de la matrice, nommée "dim"}
+\DocumentationTok{\#\#  2) les noms des dimensions (nommée "dimnames"), qui est une liste contenant :}
+\DocumentationTok{\#\#      {-} le vecteur dimnames[[1]] (noms des lignes)}
+\DocumentationTok{\#\#      {-} le vecteur dimnames[[2]] (noms des colonnes)}
+\end{Highlighting}
+\end{Shaded}
+
+Pour créer une matrice, on peut également utiliser la fonction \texttt{matrix()} qui permet d'indiquer directement les arguments :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{nrow\ =} et \texttt{ncol\ =} pour définir le nombre de lignes et de colonnes
+\item
+  \texttt{byrow\ =} qui permet de ranger les valeurs par lignes (en indiquant \texttt{TRUE}) ou de les ranger par colonne (en indiquant \texttt{FALSE})
+\item
+  \texttt{dimnames} permet d'indiquer une liste contenant un vecteur de nom de lignes et un vecteur de nom de colonnes.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On utilise la fonction matrix()}
+\NormalTok{mat1 }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{15}\NormalTok{, }\CommentTok{\# le vecteur de valeurs à utiliser}
+               \AttributeTok{nrow =} \DecValTok{5}\NormalTok{, }\CommentTok{\# 5 lignes}
+               \AttributeTok{ncol =} \DecValTok{3}\NormalTok{, }\CommentTok{\# 3 colonnes}
+               \AttributeTok{byrow =} \ConstantTok{FALSE}\NormalTok{,  }\CommentTok{\# range les valeur par colonne (pas par rang) }
+               \AttributeTok{dimnames =} \FunctionTok{list}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"id\_1"}\NormalTok{, }\StringTok{"id\_2"}\NormalTok{, }\StringTok{"id\_3"}\NormalTok{, }\StringTok{"id\_4"}\NormalTok{, }\StringTok{"id\_5"}\NormalTok{),}
+                               \FunctionTok{c}\NormalTok{(}\StringTok{"aa"}\NormalTok{, }\StringTok{"bb"}\NormalTok{, }\StringTok{"cc"}\NormalTok{)))}
+\NormalTok{mat1}
+\CommentTok{\#      aa bb cc}
+\CommentTok{\# id\_1  1  6 11}
+\CommentTok{\# id\_2  2  7 12}
+\CommentTok{\# id\_3  3  8 13}
+\CommentTok{\# id\_4  4  9 14}
+\CommentTok{\# id\_5  5 10 15}
+
+\FunctionTok{attributes}\NormalTok{(mat1)}
+\CommentTok{\# $dim}
+\CommentTok{\# [1] 5 3}
+\CommentTok{\# }
+\CommentTok{\# $dimnames}
+\CommentTok{\# $dimnames[[1]]}
+\CommentTok{\# [1] "id\_1" "id\_2" "id\_3" "id\_4" "id\_5"}
+\CommentTok{\# }
+\CommentTok{\# $dimnames[[2]]}
+\CommentTok{\# [1] "aa" "bb" "cc"}
+
+\DocumentationTok{\#\# on peut choisir de ranger les valeurs par rang plutôt que par colonne : }
+\NormalTok{mat2 }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{15}\NormalTok{, }\CommentTok{\# le vecteur de valeurs à utiliser}
+               \AttributeTok{nrow =} \DecValTok{5}\NormalTok{, }\CommentTok{\# 5 lignes}
+               \AttributeTok{ncol =} \DecValTok{3}\NormalTok{, }\CommentTok{\# 3 colonnes}
+               \AttributeTok{byrow =} \ConstantTok{TRUE}\NormalTok{)  }\CommentTok{\# range les valeur par rang +++ }
+\NormalTok{mat2}
+\CommentTok{\#       [,1] [,2] [,3]}
+\CommentTok{\# [1,]    1    2    3}
+\CommentTok{\# [2,]    4    5    6}
+\CommentTok{\# [3,]    7    8    9}
+\CommentTok{\# [4,]   10   11   12}
+\CommentTok{\# [5,]   13   14   15}
+\end{Highlighting}
+\end{Shaded}
+
+Il est possible de \textbf{combiner deux matrices} :
+
+\begin{itemize}
+\tightlist
+\item
+  par rangs avec la fonction \texttt{rbind()}
+\item
+  ou par colonnes avec fonction \texttt{cbind()}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Combiner les 2 matrices, mat1 et mat2, par rang : }
+\FunctionTok{rbind}\NormalTok{(mat1, mat2)}
+\CommentTok{\#      aa bb cc}
+\CommentTok{\# id\_1  1  6 11}
+\CommentTok{\# id\_2  2  7 12}
+\CommentTok{\# id\_3  3  8 13}
+\CommentTok{\# id\_4  4  9 14}
+\CommentTok{\# id\_5  5 10 15}
+\CommentTok{\#       1  2  3}
+\CommentTok{\#       4  5  6}
+\CommentTok{\#       7  8  9}
+\CommentTok{\#      10 11 12}
+\CommentTok{\#      13 14 15}
+
+\DocumentationTok{\#\# Combiner les 2 matrices, mat1 et mat2, par colonne : }
+\FunctionTok{cbind}\NormalTok{(mat1, mat2)}
+\CommentTok{\#      aa bb cc         }
+\CommentTok{\# id\_1  1  6 11  1  2  3}
+\CommentTok{\# id\_2  2  7 12  4  5  6}
+\CommentTok{\# id\_3  3  8 13  7  8  9}
+\CommentTok{\# id\_4  4  9 14 10 11 12}
+\CommentTok{\# id\_5  5 10 15 13 14 15}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Sélection par indexation au sein d'une matrice}\label{suxe9lection-par-indexation-au-sein-dune-matrice}
+
+Il est possible de sélectionner un partie de la matrice en indiquant la ligne et la colonne qui nous intéressent, avec la méthode d'indexation par simple crochet \texttt{{[}\ ,\ {]}}. On indique entre crochets : les lignes que l'on veut sélectionner, suivies d'une virgule, puis les colonnes que l'on veut sélectionner.
+
+L'indexation fonctionne :
+
+\begin{itemize}
+\tightlist
+\item
+  sur la position (en indiquant les numéros de lignes et de colonnes entre crochets)
+\item
+  ou sur le nom (en indiquant les noms de lignes et de colonnes entre crochets)
+\item
+  ou sur un vecteur logique pour les lignes et un vecteur logique pour les colonnes
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# on reprend la matrice mat1 définie précédemment}
+\NormalTok{mat1}
+\CommentTok{\#      aa bb cc}
+\CommentTok{\# id\_1  1  6 11}
+\CommentTok{\# id\_2  2  7 12}
+\CommentTok{\# id\_3  3  8 13}
+\CommentTok{\# id\_4  4  9 14}
+\CommentTok{\# id\_5  5 10 15}
+
+\DocumentationTok{\#\# Pour sélectionner la valeur au croisement de la ligne 3 et de la colonne 2 :}
+\NormalTok{mat1[}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{] }\CommentTok{\# [1] 8}
+
+\DocumentationTok{\#\# Pour sélectionner une ligne entière, on indique juste une position de ligne }
+\DocumentationTok{\#\# (valeur avant la virgule entre crochets) :}
+\NormalTok{mat1[}\DecValTok{3}\NormalTok{,]}
+\CommentTok{\# aa bb cc }
+\CommentTok{\#  3  8 13      \# c\textquotesingle{}est la 3ème ligne de la matrice}
+
+\DocumentationTok{\#\# Pour sélectionner une colonne entière, on indique juste une position de }
+\DocumentationTok{\#\# colonne (valeur après la virgule entre crochets) :}
+\NormalTok{mat1[,}\DecValTok{2}\NormalTok{]}
+\CommentTok{\# id\_1 id\_2 id\_3 id\_4 id\_5 }
+\CommentTok{\#    6    7    8    9   10      \# valeurs au sein de la 2ème colonne}
+
+\DocumentationTok{\#\# Pour sélectionner les valeurs au sein des colonnes 1 et 3, }
+\DocumentationTok{\#\# et des lignes 3, 4 et 5 : }
+\NormalTok{mat1[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{)]}
+\CommentTok{\#      aa cc}
+\CommentTok{\# id\_3  3 13}
+\CommentTok{\# id\_4  4 14}
+\CommentTok{\# id\_5  5 15}
+
+\DocumentationTok{\#\# On peut obtenir les mêmes séléctions en utilisant les noms de lignes et de }
+\DocumentationTok{\#\# colonnes : }
+\NormalTok{mat1[}\StringTok{"id\_3"}\NormalTok{, }\StringTok{"bb"}\NormalTok{] }\CommentTok{\# croisement de la ligne 3 et de la colonne 2}
+\NormalTok{mat1[}\StringTok{"id\_3"}\NormalTok{,] }\CommentTok{\# sélection de la 3ème ligne}
+\NormalTok{mat1[,}\StringTok{"bb"}\NormalTok{] }\CommentTok{\# sélection de la 2ème colonne}
+\NormalTok{mat1[}\FunctionTok{c}\NormalTok{(}\StringTok{"id\_3"}\NormalTok{, }\StringTok{"id\_4"}\NormalTok{, }\StringTok{"id\_5"}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\StringTok{"aa"}\NormalTok{, }\StringTok{"cc"}\NormalTok{)] }\CommentTok{\# lignes 3 à 5 ; colonnes 1 et 3 }
+
+\DocumentationTok{\#\# On peut obtenir les mêmes séléctions en utilisant des vecteurs logiques : }
+\NormalTok{mat1[}\FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)]}
+\NormalTok{mat1[}\FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{),]}
+\NormalTok{mat1[, }\FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)]}
+\NormalTok{mat1[}\FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{Collection de plusieurs matrices, \texttt{array()} \(\spadesuit\)}{Collection de plusieurs matrices, array() \textbackslash spadesuit}}\label{collection-de-plusieurs-matrices-array-spadesuit}
+
+Il est possible d'ajouter des dimensions à l'attribut \texttt{dim()} : cela combine plusieurs matrices de même dimension au sein d'une ``collection'' de matrices (\emph{array}).
+
+Les dimensions d'un \emph{array} sont définies par la fonction \texttt{dim()} :
+
+\begin{itemize}
+\tightlist
+\item
+  les deux premiers chiffres indiquent le nombres de lignes et de colonnes des matrices (comme précédemment)
+\item
+  le 3ème chiffre indique le nombre de matrices que l'on veut combiner
+\item
+  il est possible d'ajouter encore d'autres dimensions pour faire des \emph{arrays} dans des \emph{arrays} \ldots{}
+\end{itemize}
+
+Par exemple, on peut ranger les valeurs de 1 à 30 dans un \emph{array} de deux matrices de dimensions (5, 3)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# A partir du vecteur d\textquotesingle{}entiers de 1 à 30, }
+\NormalTok{seq\_1a30 }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{30}
+
+\DocumentationTok{\#\# on va créer un array de dimensions (5, 3, 2) en ajoutant un attribut de }
+\DocumentationTok{\#\# dimensions avec la fonction dim() }
+\FunctionTok{dim}\NormalTok{(seq\_1a30) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{seq\_1a30}
+\CommentTok{\# , , 1}
+\CommentTok{\# }
+\CommentTok{\#      [,1] [,2] [,3]}
+\CommentTok{\# [1,]    1    6   11}
+\CommentTok{\# [2,]    2    7   12}
+\CommentTok{\# [3,]    3    8   13}
+\CommentTok{\# [4,]    4    9   14}
+\CommentTok{\# [5,]    5   10   15}
+\CommentTok{\# }
+\CommentTok{\# , , 2}
+\CommentTok{\# }
+\CommentTok{\#      [,1] [,2] [,3]}
+\CommentTok{\# [1,]   16   21   26}
+\CommentTok{\# [2,]   17   22   27}
+\CommentTok{\# [3,]   18   23   28}
+\CommentTok{\# [4,]   19   24   29}
+\CommentTok{\# [5,]   20   25   30}
+\FunctionTok{class}\NormalTok{(seq\_1a30)}
+\CommentTok{\# [1] "array"  \# la classe de l\textquotesingle{}objet est maintenant un "array"}
+
+\DocumentationTok{\#\# On peut ajouter un attribut de noms aux différentes dimensions à l\textquotesingle{}aide d\textquotesingle{}une }
+\DocumentationTok{\#\# liste de noms : }
+\FunctionTok{dimnames}\NormalTok{(seq\_1a30) }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{noms\_rang =} \FunctionTok{c}\NormalTok{(}\StringTok{"id\_1"}\NormalTok{, }\StringTok{"id\_2"}\NormalTok{, }\StringTok{"id\_3"}\NormalTok{, }\StringTok{"id\_4"}\NormalTok{, }\StringTok{"id\_5"}\NormalTok{),}
+                           \AttributeTok{noms\_col =} \FunctionTok{c}\NormalTok{(}\StringTok{"aa"}\NormalTok{, }\StringTok{"bb"}\NormalTok{, }\StringTok{"cc"}\NormalTok{), }
+                           \AttributeTok{noms\_mat =} \FunctionTok{c}\NormalTok{(}\StringTok{"mat\_1"}\NormalTok{, }\StringTok{"mat\_2"}\NormalTok{))}
+
+\FunctionTok{attributes}\NormalTok{(seq\_1a30) }\CommentTok{\# le vecteur seq\_1a30 a un attribut de dimension à 3 valeurs}
+\CommentTok{\# $dim}
+\CommentTok{\# [1] 5 3 2}
+\CommentTok{\#}
+\CommentTok{\# $dimnames}
+\CommentTok{\# $dimnames$noms\_rang}
+\CommentTok{\# [1] "id\_1" "id\_2" "id\_3" "id\_4" "id\_5"}
+\CommentTok{\# }
+\CommentTok{\# $dimnames$noms\_col}
+\CommentTok{\# [1] "aa" "bb" "cc"}
+\CommentTok{\# }
+\CommentTok{\# $dimnames$noms\_mat}
+\CommentTok{\# [1] "mat\_1" "mat\_2"}
+
+\NormalTok{seq\_1a30 }\CommentTok{\# à présent, les noms de matrices, de rangs et de colonnes apparaîsse }
+         \CommentTok{\# à la place des numéros}
+\end{Highlighting}
+\end{Shaded}
+
+La sélection par indexation fonctionne de la même manière que pour les matrices, mais avec une dimension supplémentaire à ajouter : avec 3 valeurs (ou 3 vecteurs de valeurs) séparées par une virgule entre simples crochets \texttt{{[}\ ,\ ,\ {]}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# pour sélectionner la valeur à l\textquotesingle{}intersection de la 4ème ligne et 3ème colonne,}
+\DocumentationTok{\#\# au sein de la 2ème matrice : }
+\NormalTok{seq\_1a30[}\DecValTok{4}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{] }\CommentTok{\# [1] 29}
+
+\DocumentationTok{\#\# Si on sélectionne uniquement la 4ère ligne des deux matrices}
+\NormalTok{seq\_1a30[}\DecValTok{4}\NormalTok{,,]}
+\CommentTok{\#         noms\_mat}
+\CommentTok{\# noms\_col mat\_1 mat\_2}
+\CommentTok{\#       aa     4    19}
+\CommentTok{\#       bb     9    24}
+\CommentTok{\#       cc    14    29}
+\DocumentationTok{\#\# Le résultat n\textquotesingle{}est pas intuitifs : les 2 lignes ont été réassemblée sous }
+\DocumentationTok{\#\# forme de matrice à 2 colonnes !}
+
+\DocumentationTok{\#\# On peut sélectionner uniquement la 3ème colonne des deux matrices}
+\NormalTok{seq\_1a30[,}\DecValTok{3}\NormalTok{,]}
+\CommentTok{\#          noms\_mat}
+\CommentTok{\# noms\_rang mat\_1 mat\_2}
+\CommentTok{\#      id\_1    11    26}
+\CommentTok{\#      id\_2    12    27}
+\CommentTok{\#      id\_3    13    28}
+\CommentTok{\#      id\_4    14    29}
+\CommentTok{\#      id\_5    15    30}
+
+\DocumentationTok{\#\# On peut sélectionner uniquement la 2ème matrice}
+\NormalTok{seq\_1a30[,,}\DecValTok{2}\NormalTok{]}
+\CommentTok{\#          noms\_col}
+\CommentTok{\# noms\_rang aa bb cc}
+\CommentTok{\#      id\_1 16 21 26}
+\CommentTok{\#      id\_2 17 22 27}
+\CommentTok{\#      id\_3 18 23 28}
+\CommentTok{\#      id\_4 19 24 29}
+\CommentTok{\#      id\_5 20 25 30}
+\end{Highlighting}
+\end{Shaded}
+
+\section{\texorpdfstring{Les bases de données \texttt{data.frame()}}{Les bases de données data.frame()}}\label{les-bases-de-donnuxe9es-data.frame}
+
+Le format de base des bases de données dans R est le \texttt{data.frame()}.
+
+Un \texttt{data.frame} correspond à une liste de vecteurs atomiques ayant tous la même longueur (la longueur des vecteurs correspondant au nombre d'individus dans la base de données).
+
+Un \emph{data frame} peut donc être manipulé comme on manipule une liste. Il peut combiner des vecteurs atomiques de différents types (réels, entiers, chaînes de caractères, logiques, facteurs, date, date-heure, etc), et où chaque vecteur peut être nommé (l'attribut \texttt{name} permet d'attribuer des noms aux variables).
+
+Vous pouvez récupérer différents exemples de base de données disponibles dans R base, dont la liste est disponible en tapant \texttt{library(help\ =\ "datasets")}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Par exemple la base \textquotesingle{}women\textquotesingle{} contient 15 observations de taille (en pouces) et }
+\DocumentationTok{\#\# poids (en livres) de femmes américaines}
+\NormalTok{?women}
+
+\NormalTok{women}
+\CommentTok{\#    height weight}
+\CommentTok{\# 1      58    115}
+\CommentTok{\# 2      59    117}
+\CommentTok{\# 3      60    120}
+\CommentTok{\# 4      61    123}
+\CommentTok{\# 5      62    126}
+\CommentTok{\# 6      63    129}
+\CommentTok{\# 7      64    132}
+\CommentTok{\# 8      65    135}
+\CommentTok{\# 9      66    139}
+\CommentTok{\# 10     67    142}
+\CommentTok{\# 11     68    146}
+\CommentTok{\# 12     69    150}
+\CommentTok{\# 13     70    154}
+\CommentTok{\# 14     71    159}
+\CommentTok{\# 15     72    164}
+
+\FunctionTok{class}\NormalTok{(women)}
+\CommentTok{\# [1] "data.frame"}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{Création d'un \emph{data frame}}{Création d'un data frame}}\label{cruxe9ation-dun-data-frame}
+
+On peut créer un data.frame contenant différents types de variables avec la fonction \texttt{data.frame()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Par exemple, on créée une base de données de 10 individus et 4 variables : }
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{id =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{),}
+                 \AttributeTok{age =} \FunctionTok{c}\NormalTok{(}\FloatTok{42.5}\NormalTok{, }\FloatTok{27.9}\NormalTok{, }\DecValTok{60}\NormalTok{, }\FloatTok{74.5}\NormalTok{, }\DecValTok{38}\NormalTok{, }\FloatTok{25.2}\NormalTok{, }\FloatTok{53.4}\NormalTok{, }\FloatTok{46.6}\NormalTok{, }\FloatTok{34.2}\NormalTok{, }\FloatTok{39.6}\NormalTok{), }
+                 \AttributeTok{sex =} \FunctionTok{c}\NormalTok{(}\StringTok{"M"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"M"}\NormalTok{, }\StringTok{"M"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"M"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"M"}\NormalTok{),}
+                 \AttributeTok{dt\_vis =} \FunctionTok{c}\NormalTok{(}\StringTok{"2025{-}12{-}08"}\NormalTok{, }\StringTok{"2025{-}02{-}04"}\NormalTok{, }\StringTok{"2022{-}04{-}22"}\NormalTok{, }
+                            \StringTok{"2023{-}10{-}29"}\NormalTok{, }\StringTok{"2023{-}01{-}31"}\NormalTok{, }\StringTok{"2024{-}12{-}17"}\NormalTok{, }
+                            \StringTok{"2025{-}09{-}13"}\NormalTok{, }\StringTok{"2025{-}11{-}07"}\NormalTok{, }\StringTok{"2022{-}04{-}25"}\NormalTok{, }
+                            \StringTok{"2023{-}08{-}02"}\NormalTok{))}
+\NormalTok{df}
+\CommentTok{\#    id  age sex     dt\_vis}
+\CommentTok{\# 1   1 42.5   M 2025{-}12{-}08}
+\CommentTok{\# 2   2 27.9   F 2025{-}02{-}04}
+\CommentTok{\# 3   3 60.0   F 2022{-}04{-}22}
+\CommentTok{\# 4   4 74.5   M 2023{-}10{-}29}
+\CommentTok{\# 5   5 38.0   M 2023{-}01{-}31}
+\CommentTok{\# 6   6 25.2   F 2024{-}12{-}17}
+\CommentTok{\# 7   7 53.4   M 2025{-}09{-}13}
+\CommentTok{\# 8   8 46.6   F 2025{-}11{-}07}
+\CommentTok{\# 9   9 34.2   F 2022{-}04{-}25}
+\CommentTok{\# 10 10 39.6   M 2023{-}08{-}02}
+
+
+\DocumentationTok{\#\# Les fonctions head() et tail() permettent de visualiser les premières}
+\DocumentationTok{\#\# et les dernières lignes d\textquotesingle{}une base de données}
+\FunctionTok{head}\NormalTok{(df)}
+\CommentTok{\#   id  age sex     dt\_vis}
+\CommentTok{\# 1  1 42.5   M 2025{-}12{-}08}
+\CommentTok{\# 2  2 27.9   F 2025{-}02{-}04}
+\CommentTok{\# 3  3 60.0   F 2022{-}04{-}22}
+\CommentTok{\# 4  4 74.5   M 2023{-}10{-}29}
+\CommentTok{\# 5  5 38.0   M 2023{-}01{-}31}
+\CommentTok{\# 6  6 25.2   F 2024{-}12{-}17}
+
+\FunctionTok{tail}\NormalTok{(df)}
+\CommentTok{\#    id  age sex     dt\_vis}
+\CommentTok{\# 5   5 38.0   M 2023{-}01{-}31}
+\CommentTok{\# 6   6 25.2   F 2024{-}12{-}17}
+\CommentTok{\# 7   7 53.4   M 2025{-}09{-}13}
+\CommentTok{\# 8   8 46.6   F 2025{-}11{-}07}
+\CommentTok{\# 9   9 34.2   F 2022{-}04{-}25}
+\CommentTok{\# 10 10 39.6   M 2023{-}08{-}02}
+
+\DocumentationTok{\#\# la fonction View() de R studio permet de visualiser la base de donnée}
+\FunctionTok{View}\NormalTok{(df)}
+
+\DocumentationTok{\#\# cet objet est de class "data.frame"}
+\FunctionTok{class}\NormalTok{(df)}
+
+\DocumentationTok{\#\# Un data.frame est bien un objet de format "list" : }
+\FunctionTok{is.list}\NormalTok{(df) }\CommentTok{\# [1] TRUE}
+
+\DocumentationTok{\#\# Un data.frame est une liste qui possède des attributs de noms de variables}
+\DocumentationTok{\#\# de class et de noms de rangs : }
+\FunctionTok{attributes}\NormalTok{(df)}
+\CommentTok{\# $names}
+\CommentTok{\# [1] "id"     "age"    "sex"    "dt\_vis"}
+\CommentTok{\# }
+\CommentTok{\# $class}
+\CommentTok{\# [1] "data.frame"}
+\CommentTok{\# }
+\CommentTok{\# $row.names}
+\CommentTok{\#  [1]  1  2  3  4  5  6  7  8  9 10}
+
+\DocumentationTok{\#\# On peut ainsi récupérer les noms des variables avec la fonction \textquotesingle{}names()\textquotesingle{}}
+\FunctionTok{names}\NormalTok{(df)}
+\CommentTok{\# [1] "id"     "age"    "sex"    "dt\_vis" }
+\DocumentationTok{\#\# l\textquotesingle{}attribut \textquotesingle{}names\textquotesingle{} est un vecteur de caractère dont la longueur est égale }
+\DocumentationTok{\#\# au nombre de variables}
+
+\DocumentationTok{\#\# un data frame a 2 dimensions correspondant au nombre de lignes et de colonnes }
+\DocumentationTok{\#\# (comme une matrice)}
+\FunctionTok{dim}\NormalTok{(df)}
+\CommentTok{\# [1] 10  4          \# il y a bien 10 lignes et 4 colonnes}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Sélection par indexation}\label{suxe9lection-par-indexation-1}
+
+On peut sélectionner une variable en appliquant le même principe que pour sélectionner un élément d'une liste :
+
+\begin{itemize}
+\tightlist
+\item
+  par indexation du numéro de la variable entre double crochet \texttt{{[}{[}\ {]}{]}}
+\item
+  par indexation du nom de la variable entre double crochet \texttt{{[}{[}\ {]}{]}}, ou bien en utilisant l'opérateur dollard \texttt{\$} suivi du nom de variable
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Sélection par la position de la variable age (2ème variable de la base)}
+\NormalTok{df[[}\DecValTok{2}\NormalTok{]] }
+\CommentTok{\# [1] 42.5 27.9 60.0 74.5 38.0 25.2 53.4 46.6 34.2 39.6}
+
+\DocumentationTok{\#\# Sélection pa le nom de la variable age}
+\NormalTok{df[[}\StringTok{"age"}\NormalTok{]]}
+\CommentTok{\# [1] 42.5 27.9 60.0 74.5 38.0 25.2 53.4 46.6 34.2 39.6}
+
+\DocumentationTok{\#\# Sélection de la variable age par l\textquotesingle{}opérateur dollard, }
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{age }\CommentTok{\# équivalent à df[["age"]]}
+\CommentTok{\#[1] 42.5 27.9 60.0 74.5 38.0 25.2 53.4 46.6 34.2 39.6}
+\end{Highlighting}
+\end{Shaded}
+
+On peut sélectionner le croisement de une (ou plusieurs) ligne(s) et de une (ou plusieurs) colonnes comme pour les matrices, en utilisant les simples crochets où les lignes et les colonnes correspondantes sont séparées par une virgule \texttt{{[}\ ,\ {]}}
+
+\begin{itemize}
+\tightlist
+\item
+  par indexation sur la position de la ligne et de la colonne,
+\item
+  par indexation sur le nom de la ligne et le nom de la variable
+\item
+  ou en utilisant un vecteur logique de conditions
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On peut sélectionner la position des lignes 2,4 et 9, }
+\DocumentationTok{\#\# et des colonnes "age" et "sex" (colonnes 2 et 3)}
+\NormalTok{df[}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{9}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)]}
+\CommentTok{\#    age sex}
+\CommentTok{\# 2 27.9   F}
+\CommentTok{\# 4 74.5   M}
+\CommentTok{\# 9 34.2   F}
+
+\DocumentationTok{\#\# On peut également sélectionner sur le noms des lignes et des colonnes}
+\NormalTok{df[}\FunctionTok{c}\NormalTok{(}\StringTok{"2"}\NormalTok{, }\StringTok{"4"}\NormalTok{, }\StringTok{"9"}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\StringTok{"age"}\NormalTok{, }\StringTok{"sex"}\NormalTok{)] }\CommentTok{\# donne le même résultat}
+
+\DocumentationTok{\#\# On peut mélanger les différents types d\textquotesingle{}indexation}
+\NormalTok{df[}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{9}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\StringTok{"age"}\NormalTok{, }\StringTok{"sex"}\NormalTok{)]}
+
+\DocumentationTok{\#\# On peut sélectionner les lignes correspondant à une condition, }
+\DocumentationTok{\#\# par exemple, sélectionner les lignes correspondant aux femmes de plus de 40 ans}
+\NormalTok{df[df}\SpecialCharTok{$}\NormalTok{sex }\SpecialCharTok{==} \StringTok{"F"} \SpecialCharTok{\&}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{age }\SpecialCharTok{\textgreater{}} \DecValTok{40}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"age"}\NormalTok{, }\StringTok{"sex"}\NormalTok{)]}
+\CommentTok{\#    age sex}
+\CommentTok{\# 3 60.0   F}
+\CommentTok{\# 8 46.6   F}
+\end{Highlighting}
+\end{Shaded}
+
+Il est également possible d'utiliser la fonction \texttt{subset()}, qui prend pour arguments \texttt{subset\ =} avec des conditions pour sélectionner des lignes, et \texttt{select\ =} pour sélectionner des colonnes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On peut sélectionner les colonnes id, age et sex, }
+\DocumentationTok{\#\# chez les femmes de plus de 40 ans}
+\FunctionTok{subset}\NormalTok{(df, }
+       \AttributeTok{subset =} \FunctionTok{c}\NormalTok{(sex }\SpecialCharTok{==} \StringTok{"F"} \SpecialCharTok{\&}\NormalTok{ age }\SpecialCharTok{\textgreater{}} \DecValTok{40}\NormalTok{), }
+       \AttributeTok{select =} \FunctionTok{c}\NormalTok{(id, age, sex))}
+\CommentTok{\#   id  age sex}
+\CommentTok{\# 3  3 60.0   F}
+\CommentTok{\# 8  8 46.6   F}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Autres formats de bases de données}\label{autres-formats-de-bases-de-donnuxe9es}
+
+D'autres formats de bases de données ont été proposés dans R, notamment :
+
+\begin{itemize}
+\tightlist
+\item
+  les \texttt{tibble} qui sont associés à l'environement \texttt{tidyverse}
+\item
+  les \texttt{data.table} associées au package \texttt{data.table}
+\end{itemize}
+
+Pour le début de la formation, nous allons nous concentrer sur les bases au format \texttt{data.frame} (qui sont le format R base des bases de données). Nous verrons ensuite comment utiliser les formats \texttt{tibble} et \texttt{data.table}.
 
 \end{document}
