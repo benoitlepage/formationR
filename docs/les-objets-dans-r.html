@@ -23,7 +23,7 @@
 <meta name="author" content="Benoît Lepage" />
 
 
-<meta name="date" content="2025-08-21" />
+<meta name="date" content="2025-08-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -2159,12 +2159,12 @@ Les arguments <code>times</code>, <code>each</code>, <code>length.out</code> per
 <span id="cb72-18"><a href="les-objets-dans-r.html#cb72-18" tabindex="-1"></a><span class="co">#    age sex</span></span>
 <span id="cb72-19"><a href="les-objets-dans-r.html#cb72-19" tabindex="-1"></a><span class="co"># 3 60.0   F</span></span>
 <span id="cb72-20"><a href="les-objets-dans-r.html#cb72-20" tabindex="-1"></a><span class="co"># 8 46.6   F</span></span></code></pre></div>
-<p>Il est également possible d’utiliser la fonction <code>subset()</code>, qui prend pour arguments <code>subset =</code> avec des conditions pour sélectionner des lignes, et <code>select =</code> pour sélectionner des colonnes.</p>
+<p>Il est également possible d’utiliser la fonction <code>subset()</code>, qui prend pour arguments <code>subset =</code> avec des conditions pour sélectionner des lignes (sous la forme d’une condition), et <code>select =</code> pour sélectionner des colonnes (avec les noms de colonnes souhaitées).</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="les-objets-dans-r.html#cb73-1" tabindex="-1"></a><span class="do">## On peut sélectionner les colonnes id, age et sex, </span></span>
 <span id="cb73-2"><a href="les-objets-dans-r.html#cb73-2" tabindex="-1"></a><span class="do">## chez les femmes de plus de 40 ans</span></span>
-<span id="cb73-3"><a href="les-objets-dans-r.html#cb73-3" tabindex="-1"></a><span class="fu">subset</span>(df, </span>
-<span id="cb73-4"><a href="les-objets-dans-r.html#cb73-4" tabindex="-1"></a>       <span class="at">subset =</span> <span class="fu">c</span>(sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> age <span class="sc">&gt;</span> <span class="dv">40</span>), </span>
-<span id="cb73-5"><a href="les-objets-dans-r.html#cb73-5" tabindex="-1"></a>       <span class="at">select =</span> <span class="fu">c</span>(id, age, sex))</span>
+<span id="cb73-3"><a href="les-objets-dans-r.html#cb73-3" tabindex="-1"></a><span class="fu">subset</span>(df, <span class="co"># base de donnée</span></span>
+<span id="cb73-4"><a href="les-objets-dans-r.html#cb73-4" tabindex="-1"></a>       <span class="at">subset =</span> <span class="fu">c</span>(sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> age <span class="sc">&gt;</span> <span class="dv">40</span>), <span class="co"># sous-ensemble de lignes </span></span>
+<span id="cb73-5"><a href="les-objets-dans-r.html#cb73-5" tabindex="-1"></a>       <span class="at">select =</span> <span class="fu">c</span>(id, age, sex)) <span class="co"># sous-ensemble de colonnes</span></span>
 <span id="cb73-6"><a href="les-objets-dans-r.html#cb73-6" tabindex="-1"></a><span class="co">#   id  age sex</span></span>
 <span id="cb73-7"><a href="les-objets-dans-r.html#cb73-7" tabindex="-1"></a><span class="co"># 3  3 60.0   F</span></span>
 <span id="cb73-8"><a href="les-objets-dans-r.html#cb73-8" tabindex="-1"></a><span class="co"># 8  8 46.6   F</span></span></code></pre></div>

@@ -54,6 +54,77 @@ str(df_1)
 # $ trait : int  2 3 1 2 2 3 3 3 1 1 ...
 # $ pas   : int  140 109 156 124 131 148 125 117 132 133 ...
 
+# ---------------------------------------------------------------------------- #
+## 2.1) créer une nouvelle variable imc en classes ----
+# ---------------------------------------------------------------------------- #
+### créer une variable obesite = 1 si imc > 30 et 0 sinon
+df_1$obesite <- ifelse(df_1$imc >= 30, 1, 0)
+# vérifier que la variable est correctement crée : 
+min(df_1$imc[df_1$obesite == 0])
+max(df_1$imc[df_1$obesite == 0])
+# les valeurs d'imc varient de 15.4 à 29.9 lorsque obesite == 0
+
+min(df_1$imc[df_1$obesite == 1])
+max(df_1$imc[df_1$obesite == 1])
+# les valeurs d'imc varient de 30.1 à 32.5 lorsque obesite == 1 => c'est bon !
+
+
+### créer une variable imc_cl = 1 if imc < 18.5             maigreur
+###                             2 si imc >= 18.5 & imc < 25 normal
+###                             3 si imc >= 25 & imc < 30   surpoids
+###                             4 si imc >= 30              obésité
+
+### il y a plusieurs façons de faire : 
+
+### 1) créer une variable où toutes les données sont manquantes : 
+df_1$imc_cl <- rep(NA, nrow(df_1))
+#    puis remplacer les données manquantes par les valeurs souhaitées
+df_1$imc_cl[df_1$imc < 18.5] <- 1
+df_1$imc_cl[df_1$imc >= 18.5 & df_1$imc < 25] <- 2
+df_1$imc_cl[df_1$imc >= 25 & df_1$imc < 30] <- 3
+df_1$imc_cl[df_1$imc >= 30] <- 4
+# vérifier que l'on a correctement créé la variable
+boxplot(df_1$imc ~ df_1$imc_cl) # ok pas de chevauchement
+
+# on commence par supprimer la variable que l'on vient de créer
+names(df_1) # on va supprimer la 7ème colonne
+df_1 <- df_1[,-c(7)]
+
+### 2) avec la fonction ifelse de manière itérative : 
+df_1$imc_cl <- ifelse(df_1$imc < 18.5, 1, 
+                      ifelse(df_1$imc >= 18.5 & df_1$imc < 25, 
+                             2, ifelse(df_1$imc >= 25 & df_1$imc < 30, 3, 4)))
+boxplot(df_1$imc ~ df_1$imc_cl) # ok pas de chevauchement
+
+# on supprime la variable que l'on vient de créer : 
+df_1 <- df_1[,-c(7)]
+
+### 3) avec une formule intégrant des conditions
+###    comme on crée un entier, les réponses TRUE et FALSE sont transformées
+#      en 1 et 0 par coercition
+df_1$imc_cl <- (1 * (df_1$imc < 18.5) + 
+                  2 * (df_1$imc >= 18.5 & df_1$imc < 25) + 
+                  3 * (df_1$imc >= 25 & df_1$imc < 30) + 
+                  4 * (df_1$imc >= 30))
+boxplot(df_1$imc ~ df_1$imc_cl) # ok pas de chevauchement
+
+
+# ---------------------------------------------------------------------------- #
+## 2.2) modifier une variable existante ----
+# ---------------------------------------------------------------------------- #
+## on va créer un double de notre base de travail, 
+## la PAS du patient 137 = 133 mmHg, il s'agissait d'une erreur de saisie, 
+## la bonne valeur est 123 mmHg
+
+df_2 <- df_1 # on créer une base df_2, comme un double de la baes df_1
+
+# PAS du patient 137 : 
+df_2$pas[df_2$subjid == 137] # [1] 133
+df_2$pas[df_2$subjid == 137] <- 123
+df_2$pas[df_2$subjid == 137]
+# la valeur est maintenant 123
+df_2[df_2$subjid %in% 135:140,]
+
 
 # ---------------------------------------------------------------------------- #
 # 3) description simple des paramètres des distributions ----
@@ -114,6 +185,9 @@ summary(df_1)
 # la fonction length() ou nrow() pour connaître les effectifs 
 nrow(df_1)
 length(df_1$imc)
+
+# compter les effectifs non-manquants
+length(df_1$imc[!is.na(df_1$imc)])
 table(!is.na(df_1$imc))["TRUE"] # tabuler l'évaluation logique d'IMC non-manquant
                                 # et ne garder que la valeur associée à la réponse TRUE
                                 # qui correspond au nombre de non-manquants
@@ -149,11 +223,11 @@ quantile(df_1$pas, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE)
 #   - le nombre de chiffres après la virgule pour la présentation arrondie (on indique 2 par défaut)
 #   - un paramètre pour définir si les manquants sont supprimés ou non pour 
 #     le calcul des moyennes et autres paramètres (on indique TRUE par défaut)
-univ_quanti <- function(x, dig = 2, na.remove = TRUE) { 
-  n <- table(!is.na(x))["TRUE"]
-  moy <- mean(x, na.rm = na.remove)
-  sd <- sd(x, na.rm = na.remove)
-  q <- quantile(x, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = na.remove)
+univ_quanti <- function(x, dig = 2, remove_miss = TRUE) { 
+  n <- length(x[!is.na(x)])     # table(!is.na(x))["TRUE"]
+  moy <- mean(x, na.rm = remove_miss)
+  sd <- sd(x, na.rm = remove_miss)
+  q <- quantile(x, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = remove_miss)
   
   # on stocke les résultat dans un vecteur de réels 
   param <- c(n, 
@@ -165,12 +239,28 @@ univ_quanti <- function(x, dig = 2, na.remove = TRUE) {
   return(param)
 }
 
-univ_quanti(df_1$imc, dig = 1)
+univ_quanti(df_1$imc, dig = 1, remove_miss = TRUE)
 #     N   mean     sd    min     Q1 median     Q3    max 
 # 300.0   24.5    3.1   15.4   22.3   24.6   26.4   32.5
-univ_quanti(df_1$pas, dig = 1)
+univ_quanti(df_1$pas, dig = 1, remove_miss = TRUE)
 #     N   mean     sd    min     Q1 median     Q3    max 
 # 300.0  137.1   16.8   92.0  125.0  138.0  149.0  177.0 
+
+
+### définir une boucle dans R
+# exemple de boucle
+for (i in 1:10) {
+  print(paste0("calcul de 20 + i = ", 20 + i))
+}
+
+names(df_1)
+# ici, les variables quantitatives sont dans les colonnes 3 et 5 de df_1
+for (i in c(3, 5)) {
+  print(univ_quanti(df_1[[i]], dig = 1, remove_miss = TRUE))
+}
+
+# que se passe t'il si vous n'ajoutez pas la fonction print ?
+# réponse : il a fait le calcul, mais ne l'a pas imprimé à l'écran
 
 
 ### Fonction apply, lapply, sapply
@@ -193,7 +283,8 @@ apply(df_1[,c("imc", "pas")],
 # Q3      26.4 149.0
 # max     32.5 177.0
 
-lapply(df_1[,c("imc", "pas")], 
+## lapply retourne une liste de même longueur que X
+lapply(X = df_1[,c("imc", "pas")], 
       FUN = univ_quanti,  # fonction à utiliser
       dig = 1) # on peut ajouter les arguments de la fonction à la suite
 # $imc                                                    le résultat est une liste
@@ -204,7 +295,8 @@ lapply(df_1[,c("imc", "pas")],
 #     N   mean     sd    min     Q1 median     Q3    max 
 # 300.0  137.1   16.8   92.0  125.0  138.0  149.0  177.0 
 
-sapply(df_1[,c("imc", "pas")],          # le résultat est une matrice
+## sapply fonctionne comme lapply, mais retourne les résultats en vecteur ou matrice
+sapply(X = df_1[,c("imc", "pas")],          # le résultat est une matrice
        FUN = univ_quanti,  # fonction à utiliser
        dig = 1) # on peut ajouter les arguments de la fonction à la suite
 
@@ -226,6 +318,9 @@ res_quanti
 # Q3            26.4      149.0
 # max           32.5      177.0
 
+
+### présenter les résultats au propre sous forme de table - UN peu plus difficile ??
+### cela demande des packages en plus
 library(tinytable)
 res_quanti_df <- data.frame(paramètre = rownames(res_quanti),
                             res_quanti)
@@ -239,10 +334,10 @@ qflextable(res_quanti_df)
 library(gt)
 gt(res_quanti_df)
 
-library(knitr)
-# la fonction kable peut s'appliquer directement sur l'objet matrice initial
-kable(res_quanti) 
-kable(res_quanti, format = "simple")
+# library(knitr)
+# # la fonction kable peut s'appliquer directement sur l'objet matrice initial
+# kable(res_quanti) 
+# kable(res_quanti, format = "simple")
 
 
 # ---------------------------------------------------------------------------- #
@@ -310,13 +405,13 @@ boxplot(df_1$pas, main = "Boxplot de la PAS", ylab = "PAS (mmHg)")
 
 ### variables qualitatives
 # bar plots
-barplot(table(df_1$sex)) # avec les effectifs
-barplot(prop.table(table(df_1$sex))) # avec les pourcentages
+barplot(table(df_1$sexL)) # avec les effectifs
+barplot(prop.table(table(df_1$sexL))) # avec les pourcentages
 
 # utiliser la variable en facteur permet d'indiquer directement les labesl en clair
 barplot(prop.table(table(df_1$traitL)), 
         ylab = "Frequency",
-        main = "Répartition du traitement")
+        main = "Diagramme en barres du traitement")
 
 ### Croiser une variable quantitative en fonction d'une variable qualitative
 # avec des boxplots
@@ -336,9 +431,40 @@ plot(df_1$pas ~ df_1$imc,
      xlab = "IMC (kg/m²)", ylab = "PAS (mmHg)",
      main = "Nuage de points de la PAS en fonction de l'IMC")
 
-# Les paramètres R base offrent beaucoup de possibilité pour paramètrer 
+# Les paramètres R base offrent beaucoup de possibilités pour paramètrer 
 # les graphiques
 ?par
+# mais c'est difficile d'y voir clair dans cette multitude d'options
+# parmi les plus utiles : 
+# col : specification de la couleur des points et des lignes, se décline
+#       à la couleur des axes, des labels, des titres et sous-titres
+# col.axis, col.lab, col.main, col.sub
+# pch : valeur numérique associée au symbole des points dans les nuages de points
+# lty : type de la ligne : 0 = blank, 1 = solid, 2 = dashed, etc, on peut également l'indiquer
+#       en caractère "blank", "solid", "dashed", ...
+# lwd : largeur de la ligne
+# cex : valeur numérique indiquant la taille relative de la police de caractères
+#       se décline pour la police utilisée sur les axes, les labels, les titres, les sous-titres
+#       fonctionne également pour la taille des points dans un nuage de points
+# cex.axis, cex.lab, cex.main, cex.sub
+
+# mfrow() et mfcol() : pour combiner plusieurs graphique par rang ou par colonne
+# par(mfrow(3), mfcol(2)) affiche les graphique dans une matrice de graphique (3 lignes, 2 colonnes)
+
+## controler la largeur des marges
+# mar() : nombres de ligne par marges, indiqué dans cet ordre c(bottom, left, top, right), 
+#         par défaut : c(5, 4, 4, 2) + 0.1
+# mai() : taille des marges (en pouces), dans le même ordre c(bottom, left, top, right)
+
+# legend() : pour ajouter une légende
+
+# la fonction exemple permet d'avoir de nombre exemples de paramètres graphiques
+example(mar) 
+
+example(line) 
+example(axis)
+example(legend)
+
 # Par exemple, on peut représenter les hommes et les femmes par deux symboles 
 # différents et les traitements par deux couleurs différentes
 plot.new()
@@ -399,15 +525,147 @@ legend("bottomright",
 ### figures R base dans certains tutoriels, par exemple celui de Karolis Koncevičius: 
 ### https://github.com/karoliskoncevicius/r_notes/blob/main/baseplotting.md
 
-# la fonction exemple permet d'avoir de nombre exemples de paramètres graphiques
-example(line) 
-example(axis)
-example(legend)
+
 
 
 # ---------------------------------------------------------------------------- #
 # 5) comparaisons bivariées ----
 # ---------------------------------------------------------------------------- #
+## 5.1) variables quantitatives vs quali ----
+# ---------------------------------------------------------------------------- #
+### on peut utiliser la fonction aggregate() qui permet d'appliquer 
+### des fonctions à des sous-groupes de variables (définies en facteurs)
+aggregate(x = df_1[,c("imc", "pas")], 
+          by = list(df_1$sexL), 
+          FUN = mean, 
+          simplify = TRUE) # si vrai retourne un vecteur ou une matrice, sinon retourne une liste
+
+#    Group.1      imc      pas
+# 1  Féminin 24.09281 132.4902
+# 2 Masculin 24.88503 141.9932
+
+# on modifie la fonction de calcul de paramètres en ajoutant un argument
+# qui va calculer ou non les quantiles selon un argument VRAI/FAUX :
+univ_quanti <- function(x, dig = 2, remove_miss = TRUE, quantiles = TRUE) { 
+  n <- length(x[!is.na(x)])     # table(!is.na(x))["TRUE"]
+  moy <- mean(x, na.rm = remove_miss)
+  sd <- sd(x, na.rm = remove_miss)
+  q <- quantile(x, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = remove_miss)
+  
+  # on stocke les résultat dans un vecteur de réels 
+  if (quantiles == TRUE) {
+    param <- c(n, 
+               round(moy, digits = dig), 
+               round(sd, digits = dig), 
+               q)
+  } else {
+    param <- c(n, 
+               round(moy, digits = dig), 
+               round(sd, digits = dig))
+  }
+  
+  # on peut ajouter un nom à chaque élément du vecteur
+  if (quantiles == TRUE) {
+    names(param) <- c("N", "mean", "sd", "min", "Q1", "median", "Q3", "max")
+  } else {
+    names(param) <- c("N", "mean", "sd")
+  }
+  
+  # retourne les résultats
+  return(param)
+}
+univ_quanti(df_1$imc, dig = 1, remove_miss = TRUE, quantiles = TRUE)
+#     N   mean     sd    min     Q1 median     Q3    max 
+# 300.0   24.5    3.1   15.4   22.3   24.6   26.4   32.5
+univ_quanti(df_1$imc, dig = 1, remove_miss = TRUE, quantiles = FALSE)
+#     N  mean    sd 
+# 300.0  24.5   3.1
+
+imc_by_sex <- aggregate(x = df_1[,c("imc")], 
+                        by = list(df_1$sexL), 
+                        FUN = univ_quanti, # fonction à utiliser
+                        dig = 1, remove_miss = TRUE, quantiles = FALSE) # arguments de la fonction indiquée dans FUN
+imc_by_sex
+#    Group.1   x.N x.mean  x.sd
+# 1  Féminin 153.0   24.1   3.1
+# 2 Masculin 147.0   24.9   3.0
+
+pas_by_sex <- aggregate(x = df_1[,c("pas")], 
+                        by = list(df_1$sexL), 
+                        FUN = univ_quanti, # fonction à utiliser
+                        dig = 1, remove_miss = TRUE, quantiles = FALSE)
+pas_by_sex
+#    Group.1   x.N x.mean  x.sd
+# 1  Féminin 153.0  132.5  16.8
+# 2 Masculin 147.0  142.0  15.5
+
+
+### fonction tapply()
+imc_by_sex.bis <- tapply(X = df_1[,c("imc")], 
+                         INDEX = list(df_1$sexL), 
+                         FUN = univ_quanti, # fonction à utiliser
+                         dig = 1, remove_miss = TRUE, quantiles = FALSE) # arguments de la fonction indiquée dans FUN
+imc_by_sex.bis
+# $Féminin
+# N  mean    sd 
+# 153.0  24.1   3.1 
+# 
+# $Masculin
+# N  mean    sd 
+# 147.0  24.9   3.0
+is.list(imc_by_sex.bis)
+# retourne les résultats sous forme de liste
+imc_by_sex.bis$Féminin
+imc_by_sex.bis$Masculin
+
+# ### fonction by() : applique la fonction tapply()
+# imc_by_sex.ter <- by(data = df_1[,c("imc")], 
+#                      INDICES = list(df_1$sexL), 
+#                      FUN = univ_quanti, # fonction à utiliser
+#                      dig = 1, remove_miss = TRUE, quantiles = FALSE) # arguments de la fonction indiquée dans FUN
+# imc_by_sex.ter
+# # : Féminin
+# #     N  mean    sd 
+# # 153.0  24.1   3.1 
+# #   : Masculin
+# #     N  mean    sd 
+# # 147.0  24.9   3.0 
+# class(imc_by_sex.ter) # [1] "by"  une autre classe d'objet
+# # => pas très utile à présenter !
+
+
+### Affichage au propre : 
+
+# Les deux sont des data.frames
+# on peut les afficher en une seule table : 
+#  - en les transposant avec la fonction t()
+#  - puis en les combinant par rang
+tb_quanti_biv <- rbind(t(imc_by_sex), t(pas_by_sex))
+class(tb_quanti_biv)
+# [1] "matrix" "array"
+# pour mieux paramétrer l'affichage, on transforme cette matrice en data.frame
+tb_quanti_biv <- data.frame(tb_quanti_biv)
+# on ajoute une colonne pour décrire les noms de variables et les paramètres
+tb_quanti_biv <- data.frame(variables = c("IMC (kg/m2)", "N", "mean", "sd",
+                                          "PAS (mmHg)", "N", "mean", "sd"),
+                            tb_quanti_biv)
+# on réadapte les noms de colonnes 
+names(tb_quanti_biv)[c(2,3)] <- c("Féminin", "Masculin")
+tb_quanti_biv[c(1,5), c(2,3)] <- ""
+qflextable(tb_quanti_biv)
+
+
+## Description (mean, sd) de l'imc et de la pas en fonction du sex
+# on va stocker les résultats dans une base de données pour les mettre en forme 
+# on veut une base selon le format suivant :
+#   variables  |        femme       |    homme                #
+# ----------------------------------------------------------- #
+#              |        N = XXX     |    N = XXX              #
+#     imc      |    moy ± sd        |    moy ± sd             #
+#     pas      |    moy ± sd        |    moy ± sd             #
+
+### plus difficile, on peut également créer des fonctions "à façon"
+### pour faire des analyses par sous-groupe : 
 biv_quanti <- function(x, y, dig = 1, na.rm = TRUE) {
   param = list()
   for(i in 1:length(unique(y))) {
@@ -420,14 +678,6 @@ biv_quanti <- function(x, y, dig = 1, na.rm = TRUE) {
   return(param)
 }
 
-## Description (mean, sd) de l'imc et de la pas en fonction du sex
-# on va stocker les résultats dans une base de données pour les mettre en forme 
-# on veut une base selon le format suivant :
-#   variables  |        femme       |    homme                #
-# ----------------------------------------------------------- #
-#              |        N = XXX     |    N = XXX              #
-#     imc      |    moy ± sd        |    moy ± sd             #
-#     pas      |    moy ± sd        |    moy ± sd             #
 
 list_imc_sex <- biv_quanti(df_1$imc, df_1$sex, dig = 1, na.rm = TRUE)
 list_pas_sex <- biv_quanti(df_1$pas, df_1$sex, dig = 1, na.rm = TRUE)
@@ -489,8 +739,56 @@ names(tb_biv_quanti2)[4] <- paste0("Traitement B \n N = ",
 qflextable(tb_biv_quanti2)
 
 
+
 # ---------------------------------------------------------------------------- #
-## 5.1) Tests de Student et Wilcoxon ----
+## 5.2) variables qualitatives vs quali ----
+# ---------------------------------------------------------------------------- #
+### description du sexe en fonction du traitement :
+
+## effectifs : 
+trait_by_sex_N <- table(df_1$sexL, df_1$traitL)
+trait_by_sex_N
+#          Placebo Traitement A Traitement B
+# Féminin       57           46           50
+# Masculin      63           45           39
+
+## pourcentages 
+trait_by_sex_pct <- prop.table(trait_by_sex_N,
+                               margin = 2) # 1 = par ligne, 2 = par colonne, NULL = par cellule)
+trait_by_sex_pct
+#            Placebo Traitement A Traitement B
+# Féminin  0.4750000    0.5054945    0.5617978
+# Masculin 0.5250000    0.4945055    0.4382022
+
+## si on veut afficher dans une même table les effectifs et pourcentage, 
+## on peut utiliser paste0 et arrondire les pourcentages
+tab_biv_quali <- paste0(trait_by_sex_N, "(",round(trait_by_sex_pct * 100, digits = 1), "%)")
+tab_biv_quali
+# c'est devenu un vecteur atomique de caractères
+# on va lui redonner les dimensions et noms des matrices initiales
+dim(tab_biv_quali) <- dim(trait_by_sex_N)
+dimnames(tab_biv_quali) <- dimnames(trait_by_sex_N)
+tab_biv_quali
+#         Placebo     Traitement A Traitement B
+# Féminin  "57(47.5%)" "46(50.5%)"  "50(56.2%)" 
+# Masculin "63(52.5%)" "45(49.5%)"  "39(43.8%)"
+
+
+### sex
+table(df_1$sexL) # un vecteur avec les effectifs
+prop.table(table(df_1$sexL)) # un vecteur avec les pourcentages
+# on va combiner ces deux vecteurs pour les afficher dans une matrice 
+tab_sex <- cbind(table(df_1$sexL), 
+                 round(prop.table(table(df_1$sexL)) * 100, digits = 1))
+colnames(tab_sex) <- c("n", "pct")
+
+### traitement
+tab_trait <- cbind(table(df_1$traitL), 
+                   round(prop.table(table(df_1$traitL)) * 100, digits = 1))
+colnames(tab_trait) <- c("n", "pct")
+
+# ---------------------------------------------------------------------------- #
+## 5.3) Tests de Student et Wilcoxon ----
 # ---------------------------------------------------------------------------- #
 # Comparaison de l'IMC et de la PAS en fonction du sexe (2 moyennes)
 ### Test de Student
@@ -539,7 +837,7 @@ wilcox.test(data = df_1, imc ~ sex) # p-value = 0.02499
 wilcox.test(data = df_1, pas ~ sex) # p-value = 1.529e-06
 
 # ---------------------------------------------------------------------------- #
-## 5.2) Tests d'ANOVA et de Kruskal-Wallis ----
+## 5.4) Tests d'ANOVA et de Kruskal-Wallis ----
 # ---------------------------------------------------------------------------- #
 # Comparaison de l'IMC et de la PAS en fonction du traitement (3 moyennes)
 ### Test d'Anova
@@ -582,6 +880,35 @@ car::leveneTest(data = df_1, pas ~ traitL) # p = 0.4703   OK
 kruskal.test(imc ~ traitL, data = df_1) # p-value = 0.327
 kruskal.test(pas ~ traitL, data = df_1) # p-value = 6.33e-05
 # les conclusions sont les mêmes qu'avec l'ANOVA
+
+
+# ---------------------------------------------------------------------------- #
+## 5.5) Tests du chi 2 et test exact de Fisher ----
+# ---------------------------------------------------------------------------- #
+# appliquer un test du chi2 à la table traitement en fonction du sex
+chi2 <- chisq.test(table(df_1$sexL, df_1$traitL), 
+                   correct = FALSE) # attention, par défaut il applique la correction de Yates pour les petits effectifs
+chi2
+# Pearson's Chi-squared test
+# 
+# data:  table(df_1$sexL, df_1$traitL)
+# X-squared = 1.5512, df = 2, p-value = 0.4604      # p-value = 0.46
+
+# vérification des conditions d'application : effectifs attendus dans chaque case : 
+chi2$expected
+#          Placebo Traitement A Traitement B
+# Féminin     61.2        46.41        45.39
+# Masculin    58.8        44.59        43.61
+# les effectifs sont bien tous > ou = à 5
+
+## si on avait du appliquer un test exact de fisher : 
+fisher <- fisher.test(table(df_1$sexL, df_1$traitL))
+fisher
+# Fisher's Exact Test for Count Data
+# 
+# data:  table(df_1$sexL, df_1$traitL)
+# p-value = 0.4536
+# alternative hypothesis: two.sided
 
 
 
@@ -629,5 +956,4 @@ scatter.smooth(model$fitted.values, model$residuals,
                lpars =list(col = "red", lwd = 0.5, lty = 1), 
                xlab = "Valeurs prédites", ylab = "Résidus")
 abline(h = 0, lwd = 0.5, lty = 2) # ajoute une ligne de référence en pointillés
-
 

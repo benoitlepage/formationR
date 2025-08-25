@@ -118,7 +118,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2025-08-21}
+\date{2025-08-25}
 
 \begin{document}
 \maketitle
@@ -2893,15 +2893,15 @@ On peut sélectionner le croisement de une (ou plusieurs) ligne(s) et de une (ou
 \end{Highlighting}
 \end{Shaded}
 
-Il est également possible d'utiliser la fonction \texttt{subset()}, qui prend pour arguments \texttt{subset\ =} avec des conditions pour sélectionner des lignes, et \texttt{select\ =} pour sélectionner des colonnes.
+Il est également possible d'utiliser la fonction \texttt{subset()}, qui prend pour arguments \texttt{subset\ =} avec des conditions pour sélectionner des lignes (sous la forme d'une condition), et \texttt{select\ =} pour sélectionner des colonnes (avec les noms de colonnes souhaitées).
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# On peut sélectionner les colonnes id, age et sex, }
 \DocumentationTok{\#\# chez les femmes de plus de 40 ans}
-\FunctionTok{subset}\NormalTok{(df, }
-       \AttributeTok{subset =} \FunctionTok{c}\NormalTok{(sex }\SpecialCharTok{==} \StringTok{"F"} \SpecialCharTok{\&}\NormalTok{ age }\SpecialCharTok{\textgreater{}} \DecValTok{40}\NormalTok{), }
-       \AttributeTok{select =} \FunctionTok{c}\NormalTok{(id, age, sex))}
+\FunctionTok{subset}\NormalTok{(df, }\CommentTok{\# base de donnée}
+       \AttributeTok{subset =} \FunctionTok{c}\NormalTok{(sex }\SpecialCharTok{==} \StringTok{"F"} \SpecialCharTok{\&}\NormalTok{ age }\SpecialCharTok{\textgreater{}} \DecValTok{40}\NormalTok{), }\CommentTok{\# sous{-}ensemble de lignes }
+       \AttributeTok{select =} \FunctionTok{c}\NormalTok{(id, age, sex)) }\CommentTok{\# sous{-}ensemble de colonnes}
 \CommentTok{\#   id  age sex}
 \CommentTok{\# 3  3 60.0   F}
 \CommentTok{\# 8  8 46.6   F}
