@@ -60,3 +60,8 @@ les-bases-de-données-data.frame
 création-dun-data-frame
 sélection-par-indexation-1
 autres-formats-de-bases-de-données
+analyse-simple-en-r-base
+préparer-un-dossier-de-travail
+importer-une-base-de-données
+examiner-les-données-et-les-méta-données
+créer-ou-modifier-une-variable

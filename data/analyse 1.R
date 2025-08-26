@@ -10,6 +10,7 @@ rm(list = ls())
 # 1) Importer les bases ----
 # ---------------------------------------------------------------------------- #
 df_1 <- read.csv2("data/df_1.csv")
+class(df_1)
 meta_df_1 <- read.csv2("data/meta_df_1.csv")
 meta_df_1
 #      var               label id_labs code_labs         labs

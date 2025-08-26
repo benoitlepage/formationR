@@ -118,7 +118,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2025-08-25}
+\date{2025-08-26}
 
 \begin{document}
 \maketitle
@@ -2921,5 +2921,210 @@ D'autres formats de bases de données ont été proposés dans R, notamment :
 \end{itemize}
 
 Pour le début de la formation, nous allons nous concentrer sur les bases au format \texttt{data.frame} (qui sont le format R base des bases de données). Nous verrons ensuite comment utiliser les formats \texttt{tibble} et \texttt{data.table}.
+
+\chapter{Analyse simple en R base}\label{analyse-simple-en-r-base}
+
+Dans ce chapitre, nous allons analyser une base de données simple en utilisant les commandes de R base.
+
+Les objectifs de ce chapitre sont de :
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{préparer un dossier (et un environnement) de travail} pour réaliser les analyses
+\item
+  \textbf{importer des données}, \textbf{créer des variables}, \textbf{modifier une variable déjà existante}
+\item
+  réaliser des \textbf{analyses descriptives univariées} des variables quantitatives et qualitatives
+\item
+  réaliser des \textbf{analyses descriptives bivariées}
+\item
+  faire des \textbf{représentations graphiques} des données
+\item
+  savoir faire les \textbf{tests statistiques de comparaison} de moyennes et de pourcentages
+\item
+  savoir faire une \textbf{modèle de régression linéaire multivariée}, et vérifier ses conditions d'application
+\item
+  \textbf{sauvegarder} les données et les résultats
+\end{itemize}
+
+\emph{Note : Nous verrons dans les chapitre suivants comment réaliser la même analyse en utilisant : }
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{des packages spécifiques qui facilitent la réalisation et la présentation des analyses.}
+\item
+  \emph{la collection de packages du \texttt{tidyverse} qui apportent de nouvelles fonctions avec une nouvelle philosophie, une nouvelle grammaire et de nouvelles structures de données, qui est très utilisé dans la communauté des utilisateurs de R.}
+\end{itemize}
+
+\section{Préparer un dossier de travail}\label{pruxe9parer-un-dossier-de-travail}
+
+\textbf{1ère étape :} Commencez par créer un dossier vide, appelé \emph{analyse R base} dans l'endroit de votre choix sur votre ordinateur. Au sein de ce dossier, vous pouvez ajouter un dossier \emph{data} et un dossier \emph{figures} qui pourra vous servir à stocker les données et les figures que vous souhaitez souvegarder.
+
+\textbf{2ème étape :} Dans R Studio, cliniquez sur le cube en 3 dimensions R ``Project: (None)'' en haut à droite, au dessus du cadran environnement.
+
+\begin{itemize}
+\tightlist
+\item
+  Cliquez ensuite sur ``New Project\ldots{}''.
+\item
+  Puis cliquez sur ``Existing Directory\ldots{}'', avec le bouton browse, vous pouvez alors rechercher le dossier \emph{analyse R base} que vous venez de créer à la 1ère étape.
+\item
+  Enfin cliquez sur ``Open'' et ``Create Project''.
+\end{itemize}
+
+\begin{center}\includegraphics[width=1\linewidth]{./images/cree_nv_project} \end{center}
+
+R Studio va alors créer un fichier \texttt{analyse\ R\ base.Rproj} au sein de votre dossier \emph{analyse R base}. De plus, ce dossier \emph{analyse R base} sera défini comme votre dossier de travail.
+
+Ainsi si vous demandez à R quel est votre dossier de travail actuel avec la commande \texttt{getwd()} (\emph{get working directory}), la console va indiquer le chemin jusque ce dossier (R vous confirme qu'il s'agit bien de votre dossier de travail !).
+
+Ce dossier de travail apparaît également dans le menu ``Files'' dans le cadrant en bas à droite. Ce dossier sert de ``dossier racine'' (``répertoire racine''), on pourra désigner les fichiers de travail au sein de ce dossier avec un chemin raccourci. \textbf{Tous les documents que vous allez sauvegarder pendant votre session R Studio seront sauvegardés dans ce dossier de travail +++}
+
+\begin{center}\includegraphics[width=0.75\linewidth]{./images/working_directory} \end{center}
+
+Si vous ouvrez un nouveau script R et que vous le sauvegardez (par exemple, sous le nom \texttt{1\_analyse\ en\ R\ base}), il sera ajouté par défaut au sein de votre dossier de travail, et va apparaître parmi les fichiers du menu file (cadrant en bas à droite).
+
+Maintenant, \textbf{quittez le programme R Studio}, puis \textbf{double cliquez sur le fichier \texttt{analyse\ R\ base.Rproj}} (icone d'un cube R en 3 dimensions) qui vient d'être créé dans votre dossier de travail ``analyse R base''.
+
+R Studio va alors s'ouvrir, en ayant directement défini le dossier \emph{analyse R base} comme dossier de travail. C'est la méthode la plus simple pour reprendre une analyse R en cours et pour reproduire les résultats déjà obtenus.
+
+\section{Importer une base de données}\label{importer-une-base-de-donnuxe9es}
+
+Pour cet exemple,
+
+\begin{itemize}
+\tightlist
+\item
+  téléchargez la base \href{https://github.com/benoitlepage/formationR/blob/main/data/df_1.csv}{\texttt{df\_1.csv}} ainsi que la base de méta-données \href{https://github.com/benoitlepage/formationR/blob/main/data/meta_df_1.csv}{\texttt{meta\_df\_1.csv}}.
+\item
+  Vous pouvez ensuite coller ces deux bases au sein du dossier ``data'' de votre dossier de travail.
+\end{itemize}
+
+Il s'agit de fichier avec l'extension ``.csv'' (\emph{comma separated variables}) où les valeurs sont séparées par un point virgule. Vous pouvez l'importer dans R avec la fonction \texttt{read.csv2()} (il existe également une fonction \texttt{read.csv()} qui importe les données .csv où le séparateur est une virgule). Vous pouvez regarder les différents arguments de ces fonctions dans l'aide \texttt{?read.csv2}.
+
+Nous allons stocker la base dans des objets nommés \texttt{df\_1} et \texttt{meta\_df\_1}. Ces bases importées sont des objets de type \texttt{data.frame}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv2}\NormalTok{(}\StringTok{"data/df\_1.csv"}\NormalTok{)}
+\NormalTok{meta\_df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv2}\NormalTok{(}\StringTok{"data/meta\_df\_1.csv"}\NormalTok{)}
+\FunctionTok{class}\NormalTok{(df\_1)  }\CommentTok{\# [1] "data.frame"}
+\end{Highlighting}
+\end{Shaded}
+
+La base \texttt{df\_1} contient les données que nous allons analyser et la base \texttt{meta\_df\_1} contient des méta-données (noms de variables, noms des labels, etc) qui détaille les noms des variables, les labels des variables qualitatives, etc.
+
+\section{Examiner les données et les méta-données}\label{examiner-les-donnuxe9es-et-les-muxe9ta-donnuxe9es}
+
+Comme vu précédemment, vous pouvez examiner les données avec les fonctions \texttt{head()}, \texttt{tail()}, \texttt{str()} et \texttt{View()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(df\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   subjid sex  imc trait pas
+## 1      1   0 24.8     2 140
+## 2      2   0 24.1     3 109
+## 3      3   0 26.4     1 156
+## 4      4   0 23.3     2 124
+## 5      5   0 25.4     2 131
+## 6      6   1 25.0     3 148
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tail}\NormalTok{(df\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     subjid sex  imc trait pas
+## 295    295   1 24.1     1 148
+## 296    296   0 18.7     3 121
+## 297    297   0 23.3     3 111
+## 298    298   1 27.5     3 134
+## 299    299   1 24.7     2 158
+## 300    300   1 22.8     1 147
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(df\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    300 obs. of  5 variables:
+##  $ subjid: int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ sex   : int  0 0 0 0 0 1 0 0 0 0 ...
+##  $ imc   : num  24.8 24.1 26.4 23.3 25.4 25 25.2 21.5 21.8 25.9 ...
+##  $ trait : int  2 3 1 2 2 3 3 3 1 1 ...
+##  $ pas   : int  140 109 156 124 131 148 125 117 132 133 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{View}\NormalTok{(df\_1) }\CommentTok{\# pour voir la base de données dans R Studio}
+\end{Highlighting}
+\end{Shaded}
+
+On voit que la base de données contient 300 observations et 5 variables :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{subjid}, l'identifiant patient
+\item
+  \texttt{sex}, le sexe du patient
+\item
+  \texttt{imc}, l'indice de masse corporelle du patient (en kg/m2)
+\item
+  \texttt{trait}, le traitement 0 = placebo, 1 = traitement A, 2 = traitement B
+\item
+  \texttt{pas}, la pression artérielle systolique (en mmHg)
+\end{itemize}
+
+Toutes les variables dans \texttt{df\_1} sont de type entier (\texttt{int}) ou réel (\texttt{num}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{meta\_df\_1 }\CommentTok{\# pour regarder le contenu des méta{-}données : }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      var               label id_labs code_labs         labs
+## 1 subjid Identifiant patient       1        NA             
+## 2    sex                Sexe       1         0      Féminin
+## 3    sex                Sexe       2         1     Masculin
+## 4    imc         IMC (kg/m²)       1        NA             
+## 5  trait          Traitement       1         1      Placebo
+## 6  trait          Traitement       2         2 Traitement A
+## 7  trait          Traitement       3         3 Traitement B
+## 8    pas          PAS (mmHg)       1        NA
+\end{verbatim}
+
+La base de méta-données contient 5 variables :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{var}, nom des variables que l'on retrouve dans la base de données \texttt{df\_1}
+\item
+  \texttt{label}, nom en clair de la variable\\
+\item
+  \texttt{id\_labs}, un identifiant pour les labels possibles, par variable
+\item
+  \texttt{code\_labs}, code numérique du label (code utilisé dans la base \texttt{df\_1})
+\item
+  \texttt{labs}, étiquette des modalités de réponses des variables qualitatives
+\end{itemize}
+
+\section{Créer ou modifier une variable}\label{cruxe9er-ou-modifier-une-variable}
 
 \end{document}

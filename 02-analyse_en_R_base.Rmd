@@ -1,0 +1,106 @@
+# Analyse simple en R base
+
+Dans ce chapitre, nous allons analyser une base de données simple en utilisant les commandes de R base. 
+
+Les objectifs de ce chapitre sont de : 
+
+  - **préparer un dossier (et un environnement) de travail** pour réaliser les analyses
+  - **importer des données**, **créer des variables**, **modifier une variable déjà existante**
+  - réaliser des **analyses descriptives univariées** des variables quantitatives et qualitatives
+  - réaliser des **analyses descriptives bivariées** 
+  - faire des **représentations graphiques** des données
+  - savoir faire les **tests statistiques de comparaison** de moyennes et de pourcentages
+  - savoir faire une **modèle de régression linéaire multivariée**, et vérifier ses conditions d'application
+  - **sauvegarder** les données et les résultats
+
+_Note : Nous verrons dans les chapitre suivants comment réaliser la même analyse en utilisant : _
+
+  - _des packages spécifiques qui facilitent la réalisation et la présentation des analyses._
+  - _la collection de packages du `tidyverse` qui apportent de nouvelles fonctions avec une nouvelle philosophie, une nouvelle grammaire et de nouvelles structures de données, qui est très utilisé dans la communauté des utilisateurs de R._
+  
+## Préparer un dossier de travail
+**1ère étape :** Commencez par créer un dossier vide, appelé _analyse R base_ dans l'endroit de votre choix sur votre ordinateur. Au sein de ce dossier, vous pouvez ajouter un dossier _data_ et un dossier _figures_ qui pourra vous servir à stocker les données et les figures que vous souhaitez souvegarder.
+
+**2ème étape :** Dans R Studio, cliniquez sur le cube en 3 dimensions R "Project: (None)" en haut à droite, au dessus du cadran environnement. 
+
+  - Cliquez ensuite sur "New Project...".
+  - Puis cliquez sur "Existing Directory...", avec le bouton browse, vous pouvez alors rechercher le dossier _analyse R base_ que vous venez de créer à la 1ère étape.
+  - Enfin cliquez sur "Open" et "Create Project".
+```{r newsproject1, echo=FALSE, out.width="100%", fig.align="center"}
+knitr::include_graphics("./images/cree_nv_project.jpg")  
+```
+
+<!-- , fig.cap="Créer un nouveau projet" -->
+R Studio va alors créer un fichier `analyse R base.Rproj` au sein de votre dossier _analyse R base_. De plus, ce dossier _analyse R base_ sera défini comme votre dossier de travail. 
+
+Ainsi si vous demandez à R quel est votre dossier de travail actuel avec la commande `getwd()` (_get working directory_), la console va indiquer le chemin jusque ce dossier (R vous confirme qu'il s'agit bien de votre dossier de travail !). 
+
+Ce dossier de travail apparaît également dans le menu "Files" dans le cadrant en bas à droite. Ce dossier sert de "dossier racine" ("répertoire racine"), on pourra désigner les fichiers de travail au sein de ce dossier avec un chemin raccourci. **Tous les documents que vous allez sauvegarder pendant votre session R Studio seront sauvegardés dans ce dossier de travail +++**
+```{r workingdir, echo=FALSE, out.width="75%", fig.align="center"}
+knitr::include_graphics("./images/working_directory.jpg")  
+```
+<!-- , fig.cap="Dossier de travail" -->
+Si vous ouvrez un nouveau script R et que vous le sauvegardez (par exemple, sous le nom `1_analyse en R base`), il sera ajouté par défaut au sein de votre dossier de travail, et va apparaître parmi les fichiers du menu file (cadrant en bas à droite).
+
+Maintenant, **quittez le programme R Studio**, puis **double cliquez sur le fichier `analyse R base.Rproj`** (icone d'un cube R en 3 dimensions) qui vient d'être créé dans votre dossier de travail "analyse R base". 
+
+R Studio va alors s'ouvrir, en ayant directement défini le dossier _analyse R base_ comme dossier de travail. C'est la méthode la plus simple pour reprendre une analyse R en cours et pour reproduire les résultats déjà obtenus.
+
+
+## Importer une base de données
+Pour cet exemple, 
+
+  - téléchargez la base [`df_1.csv`](https://github.com/benoitlepage/formationR/blob/main/data/df_1.csv) ainsi que la base de méta-données [`meta_df_1.csv`](https://github.com/benoitlepage/formationR/blob/main/data/meta_df_1.csv). 
+  - Vous pouvez ensuite coller ces deux bases au sein du dossier "data" de votre dossier de travail.
+
+Il s'agit de fichier avec l'extension ".csv" (_comma separated variables_) où les valeurs sont séparées par un point virgule. Vous pouvez l'importer dans R avec la fonction `read.csv2()` (il existe également une fonction `read.csv()` qui importe les données .csv où le séparateur est une virgule). Vous pouvez regarder les différents arguments de ces fonctions dans l'aide `?read.csv2`.
+
+Nous allons stocker la base dans des objets nommés `df_1` et `meta_df_1`. Ces bases importées sont des objets de type `data.frame`.
+```{r importcsv, eval=FALSE, include=TRUE}
+df_1 <- read.csv2("data/df_1.csv")
+meta_df_1 <- read.csv2("data/meta_df_1.csv")
+class(df_1)  # [1] "data.frame"
+```
+
+```{r importcsv2, include=FALSE}
+df_1 <- read.csv2("data/df_1.csv")
+meta_df_1 <- read.csv2("data/meta_df_1.csv")
+```
+La base `df_1` contient les données que nous allons analyser et la base `meta_df_1` contient des méta-données (noms de variables, noms des labels, etc) qui détaille les noms des variables, les labels des variables qualitatives, etc.
+
+## Examiner les données et les méta-données
+Comme vu précédemment, vous pouvez examiner les données avec les fonctions `head()`, `tail()`, `str()` et `View()`.
+
+```{r view1, echo=TRUE}
+head(df_1)
+tail(df_1)
+str(df_1)
+```
+
+```{r view3, eval=FALSE, include=TRUE}
+View(df_1) # pour voir la base de données dans R Studio
+```
+On voit que la base de données contient 300 observations et 5 variables : 
+
+  - `subjid`, l'identifiant patient
+  - `sex`, le sexe du patient
+  - `imc`, l'indice de masse corporelle du patient (en kg/m2)
+  - `trait`, le traitement 0 = placebo, 1 = traitement A, 2 = traitement B
+  - `pas`, la pression artérielle systolique (en mmHg)
+  
+Toutes les variables dans `df_1` sont de type entier (`int`) ou réel (`num`).
+
+```{r view2, echo=TRUE}
+meta_df_1 # pour regarder le contenu des méta-données : 
+```
+La base de méta-données contient 5 variables : 
+
+  - `var`, nom des variables que l'on retrouve dans la base de données `df_1` 
+  - `label`, nom en clair de la variable  
+  - `id_labs`, un identifiant pour les labels possibles, par variable
+  - `code_labs`, code numérique du label (code utilisé dans la base `df_1`) 
+  - `labs`, étiquette des modalités de réponses des variables qualitatives
+
+
+
+## Créer ou modifier une variable
