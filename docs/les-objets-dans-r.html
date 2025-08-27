@@ -23,7 +23,7 @@
 <meta name="author" content="Benoît Lepage" />
 
 
-<meta name="date" content="2025-08-26" />
+<meta name="date" content="2025-08-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,10 +206,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html"><i class="fa fa-check"></i><b>3</b> Analyse simple en R base</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="01-objets_dans_R.html"><a href="#pr%C3%A9parer-un-dossier-de-travail"><i class="fa fa-check"></i><b>3.1</b> Préparer un dossier de travail</a></li>
+<li class="chapter" data-level="3.1" data-path="01-objets_dans_R.html"><a href="#pr%C3%A9parer-un-dossier-de-travail"><i class="fa fa-check"></i><b>3.1</b> Préparer un dossier de travail</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#projet-r"><i class="fa fa-check"></i><b>3.1.1</b> Projet R</a></li>
+<li class="chapter" data-level="3.1.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#structurer-un-script-danalyse"><i class="fa fa-check"></i><b>3.1.2</b> Structurer un script d’analyse</a></li>
+</ul></li>
 <li class="chapter" data-level="3.2" data-path="01-objets_dans_R.html"><a href="#importer-une-base-de-donn%C3%A9es"><i class="fa fa-check"></i><b>3.2</b> Importer une base de données</a></li>
 <li class="chapter" data-level="3.3" data-path="01-objets_dans_R.html"><a href="#examiner-les-donn%C3%A9es-et-les-m%C3%A9ta-donn%C3%A9es"><i class="fa fa-check"></i><b>3.3</b> Examiner les données et les méta-données</a></li>
-<li class="chapter" data-level="3.4" data-path="01-objets_dans_R.html"><a href="#cr%C3%A9er-ou-modifier-une-variable"><i class="fa fa-check"></i><b>3.4</b> Créer ou modifier une variable</a></li>
+<li class="chapter" data-level="3.4" data-path="01-objets_dans_R.html"><a href="#cr%C3%A9er-ou-modifier-une-variable"><i class="fa fa-check"></i><b>3.4</b> Créer ou modifier une variable</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="01-objets_dans_R.html"><a href="#cr%C3%A9er-des-variables"><i class="fa fa-check"></i><b>3.4.1</b> Créer des variables</a></li>
+<li class="chapter" data-level="3.4.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#modifier-des-variables"><i class="fa fa-check"></i><b>3.4.2</b> Modifier des variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="01-objets_dans_R.html"><a href="#analyses-univari%C3%A9es"><i class="fa fa-check"></i><b>3.5</b> Analyses univariées</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#fonction-summary"><i class="fa fa-check"></i><b>3.5.1</b> fonction <code>summary()</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#variables-quantitatives-1"><i class="fa fa-check"></i><b>3.5.2</b> Variables quantitatives</a></li>
+<li class="chapter" data-level="3.5.3" data-path="01-objets_dans_R.html"><a href="#programmation-%C3%A9l%C3%A9mentaire"><i class="fa fa-check"></i><b>3.5.3</b> Programmation élémentaire</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -2100,7 +2114,7 @@ Les arguments <code>times</code>, <code>each</code>, <code>length.out</code> per
 <span id="cb70-50"><a href="les-objets-dans-r.html#cb70-50" tabindex="-1"></a><span class="fu">is.list</span>(df) <span class="co"># [1] TRUE</span></span>
 <span id="cb70-51"><a href="les-objets-dans-r.html#cb70-51" tabindex="-1"></a></span>
 <span id="cb70-52"><a href="les-objets-dans-r.html#cb70-52" tabindex="-1"></a><span class="do">## Un data.frame est une liste qui possède des attributs de noms de variables</span></span>
-<span id="cb70-53"><a href="les-objets-dans-r.html#cb70-53" tabindex="-1"></a><span class="do">## de class et de noms de rangs : </span></span>
+<span id="cb70-53"><a href="les-objets-dans-r.html#cb70-53" tabindex="-1"></a><span class="do">## (names) de classe (class) et de noms de rangs (row.names) : </span></span>
 <span id="cb70-54"><a href="les-objets-dans-r.html#cb70-54" tabindex="-1"></a><span class="fu">attributes</span>(df)</span>
 <span id="cb70-55"><a href="les-objets-dans-r.html#cb70-55" tabindex="-1"></a><span class="co"># $names</span></span>
 <span id="cb70-56"><a href="les-objets-dans-r.html#cb70-56" tabindex="-1"></a><span class="co"># [1] &quot;id&quot;     &quot;age&quot;    &quot;sex&quot;    &quot;dt_vis&quot;</span></span>
@@ -2166,15 +2180,26 @@ Les arguments <code>times</code>, <code>each</code>, <code>length.out</code> per
 <span id="cb72-18"><a href="les-objets-dans-r.html#cb72-18" tabindex="-1"></a><span class="co">#    age sex</span></span>
 <span id="cb72-19"><a href="les-objets-dans-r.html#cb72-19" tabindex="-1"></a><span class="co"># 3 60.0   F</span></span>
 <span id="cb72-20"><a href="les-objets-dans-r.html#cb72-20" tabindex="-1"></a><span class="co"># 8 46.6   F</span></span></code></pre></div>
+<p>On peut exclure des lignes ou des colonnes avec un signe “moins” devant les valeurs d’indexation sur la position par ligne ou par colonne :</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="les-objets-dans-r.html#cb73-1" tabindex="-1"></a><span class="do">### Exclusion des lignes (2 à 5) et des colonnes (1 et 3)</span></span>
+<span id="cb73-2"><a href="les-objets-dans-r.html#cb73-2" tabindex="-1"></a><span class="do">### avec un signe &quot;moins&quot; devant l&#39;indexation sur la position : </span></span>
+<span id="cb73-3"><a href="les-objets-dans-r.html#cb73-3" tabindex="-1"></a>df[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>), <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]</span>
+<span id="cb73-4"><a href="les-objets-dans-r.html#cb73-4" tabindex="-1"></a><span class="co">#     age     dt_vis</span></span>
+<span id="cb73-5"><a href="les-objets-dans-r.html#cb73-5" tabindex="-1"></a><span class="co"># 1  42.5 2025-12-08</span></span>
+<span id="cb73-6"><a href="les-objets-dans-r.html#cb73-6" tabindex="-1"></a><span class="co"># 6  25.2 2024-12-17</span></span>
+<span id="cb73-7"><a href="les-objets-dans-r.html#cb73-7" tabindex="-1"></a><span class="co"># 7  53.4 2025-09-13</span></span>
+<span id="cb73-8"><a href="les-objets-dans-r.html#cb73-8" tabindex="-1"></a><span class="co"># 8  46.6 2025-11-07</span></span>
+<span id="cb73-9"><a href="les-objets-dans-r.html#cb73-9" tabindex="-1"></a><span class="co"># 9  34.2 2022-04-25</span></span>
+<span id="cb73-10"><a href="les-objets-dans-r.html#cb73-10" tabindex="-1"></a><span class="co"># 10 39.6 2023-08-02</span></span></code></pre></div>
 <p>Il est également possible d’utiliser la fonction <code>subset()</code>, qui prend pour arguments <code>subset =</code> avec des conditions pour sélectionner des lignes (sous la forme d’une condition), et <code>select =</code> pour sélectionner des colonnes (avec les noms de colonnes souhaitées).</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="les-objets-dans-r.html#cb73-1" tabindex="-1"></a><span class="do">## On peut sélectionner les colonnes id, age et sex, </span></span>
-<span id="cb73-2"><a href="les-objets-dans-r.html#cb73-2" tabindex="-1"></a><span class="do">## chez les femmes de plus de 40 ans</span></span>
-<span id="cb73-3"><a href="les-objets-dans-r.html#cb73-3" tabindex="-1"></a><span class="fu">subset</span>(df, <span class="co"># base de donnée</span></span>
-<span id="cb73-4"><a href="les-objets-dans-r.html#cb73-4" tabindex="-1"></a>       <span class="at">subset =</span> <span class="fu">c</span>(sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> age <span class="sc">&gt;</span> <span class="dv">40</span>), <span class="co"># sous-ensemble de lignes </span></span>
-<span id="cb73-5"><a href="les-objets-dans-r.html#cb73-5" tabindex="-1"></a>       <span class="at">select =</span> <span class="fu">c</span>(id, age, sex)) <span class="co"># sous-ensemble de colonnes</span></span>
-<span id="cb73-6"><a href="les-objets-dans-r.html#cb73-6" tabindex="-1"></a><span class="co">#   id  age sex</span></span>
-<span id="cb73-7"><a href="les-objets-dans-r.html#cb73-7" tabindex="-1"></a><span class="co"># 3  3 60.0   F</span></span>
-<span id="cb73-8"><a href="les-objets-dans-r.html#cb73-8" tabindex="-1"></a><span class="co"># 8  8 46.6   F</span></span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="les-objets-dans-r.html#cb74-1" tabindex="-1"></a><span class="do">## On peut sélectionner les colonnes id, age et sex, </span></span>
+<span id="cb74-2"><a href="les-objets-dans-r.html#cb74-2" tabindex="-1"></a><span class="do">## chez les femmes de plus de 40 ans</span></span>
+<span id="cb74-3"><a href="les-objets-dans-r.html#cb74-3" tabindex="-1"></a><span class="fu">subset</span>(df, <span class="co"># base de donnée</span></span>
+<span id="cb74-4"><a href="les-objets-dans-r.html#cb74-4" tabindex="-1"></a>       <span class="at">subset =</span> <span class="fu">c</span>(sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span> <span class="sc">&amp;</span> age <span class="sc">&gt;</span> <span class="dv">40</span>), <span class="co"># sous-ensemble de lignes </span></span>
+<span id="cb74-5"><a href="les-objets-dans-r.html#cb74-5" tabindex="-1"></a>       <span class="at">select =</span> <span class="fu">c</span>(id, age, sex)) <span class="co"># sous-ensemble de colonnes</span></span>
+<span id="cb74-6"><a href="les-objets-dans-r.html#cb74-6" tabindex="-1"></a><span class="co">#   id  age sex</span></span>
+<span id="cb74-7"><a href="les-objets-dans-r.html#cb74-7" tabindex="-1"></a><span class="co"># 3  3 60.0   F</span></span>
+<span id="cb74-8"><a href="les-objets-dans-r.html#cb74-8" tabindex="-1"></a><span class="co"># 8  8 46.6   F</span></span></code></pre></div>
 </div>
 <div id="autres-formats-de-bases-de-données" class="section level3 hasAnchor" number="2.8.3">
 <h3><span class="header-section-number">2.8.3</span> Autres formats de bases de données<a href="#autres-formats-de-bases-de-donn%C3%A9es" class="anchor-section" aria-label="Anchor link to header"></a></h3>

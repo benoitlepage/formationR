@@ -62,6 +62,17 @@ sélection-par-indexation-1
 autres-formats-de-bases-de-données
 analyse-simple-en-r-base
 préparer-un-dossier-de-travail
+projet-r
+structurer-un-script-danalyse
 importer-une-base-de-données
 examiner-les-données-et-les-méta-données
 créer-ou-modifier-une-variable
+créer-des-variables
+modifier-des-variables
+analyses-univariées
+fonction-summary
+variables-quantitatives-1
+programmation-élémentaire
+créer-une-nouvelle-fonction
+utiliser-des-boucles
+fonctions-apply-lapply-sapply

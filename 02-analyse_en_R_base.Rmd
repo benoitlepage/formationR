@@ -19,23 +19,24 @@ _Note : Nous verrons dans les chapitre suivants comment réaliser la même analy
   - _la collection de packages du `tidyverse` qui apportent de nouvelles fonctions avec une nouvelle philosophie, une nouvelle grammaire et de nouvelles structures de données, qui est très utilisé dans la communauté des utilisateurs de R._
   
 ## Préparer un dossier de travail
-**1ère étape :** Commencez par créer un dossier vide, appelé _analyse R base_ dans l'endroit de votre choix sur votre ordinateur. Au sein de ce dossier, vous pouvez ajouter un dossier _data_ et un dossier _figures_ qui pourra vous servir à stocker les données et les figures que vous souhaitez souvegarder.
+### Projet R
+**1ère étape : Créer un dossier de travail.** Commencez par créer un dossier vide, appelé _analyse R base_ dans l'endroit de votre choix sur votre ordinateur. Au sein de ce dossier, vous pouvez ajouter un dossier _data_ et un dossier _figures_ qui pourra vous servir à stocker les données et les figures que vous souhaitez souvegarder.
 
-**2ème étape :** Dans R Studio, cliniquez sur le cube en 3 dimensions R "Project: (None)" en haut à droite, au dessus du cadran environnement. 
+**2ème étape : Créer un projet R.** Dans R Studio, cliquez sur le cube en 3 dimensions R "Project: (None)" en haut à droite, au dessus du cadran environnement. 
 
-  - Cliquez ensuite sur "New Project...".
-  - Puis cliquez sur "Existing Directory...", avec le bouton browse, vous pouvez alors rechercher le dossier _analyse R base_ que vous venez de créer à la 1ère étape.
-  - Enfin cliquez sur "Open" et "Create Project".
+  - puis "New Project...".
+  - choisissez "Existing Directory...". Avec le bouton browse, vous pouvez alors rechercher le dossier _analyse R base_ que vous venez de créer à la 1ère étape.
+  - enfin cliquez sur "Open" et "Create Project".
 ```{r newsproject1, echo=FALSE, out.width="100%", fig.align="center"}
 knitr::include_graphics("./images/cree_nv_project.jpg")  
 ```
 
 <!-- , fig.cap="Créer un nouveau projet" -->
-R Studio va alors créer un fichier `analyse R base.Rproj` au sein de votre dossier _analyse R base_. De plus, ce dossier _analyse R base_ sera défini comme votre dossier de travail. 
+R Studio va alors créer un fichier `analyse R base.Rproj` au sein de votre dossier _analyse R base_. De plus, ce dossier _analyse R base_ sera défini comme votre dossier de travail au sein de R Studio. 
 
 Ainsi si vous demandez à R quel est votre dossier de travail actuel avec la commande `getwd()` (_get working directory_), la console va indiquer le chemin jusque ce dossier (R vous confirme qu'il s'agit bien de votre dossier de travail !). 
 
-Ce dossier de travail apparaît également dans le menu "Files" dans le cadrant en bas à droite. Ce dossier sert de "dossier racine" ("répertoire racine"), on pourra désigner les fichiers de travail au sein de ce dossier avec un chemin raccourci. **Tous les documents que vous allez sauvegarder pendant votre session R Studio seront sauvegardés dans ce dossier de travail +++**
+Le contenu de ce dossier de travail apparaît également dans le menu "Files" dans le cadrant en bas à droite. Ce dossier sert de "dossier racine" ("répertoire racine"). Les fichiers au sein de ce dossier pourront être désignés avec un chemin raccourci. **Tous les éléments que vous allez sauvegarder pendant votre session R Studio seront sauvegardés dans ce dossier de travail +++**
 ```{r workingdir, echo=FALSE, out.width="75%", fig.align="center"}
 knitr::include_graphics("./images/working_directory.jpg")  
 ```
@@ -46,14 +47,88 @@ Maintenant, **quittez le programme R Studio**, puis **double cliquez sur le fich
 
 R Studio va alors s'ouvrir, en ayant directement défini le dossier _analyse R base_ comme dossier de travail. C'est la méthode la plus simple pour reprendre une analyse R en cours et pour reproduire les résultats déjà obtenus.
 
+### Structurer un script d'analyse
+Lorsque vous réaliserez une analyse, vous allez **sauvegarder vos commandes dans un script** (par exemple, dans le script `1_analyse en R base.R` que l'on vient de sauvegarder précédemment).
+
+En haut du script, si vous souhaitez recommencer à partir d'un environnement vide lorsque vous relancerez l'analyse depuis le départ, vous pouvez ajouter la commande `rm(ls = list())`. 
+
+Une bonne pratique est d'indiquer quelques informations utiles pour documenter votre script, comme votre **nom et la date des analyses (en commentaires)**. Enfin, à la fin d'un script (à la fin de vos analyses), vous pouvez lancer la commande `sessionInfo()` qui va lister dans la console la version de R et les versions des packages qui ont été utilisés pour votre analyse (vous pourrez copier ces informations à la fin de votre script, en commentaires).
+
+Les commentaires peuvent également servir à indiquer des **titres** et **sous-titres** dans votre script d'analyse. Un menu d'accès rapide est alors accessible à partir du bouton _Outline_ en haut à droite de la fenêtre du script R. 
+
+_Note : sur windows, le raccourci "ctrl-shift-c" transforme les lignes sélectionnées en commentaires (en ajoutant automatiquement des `#` en début de ligne)_
+
+Voici un exemple de script qui suit cette structure :
+```{r exscript, eval=FALSE, include=TRUE}
+### 1_analyse en R base
+### Date : 15 septembre 2025 
+### Auteur : Timoté Chalamais
+
+rm(list = ls()) # cette commande vide le contenu de l'environnement
+
+# ---------------------------------------------------------------------------- #
+# 1) Titre n°1 (il faut ajouter 4 tirets à la fin des titres) ----
+## 1.2) Sous-titre (en ajoutant un # au début de ligne) ----
+### 1.2.1) Sous-sous-titre (en ajoutant des # supplémentaires) ---- 
+# ---------------------------------------------------------------------------- #
+
+# Import des données
+df_1 <- read.csv2("data/df_1.csv")
+meta_df_1 <- read.csv2("data/meta_df_1.csv")
+
+# ---------------------------------------------------------------------------- #
+# 2) Titre n°2  ----
+# ---------------------------------------------------------------------------- #
+head(df_1)
+
+(...) # continuez vous analyses
+(...)
+
+# ---------------------------------------------------------------------------- #
+# Fin de script  ----
+
+# à la fin, vous pouvez récupérer les informations sur la session 
+# pour les copier-coller en bas du script (en format de commentaires)
+sessionInfo()
+# R version 4.5.1 (2025-06-13 ucrt)
+# Platform: x86_64-w64-mingw32/x64
+# Running under: Windows 11 x64 (build 26100)
+# 
+# Matrix products: default
+#   LAPACK version 3.12.1
+# 
+# locale:
+# [1] LC_COLLATE=French_France.utf8 
+# [2] LC_CTYPE=French_France.utf8   
+# [3] LC_MONETARY=French_France.utf8
+# [4] LC_NUMERIC=C                  
+# [5] LC_TIME=French_France.utf8    
+# 
+# time zone: Europe/Paris
+# tzcode source: internal
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets 
+# [6] methods   base     
+# 
+# loaded via a namespace (and not attached):
+#  [1] compiler_4.5.1    bookdown_0.43    
+#  [3] fastmap_1.2.0     cli_3.6.5        
+#  [5] htmltools_0.5.8.1 tools_4.5.1      
+#  [7] rstudioapi_0.17.1 yaml_2.3.10      
+#  [9] rmarkdown_2.29    knitr_1.50       
+# [11] xfun_0.52         digest_0.6.37    
+# [13] rlang_1.1.6       evaluate_1.0.4 
+```
+
 
 ## Importer une base de données
 Pour cet exemple, 
 
-  - téléchargez la base [`df_1.csv`](https://github.com/benoitlepage/formationR/blob/main/data/df_1.csv) ainsi que la base de méta-données [`meta_df_1.csv`](https://github.com/benoitlepage/formationR/blob/main/data/meta_df_1.csv). 
-  - Vous pouvez ensuite coller ces deux bases au sein du dossier "data" de votre dossier de travail.
+  - téléchargez la base [`df_1.csv`](https://github.com/benoitlepage/formationR/blob/main/data/df_1.csv) ainsi que la base de méta-données [`meta_df_1.csv`](https://github.com/benoitlepage/formationR/blob/main/data/meta_df_1.csv) (cliquez sur le bouton _download raw file_, à droite avec une flèche vers le bas). 
+  - Vous pouvez ensuite coller ces deux bases de données au sein du dossier _data_ de votre dossier de travail.
 
-Il s'agit de fichier avec l'extension ".csv" (_comma separated variables_) où les valeurs sont séparées par un point virgule. Vous pouvez l'importer dans R avec la fonction `read.csv2()` (il existe également une fonction `read.csv()` qui importe les données .csv où le séparateur est une virgule). Vous pouvez regarder les différents arguments de ces fonctions dans l'aide `?read.csv2`.
+Il s'agit de fichiers avec l'extension ".csv" (_comma separated variables_) où les valeurs sont séparées par un point virgule. Vous pouvez les importer dans R avec la fonction `read.csv2()` (il existe également une fonction `read.csv()` qui importe les données .csv où le séparateur est une virgule). Vous pouvez regarder les différents arguments de ces fonctions dans l'aide `?read.csv2`.
 
 Nous allons stocker la base dans des objets nommés `df_1` et `meta_df_1`. Ces bases importées sont des objets de type `data.frame`.
 ```{r importcsv, eval=FALSE, include=TRUE}
@@ -66,7 +141,9 @@ class(df_1)  # [1] "data.frame"
 df_1 <- read.csv2("data/df_1.csv")
 meta_df_1 <- read.csv2("data/meta_df_1.csv")
 ```
-La base `df_1` contient les données que nous allons analyser et la base `meta_df_1` contient des méta-données (noms de variables, noms des labels, etc) qui détaille les noms des variables, les labels des variables qualitatives, etc.
+
+  - La base `df_1` contient les données que nous allons analyser.
+  - La base `meta_df_1` contient des méta-données (noms de variables, noms des labels, etc) qui sera utile pour préciser les noms des variables, les labels des variables qualitatives, etc.
 
 ## Examiner les données et les méta-données
 Comme vu précédemment, vous pouvez examiner les données avec les fonctions `head()`, `tail()`, `str()` et `View()`.
@@ -96,11 +173,287 @@ meta_df_1 # pour regarder le contenu des méta-données :
 La base de méta-données contient 5 variables : 
 
   - `var`, nom des variables que l'on retrouve dans la base de données `df_1` 
-  - `label`, nom en clair de la variable  
-  - `id_labs`, un identifiant pour les labels possibles, par variable
-  - `code_labs`, code numérique du label (code utilisé dans la base `df_1`) 
-  - `labs`, étiquette des modalités de réponses des variables qualitatives
-
+  - `label`, nom en détail de la variable  
+  - `id_labs`, un identifiant pour les labels éventuels, par variable
+  - `code_labs`, codage numérique du label (code utilisé dans la base `df_1`) 
+  - `labs`, modalités de réponses des variables qualitatives, en détail
 
 
 ## Créer ou modifier une variable
+### Créer des variables
+Nous allons créer une variable `obesite` dont la valeur est égale à 1 si l'indice de masse corporelle est $\geq 30\text{ kg/m}^2$ et égale à 0 sinon.
+
+Pour cela, on peut utilise la fonction `ifelse()` dont le premier argument est une condition, le 2ème argument est la valeur à retourner si la condition est vraie, et le 3ème argument est la valeur à retourner si la condition est fausse.
+```{r create_var1, echo=TRUE}
+df_1$obesite <- ifelse(df_1$imc >= 30, 1, 0)
+```
+Chaque fois que vous créez ou modifiez une variable, il est utile de vérifier que vous n'avez pas fait d'erreurs. Dans cet exemple, on peut vérifier quelles sont les valeurs minimales et maximales de l'indice de masse corporelle au sein des deux catégories de la nouvelle variable : 
+```{r create_verif1, eval=FALSE, include=TRUE}
+### vérifier que la variable est correctement crée : 
+min(df_1$imc[df_1$obesite == 0]) # [1] 15.4
+max(df_1$imc[df_1$obesite == 0]) # [1] 29.9
+### les valeurs d'IMC varient de 15.4 à 29.9 lorsque obesite == 0
+
+min(df_1$imc[df_1$obesite == 1]) # [1] 30.1
+max(df_1$imc[df_1$obesite == 1]) # [1] 32.5
+### les valeurs d'IMC varient de 30.1 à 32.5 lorsque obesite == 1 => c'est bon !
+```
+
+Nous allons ensuite créer une variable d'IMC en classes (`imc_cl`) définie telle que : 
+ 
+  - `imc_cl = 1` (maigreur) si l'IMC < 18.5 kg/m$^2$,
+  - `imc_cl = 2` (normal) si l'IMC $\geq 18.5 \text{ kg/m}^2$ et IMC $< 25 \text{ kg/m}^2$,
+  - `imc_cl = 3` (normal) si l'IMC $\geq 25 \text{ kg/m}^2$ et IMC $< 30 \text{ kg/m}^2$,
+  - `imc_cl = 4` (normal) si l'IMC $\geq 30 \text{ kg/m}^2$.
+  
+Il y a plusieurs possibilités pour créer cette variable, voici 3 méthodes différentes : 
+```{r create_var2, echo=TRUE}
+### 1) créer une variable où toutes les données sont manquantes : 
+df_1$imc_cl <- rep(NA, nrow(df_1))
+###    puis remplacer les données manquantes par les valeurs souhaitées
+df_1$imc_cl[df_1$imc < 18.5] <- 1
+df_1$imc_cl[df_1$imc >= 18.5 & df_1$imc < 25] <- 2
+df_1$imc_cl[df_1$imc >= 25 & df_1$imc < 30] <- 3
+df_1$imc_cl[df_1$imc >= 30] <- 4
+
+### 2) avec la fonction ifelse de manière itérative : 
+df_1$imc_cl <- ifelse(df_1$imc < 18.5, 1, 
+                      ifelse(df_1$imc >= 18.5 & df_1$imc < 25, 
+                             2, ifelse(df_1$imc >= 25 & df_1$imc < 30, 3, 4)))
+
+### 3) avec une formule intégrant des conditions.
+###    Comme on multiplie les résultats de conditions à des entiers, les 
+###    réponses TRUE et FALSE sont transformées en 1 et 0 par coercition
+df_1$imc_cl <- (1 * (df_1$imc < 18.5) + 
+                  2 * (df_1$imc >= 18.5 & df_1$imc < 25) + 
+                  3 * (df_1$imc >= 25 & df_1$imc < 30) + 
+                  4 * (df_1$imc >= 30))
+```
+Pensez à vérifier que vous n'avez pas fait d'erreur en créant cette variable. Par exemple, on peut vérifier la distribution de l'IMC au sein des 4 classes à l'aide d'un box plot.
+```{r create_verif2, echo=TRUE}
+boxplot(df_1$imc ~ df_1$imc_cl) # imc en fonction de l'imc en classe
+```
+
+Après avoir créé ces deux nouvelles variables, nous pouvons compléter la base de méta-données pour définir les noms de variables et de labels en clair. Pour cela, nous allons ajouter des lignes supplémentaires avec la fonction `rbind()` (_row bind_ pour "fusion par rang"). _A noter qu'il existe aussi une fonction `cbind()` qui permet de fusionner des bases ou des matrices par colonnes_
+```{r create_var3, echo=TRUE}
+meta_df_1 <- rbind(meta_df_1, 
+                   data.frame(var = c(rep("obesite", 2), 
+                                      rep("imc_cl", 4)),
+                              label = c(rep("Obésité", 2), 
+                                        rep("IMC en classes", 4)),
+                              id_labs = c(1:2, 1:4),
+                              code_labs = c(0:1, 1:4),
+                              labs = c("Non", "Oui",
+                                       "Maigreur", "Normal", "Surpoids", "Obèse"))
+                   )
+meta_df_1
+```
+
+### Modifier des variables
+Enfin, nous souhaitons modifier la valeur de la pression artérielle du patient n°137 : suite à une erreur de saisie, nous nous sommes rendu compte que sa valeur n'est pas 133 mmHg, mais 123 mmHg.
+```{r modify_var1, echo=TRUE}
+df_1$pas[df_1$subjid == 137]
+
+## nous pouvons directement assigner la nouvelle valeur avec l'indexation par 
+## condition :
+df_1$pas[df_1$subjid == 137] <- 123
+df_1[df_1$subjid %in% 135:140,] 
+# on voit que la valeur du patient 137 a bien été corrigée
+```
+
+## Analyses univariées
+### fonction `summary()`
+Nous pouvons utiliser la fonction `summary()` pour obtenir de manière synthétique une description univariée de l'ensemble des variables, indiquant : les valeurs minimales et maximales, quartiles et médiane, et la valeur moyenne. 
+```{r summary1, echo=TRUE}
+summary(df_1)
+```
+Les variables de la base `df_1` sont toutes codées en valeurs numériques, la fonction summary a donc décrit les variables qualitatives comme s'il s'agissait de variables quantitatives : ce n'est pas adapté.
+
+Nous allons créer 2 nouvelles variables en `factor` à partir des variables qualitatives. Pour cela, nous allons également nous servir des informations indiquées dans la base de méta-données. Puis nous allons relancer la fonction `summary()` : 
+```{r summary2, echo=TRUE}
+### création de 2 variables de type "factor" à partir des variables sex et trait
+df_1$sexL <- factor(df_1$sex,
+                    labels = meta_df_1$labs[meta_df_1$var == "sex"])
+df_1$traitL <- factor(df_1$trait,
+                      labels = meta_df_1$labs[meta_df_1$var == "trait"])
+summary(df_1)
+```
+Les nouvelles variables `sexL` et `traitL` sont à présent décrites par dénombrement du nombre d'individus par modalité de réponse, de manière adaptée aux variables qualitatives.
+
+### Variables quantitatives
+Pour décrire des variables quantitatives, on peut s'intéresser aux paramètres suivants : 
+
+  - effectifs observés (non-manquants), avec les fonctions `length()` qui indique la longueur d'un vecteur, ou `nrow()` qui indique le nombre de lignes d'une base de données (ou d'une matrice)
+  - moyenne, avec la fonction `mean()`
+  - écart type et variance, avec les fonctions `sd()` et `var()`
+  - minimum, 1er quartiles, médiane, 3ème quartile, maximum, avec les fonctions `min()`, `max()`, `median()`, `quantiles()`
+```{r desc_univ_quanti1, eval=FALSE, include=TRUE}
+### Effectifs observés : 
+### Comme il n'y a pas de manquant dans cette base, on peut directement utiliser
+### la fonction length() ou nrow() pour connaître les effectifs 
+nrow(df_1) # 300
+length(df_1$imc) # 300
+
+### Pour compter les effectifs non-manquants, de manière explicite :
+length(df_1$imc[!is.na(df_1$imc)]) # 300
+
+### moyennes
+mean(df_1$imc, na.rm = TRUE) # 24.481
+mean(df_1$pas, na.rm = TRUE) # 137.1133
+
+### déviation standard (écart-type)
+sd(df_1$imc, na.rm = TRUE) # 3.069072
+sd(df_1$pas, na.rm = TRUE) # 16.82053
+
+### variances
+var(df_1$imc, na.rm = TRUE) # 9.419203
+var(df_1$pas, na.rm = TRUE) # 282.9303
+
+### quantiles
+min(df_1$imc, na.rm = TRUE) # 15.4
+min(df_1$pas, na.rm = TRUE) # 92
+
+max(df_1$imc, na.rm = TRUE) # 32.5
+max(df_1$pas, na.rm = TRUE) # 177
+
+median(df_1$imc, na.rm = TRUE) # 24.6
+median(df_1$pas, na.rm = TRUE) # 138
+
+quantile(df_1$imc, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE)
+#   0%  25%  50%  75% 100% 
+# 15.4 22.3 24.6 26.4 32.5
+quantile(df_1$pas, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE)
+  # 0%  25%  50%  75% 100% 
+  # 92  125  138  149  177
+```
+
+### Programmation élémentaire 
+#### Créer une nouvelle fonction
+Il est fastidieux de devoir récupérer les différents paramètres de distribution de chaque variable, un par un !
+
+Mais R permet facilement de programmer de nouvelles fonctions "maison" à l'aide de `function(arguments) { expression }`, où on indique une liste d'`arguments` entre parenthèses, puis une liste de commandes à réaliser entre les accolades. 
+
+Par exemple, on peut créer une nouvelle fonction `exemple_fonction()` qui ajoute +2 à l'objet `x` : 
+```{r ex_function, echo=TRUE}
+seq_1a5 <- c(1:5)
+exemple_fonction <- function(x) {return(x + 2)}
+exemple_fonction(seq_1a5)
+```
+
+Pour accélérer notre analyse des variables quantitatives, nous allons créer **une nouvelle fonction qui va calculer d'un coup l'ensemble des paramètres qui nous intéressent**. Cette fonction sera nommée `univ_quanti`, elle va dépendre de 3 arguments : 
+
+  - `x`, la variable à décrire
+  - `dig`, le nombre de chiffres après la virgule pour présenter des valeurs arrondies
+  - `remove_miss`, une valeur logique qui sera utilisée pour exclure (ou non) les données manquantes du calcul (pour renseigner l'argument `na.rm` des fonctions descriptives de base)
+  
+Entre accolades, on va demander à la fonction de : 
+
+  - calculer les effectifs, la moyenne, l'écart type et les quantiles, de la variable `x`
+  - regrouper ces valeurs au sein d'un vecteur de réels, arrondis à `dig` chiffres après la virgule, 
+  - retourner le vecteur obtenu
+```{r desc_univ_quanti2, echo = TRUE}
+### Définir une nouvelle fonction dans R
+univ_quanti <- function(x, # la variable à décrire
+                        dig = 2, # par défaut, 2 chiffres après la virgule
+                        remove_miss = TRUE # par défaut, la valeur est TRUE
+                        ) { # fermez la parenthèse et ouvrez l'accolade
+  # on commence par calculer les différents paramètres et on les stocke dans 
+  # les objets : "n", "moy", "sd" et "q"
+  n <- length(x[!is.na(x)])     
+  moy <- mean(x, na.rm = remove_miss)
+  sd <- sd(x, na.rm = remove_miss)
+  q <- quantile(x, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = remove_miss)
+  
+  # on stocke les résultats dans un vecteur de réels, nommé "param",
+  # en gardant uniquement la valeur arrondie pour la moyenne et l'écart-type
+  param <- c(n, 
+             round(moy, digits = dig), 
+             round(sd, digits = dig), 
+             q)
+  # on peut ajouter un nom à chaque élément du vecteur "param"
+  names(param) <- c("N", "mean", "sd", "min", "Q1", "median", "Q3", "max")
+  
+  # indiquer ce que doit retourner la fonction
+  return(param) 
+} # fermez l'accolade
+```
+
+Si on applique cette fonction à nos deux variables quantitatives, on obtient l'ensemble des paramètres présentés dans un vecteur : 
+```{r desc_univ_quanti3, echo = TRUE}
+univ_quanti(df_1$imc, dig = 1, remove_miss = TRUE)
+univ_quanti(df_1$pas, dig = 1, remove_miss = TRUE)
+```
+_Note : Vous pouvez remarquer qu'en utilisant cette fonction, les objets `n`, `moy`, `sd`, `q` et `param` n'apparaissent pas dans l'environnement de travail, ils ont uniquement été créés de manière temporaire au sein de la fonction._
+
+
+#### Utiliser des boucles
+Les boucles `for` dans R permettent également d'automatiser des opérations en boucle. La syntaxe d'une boucle est : 
+
+  - `for (variable in sequence) { expession }` où l'`expression` entre accolade est répétée chaque fois que la `variable` est égale à une valeur de la `sequence`
+```{r ex_boucle1, echo=TRUE}
+### exemple de boucle : 
+###  - pour chaque valeur i variant de 1 à 5,
+###    => calcule 20 + i
+###    => ajoute cette valeur à la fin de la phrase "calcul de 20 + i = "
+###    => imprime le résultat à l'écran
+for (i in 1:5) {
+  print(paste0("calcul de 20 + i = ", 20 + i))
+}
+```
+
+On peut appliquer cette démarche pour répéter l'analyse univariée avec notre nouvelle fonction `univ_quanti()` à nos deux variables quantitatives. Les deux variables quantitatives sont dans les colonnes 3 et 5 de la base de données.
+```{r ex_boucle2, echo=TRUE}
+### Avec la fonction names(), on voit que les variables quantitatives imc et pas 
+### sont la 3ème et la 5ème variable de la base df_1
+names(df_1)
+for (i in c(3, 5)) {
+  print(names(df_1)[i]) # imprime le nom de la i-ème variable
+  # puis imprime les résultats de la fonction univ_quanti appliquée à la i-ème
+  # variable de la base df_1
+  print(univ_quanti(df_1[[i]], dig = 1, remove_miss = TRUE)) 
+}
+```
+
+Question bonus : que se passe t'il si vous n'indiquez pas la fonction `print()` ?
+
+  - _réponse : il a fait tourner la fonction, mais ne l'a pas imprimé les résultats à l'écran_
+
+#### Fonctions `apply()`, `lapply()`, `sapply()`
+
+On peut également lancer une fonction de manière répétée appliquée :
+
+  - à des colonnes ou des lignes de matrices (ou de data frame) avec la fonction `apply()`
+  - à des vecteurs ou des listes avec `lapply()` (qui retourne les résultats sous forme de liste) ou `sapply()` (qui retourne les résultats sous forme de matrice ou de vecteur)
+
+**Exemple 1 :** La fonction `apply()` permet d'appliquer notre fonction de description des paramètres aux colonnes `"imc"` et `"pas"` de la la base `df_1` (Le résultat sera une matrice de réels) : 
+```{r apply1, echo=TRUE}
+apply(df_1[,c("imc", "pas")], # matrice ou data.frame sélectionnée
+      MARGIN = 2, # 2 = par colonne ;  1 = par ligne
+      FUN = univ_quanti, # fonction à utiliser
+      dig = 1, # on peut ajouter les arguments de la fonction à la suite
+      remove_miss = TRUE) 
+```
+
+**Exemple 2 :** La fonction `lapply()` applique la fonction à une liste de vecteurs et retourne une liste de la même longueur. La fonction `sapply()` fait la même chose, mais retourne les résultats sous forme de vecteur ou de matrice.
+```{r apply2, echo=TRUE}
+lapply(X = df_1[,c("imc", "pas")], 
+      FUN = univ_quanti,  # fonction à utiliser
+      dig = 1,
+      remove_miss = TRUE)
+sapply(X = df_1[,c("imc", "pas")],  
+       FUN = univ_quanti,  # fonction à utiliser
+       dig = 1,
+       remove_miss = TRUE) 
+```
+
+Si on veut remplacer les noms de colonnes par les noms de variables en clair, on peut utiliser la base de méta-données :
+```{r apply3, echo=TRUE}
+res_quanti <- sapply(df_1[,c("imc", "pas")],
+                     FUN = univ_quanti,
+                     dig = 1)
+# on modifie le nom des colonne de la matrice de résultats
+# avec les informations disponibles dans les méta-données
+colnames(res_quanti) <- c(meta_df_1$label[meta_df_1$var == "imc"],
+                          meta_df_1$label[meta_df_1$var == "pas"])
+res_quanti
+```

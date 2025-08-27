@@ -23,7 +23,7 @@
 <meta name="author" content="Benoît Lepage" />
 
 
-<meta name="date" content="2025-08-26" />
+<meta name="date" content="2025-08-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,10 +206,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html"><i class="fa fa-check"></i><b>3</b> Analyse simple en R base</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="02-analyse_en_R_base.html"><a href="#pr%C3%A9parer-un-dossier-de-travail"><i class="fa fa-check"></i><b>3.1</b> Préparer un dossier de travail</a></li>
+<li class="chapter" data-level="3.1" data-path="02-analyse_en_R_base.html"><a href="#pr%C3%A9parer-un-dossier-de-travail"><i class="fa fa-check"></i><b>3.1</b> Préparer un dossier de travail</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#projet-r"><i class="fa fa-check"></i><b>3.1.1</b> Projet R</a></li>
+<li class="chapter" data-level="3.1.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#structurer-un-script-danalyse"><i class="fa fa-check"></i><b>3.1.2</b> Structurer un script d’analyse</a></li>
+</ul></li>
 <li class="chapter" data-level="3.2" data-path="02-analyse_en_R_base.html"><a href="#importer-une-base-de-donn%C3%A9es"><i class="fa fa-check"></i><b>3.2</b> Importer une base de données</a></li>
 <li class="chapter" data-level="3.3" data-path="02-analyse_en_R_base.html"><a href="#examiner-les-donn%C3%A9es-et-les-m%C3%A9ta-donn%C3%A9es"><i class="fa fa-check"></i><b>3.3</b> Examiner les données et les méta-données</a></li>
-<li class="chapter" data-level="3.4" data-path="02-analyse_en_R_base.html"><a href="#cr%C3%A9er-ou-modifier-une-variable"><i class="fa fa-check"></i><b>3.4</b> Créer ou modifier une variable</a></li>
+<li class="chapter" data-level="3.4" data-path="02-analyse_en_R_base.html"><a href="#cr%C3%A9er-ou-modifier-une-variable"><i class="fa fa-check"></i><b>3.4</b> Créer ou modifier une variable</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="02-analyse_en_R_base.html"><a href="#cr%C3%A9er-des-variables"><i class="fa fa-check"></i><b>3.4.1</b> Créer des variables</a></li>
+<li class="chapter" data-level="3.4.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#modifier-des-variables"><i class="fa fa-check"></i><b>3.4.2</b> Modifier des variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="02-analyse_en_R_base.html"><a href="#analyses-univari%C3%A9es"><i class="fa fa-check"></i><b>3.5</b> Analyses univariées</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#fonction-summary"><i class="fa fa-check"></i><b>3.5.1</b> fonction <code>summary()</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#variables-quantitatives-1"><i class="fa fa-check"></i><b>3.5.2</b> Variables quantitatives</a></li>
+<li class="chapter" data-level="3.5.3" data-path="02-analyse_en_R_base.html"><a href="#programmation-%C3%A9l%C3%A9mentaire"><i class="fa fa-check"></i><b>3.5.3</b> Programmation élémentaire</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -252,42 +266,116 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="préparer-un-dossier-de-travail" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Préparer un dossier de travail<a href="#pr%C3%A9parer-un-dossier-de-travail" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>1ère étape :</strong> Commencez par créer un dossier vide, appelé <em>analyse R base</em> dans l’endroit de votre choix sur votre ordinateur. Au sein de ce dossier, vous pouvez ajouter un dossier <em>data</em> et un dossier <em>figures</em> qui pourra vous servir à stocker les données et les figures que vous souhaitez souvegarder.</p>
-<p><strong>2ème étape :</strong> Dans R Studio, cliniquez sur le cube en 3 dimensions R “Project: (None)” en haut à droite, au dessus du cadran environnement.</p>
+<div id="projet-r" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Projet R<a href="analyse-simple-en-r-base.html#projet-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>1ère étape : Créer un dossier de travail.</strong> Commencez par créer un dossier vide, appelé <em>analyse R base</em> dans l’endroit de votre choix sur votre ordinateur. Au sein de ce dossier, vous pouvez ajouter un dossier <em>data</em> et un dossier <em>figures</em> qui pourra vous servir à stocker les données et les figures que vous souhaitez souvegarder.</p>
+<p><strong>2ème étape : Créer un projet R.</strong> Dans R Studio, cliquez sur le cube en 3 dimensions R “Project: (None)” en haut à droite, au dessus du cadran environnement.</p>
 <ul>
-<li>Cliquez ensuite sur “New Project…”.</li>
-<li>Puis cliquez sur “Existing Directory…”, avec le bouton browse, vous pouvez alors rechercher le dossier <em>analyse R base</em> que vous venez de créer à la 1ère étape.</li>
-<li>Enfin cliquez sur “Open” et “Create Project”.
+<li>puis “New Project…”.</li>
+<li>choisissez “Existing Directory…”. Avec le bouton browse, vous pouvez alors rechercher le dossier <em>analyse R base</em> que vous venez de créer à la 1ère étape.</li>
+<li>enfin cliquez sur “Open” et “Create Project”.
 <img src="images/cree_nv_project.jpg" width="100%" style="display: block; margin: auto;" /></li>
 </ul>
 <!-- , fig.cap="Créer un nouveau projet" -->
-<p>R Studio va alors créer un fichier <code>analyse R base.Rproj</code> au sein de votre dossier <em>analyse R base</em>. De plus, ce dossier <em>analyse R base</em> sera défini comme votre dossier de travail.</p>
+<p>R Studio va alors créer un fichier <code>analyse R base.Rproj</code> au sein de votre dossier <em>analyse R base</em>. De plus, ce dossier <em>analyse R base</em> sera défini comme votre dossier de travail au sein de R Studio.</p>
 <p>Ainsi si vous demandez à R quel est votre dossier de travail actuel avec la commande <code>getwd()</code> (<em>get working directory</em>), la console va indiquer le chemin jusque ce dossier (R vous confirme qu’il s’agit bien de votre dossier de travail !).</p>
-<p>Ce dossier de travail apparaît également dans le menu “Files” dans le cadrant en bas à droite. Ce dossier sert de “dossier racine” (“répertoire racine”), on pourra désigner les fichiers de travail au sein de ce dossier avec un chemin raccourci. <strong>Tous les documents que vous allez sauvegarder pendant votre session R Studio seront sauvegardés dans ce dossier de travail +++</strong>
+<p>Le contenu de ce dossier de travail apparaît également dans le menu “Files” dans le cadrant en bas à droite. Ce dossier sert de “dossier racine” (“répertoire racine”). Les fichiers au sein de ce dossier pourront être désignés avec un chemin raccourci. <strong>Tous les éléments que vous allez sauvegarder pendant votre session R Studio seront sauvegardés dans ce dossier de travail +++</strong>
 <img src="images/working_directory.jpg" width="75%" style="display: block; margin: auto;" />
 <!-- , fig.cap="Dossier de travail" -->
 Si vous ouvrez un nouveau script R et que vous le sauvegardez (par exemple, sous le nom <code>1_analyse en R base</code>), il sera ajouté par défaut au sein de votre dossier de travail, et va apparaître parmi les fichiers du menu file (cadrant en bas à droite).</p>
 <p>Maintenant, <strong>quittez le programme R Studio</strong>, puis <strong>double cliquez sur le fichier <code>analyse R base.Rproj</code></strong> (icone d’un cube R en 3 dimensions) qui vient d’être créé dans votre dossier de travail “analyse R base”.</p>
 <p>R Studio va alors s’ouvrir, en ayant directement défini le dossier <em>analyse R base</em> comme dossier de travail. C’est la méthode la plus simple pour reprendre une analyse R en cours et pour reproduire les résultats déjà obtenus.</p>
 </div>
+<div id="structurer-un-script-danalyse" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Structurer un script d’analyse<a href="analyse-simple-en-r-base.html#structurer-un-script-danalyse" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Lorsque vous réaliserez une analyse, vous allez <strong>sauvegarder vos commandes dans un script</strong> (par exemple, dans le script <code>1_analyse en R base.R</code> que l’on vient de sauvegarder précédemment).</p>
+<p>En haut du script, si vous souhaitez recommencer à partir d’un environnement vide lorsque vous relancerez l’analyse depuis le départ, vous pouvez ajouter la commande <code>rm(ls = list())</code>.</p>
+<p>Une bonne pratique est d’indiquer quelques informations utiles pour documenter votre script, comme votre <strong>nom et la date des analyses (en commentaires)</strong>. Enfin, à la fin d’un script (à la fin de vos analyses), vous pouvez lancer la commande <code>sessionInfo()</code> qui va lister dans la console la version de R et les versions des packages qui ont été utilisés pour votre analyse (vous pourrez copier ces informations à la fin de votre script, en commentaires).</p>
+<p>Les commentaires peuvent également servir à indiquer des <strong>titres</strong> et <strong>sous-titres</strong> dans votre script d’analyse. Un menu d’accès rapide est alors accessible à partir du bouton <em>Outline</em> en haut à droite de la fenêtre du script R.</p>
+<p><em>Note : sur windows, le raccourci “ctrl-shift-c” transforme les lignes sélectionnées en commentaires (en ajoutant automatiquement des <code>#</code> en début de ligne)</em></p>
+<p>Voici un exemple de script qui suit cette structure :</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="analyse-simple-en-r-base.html#cb75-1" tabindex="-1"></a><span class="do">### 1_analyse en R base</span></span>
+<span id="cb75-2"><a href="analyse-simple-en-r-base.html#cb75-2" tabindex="-1"></a><span class="do">### Date : 15 septembre 2025 </span></span>
+<span id="cb75-3"><a href="analyse-simple-en-r-base.html#cb75-3" tabindex="-1"></a><span class="do">### Auteur : Timoté Chalamais</span></span>
+<span id="cb75-4"><a href="analyse-simple-en-r-base.html#cb75-4" tabindex="-1"></a></span>
+<span id="cb75-5"><a href="analyse-simple-en-r-base.html#cb75-5" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) <span class="co"># cette commande vide le contenu de l&#39;environnement</span></span>
+<span id="cb75-6"><a href="analyse-simple-en-r-base.html#cb75-6" tabindex="-1"></a></span>
+<span id="cb75-7"><a href="analyse-simple-en-r-base.html#cb75-7" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------- #</span></span>
+<span id="cb75-8"><a href="analyse-simple-en-r-base.html#cb75-8" tabindex="-1"></a><span class="co"># 1) Titre n°1 (il faut ajouter 4 tirets à la fin des titres) ----</span></span>
+<span id="cb75-9"><a href="analyse-simple-en-r-base.html#cb75-9" tabindex="-1"></a><span class="do">## 1.2) Sous-titre (en ajoutant un # au début de ligne) ----</span></span>
+<span id="cb75-10"><a href="analyse-simple-en-r-base.html#cb75-10" tabindex="-1"></a><span class="do">### 1.2.1) Sous-sous-titre (en ajoutant des # supplémentaires) ---- </span></span>
+<span id="cb75-11"><a href="analyse-simple-en-r-base.html#cb75-11" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------- #</span></span>
+<span id="cb75-12"><a href="analyse-simple-en-r-base.html#cb75-12" tabindex="-1"></a></span>
+<span id="cb75-13"><a href="analyse-simple-en-r-base.html#cb75-13" tabindex="-1"></a><span class="co"># Import des données</span></span>
+<span id="cb75-14"><a href="analyse-simple-en-r-base.html#cb75-14" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/df_1.csv&quot;</span>)</span>
+<span id="cb75-15"><a href="analyse-simple-en-r-base.html#cb75-15" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/meta_df_1.csv&quot;</span>)</span>
+<span id="cb75-16"><a href="analyse-simple-en-r-base.html#cb75-16" tabindex="-1"></a></span>
+<span id="cb75-17"><a href="analyse-simple-en-r-base.html#cb75-17" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------- #</span></span>
+<span id="cb75-18"><a href="analyse-simple-en-r-base.html#cb75-18" tabindex="-1"></a><span class="co"># 2) Titre n°2  ----</span></span>
+<span id="cb75-19"><a href="analyse-simple-en-r-base.html#cb75-19" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------- #</span></span>
+<span id="cb75-20"><a href="analyse-simple-en-r-base.html#cb75-20" tabindex="-1"></a><span class="fu">head</span>(df_1)</span>
+<span id="cb75-21"><a href="analyse-simple-en-r-base.html#cb75-21" tabindex="-1"></a></span>
+<span id="cb75-22"><a href="analyse-simple-en-r-base.html#cb75-22" tabindex="-1"></a>(...) <span class="co"># continuez vous analyses</span></span>
+<span id="cb75-23"><a href="analyse-simple-en-r-base.html#cb75-23" tabindex="-1"></a>(...)</span>
+<span id="cb75-24"><a href="analyse-simple-en-r-base.html#cb75-24" tabindex="-1"></a></span>
+<span id="cb75-25"><a href="analyse-simple-en-r-base.html#cb75-25" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------- #</span></span>
+<span id="cb75-26"><a href="analyse-simple-en-r-base.html#cb75-26" tabindex="-1"></a><span class="co"># Fin de script  ----</span></span>
+<span id="cb75-27"><a href="analyse-simple-en-r-base.html#cb75-27" tabindex="-1"></a></span>
+<span id="cb75-28"><a href="analyse-simple-en-r-base.html#cb75-28" tabindex="-1"></a><span class="co"># à la fin, vous pouvez récupérer les informations sur la session </span></span>
+<span id="cb75-29"><a href="analyse-simple-en-r-base.html#cb75-29" tabindex="-1"></a><span class="co"># pour les copier-coller en bas du script (en format de commentaires)</span></span>
+<span id="cb75-30"><a href="analyse-simple-en-r-base.html#cb75-30" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb75-31"><a href="analyse-simple-en-r-base.html#cb75-31" tabindex="-1"></a><span class="co"># R version 4.5.1 (2025-06-13 ucrt)</span></span>
+<span id="cb75-32"><a href="analyse-simple-en-r-base.html#cb75-32" tabindex="-1"></a><span class="co"># Platform: x86_64-w64-mingw32/x64</span></span>
+<span id="cb75-33"><a href="analyse-simple-en-r-base.html#cb75-33" tabindex="-1"></a><span class="co"># Running under: Windows 11 x64 (build 26100)</span></span>
+<span id="cb75-34"><a href="analyse-simple-en-r-base.html#cb75-34" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb75-35"><a href="analyse-simple-en-r-base.html#cb75-35" tabindex="-1"></a><span class="co"># Matrix products: default</span></span>
+<span id="cb75-36"><a href="analyse-simple-en-r-base.html#cb75-36" tabindex="-1"></a><span class="co">#   LAPACK version 3.12.1</span></span>
+<span id="cb75-37"><a href="analyse-simple-en-r-base.html#cb75-37" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb75-38"><a href="analyse-simple-en-r-base.html#cb75-38" tabindex="-1"></a><span class="co"># locale:</span></span>
+<span id="cb75-39"><a href="analyse-simple-en-r-base.html#cb75-39" tabindex="-1"></a><span class="co"># [1] LC_COLLATE=French_France.utf8 </span></span>
+<span id="cb75-40"><a href="analyse-simple-en-r-base.html#cb75-40" tabindex="-1"></a><span class="co"># [2] LC_CTYPE=French_France.utf8   </span></span>
+<span id="cb75-41"><a href="analyse-simple-en-r-base.html#cb75-41" tabindex="-1"></a><span class="co"># [3] LC_MONETARY=French_France.utf8</span></span>
+<span id="cb75-42"><a href="analyse-simple-en-r-base.html#cb75-42" tabindex="-1"></a><span class="co"># [4] LC_NUMERIC=C                  </span></span>
+<span id="cb75-43"><a href="analyse-simple-en-r-base.html#cb75-43" tabindex="-1"></a><span class="co"># [5] LC_TIME=French_France.utf8    </span></span>
+<span id="cb75-44"><a href="analyse-simple-en-r-base.html#cb75-44" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb75-45"><a href="analyse-simple-en-r-base.html#cb75-45" tabindex="-1"></a><span class="co"># time zone: Europe/Paris</span></span>
+<span id="cb75-46"><a href="analyse-simple-en-r-base.html#cb75-46" tabindex="-1"></a><span class="co"># tzcode source: internal</span></span>
+<span id="cb75-47"><a href="analyse-simple-en-r-base.html#cb75-47" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb75-48"><a href="analyse-simple-en-r-base.html#cb75-48" tabindex="-1"></a><span class="co"># attached base packages:</span></span>
+<span id="cb75-49"><a href="analyse-simple-en-r-base.html#cb75-49" tabindex="-1"></a><span class="co"># [1] stats     graphics  grDevices utils     datasets </span></span>
+<span id="cb75-50"><a href="analyse-simple-en-r-base.html#cb75-50" tabindex="-1"></a><span class="co"># [6] methods   base     </span></span>
+<span id="cb75-51"><a href="analyse-simple-en-r-base.html#cb75-51" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb75-52"><a href="analyse-simple-en-r-base.html#cb75-52" tabindex="-1"></a><span class="co"># loaded via a namespace (and not attached):</span></span>
+<span id="cb75-53"><a href="analyse-simple-en-r-base.html#cb75-53" tabindex="-1"></a><span class="co">#  [1] compiler_4.5.1    bookdown_0.43    </span></span>
+<span id="cb75-54"><a href="analyse-simple-en-r-base.html#cb75-54" tabindex="-1"></a><span class="co">#  [3] fastmap_1.2.0     cli_3.6.5        </span></span>
+<span id="cb75-55"><a href="analyse-simple-en-r-base.html#cb75-55" tabindex="-1"></a><span class="co">#  [5] htmltools_0.5.8.1 tools_4.5.1      </span></span>
+<span id="cb75-56"><a href="analyse-simple-en-r-base.html#cb75-56" tabindex="-1"></a><span class="co">#  [7] rstudioapi_0.17.1 yaml_2.3.10      </span></span>
+<span id="cb75-57"><a href="analyse-simple-en-r-base.html#cb75-57" tabindex="-1"></a><span class="co">#  [9] rmarkdown_2.29    knitr_1.50       </span></span>
+<span id="cb75-58"><a href="analyse-simple-en-r-base.html#cb75-58" tabindex="-1"></a><span class="co"># [11] xfun_0.52         digest_0.6.37    </span></span>
+<span id="cb75-59"><a href="analyse-simple-en-r-base.html#cb75-59" tabindex="-1"></a><span class="co"># [13] rlang_1.1.6       evaluate_1.0.4 </span></span></code></pre></div>
+</div>
+</div>
 <div id="importer-une-base-de-données" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Importer une base de données<a href="#importer-une-base-de-donn%C3%A9es" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Pour cet exemple,</p>
 <ul>
-<li>téléchargez la base <a href="https://github.com/benoitlepage/formationR/blob/main/data/df_1.csv"><code>df_1.csv</code></a> ainsi que la base de méta-données <a href="https://github.com/benoitlepage/formationR/blob/main/data/meta_df_1.csv"><code>meta_df_1.csv</code></a>.</li>
-<li>Vous pouvez ensuite coller ces deux bases au sein du dossier “data” de votre dossier de travail.</li>
+<li>téléchargez la base <a href="https://github.com/benoitlepage/formationR/blob/main/data/df_1.csv"><code>df_1.csv</code></a> ainsi que la base de méta-données <a href="https://github.com/benoitlepage/formationR/blob/main/data/meta_df_1.csv"><code>meta_df_1.csv</code></a> (cliquez sur le bouton <em>download raw file</em>, à droite avec une flèche vers le bas).</li>
+<li>Vous pouvez ensuite coller ces deux bases de données au sein du dossier <em>data</em> de votre dossier de travail.</li>
 </ul>
-<p>Il s’agit de fichier avec l’extension “.csv” (<em>comma separated variables</em>) où les valeurs sont séparées par un point virgule. Vous pouvez l’importer dans R avec la fonction <code>read.csv2()</code> (il existe également une fonction <code>read.csv()</code> qui importe les données .csv où le séparateur est une virgule). Vous pouvez regarder les différents arguments de ces fonctions dans l’aide <code>?read.csv2</code>.</p>
+<p>Il s’agit de fichiers avec l’extension “.csv” (<em>comma separated variables</em>) où les valeurs sont séparées par un point virgule. Vous pouvez les importer dans R avec la fonction <code>read.csv2()</code> (il existe également une fonction <code>read.csv()</code> qui importe les données .csv où le séparateur est une virgule). Vous pouvez regarder les différents arguments de ces fonctions dans l’aide <code>?read.csv2</code>.</p>
 <p>Nous allons stocker la base dans des objets nommés <code>df_1</code> et <code>meta_df_1</code>. Ces bases importées sont des objets de type <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="analyse-simple-en-r-base.html#cb74-1" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/df_1.csv&quot;</span>)</span>
-<span id="cb74-2"><a href="analyse-simple-en-r-base.html#cb74-2" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/meta_df_1.csv&quot;</span>)</span>
-<span id="cb74-3"><a href="analyse-simple-en-r-base.html#cb74-3" tabindex="-1"></a><span class="fu">class</span>(df_1)  <span class="co"># [1] &quot;data.frame&quot;</span></span></code></pre></div>
-<p>La base <code>df_1</code> contient les données que nous allons analyser et la base <code>meta_df_1</code> contient des méta-données (noms de variables, noms des labels, etc) qui détaille les noms des variables, les labels des variables qualitatives, etc.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="analyse-simple-en-r-base.html#cb76-1" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/df_1.csv&quot;</span>)</span>
+<span id="cb76-2"><a href="analyse-simple-en-r-base.html#cb76-2" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/meta_df_1.csv&quot;</span>)</span>
+<span id="cb76-3"><a href="analyse-simple-en-r-base.html#cb76-3" tabindex="-1"></a><span class="fu">class</span>(df_1)  <span class="co"># [1] &quot;data.frame&quot;</span></span></code></pre></div>
+<ul>
+<li>La base <code>df_1</code> contient les données que nous allons analyser.</li>
+<li>La base <code>meta_df_1</code> contient des méta-données (noms de variables, noms des labels, etc) qui sera utile pour préciser les noms des variables, les labels des variables qualitatives, etc.</li>
+</ul>
 </div>
 <div id="examiner-les-données-et-les-méta-données" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Examiner les données et les méta-données<a href="#examiner-les-donn%C3%A9es-et-les-m%C3%A9ta-donn%C3%A9es" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Comme vu précédemment, vous pouvez examiner les données avec les fonctions <code>head()</code>, <code>tail()</code>, <code>str()</code> et <code>View()</code>.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="analyse-simple-en-r-base.html#cb75-1" tabindex="-1"></a><span class="fu">head</span>(df_1)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="analyse-simple-en-r-base.html#cb77-1" tabindex="-1"></a><span class="fu">head</span>(df_1)</span></code></pre></div>
 <pre><code>##   subjid sex  imc trait pas
 ## 1      1   0 24.8     2 140
 ## 2      2   0 24.1     3 109
@@ -295,7 +383,7 @@ Si vous ouvrez un nouveau script R et que vous le sauvegardez (par exemple, sous
 ## 4      4   0 23.3     2 124
 ## 5      5   0 25.4     2 131
 ## 6      6   1 25.0     3 148</code></pre>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="analyse-simple-en-r-base.html#cb77-1" tabindex="-1"></a><span class="fu">tail</span>(df_1)</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="analyse-simple-en-r-base.html#cb79-1" tabindex="-1"></a><span class="fu">tail</span>(df_1)</span></code></pre></div>
 <pre><code>##     subjid sex  imc trait pas
 ## 295    295   1 24.1     1 148
 ## 296    296   0 18.7     3 121
@@ -303,14 +391,14 @@ Si vous ouvrez un nouveau script R et que vous le sauvegardez (par exemple, sous
 ## 298    298   1 27.5     3 134
 ## 299    299   1 24.7     2 158
 ## 300    300   1 22.8     1 147</code></pre>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="analyse-simple-en-r-base.html#cb79-1" tabindex="-1"></a><span class="fu">str</span>(df_1)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="analyse-simple-en-r-base.html#cb81-1" tabindex="-1"></a><span class="fu">str</span>(df_1)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    300 obs. of  5 variables:
 ##  $ subjid: int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ sex   : int  0 0 0 0 0 1 0 0 0 0 ...
 ##  $ imc   : num  24.8 24.1 26.4 23.3 25.4 25 25.2 21.5 21.8 25.9 ...
 ##  $ trait : int  2 3 1 2 2 3 3 3 1 1 ...
 ##  $ pas   : int  140 109 156 124 131 148 125 117 132 133 ...</code></pre>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="analyse-simple-en-r-base.html#cb81-1" tabindex="-1"></a><span class="fu">View</span>(df_1) <span class="co"># pour voir la base de données dans R Studio</span></span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="analyse-simple-en-r-base.html#cb83-1" tabindex="-1"></a><span class="fu">View</span>(df_1) <span class="co"># pour voir la base de données dans R Studio</span></span></code></pre></div>
 <p>On voit que la base de données contient 300 observations et 5 variables :</p>
 <ul>
 <li><code>subjid</code>, l’identifiant patient</li>
@@ -320,7 +408,7 @@ Si vous ouvrez un nouveau script R et que vous le sauvegardez (par exemple, sous
 <li><code>pas</code>, la pression artérielle systolique (en mmHg)</li>
 </ul>
 <p>Toutes les variables dans <code>df_1</code> sont de type entier (<code>int</code>) ou réel (<code>num</code>).</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="analyse-simple-en-r-base.html#cb82-1" tabindex="-1"></a>meta_df_1 <span class="co"># pour regarder le contenu des méta-données : </span></span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="analyse-simple-en-r-base.html#cb84-1" tabindex="-1"></a>meta_df_1 <span class="co"># pour regarder le contenu des méta-données : </span></span></code></pre></div>
 <pre><code>##      var               label id_labs code_labs         labs
 ## 1 subjid Identifiant patient       1        NA             
 ## 2    sex                Sexe       1         0      Féminin
@@ -333,16 +421,371 @@ Si vous ouvrez un nouveau script R et que vous le sauvegardez (par exemple, sous
 <p>La base de méta-données contient 5 variables :</p>
 <ul>
 <li><code>var</code>, nom des variables que l’on retrouve dans la base de données <code>df_1</code></li>
-<li><code>label</code>, nom en clair de la variable<br />
+<li><code>label</code>, nom en détail de la variable<br />
 </li>
-<li><code>id_labs</code>, un identifiant pour les labels possibles, par variable</li>
-<li><code>code_labs</code>, code numérique du label (code utilisé dans la base <code>df_1</code>)</li>
-<li><code>labs</code>, étiquette des modalités de réponses des variables qualitatives</li>
+<li><code>id_labs</code>, un identifiant pour les labels éventuels, par variable</li>
+<li><code>code_labs</code>, codage numérique du label (code utilisé dans la base <code>df_1</code>)</li>
+<li><code>labs</code>, modalités de réponses des variables qualitatives, en détail</li>
 </ul>
 </div>
 <div id="créer-ou-modifier-une-variable" class="section level2 hasAnchor" number="3.4">
 <h2><span class="header-section-number">3.4</span> Créer ou modifier une variable<a href="#cr%C3%A9er-ou-modifier-une-variable" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="créer-des-variables" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Créer des variables<a href="#cr%C3%A9er-des-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Nous allons créer une variable <code>obesite</code> dont la valeur est égale à 1 si l’indice de masse corporelle est <span class="math inline">\(\geq 30\text{ kg/m}^2\)</span> et égale à 0 sinon.</p>
+<p>Pour cela, on peut utilise la fonction <code>ifelse()</code> dont le premier argument est une condition, le 2ème argument est la valeur à retourner si la condition est vraie, et le 3ème argument est la valeur à retourner si la condition est fausse.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="analyse-simple-en-r-base.html#cb86-1" tabindex="-1"></a>df_1<span class="sc">$</span>obesite <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="dv">30</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
+<p>Chaque fois que vous créez ou modifiez une variable, il est utile de vérifier que vous n’avez pas fait d’erreurs. Dans cet exemple, on peut vérifier quelles sont les valeurs minimales et maximales de l’indice de masse corporelle au sein des deux catégories de la nouvelle variable :</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="analyse-simple-en-r-base.html#cb87-1" tabindex="-1"></a><span class="do">### vérifier que la variable est correctement crée : </span></span>
+<span id="cb87-2"><a href="analyse-simple-en-r-base.html#cb87-2" tabindex="-1"></a><span class="fu">min</span>(df_1<span class="sc">$</span>imc[df_1<span class="sc">$</span>obesite <span class="sc">==</span> <span class="dv">0</span>]) <span class="co"># [1] 15.4</span></span>
+<span id="cb87-3"><a href="analyse-simple-en-r-base.html#cb87-3" tabindex="-1"></a><span class="fu">max</span>(df_1<span class="sc">$</span>imc[df_1<span class="sc">$</span>obesite <span class="sc">==</span> <span class="dv">0</span>]) <span class="co"># [1] 29.9</span></span>
+<span id="cb87-4"><a href="analyse-simple-en-r-base.html#cb87-4" tabindex="-1"></a><span class="do">### les valeurs d&#39;IMC varient de 15.4 à 29.9 lorsque obesite == 0</span></span>
+<span id="cb87-5"><a href="analyse-simple-en-r-base.html#cb87-5" tabindex="-1"></a></span>
+<span id="cb87-6"><a href="analyse-simple-en-r-base.html#cb87-6" tabindex="-1"></a><span class="fu">min</span>(df_1<span class="sc">$</span>imc[df_1<span class="sc">$</span>obesite <span class="sc">==</span> <span class="dv">1</span>]) <span class="co"># [1] 30.1</span></span>
+<span id="cb87-7"><a href="analyse-simple-en-r-base.html#cb87-7" tabindex="-1"></a><span class="fu">max</span>(df_1<span class="sc">$</span>imc[df_1<span class="sc">$</span>obesite <span class="sc">==</span> <span class="dv">1</span>]) <span class="co"># [1] 32.5</span></span>
+<span id="cb87-8"><a href="analyse-simple-en-r-base.html#cb87-8" tabindex="-1"></a><span class="do">### les valeurs d&#39;IMC varient de 30.1 à 32.5 lorsque obesite == 1 =&gt; c&#39;est bon !</span></span></code></pre></div>
+<p>Nous allons ensuite créer une variable d’IMC en classes (<code>imc_cl</code>) définie telle que :</p>
+<ul>
+<li><code>imc_cl = 1</code> (maigreur) si l’IMC &lt; 18.5 kg/m<span class="math inline">\(^2\)</span>,</li>
+<li><code>imc_cl = 2</code> (normal) si l’IMC <span class="math inline">\(\geq 18.5 \text{ kg/m}^2\)</span> et IMC <span class="math inline">\(&lt; 25 \text{ kg/m}^2\)</span>,</li>
+<li><code>imc_cl = 3</code> (normal) si l’IMC <span class="math inline">\(\geq 25 \text{ kg/m}^2\)</span> et IMC <span class="math inline">\(&lt; 30 \text{ kg/m}^2\)</span>,</li>
+<li><code>imc_cl = 4</code> (normal) si l’IMC <span class="math inline">\(\geq 30 \text{ kg/m}^2\)</span>.</li>
+</ul>
+<p>Il y a plusieurs possibilités pour créer cette variable, voici 3 méthodes différentes :</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="analyse-simple-en-r-base.html#cb88-1" tabindex="-1"></a><span class="do">### 1) créer une variable où toutes les données sont manquantes : </span></span>
+<span id="cb88-2"><a href="analyse-simple-en-r-base.html#cb88-2" tabindex="-1"></a>df_1<span class="sc">$</span>imc_cl <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">nrow</span>(df_1))</span>
+<span id="cb88-3"><a href="analyse-simple-en-r-base.html#cb88-3" tabindex="-1"></a><span class="do">###    puis remplacer les données manquantes par les valeurs souhaitées</span></span>
+<span id="cb88-4"><a href="analyse-simple-en-r-base.html#cb88-4" tabindex="-1"></a>df_1<span class="sc">$</span>imc_cl[df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="fl">18.5</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb88-5"><a href="analyse-simple-en-r-base.html#cb88-5" tabindex="-1"></a>df_1<span class="sc">$</span>imc_cl[df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="fl">18.5</span> <span class="sc">&amp;</span> df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="dv">25</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb88-6"><a href="analyse-simple-en-r-base.html#cb88-6" tabindex="-1"></a>df_1<span class="sc">$</span>imc_cl[df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="dv">25</span> <span class="sc">&amp;</span> df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="dv">30</span>] <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb88-7"><a href="analyse-simple-en-r-base.html#cb88-7" tabindex="-1"></a>df_1<span class="sc">$</span>imc_cl[df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="dv">30</span>] <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb88-8"><a href="analyse-simple-en-r-base.html#cb88-8" tabindex="-1"></a></span>
+<span id="cb88-9"><a href="analyse-simple-en-r-base.html#cb88-9" tabindex="-1"></a><span class="do">### 2) avec la fonction ifelse de manière itérative : </span></span>
+<span id="cb88-10"><a href="analyse-simple-en-r-base.html#cb88-10" tabindex="-1"></a>df_1<span class="sc">$</span>imc_cl <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="fl">18.5</span>, <span class="dv">1</span>, </span>
+<span id="cb88-11"><a href="analyse-simple-en-r-base.html#cb88-11" tabindex="-1"></a>                      <span class="fu">ifelse</span>(df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="fl">18.5</span> <span class="sc">&amp;</span> df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="dv">25</span>, </span>
+<span id="cb88-12"><a href="analyse-simple-en-r-base.html#cb88-12" tabindex="-1"></a>                             <span class="dv">2</span>, <span class="fu">ifelse</span>(df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="dv">25</span> <span class="sc">&amp;</span> df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="dv">30</span>, <span class="dv">3</span>, <span class="dv">4</span>)))</span>
+<span id="cb88-13"><a href="analyse-simple-en-r-base.html#cb88-13" tabindex="-1"></a></span>
+<span id="cb88-14"><a href="analyse-simple-en-r-base.html#cb88-14" tabindex="-1"></a><span class="do">### 3) avec une formule intégrant des conditions.</span></span>
+<span id="cb88-15"><a href="analyse-simple-en-r-base.html#cb88-15" tabindex="-1"></a><span class="do">###    Comme on multiplie les résultats de conditions à des entiers, les </span></span>
+<span id="cb88-16"><a href="analyse-simple-en-r-base.html#cb88-16" tabindex="-1"></a><span class="do">###    réponses TRUE et FALSE sont transformées en 1 et 0 par coercition</span></span>
+<span id="cb88-17"><a href="analyse-simple-en-r-base.html#cb88-17" tabindex="-1"></a>df_1<span class="sc">$</span>imc_cl <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">*</span> (df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="fl">18.5</span>) <span class="sc">+</span> </span>
+<span id="cb88-18"><a href="analyse-simple-en-r-base.html#cb88-18" tabindex="-1"></a>                  <span class="dv">2</span> <span class="sc">*</span> (df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="fl">18.5</span> <span class="sc">&amp;</span> df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="dv">25</span>) <span class="sc">+</span> </span>
+<span id="cb88-19"><a href="analyse-simple-en-r-base.html#cb88-19" tabindex="-1"></a>                  <span class="dv">3</span> <span class="sc">*</span> (df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="dv">25</span> <span class="sc">&amp;</span> df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="sc">+</span> </span>
+<span id="cb88-20"><a href="analyse-simple-en-r-base.html#cb88-20" tabindex="-1"></a>                  <span class="dv">4</span> <span class="sc">*</span> (df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="dv">30</span>))</span></code></pre></div>
+<p>Pensez à vérifier que vous n’avez pas fait d’erreur en créant cette variable. Par exemple, on peut vérifier la distribution de l’IMC au sein des 4 classes à l’aide d’un box plot.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="analyse-simple-en-r-base.html#cb89-1" tabindex="-1"></a><span class="fu">boxplot</span>(df_1<span class="sc">$</span>imc <span class="sc">~</span> df_1<span class="sc">$</span>imc_cl) <span class="co"># imc en fonction de l&#39;imc en classe</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/create_verif2-1.png" width="672" /></p>
+<p>Après avoir créé ces deux nouvelles variables, nous pouvons compléter la base de méta-données pour définir les noms de variables et de labels en clair. Pour cela, nous allons ajouter des lignes supplémentaires avec la fonction <code>rbind()</code> (<em>row bind</em> pour “fusion par rang”). <em>A noter qu’il existe aussi une fonction <code>cbind()</code> qui permet de fusionner des bases ou des matrices par colonnes</em></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="analyse-simple-en-r-base.html#cb90-1" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(meta_df_1, </span>
+<span id="cb90-2"><a href="analyse-simple-en-r-base.html#cb90-2" tabindex="-1"></a>                   <span class="fu">data.frame</span>(<span class="at">var =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;obesite&quot;</span>, <span class="dv">2</span>), </span>
+<span id="cb90-3"><a href="analyse-simple-en-r-base.html#cb90-3" tabindex="-1"></a>                                      <span class="fu">rep</span>(<span class="st">&quot;imc_cl&quot;</span>, <span class="dv">4</span>)),</span>
+<span id="cb90-4"><a href="analyse-simple-en-r-base.html#cb90-4" tabindex="-1"></a>                              <span class="at">label =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Obésité&quot;</span>, <span class="dv">2</span>), </span>
+<span id="cb90-5"><a href="analyse-simple-en-r-base.html#cb90-5" tabindex="-1"></a>                                        <span class="fu">rep</span>(<span class="st">&quot;IMC en classes&quot;</span>, <span class="dv">4</span>)),</span>
+<span id="cb90-6"><a href="analyse-simple-en-r-base.html#cb90-6" tabindex="-1"></a>                              <span class="at">id_labs =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),</span>
+<span id="cb90-7"><a href="analyse-simple-en-r-base.html#cb90-7" tabindex="-1"></a>                              <span class="at">code_labs =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),</span>
+<span id="cb90-8"><a href="analyse-simple-en-r-base.html#cb90-8" tabindex="-1"></a>                              <span class="at">labs =</span> <span class="fu">c</span>(<span class="st">&quot;Non&quot;</span>, <span class="st">&quot;Oui&quot;</span>,</span>
+<span id="cb90-9"><a href="analyse-simple-en-r-base.html#cb90-9" tabindex="-1"></a>                                       <span class="st">&quot;Maigreur&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Surpoids&quot;</span>, <span class="st">&quot;Obèse&quot;</span>))</span>
+<span id="cb90-10"><a href="analyse-simple-en-r-base.html#cb90-10" tabindex="-1"></a>                   )</span>
+<span id="cb90-11"><a href="analyse-simple-en-r-base.html#cb90-11" tabindex="-1"></a>meta_df_1</span></code></pre></div>
+<pre><code>##        var               label id_labs code_labs         labs
+## 1   subjid Identifiant patient       1        NA             
+## 2      sex                Sexe       1         0      Féminin
+## 3      sex                Sexe       2         1     Masculin
+## 4      imc         IMC (kg/m²)       1        NA             
+## 5    trait          Traitement       1         1      Placebo
+## 6    trait          Traitement       2         2 Traitement A
+## 7    trait          Traitement       3         3 Traitement B
+## 8      pas          PAS (mmHg)       1        NA             
+## 9  obesite             Obésité       1         0          Non
+## 10 obesite             Obésité       2         1          Oui
+## 11  imc_cl      IMC en classes       1         1     Maigreur
+## 12  imc_cl      IMC en classes       2         2       Normal
+## 13  imc_cl      IMC en classes       3         3     Surpoids
+## 14  imc_cl      IMC en classes       4         4        Obèse</code></pre>
+</div>
+<div id="modifier-des-variables" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Modifier des variables<a href="analyse-simple-en-r-base.html#modifier-des-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Enfin, nous souhaitons modifier la valeur de la pression artérielle du patient n°137 : suite à une erreur de saisie, nous nous sommes rendu compte que sa valeur n’est pas 133 mmHg, mais 123 mmHg.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="analyse-simple-en-r-base.html#cb92-1" tabindex="-1"></a>df_1<span class="sc">$</span>pas[df_1<span class="sc">$</span>subjid <span class="sc">==</span> <span class="dv">137</span>]</span></code></pre></div>
+<pre><code>## [1] 133</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="analyse-simple-en-r-base.html#cb94-1" tabindex="-1"></a><span class="do">## nous pouvons directement assigner la nouvelle valeur avec l&#39;indexation par </span></span>
+<span id="cb94-2"><a href="analyse-simple-en-r-base.html#cb94-2" tabindex="-1"></a><span class="do">## condition :</span></span>
+<span id="cb94-3"><a href="analyse-simple-en-r-base.html#cb94-3" tabindex="-1"></a>df_1<span class="sc">$</span>pas[df_1<span class="sc">$</span>subjid <span class="sc">==</span> <span class="dv">137</span>] <span class="ot">&lt;-</span> <span class="dv">123</span></span>
+<span id="cb94-4"><a href="analyse-simple-en-r-base.html#cb94-4" tabindex="-1"></a>df_1[df_1<span class="sc">$</span>subjid <span class="sc">%in%</span> <span class="dv">135</span><span class="sc">:</span><span class="dv">140</span>,] </span></code></pre></div>
+<pre><code>##     subjid sex  imc trait pas obesite imc_cl
+## 135    135   0 28.0     2 154       0      3
+## 136    136   1 26.2     1 138       0      3
+## 137    137   0 20.1     1 123       0      2
+## 138    138   0 24.7     3 155       0      2
+## 139    139   0 17.0     2 115       0      1
+## 140    140   1 25.7     1 160       0      3</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="analyse-simple-en-r-base.html#cb96-1" tabindex="-1"></a><span class="co"># on voit que la valeur du patient 137 a bien été corrigée</span></span></code></pre></div>
+</div>
+</div>
+<div id="analyses-univariées" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Analyses univariées<a href="#analyses-univari%C3%A9es" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="fonction-summary" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> fonction <code>summary()</code><a href="analyse-simple-en-r-base.html#fonction-summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Nous pouvons utiliser la fonction <code>summary()</code> pour obtenir de manière synthétique une description univariée de l’ensemble des variables, indiquant : les valeurs minimales et maximales, quartiles et médiane, et la valeur moyenne.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="analyse-simple-en-r-base.html#cb97-1" tabindex="-1"></a><span class="fu">summary</span>(df_1)</span></code></pre></div>
+<pre><code>##      subjid            sex            imc            trait      
+##  Min.   :  1.00   Min.   :0.00   Min.   :15.40   Min.   :1.000  
+##  1st Qu.: 75.75   1st Qu.:0.00   1st Qu.:22.30   1st Qu.:1.000  
+##  Median :150.50   Median :0.00   Median :24.60   Median :2.000  
+##  Mean   :150.50   Mean   :0.49   Mean   :24.48   Mean   :1.897  
+##  3rd Qu.:225.25   3rd Qu.:1.00   3rd Qu.:26.40   3rd Qu.:3.000  
+##  Max.   :300.00   Max.   :1.00   Max.   :32.50   Max.   :3.000  
+##       pas           obesite            imc_cl     
+##  Min.   : 92.0   Min.   :0.00000   Min.   :1.000  
+##  1st Qu.:125.0   1st Qu.:0.00000   1st Qu.:2.000  
+##  Median :138.0   Median :0.00000   Median :2.000  
+##  Mean   :137.1   Mean   :0.04333   Mean   :2.453  
+##  3rd Qu.:149.0   3rd Qu.:0.00000   3rd Qu.:3.000  
+##  Max.   :177.0   Max.   :1.00000   Max.   :4.000</code></pre>
+<p>Les variables de la base <code>df_1</code> sont toutes codées en valeurs numériques, la fonction summary a donc décrit les variables qualitatives comme s’il s’agissait de variables quantitatives : ce n’est pas adapté.</p>
+<p>Nous allons créer 2 nouvelles variables en <code>factor</code> à partir des variables qualitatives. Pour cela, nous allons également nous servir des informations indiquées dans la base de méta-données. Puis nous allons relancer la fonction <code>summary()</code> :</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="analyse-simple-en-r-base.html#cb99-1" tabindex="-1"></a><span class="do">### création de 2 variables de type &quot;factor&quot; à partir des variables sex et trait</span></span>
+<span id="cb99-2"><a href="analyse-simple-en-r-base.html#cb99-2" tabindex="-1"></a>df_1<span class="sc">$</span>sexL <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_1<span class="sc">$</span>sex,</span>
+<span id="cb99-3"><a href="analyse-simple-en-r-base.html#cb99-3" tabindex="-1"></a>                    <span class="at">labels =</span> meta_df_1<span class="sc">$</span>labs[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;sex&quot;</span>])</span>
+<span id="cb99-4"><a href="analyse-simple-en-r-base.html#cb99-4" tabindex="-1"></a>df_1<span class="sc">$</span>traitL <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_1<span class="sc">$</span>trait,</span>
+<span id="cb99-5"><a href="analyse-simple-en-r-base.html#cb99-5" tabindex="-1"></a>                      <span class="at">labels =</span> meta_df_1<span class="sc">$</span>labs[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;trait&quot;</span>])</span>
+<span id="cb99-6"><a href="analyse-simple-en-r-base.html#cb99-6" tabindex="-1"></a><span class="fu">summary</span>(df_1)</span></code></pre></div>
+<pre><code>##      subjid            sex            imc            trait      
+##  Min.   :  1.00   Min.   :0.00   Min.   :15.40   Min.   :1.000  
+##  1st Qu.: 75.75   1st Qu.:0.00   1st Qu.:22.30   1st Qu.:1.000  
+##  Median :150.50   Median :0.00   Median :24.60   Median :2.000  
+##  Mean   :150.50   Mean   :0.49   Mean   :24.48   Mean   :1.897  
+##  3rd Qu.:225.25   3rd Qu.:1.00   3rd Qu.:26.40   3rd Qu.:3.000  
+##  Max.   :300.00   Max.   :1.00   Max.   :32.50   Max.   :3.000  
+##       pas           obesite            imc_cl            sexL    
+##  Min.   : 92.0   Min.   :0.00000   Min.   :1.000   Féminin :153  
+##  1st Qu.:125.0   1st Qu.:0.00000   1st Qu.:2.000   Masculin:147  
+##  Median :138.0   Median :0.00000   Median :2.000                 
+##  Mean   :137.1   Mean   :0.04333   Mean   :2.453                 
+##  3rd Qu.:149.0   3rd Qu.:0.00000   3rd Qu.:3.000                 
+##  Max.   :177.0   Max.   :1.00000   Max.   :4.000                 
+##           traitL   
+##  Placebo     :120  
+##  Traitement A: 91  
+##  Traitement B: 89  
+##                    
+##                    
+## </code></pre>
+<p>Les nouvelles variables <code>sexL</code> et <code>traitL</code> sont à présent décrites par dénombrement du nombre d’individus par modalité de réponse, de manière adaptée aux variables qualitatives.</p>
+</div>
+<div id="variables-quantitatives-1" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Variables quantitatives<a href="analyse-simple-en-r-base.html#variables-quantitatives-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pour décrire des variables quantitatives, on peut s’intéresser aux paramètres suivants :</p>
+<ul>
+<li>effectifs observés (non-manquants), avec les fonctions <code>length()</code> qui indique la longueur d’un vecteur, ou <code>nrow()</code> qui indique le nombre de lignes d’une base de données (ou d’une matrice)</li>
+<li>moyenne, avec la fonction <code>mean()</code></li>
+<li>écart type et variance, avec les fonctions <code>sd()</code> et <code>var()</code></li>
+<li>minimum, 1er quartiles, médiane, 3ème quartile, maximum, avec les fonctions <code>min()</code>, <code>max()</code>, <code>median()</code>, <code>quantiles()</code></li>
+</ul>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="analyse-simple-en-r-base.html#cb101-1" tabindex="-1"></a><span class="do">### Effectifs observés : </span></span>
+<span id="cb101-2"><a href="analyse-simple-en-r-base.html#cb101-2" tabindex="-1"></a><span class="do">### Comme il n&#39;y a pas de manquant dans cette base, on peut directement utiliser</span></span>
+<span id="cb101-3"><a href="analyse-simple-en-r-base.html#cb101-3" tabindex="-1"></a><span class="do">### la fonction length() ou nrow() pour connaître les effectifs </span></span>
+<span id="cb101-4"><a href="analyse-simple-en-r-base.html#cb101-4" tabindex="-1"></a><span class="fu">nrow</span>(df_1) <span class="co"># 300</span></span>
+<span id="cb101-5"><a href="analyse-simple-en-r-base.html#cb101-5" tabindex="-1"></a><span class="fu">length</span>(df_1<span class="sc">$</span>imc) <span class="co"># 300</span></span>
+<span id="cb101-6"><a href="analyse-simple-en-r-base.html#cb101-6" tabindex="-1"></a></span>
+<span id="cb101-7"><a href="analyse-simple-en-r-base.html#cb101-7" tabindex="-1"></a><span class="do">### Pour compter les effectifs non-manquants, de manière explicite :</span></span>
+<span id="cb101-8"><a href="analyse-simple-en-r-base.html#cb101-8" tabindex="-1"></a><span class="fu">length</span>(df_1<span class="sc">$</span>imc[<span class="sc">!</span><span class="fu">is.na</span>(df_1<span class="sc">$</span>imc)]) <span class="co"># 300</span></span>
+<span id="cb101-9"><a href="analyse-simple-en-r-base.html#cb101-9" tabindex="-1"></a></span>
+<span id="cb101-10"><a href="analyse-simple-en-r-base.html#cb101-10" tabindex="-1"></a><span class="do">### moyennes</span></span>
+<span id="cb101-11"><a href="analyse-simple-en-r-base.html#cb101-11" tabindex="-1"></a><span class="fu">mean</span>(df_1<span class="sc">$</span>imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 24.481</span></span>
+<span id="cb101-12"><a href="analyse-simple-en-r-base.html#cb101-12" tabindex="-1"></a><span class="fu">mean</span>(df_1<span class="sc">$</span>pas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 137.1133</span></span>
+<span id="cb101-13"><a href="analyse-simple-en-r-base.html#cb101-13" tabindex="-1"></a></span>
+<span id="cb101-14"><a href="analyse-simple-en-r-base.html#cb101-14" tabindex="-1"></a><span class="do">### déviation standard (écart-type)</span></span>
+<span id="cb101-15"><a href="analyse-simple-en-r-base.html#cb101-15" tabindex="-1"></a><span class="fu">sd</span>(df_1<span class="sc">$</span>imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 3.069072</span></span>
+<span id="cb101-16"><a href="analyse-simple-en-r-base.html#cb101-16" tabindex="-1"></a><span class="fu">sd</span>(df_1<span class="sc">$</span>pas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 16.82053</span></span>
+<span id="cb101-17"><a href="analyse-simple-en-r-base.html#cb101-17" tabindex="-1"></a></span>
+<span id="cb101-18"><a href="analyse-simple-en-r-base.html#cb101-18" tabindex="-1"></a><span class="do">### variances</span></span>
+<span id="cb101-19"><a href="analyse-simple-en-r-base.html#cb101-19" tabindex="-1"></a><span class="fu">var</span>(df_1<span class="sc">$</span>imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 9.419203</span></span>
+<span id="cb101-20"><a href="analyse-simple-en-r-base.html#cb101-20" tabindex="-1"></a><span class="fu">var</span>(df_1<span class="sc">$</span>pas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 282.9303</span></span>
+<span id="cb101-21"><a href="analyse-simple-en-r-base.html#cb101-21" tabindex="-1"></a></span>
+<span id="cb101-22"><a href="analyse-simple-en-r-base.html#cb101-22" tabindex="-1"></a><span class="do">### quantiles</span></span>
+<span id="cb101-23"><a href="analyse-simple-en-r-base.html#cb101-23" tabindex="-1"></a><span class="fu">min</span>(df_1<span class="sc">$</span>imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 15.4</span></span>
+<span id="cb101-24"><a href="analyse-simple-en-r-base.html#cb101-24" tabindex="-1"></a><span class="fu">min</span>(df_1<span class="sc">$</span>pas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 92</span></span>
+<span id="cb101-25"><a href="analyse-simple-en-r-base.html#cb101-25" tabindex="-1"></a></span>
+<span id="cb101-26"><a href="analyse-simple-en-r-base.html#cb101-26" tabindex="-1"></a><span class="fu">max</span>(df_1<span class="sc">$</span>imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 32.5</span></span>
+<span id="cb101-27"><a href="analyse-simple-en-r-base.html#cb101-27" tabindex="-1"></a><span class="fu">max</span>(df_1<span class="sc">$</span>pas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 177</span></span>
+<span id="cb101-28"><a href="analyse-simple-en-r-base.html#cb101-28" tabindex="-1"></a></span>
+<span id="cb101-29"><a href="analyse-simple-en-r-base.html#cb101-29" tabindex="-1"></a><span class="fu">median</span>(df_1<span class="sc">$</span>imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 24.6</span></span>
+<span id="cb101-30"><a href="analyse-simple-en-r-base.html#cb101-30" tabindex="-1"></a><span class="fu">median</span>(df_1<span class="sc">$</span>pas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 138</span></span>
+<span id="cb101-31"><a href="analyse-simple-en-r-base.html#cb101-31" tabindex="-1"></a></span>
+<span id="cb101-32"><a href="analyse-simple-en-r-base.html#cb101-32" tabindex="-1"></a><span class="fu">quantile</span>(df_1<span class="sc">$</span>imc, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb101-33"><a href="analyse-simple-en-r-base.html#cb101-33" tabindex="-1"></a><span class="co">#   0%  25%  50%  75% 100% </span></span>
+<span id="cb101-34"><a href="analyse-simple-en-r-base.html#cb101-34" tabindex="-1"></a><span class="co"># 15.4 22.3 24.6 26.4 32.5</span></span>
+<span id="cb101-35"><a href="analyse-simple-en-r-base.html#cb101-35" tabindex="-1"></a><span class="fu">quantile</span>(df_1<span class="sc">$</span>pas, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb101-36"><a href="analyse-simple-en-r-base.html#cb101-36" tabindex="-1"></a>  <span class="co"># 0%  25%  50%  75% 100% </span></span>
+<span id="cb101-37"><a href="analyse-simple-en-r-base.html#cb101-37" tabindex="-1"></a>  <span class="co"># 92  125  138  149  177</span></span></code></pre></div>
+</div>
+<div id="programmation-élémentaire" class="section level3 hasAnchor" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Programmation élémentaire<a href="#programmation-%C3%A9l%C3%A9mentaire" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="créer-une-nouvelle-fonction" class="section level4 hasAnchor" number="3.5.3.1">
+<h4><span class="header-section-number">3.5.3.1</span> Créer une nouvelle fonction<a href="#cr%C3%A9er-une-nouvelle-fonction" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Il est fastidieux de devoir récupérer les différents paramètres de distribution de chaque variable, un par un !</p>
+<p>Mais R permet facilement de programmer de nouvelles fonctions “maison” à l’aide de <code>function(arguments) { expression }</code>, où on indique une liste d’<code>arguments</code> entre parenthèses, puis une liste de commandes à réaliser entre les accolades.</p>
+<p>Par exemple, on peut créer une nouvelle fonction <code>exemple_fonction()</code> qui ajoute +2 à l’objet <code>x</code> :</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="analyse-simple-en-r-base.html#cb102-1" tabindex="-1"></a>seq_1a5 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb102-2"><a href="analyse-simple-en-r-base.html#cb102-2" tabindex="-1"></a>exemple_fonction <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {<span class="fu">return</span>(x <span class="sc">+</span> <span class="dv">2</span>)}</span>
+<span id="cb102-3"><a href="analyse-simple-en-r-base.html#cb102-3" tabindex="-1"></a><span class="fu">exemple_fonction</span>(seq_1a5)</span></code></pre></div>
+<pre><code>## [1] 3 4 5 6 7</code></pre>
+<p>Pour accélérer notre analyse des variables quantitatives, nous allons créer <strong>une nouvelle fonction qui va calculer d’un coup l’ensemble des paramètres qui nous intéressent</strong>. Cette fonction sera nommée <code>univ_quanti</code>, elle va dépendre de 3 arguments :</p>
+<ul>
+<li><code>x</code>, la variable à décrire</li>
+<li><code>dig</code>, le nombre de chiffres après la virgule pour présenter des valeurs arrondies</li>
+<li><code>remove_miss</code>, une valeur logique qui sera utilisée pour exclure (ou non) les données manquantes du calcul (pour renseigner l’argument <code>na.rm</code> des fonctions descriptives de base)</li>
+</ul>
+<p>Entre accolades, on va demander à la fonction de :</p>
+<ul>
+<li>calculer les effectifs, la moyenne, l’écart type et les quantiles, de la variable <code>x</code></li>
+<li>regrouper ces valeurs au sein d’un vecteur de réels, arrondis à <code>dig</code> chiffres après la virgule,</li>
+<li>retourner le vecteur obtenu</li>
+</ul>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="analyse-simple-en-r-base.html#cb104-1" tabindex="-1"></a><span class="do">### Définir une nouvelle fonction dans R</span></span>
+<span id="cb104-2"><a href="analyse-simple-en-r-base.html#cb104-2" tabindex="-1"></a>univ_quanti <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="co"># la variable à décrire</span></span>
+<span id="cb104-3"><a href="analyse-simple-en-r-base.html#cb104-3" tabindex="-1"></a>                        <span class="at">dig =</span> <span class="dv">2</span>, <span class="co"># par défaut, 2 chiffres après la virgule</span></span>
+<span id="cb104-4"><a href="analyse-simple-en-r-base.html#cb104-4" tabindex="-1"></a>                        <span class="at">remove_miss =</span> <span class="cn">TRUE</span> <span class="co"># par défaut, la valeur est TRUE</span></span>
+<span id="cb104-5"><a href="analyse-simple-en-r-base.html#cb104-5" tabindex="-1"></a>                        ) { <span class="co"># fermez la parenthèse et ouvrez l&#39;accolade</span></span>
+<span id="cb104-6"><a href="analyse-simple-en-r-base.html#cb104-6" tabindex="-1"></a>  <span class="co"># on commence par calculer les différents paramètres et on les stocke dans </span></span>
+<span id="cb104-7"><a href="analyse-simple-en-r-base.html#cb104-7" tabindex="-1"></a>  <span class="co"># les objets : &quot;n&quot;, &quot;moy&quot;, &quot;sd&quot; et &quot;q&quot;</span></span>
+<span id="cb104-8"><a href="analyse-simple-en-r-base.html#cb104-8" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])     </span>
+<span id="cb104-9"><a href="analyse-simple-en-r-base.html#cb104-9" tabindex="-1"></a>  moy <span class="ot">&lt;-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> remove_miss)</span>
+<span id="cb104-10"><a href="analyse-simple-en-r-base.html#cb104-10" tabindex="-1"></a>  sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> remove_miss)</span>
+<span id="cb104-11"><a href="analyse-simple-en-r-base.html#cb104-11" tabindex="-1"></a>  q <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>), <span class="at">na.rm =</span> remove_miss)</span>
+<span id="cb104-12"><a href="analyse-simple-en-r-base.html#cb104-12" tabindex="-1"></a>  </span>
+<span id="cb104-13"><a href="analyse-simple-en-r-base.html#cb104-13" tabindex="-1"></a>  <span class="co"># on stocke les résultats dans un vecteur de réels, nommé &quot;param&quot;,</span></span>
+<span id="cb104-14"><a href="analyse-simple-en-r-base.html#cb104-14" tabindex="-1"></a>  <span class="co"># en gardant uniquement la valeur arrondie pour la moyenne et l&#39;écart-type</span></span>
+<span id="cb104-15"><a href="analyse-simple-en-r-base.html#cb104-15" tabindex="-1"></a>  param <span class="ot">&lt;-</span> <span class="fu">c</span>(n, </span>
+<span id="cb104-16"><a href="analyse-simple-en-r-base.html#cb104-16" tabindex="-1"></a>             <span class="fu">round</span>(moy, <span class="at">digits =</span> dig), </span>
+<span id="cb104-17"><a href="analyse-simple-en-r-base.html#cb104-17" tabindex="-1"></a>             <span class="fu">round</span>(sd, <span class="at">digits =</span> dig), </span>
+<span id="cb104-18"><a href="analyse-simple-en-r-base.html#cb104-18" tabindex="-1"></a>             q)</span>
+<span id="cb104-19"><a href="analyse-simple-en-r-base.html#cb104-19" tabindex="-1"></a>  <span class="co"># on peut ajouter un nom à chaque élément du vecteur &quot;param&quot;</span></span>
+<span id="cb104-20"><a href="analyse-simple-en-r-base.html#cb104-20" tabindex="-1"></a>  <span class="fu">names</span>(param) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;sd&quot;</span>, <span class="st">&quot;min&quot;</span>, <span class="st">&quot;Q1&quot;</span>, <span class="st">&quot;median&quot;</span>, <span class="st">&quot;Q3&quot;</span>, <span class="st">&quot;max&quot;</span>)</span>
+<span id="cb104-21"><a href="analyse-simple-en-r-base.html#cb104-21" tabindex="-1"></a>  </span>
+<span id="cb104-22"><a href="analyse-simple-en-r-base.html#cb104-22" tabindex="-1"></a>  <span class="co"># indiquer ce que doit retourner la fonction</span></span>
+<span id="cb104-23"><a href="analyse-simple-en-r-base.html#cb104-23" tabindex="-1"></a>  <span class="fu">return</span>(param) </span>
+<span id="cb104-24"><a href="analyse-simple-en-r-base.html#cb104-24" tabindex="-1"></a>} <span class="co"># fermez l&#39;accolade</span></span></code></pre></div>
+<p>Si on applique cette fonction à nos deux variables quantitatives, on obtient l’ensemble des paramètres présentés dans un vecteur :</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="analyse-simple-en-r-base.html#cb105-1" tabindex="-1"></a><span class="fu">univ_quanti</span>(df_1<span class="sc">$</span>imc, <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0   24.5    3.1   15.4   22.3   24.6   26.4   32.5</code></pre>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="analyse-simple-en-r-base.html#cb107-1" tabindex="-1"></a><span class="fu">univ_quanti</span>(df_1<span class="sc">$</span>pas, <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0  137.1   16.8   92.0  125.0  138.0  149.0  177.0</code></pre>
+<p><em>Note : Vous pouvez remarquer qu’en utilisant cette fonction, les objets <code>n</code>, <code>moy</code>, <code>sd</code>, <code>q</code> et <code>param</code> n’apparaissent pas dans l’environnement de travail, ils ont uniquement été créés de manière temporaire au sein de la fonction.</em></p>
+</div>
+<div id="utiliser-des-boucles" class="section level4 hasAnchor" number="3.5.3.2">
+<h4><span class="header-section-number">3.5.3.2</span> Utiliser des boucles<a href="analyse-simple-en-r-base.html#utiliser-des-boucles" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Les boucles <code>for</code> dans R permettent également d’automatiser des opérations en boucle. La syntaxe d’une boucle est :</p>
+<ul>
+<li><code>for (variable in sequence) { expession }</code> où l’<code>expression</code> entre accolade est répétée chaque fois que la <code>variable</code> est égale à une valeur de la <code>sequence</code></li>
+</ul>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="analyse-simple-en-r-base.html#cb109-1" tabindex="-1"></a><span class="do">### exemple de boucle : </span></span>
+<span id="cb109-2"><a href="analyse-simple-en-r-base.html#cb109-2" tabindex="-1"></a><span class="do">###  - pour chaque valeur i variant de 1 à 5,</span></span>
+<span id="cb109-3"><a href="analyse-simple-en-r-base.html#cb109-3" tabindex="-1"></a><span class="do">###    =&gt; calcule 20 + i</span></span>
+<span id="cb109-4"><a href="analyse-simple-en-r-base.html#cb109-4" tabindex="-1"></a><span class="do">###    =&gt; ajoute cette valeur à la fin de la phrase &quot;calcul de 20 + i = &quot;</span></span>
+<span id="cb109-5"><a href="analyse-simple-en-r-base.html#cb109-5" tabindex="-1"></a><span class="do">###    =&gt; imprime le résultat à l&#39;écran</span></span>
+<span id="cb109-6"><a href="analyse-simple-en-r-base.html#cb109-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb109-7"><a href="analyse-simple-en-r-base.html#cb109-7" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;calcul de 20 + i = &quot;</span>, <span class="dv">20</span> <span class="sc">+</span> i))</span>
+<span id="cb109-8"><a href="analyse-simple-en-r-base.html#cb109-8" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;calcul de 20 + i = 21&quot;
+## [1] &quot;calcul de 20 + i = 22&quot;
+## [1] &quot;calcul de 20 + i = 23&quot;
+## [1] &quot;calcul de 20 + i = 24&quot;
+## [1] &quot;calcul de 20 + i = 25&quot;</code></pre>
+<p>On peut appliquer cette démarche pour répéter l’analyse univariée avec notre nouvelle fonction <code>univ_quanti()</code> à nos deux variables quantitatives. Les deux variables quantitatives sont dans les colonnes 3 et 5 de la base de données.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="analyse-simple-en-r-base.html#cb111-1" tabindex="-1"></a><span class="do">### Avec la fonction names(), on voit que les variables quantitatives imc et pas </span></span>
+<span id="cb111-2"><a href="analyse-simple-en-r-base.html#cb111-2" tabindex="-1"></a><span class="do">### sont la 3ème et la 5ème variable de la base df_1</span></span>
+<span id="cb111-3"><a href="analyse-simple-en-r-base.html#cb111-3" tabindex="-1"></a><span class="fu">names</span>(df_1)</span></code></pre></div>
+<pre><code>## [1] &quot;subjid&quot;  &quot;sex&quot;     &quot;imc&quot;     &quot;trait&quot;   &quot;pas&quot;     &quot;obesite&quot; &quot;imc_cl&quot; 
+## [8] &quot;sexL&quot;    &quot;traitL&quot;</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="analyse-simple-en-r-base.html#cb113-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>)) {</span>
+<span id="cb113-2"><a href="analyse-simple-en-r-base.html#cb113-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">names</span>(df_1)[i]) <span class="co"># imprime le nom de la i-ème variable</span></span>
+<span id="cb113-3"><a href="analyse-simple-en-r-base.html#cb113-3" tabindex="-1"></a>  <span class="co"># puis imprime les résultats de la fonction univ_quanti appliquée à la i-ème</span></span>
+<span id="cb113-4"><a href="analyse-simple-en-r-base.html#cb113-4" tabindex="-1"></a>  <span class="co"># variable de la base df_1</span></span>
+<span id="cb113-5"><a href="analyse-simple-en-r-base.html#cb113-5" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">univ_quanti</span>(df_1[[i]], <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>)) </span>
+<span id="cb113-6"><a href="analyse-simple-en-r-base.html#cb113-6" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;imc&quot;
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0   24.5    3.1   15.4   22.3   24.6   26.4   32.5 
+## [1] &quot;pas&quot;
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0  137.1   16.8   92.0  125.0  138.0  149.0  177.0</code></pre>
+<p>Question bonus : que se passe t’il si vous n’indiquez pas la fonction <code>print()</code> ?</p>
+<ul>
+<li><em>réponse : il a fait tourner la fonction, mais ne l’a pas imprimé les résultats à l’écran</em></li>
+</ul>
+</div>
+<div id="fonctions-apply-lapply-sapply" class="section level4 hasAnchor" number="3.5.3.3">
+<h4><span class="header-section-number">3.5.3.3</span> Fonctions <code>apply()</code>, <code>lapply()</code>, <code>sapply()</code><a href="analyse-simple-en-r-base.html#fonctions-apply-lapply-sapply" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>On peut également lancer une fonction de manière répétée appliquée :</p>
+<ul>
+<li>à des colonnes ou des lignes de matrices (ou de data frame) avec la fonction <code>apply()</code></li>
+<li>à des vecteurs ou des listes avec <code>lapply()</code> (qui retourne les résultats sous forme de liste) ou <code>sapply()</code> (qui retourne les résultats sous forme de matrice ou de vecteur)</li>
+</ul>
+<p><strong>Exemple 1 :</strong> La fonction <code>apply()</code> permet d’appliquer notre fonction de description des paramètres aux colonnes <code>"imc"</code> et <code>"pas"</code> de la la base <code>df_1</code> (Le résultat sera une matrice de réels) :</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="analyse-simple-en-r-base.html#cb115-1" tabindex="-1"></a><span class="fu">apply</span>(df_1[,<span class="fu">c</span>(<span class="st">&quot;imc&quot;</span>, <span class="st">&quot;pas&quot;</span>)], <span class="co"># matrice ou data.frame sélectionnée</span></span>
+<span id="cb115-2"><a href="analyse-simple-en-r-base.html#cb115-2" tabindex="-1"></a>      <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="co"># 2 = par colonne ;  1 = par ligne</span></span>
+<span id="cb115-3"><a href="analyse-simple-en-r-base.html#cb115-3" tabindex="-1"></a>      <span class="at">FUN =</span> univ_quanti, <span class="co"># fonction à utiliser</span></span>
+<span id="cb115-4"><a href="analyse-simple-en-r-base.html#cb115-4" tabindex="-1"></a>      <span class="at">dig =</span> <span class="dv">1</span>, <span class="co"># on peut ajouter les arguments de la fonction à la suite</span></span>
+<span id="cb115-5"><a href="analyse-simple-en-r-base.html#cb115-5" tabindex="-1"></a>      <span class="at">remove_miss =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<pre><code>##          imc   pas
+## N      300.0 300.0
+## mean    24.5 137.1
+## sd       3.1  16.8
+## min     15.4  92.0
+## Q1      22.3 125.0
+## median  24.6 138.0
+## Q3      26.4 149.0
+## max     32.5 177.0</code></pre>
+<p><strong>Exemple 2 :</strong> La fonction <code>lapply()</code> applique la fonction à une liste de vecteurs et retourne une liste de la même longueur. La fonction <code>sapply()</code> fait la même chose, mais retourne les résultats sous forme de vecteur ou de matrice.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="analyse-simple-en-r-base.html#cb117-1" tabindex="-1"></a><span class="fu">lapply</span>(<span class="at">X =</span> df_1[,<span class="fu">c</span>(<span class="st">&quot;imc&quot;</span>, <span class="st">&quot;pas&quot;</span>)], </span>
+<span id="cb117-2"><a href="analyse-simple-en-r-base.html#cb117-2" tabindex="-1"></a>      <span class="at">FUN =</span> univ_quanti,  <span class="co"># fonction à utiliser</span></span>
+<span id="cb117-3"><a href="analyse-simple-en-r-base.html#cb117-3" tabindex="-1"></a>      <span class="at">dig =</span> <span class="dv">1</span>,</span>
+<span id="cb117-4"><a href="analyse-simple-en-r-base.html#cb117-4" tabindex="-1"></a>      <span class="at">remove_miss =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## $imc
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0   24.5    3.1   15.4   22.3   24.6   26.4   32.5 
+## 
+## $pas
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0  137.1   16.8   92.0  125.0  138.0  149.0  177.0</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="analyse-simple-en-r-base.html#cb119-1" tabindex="-1"></a><span class="fu">sapply</span>(<span class="at">X =</span> df_1[,<span class="fu">c</span>(<span class="st">&quot;imc&quot;</span>, <span class="st">&quot;pas&quot;</span>)],  </span>
+<span id="cb119-2"><a href="analyse-simple-en-r-base.html#cb119-2" tabindex="-1"></a>       <span class="at">FUN =</span> univ_quanti,  <span class="co"># fonction à utiliser</span></span>
+<span id="cb119-3"><a href="analyse-simple-en-r-base.html#cb119-3" tabindex="-1"></a>       <span class="at">dig =</span> <span class="dv">1</span>,</span>
+<span id="cb119-4"><a href="analyse-simple-en-r-base.html#cb119-4" tabindex="-1"></a>       <span class="at">remove_miss =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<pre><code>##          imc   pas
+## N      300.0 300.0
+## mean    24.5 137.1
+## sd       3.1  16.8
+## min     15.4  92.0
+## Q1      22.3 125.0
+## median  24.6 138.0
+## Q3      26.4 149.0
+## max     32.5 177.0</code></pre>
+<p>Si on veut remplacer les noms de colonnes par les noms de variables en clair, on peut utiliser la base de méta-données :</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="analyse-simple-en-r-base.html#cb121-1" tabindex="-1"></a>res_quanti <span class="ot">&lt;-</span> <span class="fu">sapply</span>(df_1[,<span class="fu">c</span>(<span class="st">&quot;imc&quot;</span>, <span class="st">&quot;pas&quot;</span>)],</span>
+<span id="cb121-2"><a href="analyse-simple-en-r-base.html#cb121-2" tabindex="-1"></a>                     <span class="at">FUN =</span> univ_quanti,</span>
+<span id="cb121-3"><a href="analyse-simple-en-r-base.html#cb121-3" tabindex="-1"></a>                     <span class="at">dig =</span> <span class="dv">1</span>)</span>
+<span id="cb121-4"><a href="analyse-simple-en-r-base.html#cb121-4" tabindex="-1"></a><span class="co"># on modifie le nom des colonne de la matrice de résultats</span></span>
+<span id="cb121-5"><a href="analyse-simple-en-r-base.html#cb121-5" tabindex="-1"></a><span class="co"># avec les informations disponibles dans les méta-données</span></span>
+<span id="cb121-6"><a href="analyse-simple-en-r-base.html#cb121-6" tabindex="-1"></a><span class="fu">colnames</span>(res_quanti) <span class="ot">&lt;-</span> <span class="fu">c</span>(meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;imc&quot;</span>],</span>
+<span id="cb121-7"><a href="analyse-simple-en-r-base.html#cb121-7" tabindex="-1"></a>                          meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;pas&quot;</span>])</span>
+<span id="cb121-8"><a href="analyse-simple-en-r-base.html#cb121-8" tabindex="-1"></a>res_quanti</span></code></pre></div>
+<pre><code>##        IMC (kg/m²) PAS (mmHg)
+## N            300.0      300.0
+## mean          24.5      137.1
+## sd             3.1       16.8
+## min           15.4       92.0
+## Q1            22.3      125.0
+## median        24.6      138.0
+## Q3            26.4      149.0
+## max           32.5      177.0</code></pre>
 
+</div>
+</div>
 </div>
 </div>
             </section>

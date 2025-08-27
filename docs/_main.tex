@@ -118,7 +118,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2025-08-26}
+\date{2025-08-27}
 
 \begin{document}
 \maketitle
@@ -2804,7 +2804,7 @@ On peut créer un data.frame contenant différents types de variables avec la fo
 \FunctionTok{is.list}\NormalTok{(df) }\CommentTok{\# [1] TRUE}
 
 \DocumentationTok{\#\# Un data.frame est une liste qui possède des attributs de noms de variables}
-\DocumentationTok{\#\# de class et de noms de rangs : }
+\DocumentationTok{\#\# (names) de classe (class) et de noms de rangs (row.names) : }
 \FunctionTok{attributes}\NormalTok{(df)}
 \CommentTok{\# $names}
 \CommentTok{\# [1] "id"     "age"    "sex"    "dt\_vis"}
@@ -2893,6 +2893,23 @@ On peut sélectionner le croisement de une (ou plusieurs) ligne(s) et de une (ou
 \end{Highlighting}
 \end{Shaded}
 
+On peut exclure des lignes ou des colonnes avec un signe ``moins'' devant les valeurs d'indexation sur la position par ligne ou par colonne :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Exclusion des lignes (2 à 5) et des colonnes (1 et 3)}
+\DocumentationTok{\#\#\# avec un signe "moins" devant l\textquotesingle{}indexation sur la position : }
+\NormalTok{df[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{), }\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{)]}
+\CommentTok{\#     age     dt\_vis}
+\CommentTok{\# 1  42.5 2025{-}12{-}08}
+\CommentTok{\# 6  25.2 2024{-}12{-}17}
+\CommentTok{\# 7  53.4 2025{-}09{-}13}
+\CommentTok{\# 8  46.6 2025{-}11{-}07}
+\CommentTok{\# 9  34.2 2022{-}04{-}25}
+\CommentTok{\# 10 39.6 2023{-}08{-}02}
+\end{Highlighting}
+\end{Shaded}
+
 Il est également possible d'utiliser la fonction \texttt{subset()}, qui prend pour arguments \texttt{subset\ =} avec des conditions pour sélectionner des lignes (sous la forme d'une condition), et \texttt{select\ =} pour sélectionner des colonnes (avec les noms de colonnes souhaitées).
 
 \begin{Shaded}
@@ -2960,27 +2977,29 @@ Les objectifs de ce chapitre sont de :
 
 \section{Préparer un dossier de travail}\label{pruxe9parer-un-dossier-de-travail}
 
-\textbf{1ère étape :} Commencez par créer un dossier vide, appelé \emph{analyse R base} dans l'endroit de votre choix sur votre ordinateur. Au sein de ce dossier, vous pouvez ajouter un dossier \emph{data} et un dossier \emph{figures} qui pourra vous servir à stocker les données et les figures que vous souhaitez souvegarder.
+\subsection{Projet R}\label{projet-r}
 
-\textbf{2ème étape :} Dans R Studio, cliniquez sur le cube en 3 dimensions R ``Project: (None)'' en haut à droite, au dessus du cadran environnement.
+\textbf{1ère étape : Créer un dossier de travail.} Commencez par créer un dossier vide, appelé \emph{analyse R base} dans l'endroit de votre choix sur votre ordinateur. Au sein de ce dossier, vous pouvez ajouter un dossier \emph{data} et un dossier \emph{figures} qui pourra vous servir à stocker les données et les figures que vous souhaitez souvegarder.
+
+\textbf{2ème étape : Créer un projet R.} Dans R Studio, cliquez sur le cube en 3 dimensions R ``Project: (None)'' en haut à droite, au dessus du cadran environnement.
 
 \begin{itemize}
 \tightlist
 \item
-  Cliquez ensuite sur ``New Project\ldots{}''.
+  puis ``New Project\ldots{}''.
 \item
-  Puis cliquez sur ``Existing Directory\ldots{}'', avec le bouton browse, vous pouvez alors rechercher le dossier \emph{analyse R base} que vous venez de créer à la 1ère étape.
+  choisissez ``Existing Directory\ldots{}''. Avec le bouton browse, vous pouvez alors rechercher le dossier \emph{analyse R base} que vous venez de créer à la 1ère étape.
 \item
-  Enfin cliquez sur ``Open'' et ``Create Project''.
+  enfin cliquez sur ``Open'' et ``Create Project''.
 \end{itemize}
 
 \begin{center}\includegraphics[width=1\linewidth]{./images/cree_nv_project} \end{center}
 
-R Studio va alors créer un fichier \texttt{analyse\ R\ base.Rproj} au sein de votre dossier \emph{analyse R base}. De plus, ce dossier \emph{analyse R base} sera défini comme votre dossier de travail.
+R Studio va alors créer un fichier \texttt{analyse\ R\ base.Rproj} au sein de votre dossier \emph{analyse R base}. De plus, ce dossier \emph{analyse R base} sera défini comme votre dossier de travail au sein de R Studio.
 
 Ainsi si vous demandez à R quel est votre dossier de travail actuel avec la commande \texttt{getwd()} (\emph{get working directory}), la console va indiquer le chemin jusque ce dossier (R vous confirme qu'il s'agit bien de votre dossier de travail !).
 
-Ce dossier de travail apparaît également dans le menu ``Files'' dans le cadrant en bas à droite. Ce dossier sert de ``dossier racine'' (``répertoire racine''), on pourra désigner les fichiers de travail au sein de ce dossier avec un chemin raccourci. \textbf{Tous les documents que vous allez sauvegarder pendant votre session R Studio seront sauvegardés dans ce dossier de travail +++}
+Le contenu de ce dossier de travail apparaît également dans le menu ``Files'' dans le cadrant en bas à droite. Ce dossier sert de ``dossier racine'' (``répertoire racine''). Les fichiers au sein de ce dossier pourront être désignés avec un chemin raccourci. \textbf{Tous les éléments que vous allez sauvegarder pendant votre session R Studio seront sauvegardés dans ce dossier de travail +++}
 
 \begin{center}\includegraphics[width=0.75\linewidth]{./images/working_directory} \end{center}
 
@@ -2990,6 +3009,84 @@ Maintenant, \textbf{quittez le programme R Studio}, puis \textbf{double cliquez 
 
 R Studio va alors s'ouvrir, en ayant directement défini le dossier \emph{analyse R base} comme dossier de travail. C'est la méthode la plus simple pour reprendre une analyse R en cours et pour reproduire les résultats déjà obtenus.
 
+\subsection{Structurer un script d'analyse}\label{structurer-un-script-danalyse}
+
+Lorsque vous réaliserez une analyse, vous allez \textbf{sauvegarder vos commandes dans un script} (par exemple, dans le script \texttt{1\_analyse\ en\ R\ base.R} que l'on vient de sauvegarder précédemment).
+
+En haut du script, si vous souhaitez recommencer à partir d'un environnement vide lorsque vous relancerez l'analyse depuis le départ, vous pouvez ajouter la commande \texttt{rm(ls\ =\ list())}.
+
+Une bonne pratique est d'indiquer quelques informations utiles pour documenter votre script, comme votre \textbf{nom et la date des analyses (en commentaires)}. Enfin, à la fin d'un script (à la fin de vos analyses), vous pouvez lancer la commande \texttt{sessionInfo()} qui va lister dans la console la version de R et les versions des packages qui ont été utilisés pour votre analyse (vous pourrez copier ces informations à la fin de votre script, en commentaires).
+
+Les commentaires peuvent également servir à indiquer des \textbf{titres} et \textbf{sous-titres} dans votre script d'analyse. Un menu d'accès rapide est alors accessible à partir du bouton \emph{Outline} en haut à droite de la fenêtre du script R.
+
+\emph{Note : sur windows, le raccourci ``ctrl-shift-c'' transforme les lignes sélectionnées en commentaires (en ajoutant automatiquement des \texttt{\#} en début de ligne)}
+
+Voici un exemple de script qui suit cette structure :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# 1\_analyse en R base}
+\DocumentationTok{\#\#\# Date : 15 septembre 2025 }
+\DocumentationTok{\#\#\# Auteur : Timoté Chalamais}
+
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{()) }\CommentTok{\# cette commande vide le contenu de l\textquotesingle{}environnement}
+
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-} \#}
+\CommentTok{\# 1) Titre n°1 (il faut ajouter 4 tirets à la fin des titres) {-}{-}{-}{-}}
+\DocumentationTok{\#\# 1.2) Sous{-}titre (en ajoutant un \# au début de ligne) {-}{-}{-}{-}}
+\DocumentationTok{\#\#\# 1.2.1) Sous{-}sous{-}titre (en ajoutant des \# supplémentaires) {-}{-}{-}{-} }
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-} \#}
+
+\CommentTok{\# Import des données}
+\NormalTok{df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv2}\NormalTok{(}\StringTok{"data/df\_1.csv"}\NormalTok{)}
+\NormalTok{meta\_df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv2}\NormalTok{(}\StringTok{"data/meta\_df\_1.csv"}\NormalTok{)}
+
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-} \#}
+\CommentTok{\# 2) Titre n°2  {-}{-}{-}{-}}
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-} \#}
+\FunctionTok{head}\NormalTok{(df\_1)}
+
+\NormalTok{(...) }\CommentTok{\# continuez vous analyses}
+\NormalTok{(...)}
+
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-} \#}
+\CommentTok{\# Fin de script  {-}{-}{-}{-}}
+
+\CommentTok{\# à la fin, vous pouvez récupérer les informations sur la session }
+\CommentTok{\# pour les copier{-}coller en bas du script (en format de commentaires)}
+\FunctionTok{sessionInfo}\NormalTok{()}
+\CommentTok{\# R version 4.5.1 (2025{-}06{-}13 ucrt)}
+\CommentTok{\# Platform: x86\_64{-}w64{-}mingw32/x64}
+\CommentTok{\# Running under: Windows 11 x64 (build 26100)}
+\CommentTok{\# }
+\CommentTok{\# Matrix products: default}
+\CommentTok{\#   LAPACK version 3.12.1}
+\CommentTok{\# }
+\CommentTok{\# locale:}
+\CommentTok{\# [1] LC\_COLLATE=French\_France.utf8 }
+\CommentTok{\# [2] LC\_CTYPE=French\_France.utf8   }
+\CommentTok{\# [3] LC\_MONETARY=French\_France.utf8}
+\CommentTok{\# [4] LC\_NUMERIC=C                  }
+\CommentTok{\# [5] LC\_TIME=French\_France.utf8    }
+\CommentTok{\# }
+\CommentTok{\# time zone: Europe/Paris}
+\CommentTok{\# tzcode source: internal}
+\CommentTok{\# }
+\CommentTok{\# attached base packages:}
+\CommentTok{\# [1] stats     graphics  grDevices utils     datasets }
+\CommentTok{\# [6] methods   base     }
+\CommentTok{\# }
+\CommentTok{\# loaded via a namespace (and not attached):}
+\CommentTok{\#  [1] compiler\_4.5.1    bookdown\_0.43    }
+\CommentTok{\#  [3] fastmap\_1.2.0     cli\_3.6.5        }
+\CommentTok{\#  [5] htmltools\_0.5.8.1 tools\_4.5.1      }
+\CommentTok{\#  [7] rstudioapi\_0.17.1 yaml\_2.3.10      }
+\CommentTok{\#  [9] rmarkdown\_2.29    knitr\_1.50       }
+\CommentTok{\# [11] xfun\_0.52         digest\_0.6.37    }
+\CommentTok{\# [13] rlang\_1.1.6       evaluate\_1.0.4 }
+\end{Highlighting}
+\end{Shaded}
+
 \section{Importer une base de données}\label{importer-une-base-de-donnuxe9es}
 
 Pour cet exemple,
@@ -2997,12 +3094,12 @@ Pour cet exemple,
 \begin{itemize}
 \tightlist
 \item
-  téléchargez la base \href{https://github.com/benoitlepage/formationR/blob/main/data/df_1.csv}{\texttt{df\_1.csv}} ainsi que la base de méta-données \href{https://github.com/benoitlepage/formationR/blob/main/data/meta_df_1.csv}{\texttt{meta\_df\_1.csv}}.
+  téléchargez la base \href{https://github.com/benoitlepage/formationR/blob/main/data/df_1.csv}{\texttt{df\_1.csv}} ainsi que la base de méta-données \href{https://github.com/benoitlepage/formationR/blob/main/data/meta_df_1.csv}{\texttt{meta\_df\_1.csv}} (cliquez sur le bouton \emph{download raw file}, à droite avec une flèche vers le bas).
 \item
-  Vous pouvez ensuite coller ces deux bases au sein du dossier ``data'' de votre dossier de travail.
+  Vous pouvez ensuite coller ces deux bases de données au sein du dossier \emph{data} de votre dossier de travail.
 \end{itemize}
 
-Il s'agit de fichier avec l'extension ``.csv'' (\emph{comma separated variables}) où les valeurs sont séparées par un point virgule. Vous pouvez l'importer dans R avec la fonction \texttt{read.csv2()} (il existe également une fonction \texttt{read.csv()} qui importe les données .csv où le séparateur est une virgule). Vous pouvez regarder les différents arguments de ces fonctions dans l'aide \texttt{?read.csv2}.
+Il s'agit de fichiers avec l'extension ``.csv'' (\emph{comma separated variables}) où les valeurs sont séparées par un point virgule. Vous pouvez les importer dans R avec la fonction \texttt{read.csv2()} (il existe également une fonction \texttt{read.csv()} qui importe les données .csv où le séparateur est une virgule). Vous pouvez regarder les différents arguments de ces fonctions dans l'aide \texttt{?read.csv2}.
 
 Nous allons stocker la base dans des objets nommés \texttt{df\_1} et \texttt{meta\_df\_1}. Ces bases importées sont des objets de type \texttt{data.frame}.
 
@@ -3014,7 +3111,13 @@ Nous allons stocker la base dans des objets nommés \texttt{df\_1} et \texttt{me
 \end{Highlighting}
 \end{Shaded}
 
-La base \texttt{df\_1} contient les données que nous allons analyser et la base \texttt{meta\_df\_1} contient des méta-données (noms de variables, noms des labels, etc) qui détaille les noms des variables, les labels des variables qualitatives, etc.
+\begin{itemize}
+\tightlist
+\item
+  La base \texttt{df\_1} contient les données que nous allons analyser.
+\item
+  La base \texttt{meta\_df\_1} contient des méta-données (noms de variables, noms des labels, etc) qui sera utile pour préciser les noms des variables, les labels des variables qualitatives, etc.
+\end{itemize}
 
 \section{Examiner les données et les méta-données}\label{examiner-les-donnuxe9es-et-les-muxe9ta-donnuxe9es}
 
@@ -3116,15 +3219,576 @@ La base de méta-données contient 5 variables :
 \item
   \texttt{var}, nom des variables que l'on retrouve dans la base de données \texttt{df\_1}
 \item
-  \texttt{label}, nom en clair de la variable\\
+  \texttt{label}, nom en détail de la variable\\
 \item
-  \texttt{id\_labs}, un identifiant pour les labels possibles, par variable
+  \texttt{id\_labs}, un identifiant pour les labels éventuels, par variable
 \item
-  \texttt{code\_labs}, code numérique du label (code utilisé dans la base \texttt{df\_1})
+  \texttt{code\_labs}, codage numérique du label (code utilisé dans la base \texttt{df\_1})
 \item
-  \texttt{labs}, étiquette des modalités de réponses des variables qualitatives
+  \texttt{labs}, modalités de réponses des variables qualitatives, en détail
 \end{itemize}
 
 \section{Créer ou modifier une variable}\label{cruxe9er-ou-modifier-une-variable}
+
+\subsection{Créer des variables}\label{cruxe9er-des-variables}
+
+Nous allons créer une variable \texttt{obesite} dont la valeur est égale à 1 si l'indice de masse corporelle est \(\geq 30\text{ kg/m}^2\) et égale à 0 sinon.
+
+Pour cela, on peut utilise la fonction \texttt{ifelse()} dont le premier argument est une condition, le 2ème argument est la valeur à retourner si la condition est vraie, et le 3ème argument est la valeur à retourner si la condition est fausse.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{obesite }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textgreater{}=} \DecValTok{30}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Chaque fois que vous créez ou modifiez une variable, il est utile de vérifier que vous n'avez pas fait d'erreurs. Dans cet exemple, on peut vérifier quelles sont les valeurs minimales et maximales de l'indice de masse corporelle au sein des deux catégories de la nouvelle variable :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# vérifier que la variable est correctement crée : }
+\FunctionTok{min}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc[df\_1}\SpecialCharTok{$}\NormalTok{obesite }\SpecialCharTok{==} \DecValTok{0}\NormalTok{]) }\CommentTok{\# [1] 15.4}
+\FunctionTok{max}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc[df\_1}\SpecialCharTok{$}\NormalTok{obesite }\SpecialCharTok{==} \DecValTok{0}\NormalTok{]) }\CommentTok{\# [1] 29.9}
+\DocumentationTok{\#\#\# les valeurs d\textquotesingle{}IMC varient de 15.4 à 29.9 lorsque obesite == 0}
+
+\FunctionTok{min}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc[df\_1}\SpecialCharTok{$}\NormalTok{obesite }\SpecialCharTok{==} \DecValTok{1}\NormalTok{]) }\CommentTok{\# [1] 30.1}
+\FunctionTok{max}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc[df\_1}\SpecialCharTok{$}\NormalTok{obesite }\SpecialCharTok{==} \DecValTok{1}\NormalTok{]) }\CommentTok{\# [1] 32.5}
+\DocumentationTok{\#\#\# les valeurs d\textquotesingle{}IMC varient de 30.1 à 32.5 lorsque obesite == 1 =\textgreater{} c\textquotesingle{}est bon !}
+\end{Highlighting}
+\end{Shaded}
+
+Nous allons ensuite créer une variable d'IMC en classes (\texttt{imc\_cl}) définie telle que :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{imc\_cl\ =\ 1} (maigreur) si l'IMC \textless{} 18.5 kg/m\(^2\),
+\item
+  \texttt{imc\_cl\ =\ 2} (normal) si l'IMC \(\geq 18.5 \text{ kg/m}^2\) et IMC \(< 25 \text{ kg/m}^2\),
+\item
+  \texttt{imc\_cl\ =\ 3} (normal) si l'IMC \(\geq 25 \text{ kg/m}^2\) et IMC \(< 30 \text{ kg/m}^2\),
+\item
+  \texttt{imc\_cl\ =\ 4} (normal) si l'IMC \(\geq 30 \text{ kg/m}^2\).
+\end{itemize}
+
+Il y a plusieurs possibilités pour créer cette variable, voici 3 méthodes différentes :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# 1) créer une variable où toutes les données sont manquantes : }
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{imc\_cl }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(df\_1))}
+\DocumentationTok{\#\#\#    puis remplacer les données manquantes par les valeurs souhaitées}
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{imc\_cl[df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textless{}} \FloatTok{18.5}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{imc\_cl[df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textgreater{}=} \FloatTok{18.5} \SpecialCharTok{\&}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textless{}} \DecValTok{25}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{2}
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{imc\_cl[df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textgreater{}=} \DecValTok{25} \SpecialCharTok{\&}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textless{}} \DecValTok{30}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{3}
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{imc\_cl[df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textgreater{}=} \DecValTok{30}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{4}
+
+\DocumentationTok{\#\#\# 2) avec la fonction ifelse de manière itérative : }
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{imc\_cl }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textless{}} \FloatTok{18.5}\NormalTok{, }\DecValTok{1}\NormalTok{, }
+                      \FunctionTok{ifelse}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textgreater{}=} \FloatTok{18.5} \SpecialCharTok{\&}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textless{}} \DecValTok{25}\NormalTok{, }
+                             \DecValTok{2}\NormalTok{, }\FunctionTok{ifelse}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textgreater{}=} \DecValTok{25} \SpecialCharTok{\&}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textless{}} \DecValTok{30}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)))}
+
+\DocumentationTok{\#\#\# 3) avec une formule intégrant des conditions.}
+\DocumentationTok{\#\#\#    Comme on multiplie les résultats de conditions à des entiers, les }
+\DocumentationTok{\#\#\#    réponses TRUE et FALSE sont transformées en 1 et 0 par coercition}
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{imc\_cl }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{*}\NormalTok{ (df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textless{}} \FloatTok{18.5}\NormalTok{) }\SpecialCharTok{+} 
+                  \DecValTok{2} \SpecialCharTok{*}\NormalTok{ (df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textgreater{}=} \FloatTok{18.5} \SpecialCharTok{\&}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textless{}} \DecValTok{25}\NormalTok{) }\SpecialCharTok{+} 
+                  \DecValTok{3} \SpecialCharTok{*}\NormalTok{ (df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textgreater{}=} \DecValTok{25} \SpecialCharTok{\&}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textless{}} \DecValTok{30}\NormalTok{) }\SpecialCharTok{+} 
+                  \DecValTok{4} \SpecialCharTok{*}\NormalTok{ (df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textgreater{}=} \DecValTok{30}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Pensez à vérifier que vous n'avez pas fait d'erreur en créant cette variable. Par exemple, on peut vérifier la distribution de l'IMC au sein des 4 classes à l'aide d'un box plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textasciitilde{}}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{imc\_cl) }\CommentTok{\# imc en fonction de l\textquotesingle{}imc en classe}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/create_verif2-1.pdf}}
+
+Après avoir créé ces deux nouvelles variables, nous pouvons compléter la base de méta-données pour définir les noms de variables et de labels en clair. Pour cela, nous allons ajouter des lignes supplémentaires avec la fonction \texttt{rbind()} (\emph{row bind} pour ``fusion par rang''). \emph{A noter qu'il existe aussi une fonction \texttt{cbind()} qui permet de fusionner des bases ou des matrices par colonnes}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{meta\_df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(meta\_df\_1, }
+                   \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{var =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"obesite"}\NormalTok{, }\DecValTok{2}\NormalTok{), }
+                                      \FunctionTok{rep}\NormalTok{(}\StringTok{"imc\_cl"}\NormalTok{, }\DecValTok{4}\NormalTok{)),}
+                              \AttributeTok{label =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"Obésité"}\NormalTok{, }\DecValTok{2}\NormalTok{), }
+                                        \FunctionTok{rep}\NormalTok{(}\StringTok{"IMC en classes"}\NormalTok{, }\DecValTok{4}\NormalTok{)),}
+                              \AttributeTok{id\_labs =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{),}
+                              \AttributeTok{code\_labs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{1}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{),}
+                              \AttributeTok{labs =} \FunctionTok{c}\NormalTok{(}\StringTok{"Non"}\NormalTok{, }\StringTok{"Oui"}\NormalTok{,}
+                                       \StringTok{"Maigreur"}\NormalTok{, }\StringTok{"Normal"}\NormalTok{, }\StringTok{"Surpoids"}\NormalTok{, }\StringTok{"Obèse"}\NormalTok{))}
+\NormalTok{                   )}
+\NormalTok{meta\_df\_1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        var               label id_labs code_labs         labs
+## 1   subjid Identifiant patient       1        NA             
+## 2      sex                Sexe       1         0      Féminin
+## 3      sex                Sexe       2         1     Masculin
+## 4      imc         IMC (kg/m²)       1        NA             
+## 5    trait          Traitement       1         1      Placebo
+## 6    trait          Traitement       2         2 Traitement A
+## 7    trait          Traitement       3         3 Traitement B
+## 8      pas          PAS (mmHg)       1        NA             
+## 9  obesite             Obésité       1         0          Non
+## 10 obesite             Obésité       2         1          Oui
+## 11  imc_cl      IMC en classes       1         1     Maigreur
+## 12  imc_cl      IMC en classes       2         2       Normal
+## 13  imc_cl      IMC en classes       3         3     Surpoids
+## 14  imc_cl      IMC en classes       4         4        Obèse
+\end{verbatim}
+
+\subsection{Modifier des variables}\label{modifier-des-variables}
+
+Enfin, nous souhaitons modifier la valeur de la pression artérielle du patient n°137 : suite à une erreur de saisie, nous nous sommes rendu compte que sa valeur n'est pas 133 mmHg, mais 123 mmHg.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{pas[df\_1}\SpecialCharTok{$}\NormalTok{subjid }\SpecialCharTok{==} \DecValTok{137}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 133
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# nous pouvons directement assigner la nouvelle valeur avec l\textquotesingle{}indexation par }
+\DocumentationTok{\#\# condition :}
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{pas[df\_1}\SpecialCharTok{$}\NormalTok{subjid }\SpecialCharTok{==} \DecValTok{137}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{123}
+\NormalTok{df\_1[df\_1}\SpecialCharTok{$}\NormalTok{subjid }\SpecialCharTok{\%in\%} \DecValTok{135}\SpecialCharTok{:}\DecValTok{140}\NormalTok{,] }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     subjid sex  imc trait pas obesite imc_cl
+## 135    135   0 28.0     2 154       0      3
+## 136    136   1 26.2     1 138       0      3
+## 137    137   0 20.1     1 123       0      2
+## 138    138   0 24.7     3 155       0      2
+## 139    139   0 17.0     2 115       0      1
+## 140    140   1 25.7     1 160       0      3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# on voit que la valeur du patient 137 a bien été corrigée}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Analyses univariées}\label{analyses-univariuxe9es}
+
+\subsection{\texorpdfstring{fonction \texttt{summary()}}{fonction summary()}}\label{fonction-summary}
+
+Nous pouvons utiliser la fonction \texttt{summary()} pour obtenir de manière synthétique une description univariée de l'ensemble des variables, indiquant : les valeurs minimales et maximales, quartiles et médiane, et la valeur moyenne.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(df\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      subjid            sex            imc            trait      
+##  Min.   :  1.00   Min.   :0.00   Min.   :15.40   Min.   :1.000  
+##  1st Qu.: 75.75   1st Qu.:0.00   1st Qu.:22.30   1st Qu.:1.000  
+##  Median :150.50   Median :0.00   Median :24.60   Median :2.000  
+##  Mean   :150.50   Mean   :0.49   Mean   :24.48   Mean   :1.897  
+##  3rd Qu.:225.25   3rd Qu.:1.00   3rd Qu.:26.40   3rd Qu.:3.000  
+##  Max.   :300.00   Max.   :1.00   Max.   :32.50   Max.   :3.000  
+##       pas           obesite            imc_cl     
+##  Min.   : 92.0   Min.   :0.00000   Min.   :1.000  
+##  1st Qu.:125.0   1st Qu.:0.00000   1st Qu.:2.000  
+##  Median :138.0   Median :0.00000   Median :2.000  
+##  Mean   :137.1   Mean   :0.04333   Mean   :2.453  
+##  3rd Qu.:149.0   3rd Qu.:0.00000   3rd Qu.:3.000  
+##  Max.   :177.0   Max.   :1.00000   Max.   :4.000
+\end{verbatim}
+
+Les variables de la base \texttt{df\_1} sont toutes codées en valeurs numériques, la fonction summary a donc décrit les variables qualitatives comme s'il s'agissait de variables quantitatives : ce n'est pas adapté.
+
+Nous allons créer 2 nouvelles variables en \texttt{factor} à partir des variables qualitatives. Pour cela, nous allons également nous servir des informations indiquées dans la base de méta-données. Puis nous allons relancer la fonction \texttt{summary()} :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# création de 2 variables de type "factor" à partir des variables sex et trait}
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{sexL }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sex,}
+                    \AttributeTok{labels =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{labs[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sex"}\NormalTok{])}
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{traitL }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{trait,}
+                      \AttributeTok{labels =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{labs[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"trait"}\NormalTok{])}
+\FunctionTok{summary}\NormalTok{(df\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      subjid            sex            imc            trait      
+##  Min.   :  1.00   Min.   :0.00   Min.   :15.40   Min.   :1.000  
+##  1st Qu.: 75.75   1st Qu.:0.00   1st Qu.:22.30   1st Qu.:1.000  
+##  Median :150.50   Median :0.00   Median :24.60   Median :2.000  
+##  Mean   :150.50   Mean   :0.49   Mean   :24.48   Mean   :1.897  
+##  3rd Qu.:225.25   3rd Qu.:1.00   3rd Qu.:26.40   3rd Qu.:3.000  
+##  Max.   :300.00   Max.   :1.00   Max.   :32.50   Max.   :3.000  
+##       pas           obesite            imc_cl            sexL    
+##  Min.   : 92.0   Min.   :0.00000   Min.   :1.000   Féminin :153  
+##  1st Qu.:125.0   1st Qu.:0.00000   1st Qu.:2.000   Masculin:147  
+##  Median :138.0   Median :0.00000   Median :2.000                 
+##  Mean   :137.1   Mean   :0.04333   Mean   :2.453                 
+##  3rd Qu.:149.0   3rd Qu.:0.00000   3rd Qu.:3.000                 
+##  Max.   :177.0   Max.   :1.00000   Max.   :4.000                 
+##           traitL   
+##  Placebo     :120  
+##  Traitement A: 91  
+##  Traitement B: 89  
+##                    
+##                    
+## 
+\end{verbatim}
+
+Les nouvelles variables \texttt{sexL} et \texttt{traitL} sont à présent décrites par dénombrement du nombre d'individus par modalité de réponse, de manière adaptée aux variables qualitatives.
+
+\subsection{Variables quantitatives}\label{variables-quantitatives-1}
+
+Pour décrire des variables quantitatives, on peut s'intéresser aux paramètres suivants :
+
+\begin{itemize}
+\tightlist
+\item
+  effectifs observés (non-manquants), avec les fonctions \texttt{length()} qui indique la longueur d'un vecteur, ou \texttt{nrow()} qui indique le nombre de lignes d'une base de données (ou d'une matrice)
+\item
+  moyenne, avec la fonction \texttt{mean()}
+\item
+  écart type et variance, avec les fonctions \texttt{sd()} et \texttt{var()}
+\item
+  minimum, 1er quartiles, médiane, 3ème quartile, maximum, avec les fonctions \texttt{min()}, \texttt{max()}, \texttt{median()}, \texttt{quantiles()}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Effectifs observés : }
+\DocumentationTok{\#\#\# Comme il n\textquotesingle{}y a pas de manquant dans cette base, on peut directement utiliser}
+\DocumentationTok{\#\#\# la fonction length() ou nrow() pour connaître les effectifs }
+\FunctionTok{nrow}\NormalTok{(df\_1) }\CommentTok{\# 300}
+\FunctionTok{length}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc) }\CommentTok{\# 300}
+
+\DocumentationTok{\#\#\# Pour compter les effectifs non{-}manquants, de manière explicite :}
+\FunctionTok{length}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc)]) }\CommentTok{\# 300}
+
+\DocumentationTok{\#\#\# moyennes}
+\FunctionTok{mean}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 24.481}
+\FunctionTok{mean}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 137.1133}
+
+\DocumentationTok{\#\#\# déviation standard (écart{-}type)}
+\FunctionTok{sd}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 3.069072}
+\FunctionTok{sd}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 16.82053}
+
+\DocumentationTok{\#\#\# variances}
+\FunctionTok{var}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 9.419203}
+\FunctionTok{var}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 282.9303}
+
+\DocumentationTok{\#\#\# quantiles}
+\FunctionTok{min}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 15.4}
+\FunctionTok{min}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 92}
+
+\FunctionTok{max}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 32.5}
+\FunctionTok{max}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 177}
+
+\FunctionTok{median}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 24.6}
+\FunctionTok{median}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 138}
+
+\FunctionTok{quantile}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\CommentTok{\#   0\%  25\%  50\%  75\% 100\% }
+\CommentTok{\# 15.4 22.3 24.6 26.4 32.5}
+\FunctionTok{quantile}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+  \CommentTok{\# 0\%  25\%  50\%  75\% 100\% }
+  \CommentTok{\# 92  125  138  149  177}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Programmation élémentaire}\label{programmation-uxe9luxe9mentaire}
+
+\subsubsection{Créer une nouvelle fonction}\label{cruxe9er-une-nouvelle-fonction}
+
+Il est fastidieux de devoir récupérer les différents paramètres de distribution de chaque variable, un par un !
+
+Mais R permet facilement de programmer de nouvelles fonctions ``maison'' à l'aide de \texttt{function(arguments)\ \{\ expression\ \}}, où on indique une liste d'\texttt{arguments} entre parenthèses, puis une liste de commandes à réaliser entre les accolades.
+
+Par exemple, on peut créer une nouvelle fonction \texttt{exemple\_fonction()} qui ajoute +2 à l'objet \texttt{x} :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{seq\_1a5 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{)}
+\NormalTok{exemple\_fonction }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}\FunctionTok{return}\NormalTok{(x }\SpecialCharTok{+} \DecValTok{2}\NormalTok{)\}}
+\FunctionTok{exemple\_fonction}\NormalTok{(seq\_1a5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3 4 5 6 7
+\end{verbatim}
+
+Pour accélérer notre analyse des variables quantitatives, nous allons créer \textbf{une nouvelle fonction qui va calculer d'un coup l'ensemble des paramètres qui nous intéressent}. Cette fonction sera nommée \texttt{univ\_quanti}, elle va dépendre de 3 arguments :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{x}, la variable à décrire
+\item
+  \texttt{dig}, le nombre de chiffres après la virgule pour présenter des valeurs arrondies
+\item
+  \texttt{remove\_miss}, une valeur logique qui sera utilisée pour exclure (ou non) les données manquantes du calcul (pour renseigner l'argument \texttt{na.rm} des fonctions descriptives de base)
+\end{itemize}
+
+Entre accolades, on va demander à la fonction de :
+
+\begin{itemize}
+\tightlist
+\item
+  calculer les effectifs, la moyenne, l'écart type et les quantiles, de la variable \texttt{x}
+\item
+  regrouper ces valeurs au sein d'un vecteur de réels, arrondis à \texttt{dig} chiffres après la virgule,
+\item
+  retourner le vecteur obtenu
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Définir une nouvelle fonction dans R}
+\NormalTok{univ\_quanti }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, }\CommentTok{\# la variable à décrire}
+                        \AttributeTok{dig =} \DecValTok{2}\NormalTok{, }\CommentTok{\# par défaut, 2 chiffres après la virgule}
+                        \AttributeTok{remove\_miss =} \ConstantTok{TRUE} \CommentTok{\# par défaut, la valeur est TRUE}
+\NormalTok{                        ) \{ }\CommentTok{\# fermez la parenthèse et ouvrez l\textquotesingle{}accolade}
+  \CommentTok{\# on commence par calculer les différents paramètres et on les stocke dans }
+  \CommentTok{\# les objets : "n", "moy", "sd" et "q"}
+\NormalTok{  n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(x[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(x)])     }
+\NormalTok{  moy }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm =}\NormalTok{ remove\_miss)}
+\NormalTok{  sd }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(x, }\AttributeTok{na.rm =}\NormalTok{ remove\_miss)}
+\NormalTok{  q }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(x, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{na.rm =}\NormalTok{ remove\_miss)}
+  
+  \CommentTok{\# on stocke les résultats dans un vecteur de réels, nommé "param",}
+  \CommentTok{\# en gardant uniquement la valeur arrondie pour la moyenne et l\textquotesingle{}écart{-}type}
+\NormalTok{  param }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(n, }
+             \FunctionTok{round}\NormalTok{(moy, }\AttributeTok{digits =}\NormalTok{ dig), }
+             \FunctionTok{round}\NormalTok{(sd, }\AttributeTok{digits =}\NormalTok{ dig), }
+\NormalTok{             q)}
+  \CommentTok{\# on peut ajouter un nom à chaque élément du vecteur "param"}
+  \FunctionTok{names}\NormalTok{(param) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"N"}\NormalTok{, }\StringTok{"mean"}\NormalTok{, }\StringTok{"sd"}\NormalTok{, }\StringTok{"min"}\NormalTok{, }\StringTok{"Q1"}\NormalTok{, }\StringTok{"median"}\NormalTok{, }\StringTok{"Q3"}\NormalTok{, }\StringTok{"max"}\NormalTok{)}
+  
+  \CommentTok{\# indiquer ce que doit retourner la fonction}
+  \FunctionTok{return}\NormalTok{(param) }
+\NormalTok{\} }\CommentTok{\# fermez l\textquotesingle{}accolade}
+\end{Highlighting}
+\end{Shaded}
+
+Si on applique cette fonction à nos deux variables quantitatives, on obtient l'ensemble des paramètres présentés dans un vecteur :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{univ\_quanti}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0   24.5    3.1   15.4   22.3   24.6   26.4   32.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{univ\_quanti}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas, }\AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0  137.1   16.8   92.0  125.0  138.0  149.0  177.0
+\end{verbatim}
+
+\emph{Note : Vous pouvez remarquer qu'en utilisant cette fonction, les objets \texttt{n}, \texttt{moy}, \texttt{sd}, \texttt{q} et \texttt{param} n'apparaissent pas dans l'environnement de travail, ils ont uniquement été créés de manière temporaire au sein de la fonction.}
+
+\subsubsection{Utiliser des boucles}\label{utiliser-des-boucles}
+
+Les boucles \texttt{for} dans R permettent également d'automatiser des opérations en boucle. La syntaxe d'une boucle est :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{for\ (variable\ in\ sequence)\ \{\ expession\ \}} où l'\texttt{expression} entre accolade est répétée chaque fois que la \texttt{variable} est égale à une valeur de la \texttt{sequence}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# exemple de boucle : }
+\DocumentationTok{\#\#\#  {-} pour chaque valeur i variant de 1 à 5,}
+\DocumentationTok{\#\#\#    =\textgreater{} calcule 20 + i}
+\DocumentationTok{\#\#\#    =\textgreater{} ajoute cette valeur à la fin de la phrase "calcul de 20 + i = "}
+\DocumentationTok{\#\#\#    =\textgreater{} imprime le résultat à l\textquotesingle{}écran}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{) \{}
+  \FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"calcul de 20 + i = "}\NormalTok{, }\DecValTok{20} \SpecialCharTok{+}\NormalTok{ i))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "calcul de 20 + i = 21"
+## [1] "calcul de 20 + i = 22"
+## [1] "calcul de 20 + i = 23"
+## [1] "calcul de 20 + i = 24"
+## [1] "calcul de 20 + i = 25"
+\end{verbatim}
+
+On peut appliquer cette démarche pour répéter l'analyse univariée avec notre nouvelle fonction \texttt{univ\_quanti()} à nos deux variables quantitatives. Les deux variables quantitatives sont dans les colonnes 3 et 5 de la base de données.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Avec la fonction names(), on voit que les variables quantitatives imc et pas }
+\DocumentationTok{\#\#\# sont la 3ème et la 5ème variable de la base df\_1}
+\FunctionTok{names}\NormalTok{(df\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "subjid"  "sex"     "imc"     "trait"   "pas"     "obesite" "imc_cl" 
+## [8] "sexL"    "traitL"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{)) \{}
+  \FunctionTok{print}\NormalTok{(}\FunctionTok{names}\NormalTok{(df\_1)[i]) }\CommentTok{\# imprime le nom de la i{-}ème variable}
+  \CommentTok{\# puis imprime les résultats de la fonction univ\_quanti appliquée à la i{-}ème}
+  \CommentTok{\# variable de la base df\_1}
+  \FunctionTok{print}\NormalTok{(}\FunctionTok{univ\_quanti}\NormalTok{(df\_1[[i]], }\AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{)) }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "imc"
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0   24.5    3.1   15.4   22.3   24.6   26.4   32.5 
+## [1] "pas"
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0  137.1   16.8   92.0  125.0  138.0  149.0  177.0
+\end{verbatim}
+
+Question bonus : que se passe t'il si vous n'indiquez pas la fonction \texttt{print()} ?
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{réponse : il a fait tourner la fonction, mais ne l'a pas imprimé les résultats à l'écran}
+\end{itemize}
+
+\subsubsection{\texorpdfstring{Fonctions \texttt{apply()}, \texttt{lapply()}, \texttt{sapply()}}{Fonctions apply(), lapply(), sapply()}}\label{fonctions-apply-lapply-sapply}
+
+On peut également lancer une fonction de manière répétée appliquée :
+
+\begin{itemize}
+\tightlist
+\item
+  à des colonnes ou des lignes de matrices (ou de data frame) avec la fonction \texttt{apply()}
+\item
+  à des vecteurs ou des listes avec \texttt{lapply()} (qui retourne les résultats sous forme de liste) ou \texttt{sapply()} (qui retourne les résultats sous forme de matrice ou de vecteur)
+\end{itemize}
+
+\textbf{Exemple 1 :} La fonction \texttt{apply()} permet d'appliquer notre fonction de description des paramètres aux colonnes \texttt{"imc"} et \texttt{"pas"} de la la base \texttt{df\_1} (Le résultat sera une matrice de réels) :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{apply}\NormalTok{(df\_1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"imc"}\NormalTok{, }\StringTok{"pas"}\NormalTok{)], }\CommentTok{\# matrice ou data.frame sélectionnée}
+      \AttributeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\CommentTok{\# 2 = par colonne ;  1 = par ligne}
+      \AttributeTok{FUN =}\NormalTok{ univ\_quanti, }\CommentTok{\# fonction à utiliser}
+      \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\CommentTok{\# on peut ajouter les arguments de la fonction à la suite}
+      \AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          imc   pas
+## N      300.0 300.0
+## mean    24.5 137.1
+## sd       3.1  16.8
+## min     15.4  92.0
+## Q1      22.3 125.0
+## median  24.6 138.0
+## Q3      26.4 149.0
+## max     32.5 177.0
+\end{verbatim}
+
+\textbf{Exemple 2 :} La fonction \texttt{lapply()} applique la fonction à une liste de vecteurs et retourne une liste de la même longueur. La fonction \texttt{sapply()} fait la même chose, mais retourne les résultats sous forme de vecteur ou de matrice.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{lapply}\NormalTok{(}\AttributeTok{X =}\NormalTok{ df\_1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"imc"}\NormalTok{, }\StringTok{"pas"}\NormalTok{)], }
+      \AttributeTok{FUN =}\NormalTok{ univ\_quanti,  }\CommentTok{\# fonction à utiliser}
+      \AttributeTok{dig =} \DecValTok{1}\NormalTok{,}
+      \AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $imc
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0   24.5    3.1   15.4   22.3   24.6   26.4   32.5 
+## 
+## $pas
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0  137.1   16.8   92.0  125.0  138.0  149.0  177.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sapply}\NormalTok{(}\AttributeTok{X =}\NormalTok{ df\_1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"imc"}\NormalTok{, }\StringTok{"pas"}\NormalTok{)],  }
+       \AttributeTok{FUN =}\NormalTok{ univ\_quanti,  }\CommentTok{\# fonction à utiliser}
+       \AttributeTok{dig =} \DecValTok{1}\NormalTok{,}
+       \AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          imc   pas
+## N      300.0 300.0
+## mean    24.5 137.1
+## sd       3.1  16.8
+## min     15.4  92.0
+## Q1      22.3 125.0
+## median  24.6 138.0
+## Q3      26.4 149.0
+## max     32.5 177.0
+\end{verbatim}
+
+Si on veut remplacer les noms de colonnes par les noms de variables en clair, on peut utiliser la base de méta-données :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res\_quanti }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(df\_1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"imc"}\NormalTok{, }\StringTok{"pas"}\NormalTok{)],}
+                     \AttributeTok{FUN =}\NormalTok{ univ\_quanti,}
+                     \AttributeTok{dig =} \DecValTok{1}\NormalTok{)}
+\CommentTok{\# on modifie le nom des colonne de la matrice de résultats}
+\CommentTok{\# avec les informations disponibles dans les méta{-}données}
+\FunctionTok{colnames}\NormalTok{(res\_quanti) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"imc"}\NormalTok{],}
+\NormalTok{                          meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"pas"}\NormalTok{])}
+\NormalTok{res\_quanti}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        IMC (kg/m²) PAS (mmHg)
+## N            300.0      300.0
+## mean          24.5      137.1
+## sd             3.1       16.8
+## min           15.4       92.0
+## Q1            22.3      125.0
+## median        24.6      138.0
+## Q3            26.4      149.0
+## max           32.5      177.0
+\end{verbatim}
 
 \end{document}
