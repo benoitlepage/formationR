@@ -76,3 +76,15 @@ programmation-élémentaire
 créer-une-nouvelle-fonction
 utiliser-des-boucles
 fonctions-apply-lapply-sapply
+variables-qualitatives-1
+représentations-graphiques
+distributions-univariées
+distributions-bivariées
+analyses-bivariées
+variable-quantitative-times-qualitative
+variable-qualitative-times-qualitative
+comparer-2-moyennes
+comparer-3-moyennes-ou-plus
+comparer-des-pourcentages
+corrélations
+analyse-multivariée

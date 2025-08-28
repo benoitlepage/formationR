@@ -1385,7 +1385,7 @@ exemple_list
 On peut sélectionner un seul élément d'une liste : 
 
   - par indexation sur la position, avec un double crochet `[[ ]]`
-  - ou par indexation sur le nom, avec l'opérateur dollard `$` 
+  - ou par indexation sur le nom, avec l'opérateur dollar `$` 
   
 On peut sélectionner un ou plusieurs éléments d'une liste :
 
@@ -1403,11 +1403,11 @@ exemple_list[[5]]
 # [4,]    4    9
 # [5,]    5   10
 
-##  - par indexation sur le nom, avec l'opérateur dollard $
+##  - par indexation sur le nom, avec l'opérateur dollar $
 exemple_list$vect_dbl
 # [1]  1.500000  3.141593 14.000000  6.480000
 
-## l'opérateur dollard est une notation abrégée d'une indexation par le nom 
+## l'opérateur dollar est une notation abrégée d'une indexation par le nom 
 ##  entre double crochet :
 exemple_list[["vect_dbl"]]
 
@@ -1886,7 +1886,7 @@ dim(df)
 On peut sélectionner une variable en appliquant le même principe que pour sélectionner un élément d'une liste : 
 
   - par indexation du numéro de la variable entre double crochet `[[ ]]`
-  - par indexation du nom de la variable entre double crochet `[[ ]]`, ou bien en utilisant l'opérateur dollard `$` suivi du nom de variable
+  - par indexation du nom de la variable entre double crochet `[[ ]]`, ou bien en utilisant l'opérateur dollar `$` suivi du nom de variable
 ```{r df3, eval=FALSE, include=TRUE}
 ## Sélection par la position de la variable age (2ème variable de la base)
 df[[2]] 
@@ -1896,7 +1896,7 @@ df[[2]]
 df[["age"]]
 # [1] 42.5 27.9 60.0 74.5 38.0 25.2 53.4 46.6 34.2 39.6
 
-## Sélection de la variable age par l'opérateur dollard, 
+## Sélection de la variable age par l'opérateur dollar, 
 df$age # équivalent à df[["age"]]
 #[1] 42.5 27.9 60.0 74.5 38.0 25.2 53.4 46.6 34.2 39.6
 ```

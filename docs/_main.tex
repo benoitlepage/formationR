@@ -118,7 +118,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2025-08-27}
+\date{2025-08-28}
 
 \begin{document}
 \maketitle
@@ -2264,7 +2264,7 @@ On peut sélectionner un seul élément d'une liste :
 \item
   par indexation sur la position, avec un double crochet \texttt{{[}{[}\ {]}{]}}
 \item
-  ou par indexation sur le nom, avec l'opérateur dollard \texttt{\$}
+  ou par indexation sur le nom, avec l'opérateur dollar \texttt{\$}
 \end{itemize}
 
 On peut sélectionner un ou plusieurs éléments d'une liste :
@@ -2289,11 +2289,11 @@ On peut sélectionner un ou plusieurs éléments d'une liste :
 \CommentTok{\# [4,]    4    9}
 \CommentTok{\# [5,]    5   10}
 
-\DocumentationTok{\#\#  {-} par indexation sur le nom, avec l\textquotesingle{}opérateur dollard $}
+\DocumentationTok{\#\#  {-} par indexation sur le nom, avec l\textquotesingle{}opérateur dollar $}
 \NormalTok{exemple\_list}\SpecialCharTok{$}\NormalTok{vect\_dbl}
 \CommentTok{\# [1]  1.500000  3.141593 14.000000  6.480000}
 
-\DocumentationTok{\#\# l\textquotesingle{}opérateur dollard est une notation abrégée d\textquotesingle{}une indexation par le nom }
+\DocumentationTok{\#\# l\textquotesingle{}opérateur dollar est une notation abrégée d\textquotesingle{}une indexation par le nom }
 \DocumentationTok{\#\#  entre double crochet :}
 \NormalTok{exemple\_list[[}\StringTok{"vect\_dbl"}\NormalTok{]]}
 
@@ -2837,7 +2837,7 @@ On peut sélectionner une variable en appliquant le même principe que pour sél
 \item
   par indexation du numéro de la variable entre double crochet \texttt{{[}{[}\ {]}{]}}
 \item
-  par indexation du nom de la variable entre double crochet \texttt{{[}{[}\ {]}{]}}, ou bien en utilisant l'opérateur dollard \texttt{\$} suivi du nom de variable
+  par indexation du nom de la variable entre double crochet \texttt{{[}{[}\ {]}{]}}, ou bien en utilisant l'opérateur dollar \texttt{\$} suivi du nom de variable
 \end{itemize}
 
 \begin{Shaded}
@@ -2850,7 +2850,7 @@ On peut sélectionner une variable en appliquant le même principe que pour sél
 \NormalTok{df[[}\StringTok{"age"}\NormalTok{]]}
 \CommentTok{\# [1] 42.5 27.9 60.0 74.5 38.0 25.2 53.4 46.6 34.2 39.6}
 
-\DocumentationTok{\#\# Sélection de la variable age par l\textquotesingle{}opérateur dollard, }
+\DocumentationTok{\#\# Sélection de la variable age par l\textquotesingle{}opérateur dollar, }
 \NormalTok{df}\SpecialCharTok{$}\NormalTok{age }\CommentTok{\# équivalent à df[["age"]]}
 \CommentTok{\#[1] 42.5 27.9 60.0 74.5 38.0 25.2 53.4 46.6 34.2 39.6}
 \end{Highlighting}
@@ -3790,5 +3790,1008 @@ Si on veut remplacer les noms de colonnes par les noms de variables en clair, on
 ## Q3            26.4      149.0
 ## max           32.5      177.0
 \end{verbatim}
+
+\subsection{Variables qualitatives}\label{variables-qualitatives-1}
+
+Pour décrire les variables qualitatives,
+
+\begin{itemize}
+\tightlist
+\item
+  la fonction \texttt{table()} permet de décrire les effectifs dans chaque modalité de réponse,
+\item
+  la fonction \texttt{prop.table()} permet de décrire les pourcentages des données obtenues avec la fonction \texttt{table()},
+\end{itemize}
+
+On va utiliser les variables en ``facteur'' \texttt{sexL} et \texttt{traitL} dont les modalités de réponse sont labellisées.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Description de la variable sex}
+\FunctionTok{table}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL) }\CommentTok{\# retourne un vecteur avec les effectifs}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Féminin Masculin 
+##      153      147
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL)) }\CommentTok{\# retourne un vecteur avec les pourcentages}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Féminin Masculin 
+##     0.51     0.49
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# On peut combiner ces deux vecteurs avec cbind() (combinaison par colonne) }
+\DocumentationTok{\#\#\# pour les afficher dans une matrice }
+\NormalTok{tab\_sex }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL), }
+                 \FunctionTok{round}\NormalTok{(}\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL)) }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }\AttributeTok{digits =} \DecValTok{1}\NormalTok{))}
+\FunctionTok{colnames}\NormalTok{(tab\_sex) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"n"}\NormalTok{, }\StringTok{"pct"}\NormalTok{)}
+\NormalTok{tab\_sex}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            n pct
+## Féminin  153  51
+## Masculin 147  49
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# De même pour la variable traitement}
+\NormalTok{tab\_trait }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{traitL), }
+                   \FunctionTok{round}\NormalTok{(}\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{traitL)) }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }\AttributeTok{digits =} \DecValTok{1}\NormalTok{))}
+\FunctionTok{colnames}\NormalTok{(tab\_trait) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"n"}\NormalTok{, }\StringTok{"pct"}\NormalTok{)}
+\NormalTok{tab\_trait}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                n  pct
+## Placebo      120 40.0
+## Traitement A  91 30.3
+## Traitement B  89 29.7
+\end{verbatim}
+
+\section{Représentations graphiques}\label{repruxe9sentations-graphiques}
+
+Il est toujours utile de faire des représentations graphiques de la distribution des variables : cela permet d'avoir une bonne vision de l'ensemble des données et de détecter des anomalies éventuelles.
+
+\subsection{Distributions univariées}\label{distributions-univariuxe9es}
+
+La distribution des variables quantitatives peut être représentée à l'aide d'un histogramme \texttt{hist()}, d'une densité de kernel \texttt{density()} ou d'un box plot \texttt{boxplot()}.
+
+Note : On peut modifier les paramètres des graphiques avec la fonction \texttt{par}. Par exemple \texttt{mfrow()} permet de combiner des figures par lignes et par colonnes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Variables quantitatives : imc et pas}
+\DocumentationTok{\#\#\# Histogrammes }
+\FunctionTok{hist}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{xlab =} \StringTok{"IMC (kg/m²)"}\NormalTok{, }\AttributeTok{main =} \StringTok{"Histogramme de l\textquotesingle{}IMC"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph1-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas, }\AttributeTok{xlab =} \StringTok{"PAS (mmHg)"}\NormalTok{, }\AttributeTok{main =} \StringTok{"Histogramme de la PAS"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph1-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# On va afficher deux figures sur une 1 ligne et deux colonnes}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\CommentTok{\# indiquer c(X, Y) ou X = nb de lignes et Y = nb de colonnes}
+
+\DocumentationTok{\#\#\# Densités de kernel}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc), }\AttributeTok{xlab =} \StringTok{"IMC (kg/m²)"}\NormalTok{, }\AttributeTok{main =} \StringTok{"Fonction de densité {-} IMC"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas), }\AttributeTok{xlab =} \StringTok{"PAS (mmHg)"}\NormalTok{, }\AttributeTok{main =} \StringTok{"Fonction de densité {-} PAS"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph1-3.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Box plots}
+\FunctionTok{boxplot}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{main =} \StringTok{"Boxplot de l\textquotesingle{}IMC"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"IMC (kg/m²)"}\NormalTok{)}
+\FunctionTok{boxplot}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas, }\AttributeTok{main =} \StringTok{"Boxplot de la PAS"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"PAS (mmHg)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph1-4.pdf}}
+
+Les distributions des variables qualitatives peuvent être représentées par des diagrammes en barres \texttt{barplot()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Diagrammes en barres, appliqués aux "facteurs"}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\CommentTok{\# 2 figures sur une seule ligne}
+\FunctionTok{barplot}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL), }\CommentTok{\# appliquer la fonction à une table()}
+        \AttributeTok{ylab =} \StringTok{"N"}\NormalTok{,}
+        \AttributeTok{main =} \StringTok{"Diagramme en barres du traitement"}\NormalTok{) }\CommentTok{\# avec les effectifs}
+\FunctionTok{barplot}\NormalTok{(}\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL)),}
+        \AttributeTok{ylab =} \StringTok{"Frequency"}\NormalTok{,}
+        \AttributeTok{main =} \StringTok{"Diagramme en barres du traitement"}\NormalTok{) }\CommentTok{\# avec les pourcentages}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph2-1.pdf}}
+
+\subsection{Distributions bivariées}\label{distributions-bivariuxe9es}
+
+On peut croiser une variable quantitative en fonction des modalités d'une variable qualitative à l'aide de box-plots.
+
+Une bonne pratique est d'indiquer clairement le noms des axes, les titres et légendes. Pour cela, nous pouvons utiliser la base de méta-données.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Le signe "tilde" \textasciitilde{} est souvent utilisé pour définir une variable comme une }
+\DocumentationTok{\#\#\# fonction d\textquotesingle{}une ou plusieurs autres variables : }
+\DocumentationTok{\#\#\# y = f(x1, x2, x3) s\textquotesingle{}écrit y \textasciitilde{} x1 + x2 + x3}
+
+\DocumentationTok{\#\#\# PAS en fonction du sex. }
+\FunctionTok{boxplot}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{sexL, }
+        \AttributeTok{ylab =} \StringTok{"PAS (mmHg)"}\NormalTok{,}
+        \AttributeTok{xlab =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sex"} \SpecialCharTok{\&}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{id\_labs }\SpecialCharTok{==} \DecValTok{1}\NormalTok{],}
+        \AttributeTok{main =} \StringTok{"Boxplot de la PAS"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph3-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# PAS en fonction du traitement}
+\FunctionTok{boxplot}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{traitL, }
+        \AttributeTok{ylab =} \StringTok{"PAS (mmHg)"}\NormalTok{,}
+        \AttributeTok{xlab =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"trait"} \SpecialCharTok{\&}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{id\_labs }\SpecialCharTok{==} \DecValTok{1}\NormalTok{],}
+        \AttributeTok{main =} \StringTok{"Boxplot de la PAS"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph3-2.pdf}}
+
+Un nuage de points peut être utilisé pour représenter le croisement de deux variables quantitatives.
+
+R offre beaucoup de possibilités pour modifier les paramètres graphiques. L'aide \texttt{?par} indique l'ensemble des options possibles. Il difficile d'y voir clair dans cette multitude d'options, les paramètres les plus utiles sont notamment :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{col} : pour spécifier la couleur des points et des lignes. Ce paramètre se décline à la couleur des axes \texttt{col.axis}, des labels \texttt{col.lab}, des titres \texttt{col.main}, des sous-titres \texttt{col.sub}, \ldots{}
+\item
+  \texttt{pch} : pour définir le symbole des points dans les nuages de points (0 pour un carré, 1 pour un rond, 2 pour un triange, etc). Cf. le détail de l'aide de \texttt{?points()}
+\item
+  \texttt{lty} : pour spécifier le type de ligne : 0 = \emph{blank}, 1 = \emph{solid}, 2 = \emph{dashed}, etc. On peut également l'indiquer en caractère ``blank'', ``solid'', ``dashed'', \ldots. cf
+\item
+  \texttt{lwd} : pour spécifier la largeur d'une ligne
+\item
+  \texttt{cex} : valeur numérique indiquant la taille relative de la police de caractères. Elle se décline pour la police utilisée sur les axes \texttt{cex.axis}, les labels \texttt{cex.lab}, les titres \texttt{cex.main}, les sous-titres \texttt{cex.sub}, etc. Ce paramètre va également influencer la taille des points dans un nuage de points
+\item
+  \texttt{mfrom} et \texttt{mfcol} pour combiner plusieurs graphiques sur une ou plusieurs lignes et une ou plusieurs colonnes
+\item
+  \texttt{mar} : indique le nombre de ligne par marge, indiqué dans cet ordre \texttt{c(bottom,\ left,\ top,\ right)}. La valeur par défaut est \texttt{c(5,\ 4,\ 4,\ 2)\ +\ 0.1}. \texttt{mai} : permet également de préciser la taille des marges (en pouces), dans le même ordre \texttt{c(bottom,\ left,\ top,\ right)}
+\item
+  \texttt{legend} : permet d'ajouter une légende
+\item
+  etc.
+\end{itemize}
+
+La fonction exemple permet d'avoir des exemples d'utilisation paramètres graphiques : \texttt{example(mar)}, \texttt{example(line)}, \texttt{example(axis)}, \texttt{example(legend)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# On peut représenter un nuage de points de la PAS en fonction de l\textquotesingle{}IMC : }
+\DocumentationTok{\#\#\# où les hommes et les femmes ont deux symboles différents et les traitements }
+\DocumentationTok{\#\#\# deux couleurs différentes}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\CommentTok{\# pour revenir à un seul graphique par sortie}
+\FunctionTok{plot.new}\NormalTok{()}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FloatTok{0.1}\NormalTok{) }\CommentTok{\# paramètre des marges par défaut}
+\FunctionTok{plot.window}\NormalTok{(}\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{15}\NormalTok{, }\DecValTok{35}\NormalTok{), }\CommentTok{\# range(df\_1$imc)}
+            \AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{80}\NormalTok{, }\DecValTok{180}\NormalTok{)) }\CommentTok{\# range(df\_1$pas)}
+\FunctionTok{grid}\NormalTok{() }\CommentTok{\# ajoute une grille}
+\DocumentationTok{\#\#\# ajoute le nuage de points des femmes, groupe placebo}
+\FunctionTok{points}\NormalTok{(}\AttributeTok{data =} \FunctionTok{subset}\NormalTok{(df\_1, }\AttributeTok{subset =} \FunctionTok{c}\NormalTok{(sex }\SpecialCharTok{==} \StringTok{"Féminin"} \SpecialCharTok{\&}\NormalTok{ trait }\SpecialCharTok{==} \StringTok{"Placebo"}\NormalTok{)), }
+\NormalTok{       pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc, }
+       \AttributeTok{col =} \StringTok{"indianred3"}\NormalTok{, }\CommentTok{\# placebo en rouge}
+       \AttributeTok{pch =} \DecValTok{4}\NormalTok{) }\CommentTok{\# femme avec une croix}
+\CommentTok{\# ajoute le nuage de points des femmes, groupe traitement A}
+\FunctionTok{points}\NormalTok{(}\AttributeTok{data =} \FunctionTok{subset}\NormalTok{(df\_1, }\AttributeTok{subset =} \FunctionTok{c}\NormalTok{(sex }\SpecialCharTok{==} \DecValTok{0} \SpecialCharTok{\&}\NormalTok{ trait }\SpecialCharTok{==} \DecValTok{2}\NormalTok{)), }
+\NormalTok{       pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc, }
+       \AttributeTok{col =} \StringTok{"dodgerblue3"}\NormalTok{, }\CommentTok{\# traitement A en bleu}
+       \AttributeTok{pch =} \DecValTok{4}\NormalTok{) }\CommentTok{\# femme avec une croix}
+\CommentTok{\# ajoute le nuage de points des femmes, groupe traitement B}
+\FunctionTok{points}\NormalTok{(}\AttributeTok{data =} \FunctionTok{subset}\NormalTok{(df\_1, }\AttributeTok{subset =} \FunctionTok{c}\NormalTok{(sex }\SpecialCharTok{==} \DecValTok{0} \SpecialCharTok{\&}\NormalTok{ trait }\SpecialCharTok{==} \DecValTok{3}\NormalTok{)), }
+\NormalTok{       pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc, }
+       \AttributeTok{col =} \StringTok{"palegreen3"}\NormalTok{, }\CommentTok{\# traitement B en vert}
+       \AttributeTok{pch =} \DecValTok{4}\NormalTok{) }\CommentTok{\# femme avec une croix}
+\CommentTok{\# ajoute le nuage de points des hommes, groupe placebo}
+\FunctionTok{points}\NormalTok{(}\AttributeTok{data =} \FunctionTok{subset}\NormalTok{(df\_1, }\AttributeTok{subset =} \FunctionTok{c}\NormalTok{(sex }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\&}\NormalTok{ trait }\SpecialCharTok{==} \DecValTok{1}\NormalTok{)), }
+\NormalTok{       pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc, }
+       \AttributeTok{col =} \StringTok{"indianred3"}\NormalTok{, }\CommentTok{\# placebo en rouge}
+       \AttributeTok{pch =} \DecValTok{1}\NormalTok{) }\CommentTok{\# hommes avec un rond}
+\CommentTok{\# ajoute le nuage de points des hommes, groupe traitement A}
+\FunctionTok{points}\NormalTok{(}\AttributeTok{data =} \FunctionTok{subset}\NormalTok{(df\_1, }\AttributeTok{subset =} \FunctionTok{c}\NormalTok{(sex }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\&}\NormalTok{ trait }\SpecialCharTok{==} \DecValTok{2}\NormalTok{)), }
+\NormalTok{       pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc, }
+       \AttributeTok{col =} \StringTok{"dodgerblue3"}\NormalTok{, }\CommentTok{\# traitement A en bleu}
+       \AttributeTok{pch =} \DecValTok{1}\NormalTok{) }\CommentTok{\# hommes avec un rond}
+\CommentTok{\# ajoute le nuage de points des hommes, groupe traitement B}
+\FunctionTok{points}\NormalTok{(}\AttributeTok{data =} \FunctionTok{subset}\NormalTok{(df\_1, }\AttributeTok{subset =} \FunctionTok{c}\NormalTok{(sex }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\&}\NormalTok{ trait }\SpecialCharTok{==} \DecValTok{3}\NormalTok{)), }
+\NormalTok{       pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc, }
+       \AttributeTok{col =} \StringTok{"palegreen3"}\NormalTok{, }\CommentTok{\# traitement B en vert}
+       \AttributeTok{pch =} \DecValTok{1}\NormalTok{) }\CommentTok{\# hommes avec un rond}
+\FunctionTok{axis}\NormalTok{(}\DecValTok{1}\NormalTok{, }\CommentTok{\# axe du bas}
+     \AttributeTok{lwd =} \DecValTok{1}\NormalTok{, }\CommentTok{\# largeur de la ligne}
+     \AttributeTok{font.axis=}\DecValTok{1}\NormalTok{) }\CommentTok{\# taille de la police de caractère}
+\FunctionTok{axis}\NormalTok{(}\DecValTok{2}\NormalTok{, }\CommentTok{\# axe à gauche}
+     \AttributeTok{lwd =} \DecValTok{1}\NormalTok{, }\CommentTok{\# largeur de la ligne}
+     \AttributeTok{font.axis=}\DecValTok{1}\NormalTok{) }\CommentTok{\# taille de la police de caractère }
+\FunctionTok{title}\NormalTok{(}\AttributeTok{xlab =} \StringTok{"IMC (kg/m²)"}\NormalTok{)}
+\FunctionTok{title}\NormalTok{(}\AttributeTok{ylab =} \StringTok{"PAS (mmHg)"}\NormalTok{)}
+\FunctionTok{title}\NormalTok{(}\AttributeTok{main =} \StringTok{"Nuage de points de la PAS en fonction de l\textquotesingle{}IMC"}\NormalTok{)}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"bottomright"}\NormalTok{,}
+       \FunctionTok{c}\NormalTok{(}\StringTok{"Femme, P"}\NormalTok{, }\StringTok{"Femme, A"}\NormalTok{, }\StringTok{"Femme, B"}\NormalTok{, }
+         \StringTok{"Homme, P"}\NormalTok{, }\StringTok{"Homme, A"}\NormalTok{, }\StringTok{"Homme, B"}\NormalTok{), }
+       \AttributeTok{pch =} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{),}
+       \AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"indianred3"}\NormalTok{, }\StringTok{"dodgerblue3"}\NormalTok{, }\StringTok{"palegreen3"}\NormalTok{,}
+               \StringTok{"indianred3"}\NormalTok{, }\StringTok{"dodgerblue3"}\NormalTok{, }\StringTok{"palegreen3"}\NormalTok{),}
+       \AttributeTok{ncol =} \DecValTok{1}\NormalTok{, }
+       \AttributeTok{cex =} \FloatTok{0.7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph4-1.pdf}}
+Pour trouver des informations détaillées sur l'utilisation des fonction graphiques de R base, vous pouvez lire le \href{https://github.com/karoliskoncevicius/r_notes/blob/main/baseplotting.md}{tutoriel détaillé de Karolis Koncevičius}.
+
+\section{Analyses bivariées}\label{analyses-bivariuxe9es}
+
+Normalement, vous devriez savoir choisir quel test de comparaison utiliser en fonction des variables à comparer.
+
+\begin{center}\includegraphics[width=1\linewidth]{./images/tests_bivaries} \end{center}
+
+\subsection{\texorpdfstring{Variable quantitative \(\times\) qualitative}{Variable quantitative \textbackslash times qualitative}}\label{variable-quantitative-times-qualitative}
+
+Pour décrire une variable quantitative en fonction d'une variable qualitative, on peut utiliser les fonctions \texttt{aggregate()} et \texttt{tapply()}.
+
+La fonction \texttt{aggregate()} permet d'appliquer des fonctions (mean(), sd(), etc) à des sous-groupes de variables définies en facteurs.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Description de la moyenne de l\textquotesingle{}IMC et de la PAS en fonction du facteur sex}
+\FunctionTok{aggregate}\NormalTok{(}\AttributeTok{x =}\NormalTok{ df\_1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"imc"}\NormalTok{, }\StringTok{"pas"}\NormalTok{)], }\CommentTok{\# variable(s) quantitative(s)}
+          \AttributeTok{by =} \FunctionTok{list}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL), }\CommentTok{\# en fonction du "factor" sexL}
+          \AttributeTok{FUN =}\NormalTok{ mean) }\CommentTok{\# fonction à appliquer à la variable x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Group.1      imc      pas
+## 1  Féminin 24.09281 132.4248
+## 2 Masculin 24.88503 141.9932
+\end{verbatim}
+
+Pour décrire de manière synthétique, la distribution, on veut récupérer l'effectif, la moyenne et l'écart-type par groupe. Nous allons modifier la fonction ``maison'' \texttt{univ\_quanti()} que nous avions défini précédemment en ajoutant un argument \texttt{details} :
+
+\begin{itemize}
+\tightlist
+\item
+  si \texttt{details\ =\ TRUE}, alors la fonction retourne l'ensemble des résultats détaillés (effectifs, moyenne, écart-type, minimum, 1er quartile, médiane, 3ème quartile et maximum)
+\item
+  si \texttt{details\ =\ FALSE}, alors la fonction retourne uniquement les effectifs, la moyenne et l'écart-type.
+\end{itemize}
+
+Pour cela nous allons compléter la fonction avec la construction \texttt{if(condition)\ \{expression1\}\ else\ \{expression2\}} : l'expression1 est appliquée si la condition est vraie, sinon l'expression2 est appliquée.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{univ\_quanti }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, }\AttributeTok{dig =} \DecValTok{2}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{details =} \ConstantTok{TRUE}\NormalTok{) \{ }
+\NormalTok{  n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(x[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(x)])     }
+\NormalTok{  moy }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm =}\NormalTok{ remove\_miss)}
+\NormalTok{  sd }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(x, }\AttributeTok{na.rm =}\NormalTok{ remove\_miss)}
+\NormalTok{  q }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(x, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{na.rm =}\NormalTok{ remove\_miss)}
+  
+  \CommentTok{\# construction if (condition) \{expression1\} else \{expression2\}}
+  \ControlFlowTok{if}\NormalTok{ (details }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{) \{ }\CommentTok{\# si la condition entre parenthèse est vraie ...}
+\NormalTok{    param }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(n,        }\CommentTok{\# ... appliquer les fonctions entre accolades}
+               \FunctionTok{round}\NormalTok{(moy, }\AttributeTok{digits =}\NormalTok{ dig), }
+               \FunctionTok{round}\NormalTok{(sd, }\AttributeTok{digits =}\NormalTok{ dig), }
+\NormalTok{               q)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{ }\CommentTok{\# sinon appliquer les fonctions entre la 2ème accolade}
+\NormalTok{    param }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(n, }
+               \FunctionTok{round}\NormalTok{(moy, }\AttributeTok{digits =}\NormalTok{ dig), }
+               \FunctionTok{round}\NormalTok{(sd, }\AttributeTok{digits =}\NormalTok{ dig))}
+\NormalTok{  \}}
+  
+  \CommentTok{\# ajouter un nom à chaque élément du vecteur}
+  \ControlFlowTok{if}\NormalTok{ (details }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{) \{}
+    \FunctionTok{names}\NormalTok{(param) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"N"}\NormalTok{, }\StringTok{"mean"}\NormalTok{, }\StringTok{"sd"}\NormalTok{, }\StringTok{"min"}\NormalTok{, }\StringTok{"Q1"}\NormalTok{, }\StringTok{"median"}\NormalTok{, }\StringTok{"Q3"}\NormalTok{, }\StringTok{"max"}\NormalTok{)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \FunctionTok{names}\NormalTok{(param) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"N"}\NormalTok{, }\StringTok{"mean"}\NormalTok{, }\StringTok{"sd"}\NormalTok{)}
+\NormalTok{  \}}
+  
+  \CommentTok{\# retourne les résultats}
+  \FunctionTok{return}\NormalTok{(param)}
+\NormalTok{\}}
+
+\DocumentationTok{\#\#\# Description de la PAS en fonction du sexe (facteur sexL)}
+\FunctionTok{aggregate}\NormalTok{(}\AttributeTok{x =}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{pas, }
+          \AttributeTok{by =} \FunctionTok{list}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL), }
+          \AttributeTok{FUN =}\NormalTok{ univ\_quanti, }\CommentTok{\# fonction à utiliser}
+          \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{details =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Group.1   x.N x.mean  x.sd
+## 1  Féminin 153.0  132.4  16.8
+## 2 Masculin 147.0  142.0  15.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Description de la PAS en fonction du traitement (facteur traitL)}
+\FunctionTok{aggregate}\NormalTok{(}\AttributeTok{x =}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{pas, }
+          \AttributeTok{by =} \FunctionTok{list}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{traitL), }
+          \AttributeTok{FUN =}\NormalTok{ univ\_quanti, }\CommentTok{\# fonction à utiliser}
+          \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{details =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        Group.1   x.N x.mean  x.sd
+## 1      Placebo 120.0  141.4  15.6
+## 2 Traitement A  91.0  130.7  16.4
+## 3 Traitement B  89.0  137.8  17.0
+\end{verbatim}
+
+La fonction \texttt{tapply()} permet également d'appliquer une fonction selon les sous-groupes d'un facteur (indiqué en argument \texttt{INDEX}). Les résultats obtenus sont au format de liste.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Description de l\textquotesingle{}IMC en fonction du sexe (facteur sexL)}
+\FunctionTok{tapply}\NormalTok{(}\AttributeTok{X =}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{imc, }
+       \AttributeTok{INDEX =} \FunctionTok{list}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL), }\CommentTok{\# facteur à indiquer sous forme de liste.}
+       \AttributeTok{FUN =}\NormalTok{ univ\_quanti, }\CommentTok{\# fonction à utiliser sur la variable X}
+       \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{details =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $Féminin
+##     N  mean    sd 
+## 153.0  24.1   3.1 
+## 
+## $Masculin
+##     N  mean    sd 
+## 147.0  24.9   3.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Description de l\textquotesingle{}IMC en fonction du sexe (facteur sexL)}
+\FunctionTok{tapply}\NormalTok{(}\AttributeTok{X =}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{imc, }
+       \AttributeTok{INDEX =} \FunctionTok{list}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{traitL), }\CommentTok{\# facteur à indiquer sous forme de liste.}
+       \AttributeTok{FUN =}\NormalTok{ univ\_quanti, }\CommentTok{\# fonction à utiliser sur la variable X}
+       \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{details =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $Placebo
+##     N  mean    sd 
+## 120.0  24.3   2.9 
+## 
+## $`Traitement A`
+##    N mean   sd 
+## 91.0 24.8  3.0 
+## 
+## $`Traitement B`
+##    N mean   sd 
+## 89.0 24.3  3.3
+\end{verbatim}
+
+\subsection{\texorpdfstring{Variable qualitative \(\times\) qualitative}{Variable qualitative \textbackslash times qualitative}}\label{variable-qualitative-times-qualitative}
+
+On peut décrire une variable qualitative en fonction d'une autre variable qualitative avec les fonctions \texttt{table()} et \texttt{prop.table(table())}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Décrire les effectifs de la variable sexL (en lignes),}
+\DocumentationTok{\#\#\# en fonction de la variable traitL (en colonnes) avec la fonction table()}
+\DocumentationTok{\#\#\# on va stocker les résultats dans un objet "sex\_by\_trait\_N"}
+\NormalTok{sex\_by\_trait\_N }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL, df\_1}\SpecialCharTok{$}\NormalTok{traitL)}
+\NormalTok{sex\_by\_trait\_N}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           
+##            Placebo Traitement A Traitement B
+##   Féminin       57           46           50
+##   Masculin      63           45           39
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Les pourcentages peuvent être décrits avec la fonction prop.table()}
+\DocumentationTok{\#\#\# il faut préciser l\textquotesingle{}argument margin = 1 pour des pourcentages en ligne,}
+\DocumentationTok{\#\#\# ou margin = 2 pour des pourcentages en colonnes }
+\DocumentationTok{\#\#\# ou margin = NULL pour des pourcentages par cellule.}
+\DocumentationTok{\#\#\# on va stocker les pourcentage dans un objet "sex\_by\_trait\_pct"}
+\NormalTok{sex\_by\_trait\_pct }\OtherTok{\textless{}{-}} \FunctionTok{prop.table}\NormalTok{(sex\_by\_trait\_N,}
+                               \AttributeTok{margin =} \DecValTok{2}\NormalTok{) }\CommentTok{\#  \% par colonne }
+\NormalTok{sex\_by\_trait\_pct}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           
+##              Placebo Traitement A Traitement B
+##   Féminin  0.4750000    0.5054945    0.5617978
+##   Masculin 0.5250000    0.4945055    0.4382022
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# On peut combiner ces deux résultats avec la fonction paste0() qui combine}
+\DocumentationTok{\#\#\# chaque élément de 2 vecteurs}
+\NormalTok{tab\_biv\_quali }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(sex\_by\_trait\_N, }
+                        \StringTok{"("}\NormalTok{, }\FunctionTok{round}\NormalTok{(sex\_by\_trait\_pct }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }\AttributeTok{digits =} \DecValTok{1}\NormalTok{), }\StringTok{"\%)"}\NormalTok{)}
+\NormalTok{tab\_biv\_quali}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "57(47.5%)" "63(52.5%)" "46(50.5%)" "45(49.5%)" "50(56.2%)" "39(43.8%)"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# c\textquotesingle{}est devenu un vecteur atomique de caractères}
+\DocumentationTok{\#\#\# on va lui redonner les dimensions et noms des matrices initiales}
+\DocumentationTok{\#\#\# en lui redonnant les attribut dim() et dimnames() des tables initiales}
+\FunctionTok{dim}\NormalTok{(tab\_biv\_quali) }\OtherTok{\textless{}{-}} \FunctionTok{dim}\NormalTok{(sex\_by\_trait\_N)}
+\FunctionTok{dimnames}\NormalTok{(tab\_biv\_quali) }\OtherTok{\textless{}{-}} \FunctionTok{dimnames}\NormalTok{(sex\_by\_trait\_N)}
+\NormalTok{tab\_biv\_quali}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           
+##            Placebo     Traitement A Traitement B
+##   Féminin  "57(47.5%)" "46(50.5%)"  "50(56.2%)" 
+##   Masculin "63(52.5%)" "45(49.5%)"  "39(43.8%)"
+\end{verbatim}
+
+\subsection{Comparer 2 moyennes}\label{comparer-2-moyennes}
+
+On peut \textbf{comparer deux moyennes avec le test de Student} \texttt{t.test()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Comparaion de la moyenne de PAS en fonction du sexe (2 moyennes) }
+\DocumentationTok{\#\#\# par un test de Student}
+\NormalTok{ttest\_pas\_sex }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df\_1, }\CommentTok{\# préciser quelle est la base de donnée}
+\NormalTok{                        pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sexL, }\CommentTok{\# moyenne de la PAS en fonction du sexe}
+                        \AttributeTok{var.equal =} \ConstantTok{TRUE}\NormalTok{) }
+\DocumentationTok{\#\# Attention, par défaut, l\textquotesingle{}argument var.equal = FALSE}
+\CommentTok{\# il considère que l\textquotesingle{}hypothèse d\textquotesingle{}égalité des variances est fausse et applique}
+\CommentTok{\# un test de Welch qui est robuste, même en cas de variances inégales)}
+\DocumentationTok{\#\# Pour réaliser le test de Student, il faut indiquer : var.equal = TRUE}
+\NormalTok{ttest\_pas\_sex}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Two Sample t-test
+## 
+## data:  pas by sexL
+## t = -5.1297, df = 298, p-value = 5.239e-07
+## alternative hypothesis: true difference in means between group Féminin and group Masculin is not equal to 0
+## 95 percent confidence interval:
+##  -13.239193  -5.897528
+## sample estimates:
+##  mean in group Féminin mean in group Masculin 
+##               132.4248               141.9932
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Les résultats indiquent que l\textquotesingle{}on peut rejeter l\textquotesingle{}hypothèse nulle d\textquotesingle{}égalité des}
+\DocumentationTok{\#\# moyennes entre les hommes et les femmes, }
+\DocumentationTok{\#\# de manière statistiquement significative, avec une p{-}value = 5.2e{-}07}
+
+\DocumentationTok{\#\# On peut récupérer des éléments spécifiques de la liste de résultats avec }
+\DocumentationTok{\#\# l\textquotesingle{}opérateur dollar appliqué à l\textquotesingle{}objet où on stocke les résultats :}
+\NormalTok{ttest\_pas\_sex}\SpecialCharTok{$}\NormalTok{p.value }\CommentTok{\# pour récupérer uniquement la p{-}value}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.238798e-07
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ttest\_pas\_sex}\SpecialCharTok{$}\NormalTok{conf.int }\CommentTok{\# pour l\textquotesingle{}intervalle de confiance à 95\% de la différence }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -13.239193  -5.897528
+## attr(,"conf.level")
+## [1] 0.95
+\end{verbatim}
+
+Les \textbf{conditions d'application du test de Student} sont :
+
+\begin{itemize}
+\tightlist
+\item
+  l'égalité des variances
+\item
+  et la normalité de la distribution dans chaque groupe (surtout si les effectifs sont faibles). Dans notre exemple avec un effectif de 300, les résultats seront robuste même en cas d'écart à la normalité.
+\end{itemize}
+
+Pour vérifier l'égalité des variance, on peut utiliser le test de Levene \texttt{leveneTest()} qui est disponible dans le package \texttt{car} qui n'est pas chargé en mémoire. Pour pouvoir utiliser le test de Levene, il faut :
+
+\begin{itemize}
+\tightlist
+\item
+  soit commencer par charger le package avec \texttt{library(car)}, puis lancer la fonction \texttt{leveneTest()}
+\item
+  soit utiliser la syntaxe \texttt{car::leveneTest()} qui permet de lancer uniquement la fonction \texttt{leveneTest()} sans charger la totalité du package \texttt{car}.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# note : la variable en classe (sexe) doit être de type "factor"}
+\NormalTok{car}\SpecialCharTok{::}\FunctionTok{leveneTest}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df\_1, pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sexL) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(>F)
+## group   1  1.0178 0.3139
+##       298
+\end{verbatim}
+
+La p-value est égale à 0.31 : on ne rejette pas l'hypothèse nulle d'égalité des variances (par abus d'interprétation, on va considérer que la condition d'égalité des variances est vraie).
+
+Pour vérifier la normalité de la distribution de la PAS par sexe, on peut tracer la densité de kernel dans chaque sous-groupe. Voici un exemple de programmation (qui ajoute une courbe normale en pointillés rouge pour servir de référence) :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\CommentTok{\# les 2 figures seront présentées sur 1 ligne}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) \{}
+\NormalTok{  vect }\OtherTok{\textless{}{-}}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{pas[}\FunctionTok{as.integer}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL) }\SpecialCharTok{==}\NormalTok{ i]}
+  \FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(vect), }\CommentTok{\# densité de kernel }
+       \AttributeTok{main =} \FunctionTok{attributes}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL)}\SpecialCharTok{$}\NormalTok{levels[i])}
+  \FunctionTok{lines}\NormalTok{(}\AttributeTok{x =} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(vect), }\FunctionTok{max}\NormalTok{(vect), }\FunctionTok{length}\NormalTok{(}\DecValTok{50}\NormalTok{)), }\CommentTok{\# loi normale de référence}
+        \AttributeTok{y =} \FunctionTok{dnorm}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(vect), }\FunctionTok{max}\NormalTok{(vect), }\FunctionTok{length}\NormalTok{(}\DecValTok{50}\NormalTok{)),}
+                  \AttributeTok{mean =} \FunctionTok{mean}\NormalTok{(vect),}
+                  \AttributeTok{sd =} \FunctionTok{sd}\NormalTok{(vect)),}
+        \AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lty =} \StringTok{"dashed"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/bivarie7-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(vect) }\CommentTok{\# supprime l\textquotesingle{}objet "vect" qui n\textquotesingle{}est plus utile}
+\end{Highlighting}
+\end{Shaded}
+
+Ici, les distributions semblent assez proches de lois normales.
+
+\textbf{Si les conditions d'application du test de Student ne sont pas vérifiées}, on peut utiliser le test des rangs de Wilcoxon-Mann-Whitney \texttt{wilcox.test()} ).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{wilcox.test}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df\_1, pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sex) }\CommentTok{\# p{-}value = 1.529e{-}06}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  pas by sex
+## W = 7609.5, p-value = 1.29e-06
+## alternative hypothesis: true location shift is not equal to 0
+\end{verbatim}
+
+Le test de Wilcoxon rejette l'hypothèse nulle d'égalité des moyennes de PAS entre les hommes et les femmes (de manière significative, avec une p-value = 1.5e-06).
+
+\subsection{Comparer 3 moyennes ou plus}\label{comparer-3-moyennes-ou-plus}
+
+On peut \textbf{comparer 3 moyennes ou plus avec une Anova} \texttt{anova()}. Par exemple, si on compare la moyenne de PAS en fonction du traitement, l'hypothèse nulle est : \emph{``il n'existe pas de différence de moyenne de PAS entre les 3 groupes de traitement''}.
+
+Dans R, la fonction \texttt{anova()} s'applique au résultat d'un modèle linéaire. Nous allons donc d'abord estimer le modèle linéaire de la pression artérielle systolique en fonction du traitement avec la fonction \texttt{lm()} (pour \emph{linear model}). Nous pourrons également utiliser les résidus de ce modèle pour vérifier la condition de normalité. La condition d'égalité des variances pourra être vérifiée comme précédemment avec le test de Levenne.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod\_pas\_trait }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitL, }\CommentTok{\# modèle de PAS en fonction du traitement}
+                    \AttributeTok{data =}\NormalTok{ df\_1)}
+\CommentTok{\# le fait d\textquotesingle{}utiliser un "factor" (traitL) comme variable explicative}
+\CommentTok{\# va permettre à R de créer automatiquement deux indicatrices pour modéliser}
+\CommentTok{\# le traitement à 3 catégories, en prenant la première catégorie ("placebo")}
+\CommentTok{\# comme référence}
+\FunctionTok{summary}\NormalTok{(mod\_pas\_trait)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = pas ~ traitL, data = df_1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -38.747 -11.747   0.157  11.340  39.157 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)         141.400      1.486  95.182  < 2e-16 ***
+## traitLTraitement A  -10.653      2.262  -4.709 3.82e-06 ***
+## traitLTraitement B   -3.557      2.277  -1.563    0.119    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 16.27 on 297 degrees of freedom
+## Multiple R-squared:  0.07022,    Adjusted R-squared:  0.06396 
+## F-statistic: 11.22 on 2 and 297 DF,  p-value: 2.016e-05
+\end{verbatim}
+
+Le modèle linéaire indique que :
+
+\begin{itemize}
+\tightlist
+\item
+  la PAS est en moyenne de 141.4 mmHg dans le groupe de référence (placebo) avec l'intercept.
+\item
+  la PAS est plus faible de -10.7 mmHg en moyenne dans le groupe ``traitement A'' par rapport au placebo (de manière significative, p = 3.8e-06)
+\item
+  la PAS est plus faible de -3.6 mmHg en moyenne dans le groupe ``traitement B'' par rapport au placebo (de manière non significative, p = 0.12)
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On applique ensuite ce modèle linéaire à la fonction anova}
+\DocumentationTok{\#\# qui va retourner une table d\textquotesingle{}Anova avec les différentes sources de }
+\DocumentationTok{\#\# variabilité, degrés de liberté, sommes des carrés, carrés moyens, }
+\DocumentationTok{\#\# statistique F du test de Fisher et p{-}value.}
+\NormalTok{anova\_pas\_trait }\OtherTok{\textless{}{-}} \FunctionTok{anova}\NormalTok{(mod\_pas\_trait) }
+\NormalTok{anova\_pas\_trait}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Response: pas
+##            Df Sum Sq Mean Sq F value    Pr(>F)    
+## traitL      2   5940 2970.18  11.215 2.016e-05 ***
+## Residuals 297  78656  264.83                      
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# on peut récupérer des résultats spécifiques avec l\textquotesingle{}opérateur dollar}
+\NormalTok{anova\_pas\_trait}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} \CommentTok{\# récupère uniquement la p{-}value}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.015778e-05           NA
+\end{verbatim}
+
+On peut vérifier la condition d'égalité des variances avec un test de Levenne :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{car}\SpecialCharTok{::}\FunctionTok{leveneTest}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df\_1, pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitL) }\CommentTok{\# p = 0.4703   OK}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(>F)
+## group   2  0.6669  0.514
+##       297
+\end{verbatim}
+
+On ne rejette pas l'hypothèse nulle d'égalité des variances, car la p-value n'est pas significative (p = 0.51). Par abus d'interprétation, on considère que les variances sont égales.
+
+Pour vérifier la condition de normalité, on va évaluer la normalité des résidus du modèle linéaire.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\CommentTok{\# 2 graphiques sur 1 ligne}
+
+\DocumentationTok{\#\#\# On peut récupérer les résidus du modèle linéaire avec l\textquotesingle{}opérateur dollar}
+\DocumentationTok{\#\#\# Représenter les résidus dans un QQ{-}plot}
+\FunctionTok{qqnorm}\NormalTok{(mod\_pas\_trait}\SpecialCharTok{$}\NormalTok{residuals) }
+\FunctionTok{qqline}\NormalTok{(mod\_pas\_trait}\SpecialCharTok{$}\NormalTok{residuals)}
+
+\DocumentationTok{\#\#\# Représenter la distribution des résidus par une densité de kernel}
+\NormalTok{vect }\OtherTok{\textless{}{-}}\NormalTok{ mod\_pas\_trait}\SpecialCharTok{$}\NormalTok{residuals}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(vect), }\CommentTok{\# densité de kernel }
+     \AttributeTok{main =} \StringTok{"Residuals"}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(}\AttributeTok{x =} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(vect), }\FunctionTok{max}\NormalTok{(vect), }\FunctionTok{length}\NormalTok{(}\DecValTok{50}\NormalTok{)), }\CommentTok{\# loi normale de référence}
+      \AttributeTok{y =} \FunctionTok{dnorm}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(vect), }\FunctionTok{max}\NormalTok{(vect), }\FunctionTok{length}\NormalTok{(}\DecValTok{50}\NormalTok{)),}
+                \AttributeTok{mean =} \FunctionTok{mean}\NormalTok{(vect),}
+                \AttributeTok{sd =} \FunctionTok{sd}\NormalTok{(vect)),}
+      \AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lty =} \StringTok{"dashed"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/bivarie12-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(vect)}
+\end{Highlighting}
+\end{Shaded}
+
+La condition normalité semble acceptable.
+
+Si les variances avaient été inégales, on aurait appliqué un test de Kruskal-Wallis, avec la fonction \texttt{kruskal.test()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{kruskal.test}\NormalTok{(pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitL, }\AttributeTok{data =}\NormalTok{ df\_1) }\CommentTok{\# p{-}value = 7.336e{-}05}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  pas by traitL
+## Kruskal-Wallis chi-squared = 19.04, df = 2, p-value = 7.336e-05
+\end{verbatim}
+
+Le test de Kruskal-Wallis rejette l'hypothèse nulle d'égalité des moyenne entre les 3 groupes de traitement, de manière significative (p = 7.3e-05).
+
+\subsection{Comparer des pourcentages}\label{comparer-des-pourcentages}
+
+On peut \textbf{comparer plusieurs pourcentages avec un test du chi-2} \texttt{chisq.test()}.
+
+Par exemple, nous allons tester l'hypothèse nulle suivante :
+\_``H0 : La répartition par sexe est la même dans les 3 groupes de traitement\_''
+
+Pour répondre à la question, nous pouvons faire un test comparant le pourcentage d'hommes et de femmes au sein des 3 groupes de traitement. Nous avons déjà vu que les fonction \texttt{table()} et \texttt{prop.table(table())} permettaient de décrire la répartition du traitement en fonction du sexe.
+
+La fonction \texttt{chisq.test()} va s'appliquer à un tableau croisé des effectifs par traiement et par sexe. On rappelle que les conditions d'application à vérifier sont que tous les effectifs attendus doivent être \(\geq 5\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Appliquer un test du chi2 au tableau croisé du traitement en fonction du sex}
+\CommentTok{\# Attention, par défaut la fonction chisq.test applique la correction de Yates }
+\CommentTok{\# en indiquant correct = FALSE}
+\CommentTok{\# cette correction n\textquotesingle{}est utile que si les conditions d\textquotesingle{}application du test}
+\CommentTok{\# du chi{-}2 ne sont pas vérifiées.}
+\NormalTok{chi2 }\OtherTok{\textless{}{-}} \FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL, df\_1}\SpecialCharTok{$}\NormalTok{traitL), }
+                   \AttributeTok{correct =} \ConstantTok{FALSE}\NormalTok{) }
+\NormalTok{chi2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  table(df_1$sexL, df_1$traitL)
+## X-squared = 1.5512, df = 2, p-value = 0.4604
+\end{verbatim}
+
+D'après ces résultats, on ne rejette pas l'hypothèse nulle d'égalité de la répartition par sexe dans les 3 groupes de traitement (p = 0.46)
+
+Pour récupérer la table des effectifs attendus et vérifier les conditions d'application, on peut utiliser l'opérateur dollar \texttt{\$expected} :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{chi2}\SpecialCharTok{$}\NormalTok{expected}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           
+##            Placebo Traitement A Traitement B
+##   Féminin     61.2        46.41        45.39
+##   Masculin    58.8        44.59        43.61
+\end{verbatim}
+
+On voit que la condition d'application est vérifiée car tous les effectifs attendus sont \(\geq 5\).
+
+Si les conditions n'avaient pas été vérifiées, on aurait pu appliquer un test exact de Fisher \texttt{fisher.test()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{fisher.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sexL, df\_1}\SpecialCharTok{$}\NormalTok{traitL))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Fisher's Exact Test for Count Data
+## 
+## data:  table(df_1$sexL, df_1$traitL)
+## p-value = 0.4536
+## alternative hypothesis: two.sided
+\end{verbatim}
+
+D'après le test exact de Fisher, on ne peut pas rejetter l'hypothèse nulle d'égalité de la répartition par sexe dans les 3 groupes de traitement.
+
+\subsection{Corrélations}\label{corruxe9lations}
+
+On peut calculer les \textbf{corrélations de Pearson et de Spearman} entre la PAS et l'IMC avec la fonction \texttt{cor()}. La fonction \texttt{cor.test()} teste l'hypothèse nulle \(H0: \rho = 0\) (elle recalcule également le coefficient de corrélation ainsi qu'un intervalle de confiance). Au sein de ces deux fonctions, vous pouvez préciser si vous souhaiter calculer et tester une corrélation de Pearson ou de Spearman avec l'argument \texttt{method}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Estimer puis tester une corrélation de Pearson entre PAS et IMC}
+\NormalTok{rho\_pearson }\OtherTok{\textless{}{-}} \FunctionTok{cor.test}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, df\_1}\SpecialCharTok{$}\NormalTok{pas, }\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{) }
+\NormalTok{rho\_pearson}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's product-moment correlation
+## 
+## data:  df_1$imc and df_1$pas
+## t = 3.8534, df = 298, p-value = 0.0001427
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.1072647 0.3231284
+## sample estimates:
+##       cor 
+## 0.2178593
+\end{verbatim}
+
+Le coefficient de corrélation de Pearson est \(\rho_1 = 0.218\), il est signficativement différent de 0 (p=0.00014).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Estimer puis tester une corrélation de Pearson entre PAS et IMC}
+\NormalTok{rho\_spearm }\OtherTok{\textless{}{-}} \FunctionTok{cor.test}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, df\_1}\SpecialCharTok{$}\NormalTok{pas, }\AttributeTok{method =} \StringTok{"spearman"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in cor.test.default(df_1$imc, df_1$pas, method = "spearman"):
+## Impossible de calculer la p-value exacte avec des ex-aequos
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rho\_spearm}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Spearman's rank correlation rho
+## 
+## data:  df_1$imc and df_1$pas
+## S = 3522826, p-value = 0.0001503
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##      rho 
+## 0.217141
+\end{verbatim}
+
+Le coefficient de corrélation de Spearmon est \(\rho_2 = 0.217\), il est signficativement différent de 0 (p=0.00015).
+
+\section{Analyse multivariée}\label{analyse-multivariuxe9e}
+
+Nous allons estimer un modèle multivarié de la moyenne de pression artérielle systolique, en fonction du traitement, ajusté sur le sexe et l'IMC.
+
+Pour cela nous allons utiliser la fonction \texttt{lm()} (\emph{linear model}) :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitL }\SpecialCharTok{+}\NormalTok{ sexL }\SpecialCharTok{+}\NormalTok{ imc, }
+            \AttributeTok{data =}\NormalTok{ df\_1)}
+\FunctionTok{summary}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = pas ~ traitL + sexL + imc, data = df_1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -38.871 -10.083  -0.342  10.941  41.171 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)        109.5668     7.1403  15.345  < 2e-16 ***
+## traitLTraitement A -10.9623     2.1246  -5.160 4.55e-07 ***
+## traitLTraitement B  -2.8373     2.1374  -1.327 0.185388    
+## sexLMasculin         8.5634     1.7796   4.812 2.39e-06 ***
+## imc                  1.1240     0.2904   3.870 0.000134 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 15.24 on 295 degrees of freedom
+## Multiple R-squared:  0.1902, Adjusted R-squared:  0.1792 
+## F-statistic: 17.32 on 4 and 295 DF,  p-value: 8.911e-13
+\end{verbatim}
+
+Après ajustement sur le sexe et l'IMC, on observe que :
+
+\begin{itemize}
+\tightlist
+\item
+  la PAS était en moyenne inférieure de -11.0 mmHg dans le groupe traitement A par rapport au groupe placebo, de manière significative (p=4.6e-07),
+\item
+  la PAS était en moyenne inférieure de -2.8 mmHg dans le groupe traitement B par rapport au groupe placebo, de manière non-significative (p=0.19).
+\end{itemize}
+
+Pour vérifier les conditions d'application, la méthode la plus classique est de représenter le nuage de points des résidus en fonction des valeurs prédites par le modèle. On peut se servir de l'opérateur dollar pour récupérer :
+
+\begin{itemize}
+\tightlist
+\item
+  les résidus du modèle \texttt{model\$residuals}
+\item
+  les valeurs prédites par le modèle \texttt{model\$fitted.values}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\CommentTok{\# 1 figure sur 1 ligne et 1 colonne}
+
+\CommentTok{\# la fonction suivant trace une courbe lissée (loess) }
+\CommentTok{\# au milieu d\textquotesingle{}un nuage de points}
+\FunctionTok{scatter.smooth}\NormalTok{(model}\SpecialCharTok{$}\NormalTok{fitted.values, model}\SpecialCharTok{$}\NormalTok{residuals, }
+               \AttributeTok{lpars =} \FunctionTok{list}\NormalTok{(}\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{lty =} \DecValTok{1}\NormalTok{), }
+               \AttributeTok{xlab =} \StringTok{"Valeurs prédites"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Résidus"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =} \DecValTok{0}\NormalTok{, }\CommentTok{\# ajoute une ligne horizontale en 0}
+       \AttributeTok{lwd =} \FloatTok{0.5}\NormalTok{, }\CommentTok{\# largeur de ligne (line width)}
+       \AttributeTok{lty =} \DecValTok{2}\NormalTok{) }\CommentTok{\# type de ligne = pointillé}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/multi2-1.pdf}}
+
+De manière encore plus automatisée, la commande \texttt{plot(model)} permet d'obtenir une série de 4 graphiques de diagnostic post-estimation d'un modèle de régression linéaire (tapez la touche ``entrée'' 4 fois pour obtenir les graphiques) :
+
+\begin{itemize}
+\tightlist
+\item
+  le 1er graphique est le nuage de points des résidus en fonction des valeurs prédites
+\item
+  le 2ème graphique permet de vérifier la normalité des résidus standardisés
+\item
+  le 3ème graphique est le nuage de points de la racine carrée des résidus standardisés en fonction des valeurs prédites
+\item
+  le 4ème graphique le nuage de points des résidus standardisés en fonction des distances de Cook (pour évaluer l'effet levier)
+\end{itemize}
 
 \end{document}

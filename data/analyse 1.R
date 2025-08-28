@@ -547,14 +547,14 @@ aggregate(x = df_1[,c("imc", "pas")],
 
 # on modifie la fonction de calcul de paramètres en ajoutant un argument
 # qui va calculer ou non les quantiles selon un argument VRAI/FAUX :
-univ_quanti <- function(x, dig = 2, remove_miss = TRUE, quantiles = TRUE) { 
+univ_quanti <- function(x, dig = 2, remove_miss = TRUE, details = TRUE) { 
   n <- length(x[!is.na(x)])     # table(!is.na(x))["TRUE"]
   moy <- mean(x, na.rm = remove_miss)
   sd <- sd(x, na.rm = remove_miss)
   q <- quantile(x, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = remove_miss)
   
   # on stocke les résultat dans un vecteur de réels 
-  if (quantiles == TRUE) {
+  if (details == TRUE) {
     param <- c(n, 
                round(moy, digits = dig), 
                round(sd, digits = dig), 
@@ -566,7 +566,7 @@ univ_quanti <- function(x, dig = 2, remove_miss = TRUE, quantiles = TRUE) {
   }
   
   # on peut ajouter un nom à chaque élément du vecteur
-  if (quantiles == TRUE) {
+  if (details == TRUE) {
     names(param) <- c("N", "mean", "sd", "min", "Q1", "median", "Q3", "max")
   } else {
     names(param) <- c("N", "mean", "sd")
@@ -575,17 +575,17 @@ univ_quanti <- function(x, dig = 2, remove_miss = TRUE, quantiles = TRUE) {
   # retourne les résultats
   return(param)
 }
-univ_quanti(df_1$imc, dig = 1, remove_miss = TRUE, quantiles = TRUE)
+univ_quanti(df_1$imc, dig = 1, remove_miss = TRUE, details = TRUE)
 #     N   mean     sd    min     Q1 median     Q3    max 
 # 300.0   24.5    3.1   15.4   22.3   24.6   26.4   32.5
-univ_quanti(df_1$imc, dig = 1, remove_miss = TRUE, quantiles = FALSE)
+univ_quanti(df_1$imc, dig = 1, remove_miss = TRUE, details = FALSE)
 #     N  mean    sd 
 # 300.0  24.5   3.1
 
 imc_by_sex <- aggregate(x = df_1[,c("imc")], 
                         by = list(df_1$sexL), 
                         FUN = univ_quanti, # fonction à utiliser
-                        dig = 1, remove_miss = TRUE, quantiles = FALSE) # arguments de la fonction indiquée dans FUN
+                        dig = 1, remove_miss = TRUE, details = FALSE) # arguments de la fonction indiquée dans FUN
 imc_by_sex
 #    Group.1   x.N x.mean  x.sd
 # 1  Féminin 153.0   24.1   3.1
@@ -594,7 +594,7 @@ imc_by_sex
 pas_by_sex <- aggregate(x = df_1[,c("pas")], 
                         by = list(df_1$sexL), 
                         FUN = univ_quanti, # fonction à utiliser
-                        dig = 1, remove_miss = TRUE, quantiles = FALSE)
+                        dig = 1, remove_miss = TRUE, details = FALSE)
 pas_by_sex
 #    Group.1   x.N x.mean  x.sd
 # 1  Féminin 153.0  132.5  16.8
@@ -605,7 +605,7 @@ pas_by_sex
 imc_by_sex.bis <- tapply(X = df_1[,c("imc")], 
                          INDEX = list(df_1$sexL), 
                          FUN = univ_quanti, # fonction à utiliser
-                         dig = 1, remove_miss = TRUE, quantiles = FALSE) # arguments de la fonction indiquée dans FUN
+                         dig = 1, remove_miss = TRUE, details = FALSE) # arguments de la fonction indiquée dans FUN
 imc_by_sex.bis
 # $Féminin
 # N  mean    sd 
