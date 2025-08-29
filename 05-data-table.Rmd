@@ -1,0 +1,4 @@
+# Package `data.table`
+
+Le package `data.table` apporte un nouveau format de base de données (`data.table`) qui peut remplacer les formats `tibble` ou `data.frame`. Il apporte principalement un gain de performance pour la manipulation de bases de grandes dimensions. Le package apporte également une syntaxe qui peut sembler un peu plus intuitive d'utilisation que la syntaxe R base pour le data-management.
+

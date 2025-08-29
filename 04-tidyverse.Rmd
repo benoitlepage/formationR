@@ -1,0 +1,4 @@
+# Tidyverse
+Le Tidyverse est une collection de packages qui apportent de nouvelles fonctions avec une nouvelle philosophie, une nouvelle grammaire et de nouvelles structures de données, est très utilisés dans la communauté des utilisateurs de R.
+
+Nous allons reproduire les analyses R bases réalisées aux chapitres 3 et 4 avec les fonctions du Tidyverse.

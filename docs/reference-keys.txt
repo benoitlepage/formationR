@@ -101,3 +101,6 @@ comparer-3-moyennes-ou-plus-1
 comparer-des-pourcentages-1
 corrélations-1
 analyse-multivariée-1
+tidyverse
+package-data.table
+reporting
