@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Pipe natif, with() et within() | Formation R</title>
+  <meta name="description" content="Chapter 4 Pipe natif, with() et within() | Formation R" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Pipe natif, with() et within() | Formation R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Chapter 4 Pipe natif, with() et within() | Formation R" />
+  <meta name="github-repo" content="formationR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Pipe natif, with() et within() | Formation R" />
+  
+  <meta name="twitter:description" content="Chapter 4 Pipe natif, with() et within() | Formation R" />
+  
+
+<meta name="author" content="Benoît Lepage" />
+
+
+<meta name="date" content="2025-08-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="analyse-simple-en-r-base.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">formationR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Bienvenue sur cette formation au logiciel R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pourquoi-choisir-r"><i class="fa fa-check"></i><b>1.1</b> Pourquoi choisir R ?</a></li>
+<li class="chapter" data-level="1.2" data-path="03-Pipe_natif_with_within.html"><a href="#t%C3%A9l%C3%A9chargez-le-logiciel-r"><i class="fa fa-check"></i><b>1.2</b> Téléchargez le logiciel R</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#ouvrez-le-logiciel-r"><i class="fa fa-check"></i><b>1.2.1</b> Ouvrez le logiciel R</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="03-Pipe_natif_with_within.html"><a href="#t%C3%A9l%C3%A9chargez-un-ide-rstudio-recommand%C3%A9"><i class="fa fa-check"></i><b>1.3</b> Téléchargez un IDE (RStudio recommandé)</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#ouvrez-lide-rstudio"><i class="fa fa-check"></i><b>1.3.1</b> Ouvrez l’IDE RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#trouver-de-laide-sur-r"><i class="fa fa-check"></i><b>1.4</b> Trouver de l’aide sur R</a></li>
+<li class="chapter" data-level="1.5" data-path="03-Pipe_natif_with_within.html"><a href="#conventions-d%C3%A9criture"><i class="fa fa-check"></i><b>1.5</b> Conventions d’écriture</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html"><i class="fa fa-check"></i><b>2</b> Les objets dans R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#manipuler-les-objets-dans-lenvironnement"><i class="fa fa-check"></i><b>2.1</b> Manipuler les objets dans l’environnement</a></li>
+<li class="chapter" data-level="2.2" data-path="03-Pipe_natif_with_within.html"><a href="#principaux-types-de-donn%C3%A9es"><i class="fa fa-check"></i><b>2.2</b> Principaux types de données</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="03-Pipe_natif_with_within.html"><a href="#donn%C3%A9es-manquantes"><i class="fa fa-check"></i><b>2.2.1</b> Données manquantes</a></li>
+<li class="chapter" data-level="2.2.2" data-path="03-Pipe_natif_with_within.html"><a href="#d%C3%A9crire-le-type-de-lobjet-spadesuit"><i class="fa fa-check"></i><b>2.2.2</b> Décrire le type de l’objet <span class="math inline">\(\spadesuit\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="03-Pipe_natif_with_within.html"><a href="#principales-structures-de-donn%C3%A9es"><i class="fa fa-check"></i><b>2.3</b> Principales structures de données</a></li>
+<li class="chapter" data-level="2.4" data-path="03-Pipe_natif_with_within.html"><a href="#objet-%C3%A0-une-seule-valeur-scalaire-ou-texte"><i class="fa fa-check"></i><b>2.4</b> Objet à une seule valeur (scalaire ou texte)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#scalaires"><i class="fa fa-check"></i><b>2.4.1</b> Scalaires</a></li>
+<li class="chapter" data-level="2.4.2" data-path="03-Pipe_natif_with_within.html"><a href="#op%C3%A9rations-math%C3%A9matiques-sur-les-scalaires"><i class="fa fa-check"></i><b>2.4.2</b> Opérations mathématiques sur les scalaires</a></li>
+<li class="chapter" data-level="2.4.3" data-path="03-Pipe_natif_with_within.html"><a href="#concat%C3%A9nation-de-cha%C3%AEnes-de-caract%C3%A8res"><i class="fa fa-check"></i><b>2.4.3</b> Concaténation de chaînes de caractères</a></li>
+<li class="chapter" data-level="2.4.4" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#valeurs-logiques-true-et-false"><i class="fa fa-check"></i><b>2.4.4</b> Valeurs logiques <code>TRUE</code> et <code>FALSE</code></a></li>
+<li class="chapter" data-level="2.4.5" data-path="03-Pipe_natif_with_within.html"><a href="#op%C3%A9rations-sur-des-valeurs-logiques"><i class="fa fa-check"></i><b>2.4.5</b> Opérations sur des valeurs logiques</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-vecteurs-atomiques-c"><i class="fa fa-check"></i><b>2.5</b> Les vecteurs atomiques <code>c()</code></a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9ation-dun-vecteur-atomique"><i class="fa fa-check"></i><b>2.5.1</b> Création d’un vecteur atomique</a></li>
+<li class="chapter" data-level="2.5.2" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9er-une-s%C3%A9quence-de-valeurs"><i class="fa fa-check"></i><b>2.5.2</b> Créer une séquence de valeurs</a></li>
+<li class="chapter" data-level="2.5.3" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9er-un-vecteur-de-valeurs-r%C3%A9p%C3%A9t%C3%A9es"><i class="fa fa-check"></i><b>2.5.3</b> Créer un vecteur de valeurs répétées</a></li>
+<li class="chapter" data-level="2.5.4" data-path="03-Pipe_natif_with_within.html"><a href="#op%C3%A9rations-arithm%C3%A9tiques-sur-un-vecteur"><i class="fa fa-check"></i><b>2.5.4</b> Opérations arithmétiques sur un vecteur</a></li>
+<li class="chapter" data-level="2.5.5" data-path="03-Pipe_natif_with_within.html"><a href="#op%C3%A9rations-logiques-sur-un-vecteur"><i class="fa fa-check"></i><b>2.5.5</b> Opérations logiques sur un vecteur</a></li>
+<li class="chapter" data-level="2.5.6" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#principe-de-coercition"><i class="fa fa-check"></i><b>2.5.6</b> Principe de coercition</a></li>
+<li class="chapter" data-level="2.5.7" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#attributs-dun-vecteur"><i class="fa fa-check"></i><b>2.5.7</b> Attributs d’un vecteur</a></li>
+<li class="chapter" data-level="2.5.8" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#vecteurs-de-type-factor"><i class="fa fa-check"></i><b>2.5.8</b> Vecteurs de type <code>factor</code></a></li>
+<li class="chapter" data-level="2.5.9" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#vecteurs-de-type-date-ou-date-time"><i class="fa fa-check"></i><b>2.5.9</b> Vecteurs de type <code>Date</code> ou <code>Date-time</code></a></li>
+<li class="chapter" data-level="2.5.10" data-path="03-Pipe_natif_with_within.html"><a href="#s%C3%A9lection-par-indexation"><i class="fa fa-check"></i><b>2.5.10</b> Sélection par indexation</a></li>
+<li class="chapter" data-level="2.5.11" data-path="03-Pipe_natif_with_within.html"><a href="#fonctions-statistiques-pour-r%C3%A9sumer-une-s%C3%A9rie-de-valeurs"><i class="fa fa-check"></i><b>2.5.11</b> Fonctions statistiques pour résumer une série de valeurs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-listes-list"><i class="fa fa-check"></i><b>2.6</b> Les listes <code>list()</code></a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9ation-dune-liste"><i class="fa fa-check"></i><b>2.6.1</b> Création d’une liste</a></li>
+<li class="chapter" data-level="2.6.2" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#attributs-dune-liste"><i class="fa fa-check"></i><b>2.6.2</b> Attributs d’une liste</a></li>
+<li class="chapter" data-level="2.6.3" data-path="03-Pipe_natif_with_within.html"><a href="#indexation-des-%C3%A9l%C3%A9ments-dune-liste"><i class="fa fa-check"></i><b>2.6.3</b> Indexation des éléments d’une liste</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-matrices-matrix"><i class="fa fa-check"></i><b>2.7</b> Les matrices <code>matrix()</code></a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9ation-dune-matrice"><i class="fa fa-check"></i><b>2.7.1</b> Création d’une matrice</a></li>
+<li class="chapter" data-level="2.7.2" data-path="03-Pipe_natif_with_within.html"><a href="#s%C3%A9lection-par-indexation-au-sein-dune-matrice"><i class="fa fa-check"></i><b>2.7.2</b> Sélection par indexation au sein d’une matrice</a></li>
+<li class="chapter" data-level="2.7.3" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#collection-de-plusieurs-matrices-array-spadesuit"><i class="fa fa-check"></i><b>2.7.3</b> Collection de plusieurs matrices, <code>array()</code> <span class="math inline">\(\spadesuit\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="03-Pipe_natif_with_within.html"><a href="#les-bases-de-donn%C3%A9es-data.frame"><i class="fa fa-check"></i><b>2.8</b> Les bases de données <code>data.frame()</code></a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9ation-dun-data-frame"><i class="fa fa-check"></i><b>2.8.1</b> Création d’un <em>data frame</em></a></li>
+<li class="chapter" data-level="2.8.2" data-path="03-Pipe_natif_with_within.html"><a href="#s%C3%A9lection-par-indexation-1"><i class="fa fa-check"></i><b>2.8.2</b> Sélection par indexation</a></li>
+<li class="chapter" data-level="2.8.3" data-path="03-Pipe_natif_with_within.html"><a href="#autres-formats-de-bases-de-donn%C3%A9es"><i class="fa fa-check"></i><b>2.8.3</b> Autres formats de bases de données</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html"><i class="fa fa-check"></i><b>3</b> Analyse simple en R base</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="03-Pipe_natif_with_within.html"><a href="#pr%C3%A9parer-un-dossier-de-travail"><i class="fa fa-check"></i><b>3.1</b> Préparer un dossier de travail</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#projet-r"><i class="fa fa-check"></i><b>3.1.1</b> Projet R</a></li>
+<li class="chapter" data-level="3.1.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#structurer-un-script-danalyse"><i class="fa fa-check"></i><b>3.1.2</b> Structurer un script d’analyse</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="03-Pipe_natif_with_within.html"><a href="#importer-une-base-de-donn%C3%A9es"><i class="fa fa-check"></i><b>3.2</b> Importer une base de données</a></li>
+<li class="chapter" data-level="3.3" data-path="03-Pipe_natif_with_within.html"><a href="#examiner-les-donn%C3%A9es-et-les-m%C3%A9ta-donn%C3%A9es"><i class="fa fa-check"></i><b>3.3</b> Examiner les données et les méta-données</a></li>
+<li class="chapter" data-level="3.4" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9er-ou-modifier-une-variable"><i class="fa fa-check"></i><b>3.4</b> Créer ou modifier une variable</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9er-des-variables"><i class="fa fa-check"></i><b>3.4.1</b> Créer des variables</a></li>
+<li class="chapter" data-level="3.4.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#modifier-des-variables"><i class="fa fa-check"></i><b>3.4.2</b> Modifier des variables</a></li>
+<li class="chapter" data-level="3.4.3" data-path="03-Pipe_natif_with_within.html"><a href="#sauvegarder-la-base-de-donn%C3%A9es"><i class="fa fa-check"></i><b>3.4.3</b> Sauvegarder la base de données</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="03-Pipe_natif_with_within.html"><a href="#analyses-univari%C3%A9es"><i class="fa fa-check"></i><b>3.5</b> Analyses univariées</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#fonction-summary"><i class="fa fa-check"></i><b>3.5.1</b> fonction <code>summary()</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#variables-quantitatives-1"><i class="fa fa-check"></i><b>3.5.2</b> Variables quantitatives</a></li>
+<li class="chapter" data-level="3.5.3" data-path="03-Pipe_natif_with_within.html"><a href="#programmation-%C3%A9l%C3%A9mentaire"><i class="fa fa-check"></i><b>3.5.3</b> Programmation élémentaire</a></li>
+<li class="chapter" data-level="3.5.4" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#variables-qualitatives-1"><i class="fa fa-check"></i><b>3.5.4</b> Variables qualitatives</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="03-Pipe_natif_with_within.html"><a href="#repr%C3%A9sentations-graphiques"><i class="fa fa-check"></i><b>3.6</b> Représentations graphiques</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="03-Pipe_natif_with_within.html"><a href="#distributions-univari%C3%A9es"><i class="fa fa-check"></i><b>3.6.1</b> Distributions univariées</a></li>
+<li class="chapter" data-level="3.6.2" data-path="03-Pipe_natif_with_within.html"><a href="#distributions-bivari%C3%A9es"><i class="fa fa-check"></i><b>3.6.2</b> Distributions bivariées</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="03-Pipe_natif_with_within.html"><a href="#analyses-bivari%C3%A9es"><i class="fa fa-check"></i><b>3.7</b> Analyses bivariées</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#variable-quantitative-times-qualitative"><i class="fa fa-check"></i><b>3.7.1</b> Variable quantitative <span class="math inline">\(\times\)</span> qualitative</a></li>
+<li class="chapter" data-level="3.7.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#variable-qualitative-times-qualitative"><i class="fa fa-check"></i><b>3.7.2</b> Variable qualitative <span class="math inline">\(\times\)</span> qualitative</a></li>
+<li class="chapter" data-level="3.7.3" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#comparer-2-moyennes"><i class="fa fa-check"></i><b>3.7.3</b> Comparer 2 moyennes</a></li>
+<li class="chapter" data-level="3.7.4" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#comparer-3-moyennes-ou-plus"><i class="fa fa-check"></i><b>3.7.4</b> Comparer 3 moyennes ou plus</a></li>
+<li class="chapter" data-level="3.7.5" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#comparer-des-pourcentages"><i class="fa fa-check"></i><b>3.7.5</b> Comparer des pourcentages</a></li>
+<li class="chapter" data-level="3.7.6" data-path="03-Pipe_natif_with_within.html"><a href="#corr%C3%A9lations"><i class="fa fa-check"></i><b>3.7.6</b> Corrélations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="03-Pipe_natif_with_within.html"><a href="#analyse-multivari%C3%A9e"><i class="fa fa-check"></i><b>3.8</b> Analyse multivariée</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pipe-natif-with-et-within.html"><a href="pipe-natif-with-et-within.html"><i class="fa fa-check"></i><b>4</b> Pipe natif, <code>with()</code> et <code>within()</code></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pipe-natif-with-et-within.html"><a href="pipe-natif-with-et-within.html#pipe-natif-de-r"><i class="fa fa-check"></i><b>4.1</b> Pipe natif de R</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Formation R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pipe-natif-with-et-within" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Pipe natif, <code>with()</code> et <code>within()</code><a href="pipe-natif-with-et-within.html#pipe-natif-with-et-within" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>La syntaxe de R base peut être rendue plus lisible avec le pipe natif de R <code>|&gt;</code>, ainsi que les fonctions <code>with()</code> et <code>within()</code>.</p>
+<p>Nous allons reprendre les éléments de l’analyse réalisée au chapitre 3 en utilisant cette syntaxe complémentaire.</p>
+<p>Commençons par supprimer l’ensemble des éléments de l’environnement, puis importons à nouveau les bases <code>df_1</code> et <code>meta_df_1</code> :</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="pipe-natif-with-et-within.html#cb202-1" tabindex="-1"></a><span class="do">### Vider l&#39;environnement</span></span>
+<span id="cb202-2"><a href="pipe-natif-with-et-within.html#cb202-2" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb202-3"><a href="pipe-natif-with-et-within.html#cb202-3" tabindex="-1"></a></span>
+<span id="cb202-4"><a href="pipe-natif-with-et-within.html#cb202-4" tabindex="-1"></a><span class="do">### Importer df_1 et meta_df_1</span></span>
+<span id="cb202-5"><a href="pipe-natif-with-et-within.html#cb202-5" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/df_1.csv&quot;</span>)</span>
+<span id="cb202-6"><a href="pipe-natif-with-et-within.html#cb202-6" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/meta_df_1.csv&quot;</span>)</span></code></pre></div>
+<div id="pipe-natif-de-r" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Pipe natif de R<a href="pipe-natif-with-et-within.html#pipe-natif-de-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Le principe du “pipe” est une syntaxe de programmation qui a été initialement introduite avec le package <code>maggritr</code> au sein de la famille de packages du “tidyverse”. Ce principe a été repris dans R base à partir de sa version 4.1.0.</p>
+<p>Le pipe natif s’écrit avec une barre verticale suivi d’un signe supérieur <code>|&gt;</code>.</p>
+<p>La syntaxe est la suivante :</p>
+<ul>
+<li>L’élément qui se site à gauche du pipe (LHS, <em>left hand side</em>) …</li>
+<li>… est transmis au premier argument de la fonction à droite du pipe (RDS, <em>right hand side</em>).</li>
+</ul>
+<p><code>x |&gt; funct(arguments = ...)</code> est équivalent à <code>funct(x, argument = ...)</code></p>
+<p>Par exemple :</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="pipe-natif-with-et-within.html#cb203-1" tabindex="-1"></a>df_1 <span class="sc">|&gt;</span> <span class="fu">head</span>() <span class="co"># est équivalent de head(df_1)</span></span></code></pre></div>
+<pre><code>##   subjid sex  imc trait pas
+## 1      1   0 24.8     2 140
+## 2      2   0 24.1     3 109
+## 3      3   0 26.4     1 156
+## 4      4   0 23.3     2 124
+## 5      5   0 25.4     2 131
+## 6      6   1 25.0     3 148</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="pipe-natif-with-et-within.html#cb205-1" tabindex="-1"></a>df_1 <span class="sc">|&gt;</span> <span class="fu">tail</span>()  <span class="co"># est équivalent de tail(df_1)</span></span></code></pre></div>
+<pre><code>##     subjid sex  imc trait pas
+## 295    295   1 24.1     1 148
+## 296    296   0 18.7     3 121
+## 297    297   0 23.3     3 111
+## 298    298   1 27.5     3 134
+## 299    299   1 24.7     2 158
+## 300    300   1 22.8     1 147</code></pre>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="pipe-natif-with-et-within.html#cb207-1" tabindex="-1"></a>df_1 <span class="sc">|&gt;</span> <span class="fu">str</span>() <span class="co"># est équivalent de str(df_1)</span></span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    300 obs. of  5 variables:
+##  $ subjid: int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ sex   : int  0 0 0 0 0 1 0 0 0 0 ...
+##  $ imc   : num  24.8 24.1 26.4 23.3 25.4 25 25.2 21.5 21.8 25.9 ...
+##  $ trait : int  2 3 1 2 2 3 3 3 1 1 ...
+##  $ pas   : int  140 109 156 124 131 148 125 117 132 133 ...</code></pre>
+<p>Cela permet d’avoir un code dont la décomposition est plus lisible, en enchaînant les pipes les uns après les autres :</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="pipe-natif-with-et-within.html#cb209-1" tabindex="-1"></a><span class="co"># au lieu d&#39;écrire : </span></span>
+<span id="cb209-2"><a href="pipe-natif-with-et-within.html#cb209-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">mean</span>(df_1<span class="sc">$</span>imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">digits =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 24.5</code></pre>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="pipe-natif-with-et-within.html#cb211-1" tabindex="-1"></a><span class="co"># on peut écrire, de manière équivalente, avec 2 pipes qui s&#39;enchaînent :</span></span>
+<span id="cb211-2"><a href="pipe-natif-with-et-within.html#cb211-2" tabindex="-1"></a>df_1<span class="sc">$</span>imc <span class="sc">|&gt;</span> </span>
+<span id="cb211-3"><a href="pipe-natif-with-et-within.html#cb211-3" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb211-4"><a href="pipe-natif-with-et-within.html#cb211-4" tabindex="-1"></a>  <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 24.5</code></pre>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="pipe-natif-with-et-within.html#cb213-1" tabindex="-1"></a><span class="co"># df_1$imc a été pris comme premier argument de mean(x, na.rm = TRUE)</span></span>
+<span id="cb213-2"><a href="pipe-natif-with-et-within.html#cb213-2" tabindex="-1"></a><span class="co"># puis le résultat a été pris comme premier argument de round(x, digits = 1)</span></span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="analyse-simple-en-r-base.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/benoitlepage/formationR/03-Pipe_natif_with_within.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -69,6 +69,7 @@ examiner-les-données-et-les-méta-données
 créer-ou-modifier-une-variable
 créer-des-variables
 modifier-des-variables
+sauvegarder-la-base-de-données
 analyses-univariées
 fonction-summary
 variables-quantitatives-1
@@ -88,3 +89,15 @@ comparer-3-moyennes-ou-plus
 comparer-des-pourcentages
 corrélations
 analyse-multivariée
+pipe-natif-within-et-with
+pipe-natif-de-r
+fonction-within-créermodifier-des-variables-dans-une-base-de-données
+fonction-with-analyser-des-variables-dans-une-base-de-données
+exemples-dapplications
+analyses-univariées-1
+analyses-bivariées-1
+comparer-deux-moyennes
+comparer-3-moyennes-ou-plus-1
+comparer-des-pourcentages-1
+corrélations-1
+analyse-multivariée-1

@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Pipe natif, within() et with() | Formation R</title>
+  <meta name="description" content="Chapter 4 Pipe natif, within() et with() | Formation R" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Pipe natif, within() et with() | Formation R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Chapter 4 Pipe natif, within() et with() | Formation R" />
+  <meta name="github-repo" content="formationR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Pipe natif, within() et with() | Formation R" />
+  
+  <meta name="twitter:description" content="Chapter 4 Pipe natif, within() et with() | Formation R" />
+  
+
+<meta name="author" content="Benoît Lepage" />
+
+
+<meta name="date" content="2025-08-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="analyse-simple-en-r-base.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">formationR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Bienvenue sur cette formation au logiciel R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pourquoi-choisir-r"><i class="fa fa-check"></i><b>1.1</b> Pourquoi choisir R ?</a></li>
+<li class="chapter" data-level="1.2" data-path="03-Pipe_natif_with_within.html"><a href="#t%C3%A9l%C3%A9chargez-le-logiciel-r"><i class="fa fa-check"></i><b>1.2</b> Téléchargez le logiciel R</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#ouvrez-le-logiciel-r"><i class="fa fa-check"></i><b>1.2.1</b> Ouvrez le logiciel R</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="03-Pipe_natif_with_within.html"><a href="#t%C3%A9l%C3%A9chargez-un-ide-rstudio-recommand%C3%A9"><i class="fa fa-check"></i><b>1.3</b> Téléchargez un IDE (RStudio recommandé)</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#ouvrez-lide-rstudio"><i class="fa fa-check"></i><b>1.3.1</b> Ouvrez l’IDE RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#trouver-de-laide-sur-r"><i class="fa fa-check"></i><b>1.4</b> Trouver de l’aide sur R</a></li>
+<li class="chapter" data-level="1.5" data-path="03-Pipe_natif_with_within.html"><a href="#conventions-d%C3%A9criture"><i class="fa fa-check"></i><b>1.5</b> Conventions d’écriture</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html"><i class="fa fa-check"></i><b>2</b> Les objets dans R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#manipuler-les-objets-dans-lenvironnement"><i class="fa fa-check"></i><b>2.1</b> Manipuler les objets dans l’environnement</a></li>
+<li class="chapter" data-level="2.2" data-path="03-Pipe_natif_with_within.html"><a href="#principaux-types-de-donn%C3%A9es"><i class="fa fa-check"></i><b>2.2</b> Principaux types de données</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="03-Pipe_natif_with_within.html"><a href="#donn%C3%A9es-manquantes"><i class="fa fa-check"></i><b>2.2.1</b> Données manquantes</a></li>
+<li class="chapter" data-level="2.2.2" data-path="03-Pipe_natif_with_within.html"><a href="#d%C3%A9crire-le-type-de-lobjet-spadesuit"><i class="fa fa-check"></i><b>2.2.2</b> Décrire le type de l’objet <span class="math inline">\(\spadesuit\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="03-Pipe_natif_with_within.html"><a href="#principales-structures-de-donn%C3%A9es"><i class="fa fa-check"></i><b>2.3</b> Principales structures de données</a></li>
+<li class="chapter" data-level="2.4" data-path="03-Pipe_natif_with_within.html"><a href="#objet-%C3%A0-une-seule-valeur-scalaire-ou-texte"><i class="fa fa-check"></i><b>2.4</b> Objet à une seule valeur (scalaire ou texte)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#scalaires"><i class="fa fa-check"></i><b>2.4.1</b> Scalaires</a></li>
+<li class="chapter" data-level="2.4.2" data-path="03-Pipe_natif_with_within.html"><a href="#op%C3%A9rations-math%C3%A9matiques-sur-les-scalaires"><i class="fa fa-check"></i><b>2.4.2</b> Opérations mathématiques sur les scalaires</a></li>
+<li class="chapter" data-level="2.4.3" data-path="03-Pipe_natif_with_within.html"><a href="#concat%C3%A9nation-de-cha%C3%AEnes-de-caract%C3%A8res"><i class="fa fa-check"></i><b>2.4.3</b> Concaténation de chaînes de caractères</a></li>
+<li class="chapter" data-level="2.4.4" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#valeurs-logiques-true-et-false"><i class="fa fa-check"></i><b>2.4.4</b> Valeurs logiques <code>TRUE</code> et <code>FALSE</code></a></li>
+<li class="chapter" data-level="2.4.5" data-path="03-Pipe_natif_with_within.html"><a href="#op%C3%A9rations-sur-des-valeurs-logiques"><i class="fa fa-check"></i><b>2.4.5</b> Opérations sur des valeurs logiques</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-vecteurs-atomiques-c"><i class="fa fa-check"></i><b>2.5</b> Les vecteurs atomiques <code>c()</code></a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9ation-dun-vecteur-atomique"><i class="fa fa-check"></i><b>2.5.1</b> Création d’un vecteur atomique</a></li>
+<li class="chapter" data-level="2.5.2" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9er-une-s%C3%A9quence-de-valeurs"><i class="fa fa-check"></i><b>2.5.2</b> Créer une séquence de valeurs</a></li>
+<li class="chapter" data-level="2.5.3" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9er-un-vecteur-de-valeurs-r%C3%A9p%C3%A9t%C3%A9es"><i class="fa fa-check"></i><b>2.5.3</b> Créer un vecteur de valeurs répétées</a></li>
+<li class="chapter" data-level="2.5.4" data-path="03-Pipe_natif_with_within.html"><a href="#op%C3%A9rations-arithm%C3%A9tiques-sur-un-vecteur"><i class="fa fa-check"></i><b>2.5.4</b> Opérations arithmétiques sur un vecteur</a></li>
+<li class="chapter" data-level="2.5.5" data-path="03-Pipe_natif_with_within.html"><a href="#op%C3%A9rations-logiques-sur-un-vecteur"><i class="fa fa-check"></i><b>2.5.5</b> Opérations logiques sur un vecteur</a></li>
+<li class="chapter" data-level="2.5.6" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#principe-de-coercition"><i class="fa fa-check"></i><b>2.5.6</b> Principe de coercition</a></li>
+<li class="chapter" data-level="2.5.7" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#attributs-dun-vecteur"><i class="fa fa-check"></i><b>2.5.7</b> Attributs d’un vecteur</a></li>
+<li class="chapter" data-level="2.5.8" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#vecteurs-de-type-factor"><i class="fa fa-check"></i><b>2.5.8</b> Vecteurs de type <code>factor</code></a></li>
+<li class="chapter" data-level="2.5.9" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#vecteurs-de-type-date-ou-date-time"><i class="fa fa-check"></i><b>2.5.9</b> Vecteurs de type <code>Date</code> ou <code>Date-time</code></a></li>
+<li class="chapter" data-level="2.5.10" data-path="03-Pipe_natif_with_within.html"><a href="#s%C3%A9lection-par-indexation"><i class="fa fa-check"></i><b>2.5.10</b> Sélection par indexation</a></li>
+<li class="chapter" data-level="2.5.11" data-path="03-Pipe_natif_with_within.html"><a href="#fonctions-statistiques-pour-r%C3%A9sumer-une-s%C3%A9rie-de-valeurs"><i class="fa fa-check"></i><b>2.5.11</b> Fonctions statistiques pour résumer une série de valeurs</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-listes-list"><i class="fa fa-check"></i><b>2.6</b> Les listes <code>list()</code></a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9ation-dune-liste"><i class="fa fa-check"></i><b>2.6.1</b> Création d’une liste</a></li>
+<li class="chapter" data-level="2.6.2" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#attributs-dune-liste"><i class="fa fa-check"></i><b>2.6.2</b> Attributs d’une liste</a></li>
+<li class="chapter" data-level="2.6.3" data-path="03-Pipe_natif_with_within.html"><a href="#indexation-des-%C3%A9l%C3%A9ments-dune-liste"><i class="fa fa-check"></i><b>2.6.3</b> Indexation des éléments d’une liste</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#les-matrices-matrix"><i class="fa fa-check"></i><b>2.7</b> Les matrices <code>matrix()</code></a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9ation-dune-matrice"><i class="fa fa-check"></i><b>2.7.1</b> Création d’une matrice</a></li>
+<li class="chapter" data-level="2.7.2" data-path="03-Pipe_natif_with_within.html"><a href="#s%C3%A9lection-par-indexation-au-sein-dune-matrice"><i class="fa fa-check"></i><b>2.7.2</b> Sélection par indexation au sein d’une matrice</a></li>
+<li class="chapter" data-level="2.7.3" data-path="les-objets-dans-r.html"><a href="les-objets-dans-r.html#collection-de-plusieurs-matrices-array-spadesuit"><i class="fa fa-check"></i><b>2.7.3</b> Collection de plusieurs matrices, <code>array()</code> <span class="math inline">\(\spadesuit\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="03-Pipe_natif_with_within.html"><a href="#les-bases-de-donn%C3%A9es-data.frame"><i class="fa fa-check"></i><b>2.8</b> Les bases de données <code>data.frame()</code></a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9ation-dun-data-frame"><i class="fa fa-check"></i><b>2.8.1</b> Création d’un <em>data frame</em></a></li>
+<li class="chapter" data-level="2.8.2" data-path="03-Pipe_natif_with_within.html"><a href="#s%C3%A9lection-par-indexation-1"><i class="fa fa-check"></i><b>2.8.2</b> Sélection par indexation</a></li>
+<li class="chapter" data-level="2.8.3" data-path="03-Pipe_natif_with_within.html"><a href="#autres-formats-de-bases-de-donn%C3%A9es"><i class="fa fa-check"></i><b>2.8.3</b> Autres formats de bases de données</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html"><i class="fa fa-check"></i><b>3</b> Analyse simple en R base</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="03-Pipe_natif_with_within.html"><a href="#pr%C3%A9parer-un-dossier-de-travail"><i class="fa fa-check"></i><b>3.1</b> Préparer un dossier de travail</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#projet-r"><i class="fa fa-check"></i><b>3.1.1</b> Projet R</a></li>
+<li class="chapter" data-level="3.1.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#structurer-un-script-danalyse"><i class="fa fa-check"></i><b>3.1.2</b> Structurer un script d’analyse</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="03-Pipe_natif_with_within.html"><a href="#importer-une-base-de-donn%C3%A9es"><i class="fa fa-check"></i><b>3.2</b> Importer une base de données</a></li>
+<li class="chapter" data-level="3.3" data-path="03-Pipe_natif_with_within.html"><a href="#examiner-les-donn%C3%A9es-et-les-m%C3%A9ta-donn%C3%A9es"><i class="fa fa-check"></i><b>3.3</b> Examiner les données et les méta-données</a></li>
+<li class="chapter" data-level="3.4" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9er-ou-modifier-une-variable"><i class="fa fa-check"></i><b>3.4</b> Créer ou modifier une variable</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="03-Pipe_natif_with_within.html"><a href="#cr%C3%A9er-des-variables"><i class="fa fa-check"></i><b>3.4.1</b> Créer des variables</a></li>
+<li class="chapter" data-level="3.4.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#modifier-des-variables"><i class="fa fa-check"></i><b>3.4.2</b> Modifier des variables</a></li>
+<li class="chapter" data-level="3.4.3" data-path="03-Pipe_natif_with_within.html"><a href="#sauvegarder-la-base-de-donn%C3%A9es"><i class="fa fa-check"></i><b>3.4.3</b> Sauvegarder la base de données</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="03-Pipe_natif_with_within.html"><a href="#analyses-univari%C3%A9es"><i class="fa fa-check"></i><b>3.5</b> Analyses univariées</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#fonction-summary"><i class="fa fa-check"></i><b>3.5.1</b> fonction <code>summary()</code></a></li>
+<li class="chapter" data-level="3.5.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#variables-quantitatives-1"><i class="fa fa-check"></i><b>3.5.2</b> Variables quantitatives</a></li>
+<li class="chapter" data-level="3.5.3" data-path="03-Pipe_natif_with_within.html"><a href="#programmation-%C3%A9l%C3%A9mentaire"><i class="fa fa-check"></i><b>3.5.3</b> Programmation élémentaire</a></li>
+<li class="chapter" data-level="3.5.4" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#variables-qualitatives-1"><i class="fa fa-check"></i><b>3.5.4</b> Variables qualitatives</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="03-Pipe_natif_with_within.html"><a href="#repr%C3%A9sentations-graphiques"><i class="fa fa-check"></i><b>3.6</b> Représentations graphiques</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="03-Pipe_natif_with_within.html"><a href="#distributions-univari%C3%A9es"><i class="fa fa-check"></i><b>3.6.1</b> Distributions univariées</a></li>
+<li class="chapter" data-level="3.6.2" data-path="03-Pipe_natif_with_within.html"><a href="#distributions-bivari%C3%A9es"><i class="fa fa-check"></i><b>3.6.2</b> Distributions bivariées</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="03-Pipe_natif_with_within.html"><a href="#analyses-bivari%C3%A9es"><i class="fa fa-check"></i><b>3.7</b> Analyses bivariées</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#variable-quantitative-times-qualitative"><i class="fa fa-check"></i><b>3.7.1</b> Variable quantitative <span class="math inline">\(\times\)</span> qualitative</a></li>
+<li class="chapter" data-level="3.7.2" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#variable-qualitative-times-qualitative"><i class="fa fa-check"></i><b>3.7.2</b> Variable qualitative <span class="math inline">\(\times\)</span> qualitative</a></li>
+<li class="chapter" data-level="3.7.3" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#comparer-2-moyennes"><i class="fa fa-check"></i><b>3.7.3</b> Comparer 2 moyennes</a></li>
+<li class="chapter" data-level="3.7.4" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#comparer-3-moyennes-ou-plus"><i class="fa fa-check"></i><b>3.7.4</b> Comparer 3 moyennes ou plus</a></li>
+<li class="chapter" data-level="3.7.5" data-path="analyse-simple-en-r-base.html"><a href="analyse-simple-en-r-base.html#comparer-des-pourcentages"><i class="fa fa-check"></i><b>3.7.5</b> Comparer des pourcentages</a></li>
+<li class="chapter" data-level="3.7.6" data-path="03-Pipe_natif_with_within.html"><a href="#corr%C3%A9lations"><i class="fa fa-check"></i><b>3.7.6</b> Corrélations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="03-Pipe_natif_with_within.html"><a href="#analyse-multivari%C3%A9e"><i class="fa fa-check"></i><b>3.8</b> Analyse multivariée</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pipe-natif-within-et-with.html"><a href="pipe-natif-within-et-with.html"><i class="fa fa-check"></i><b>4</b> Pipe natif, <code>within()</code> et <code>with()</code></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pipe-natif-within-et-with.html"><a href="pipe-natif-within-et-with.html#pipe-natif-de-r"><i class="fa fa-check"></i><b>4.1</b> Pipe natif de R</a></li>
+<li class="chapter" data-level="4.2" data-path="03-Pipe_natif_with_within.html"><a href="#fonction-within-cr%C3%A9ermodifier-des-variables-dans-une-base-de-donn%C3%A9es"><i class="fa fa-check"></i><b>4.2</b> Fonction <code>within()</code> : créer/modifier des variables dans une base de données</a></li>
+<li class="chapter" data-level="4.3" data-path="03-Pipe_natif_with_within.html"><a href="#fonction-with-analyser-des-variables-dans-une-base-de-donn%C3%A9es"><i class="fa fa-check"></i><b>4.3</b> Fonction <code>with()</code> : analyser des variables dans une base de données</a></li>
+<li class="chapter" data-level="4.4" data-path="pipe-natif-within-et-with.html"><a href="pipe-natif-within-et-with.html#exemples-dapplications"><i class="fa fa-check"></i><b>4.4</b> Exemples d’applications</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="03-Pipe_natif_with_within.html"><a href="#analyses-univari%C3%A9es-1"><i class="fa fa-check"></i><b>4.4.1</b> Analyses univariées</a></li>
+<li class="chapter" data-level="4.4.2" data-path="03-Pipe_natif_with_within.html"><a href="#analyses-bivari%C3%A9es-1"><i class="fa fa-check"></i><b>4.4.2</b> Analyses bivariées</a></li>
+<li class="chapter" data-level="4.4.3" data-path="03-Pipe_natif_with_within.html"><a href="#analyse-multivari%C3%A9e-1"><i class="fa fa-check"></i><b>4.4.3</b> Analyse multivariée</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Formation R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pipe-natif-within-et-with" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Pipe natif, <code>within()</code> et <code>with()</code><a href="pipe-natif-within-et-with.html#pipe-natif-within-et-with" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>La syntaxe de R base peut être rendue plus lisible avec le pipe natif de R <code>|&gt;</code>, ainsi que les fonctions <code>within()</code> et <code>with()</code>.</p>
+<p>Nous allons reprendre les éléments de l’analyse réalisée au chapitre 3 en utilisant cette syntaxe complémentaire.</p>
+<p>Commençons par supprimer l’ensemble des éléments de l’environnement, puis importons à nouveau les bases <code>df_1</code> et <code>meta_df_1</code> :</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="pipe-natif-within-et-with.html#cb202-1" tabindex="-1"></a><span class="do">### Vider l&#39;environnement</span></span>
+<span id="cb202-2"><a href="pipe-natif-within-et-with.html#cb202-2" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb202-3"><a href="pipe-natif-within-et-with.html#cb202-3" tabindex="-1"></a></span>
+<span id="cb202-4"><a href="pipe-natif-within-et-with.html#cb202-4" tabindex="-1"></a><span class="do">### Importer df_1 et meta_df_1</span></span>
+<span id="cb202-5"><a href="pipe-natif-within-et-with.html#cb202-5" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/df_1.csv&quot;</span>)</span>
+<span id="cb202-6"><a href="pipe-natif-within-et-with.html#cb202-6" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/meta_df_1.csv&quot;</span>)</span></code></pre></div>
+<div id="pipe-natif-de-r" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Pipe natif de R<a href="pipe-natif-within-et-with.html#pipe-natif-de-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Le principe du “pipe” est une syntaxe de programmation qui a été initialement introduite avec le package <code>maggritr</code> au sein de la famille de packages du “tidyverse”. Ce principe a été repris dans R base à partir de sa version 4.1.0.</p>
+<p>Le pipe natif s’écrit avec une barre verticale suivi d’un signe supérieur <code>|&gt;</code>.</p>
+<p>La syntaxe est la suivante :</p>
+<ul>
+<li>L’élément qui se site à gauche du pipe (LHS, <em>left hand side</em>) …</li>
+<li>… est transmis au premier argument de la fonction à droite du pipe (RDS, <em>right hand side</em>).</li>
+</ul>
+<p><code>x |&gt; funct(arguments = ...)</code> est équivalent à <code>funct(x, argument = ...)</code></p>
+<p>Par exemple :</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="pipe-natif-within-et-with.html#cb203-1" tabindex="-1"></a>df_1 <span class="sc">|&gt;</span> <span class="fu">head</span>() <span class="co"># est équivalent de head(df_1)</span></span></code></pre></div>
+<pre><code>##   subjid sex  imc trait pas
+## 1      1   0 24.8     2 140
+## 2      2   0 24.1     3 109
+## 3      3   0 26.4     1 156
+## 4      4   0 23.3     2 124
+## 5      5   0 25.4     2 131
+## 6      6   1 25.0     3 148</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="pipe-natif-within-et-with.html#cb205-1" tabindex="-1"></a>df_1 <span class="sc">|&gt;</span> <span class="fu">tail</span>()  <span class="co"># est équivalent de tail(df_1)</span></span></code></pre></div>
+<pre><code>##     subjid sex  imc trait pas
+## 295    295   1 24.1     1 148
+## 296    296   0 18.7     3 121
+## 297    297   0 23.3     3 111
+## 298    298   1 27.5     3 134
+## 299    299   1 24.7     2 158
+## 300    300   1 22.8     1 147</code></pre>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="pipe-natif-within-et-with.html#cb207-1" tabindex="-1"></a>df_1 <span class="sc">|&gt;</span> <span class="fu">str</span>() <span class="co"># est équivalent de str(df_1)</span></span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    300 obs. of  5 variables:
+##  $ subjid: int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ sex   : int  0 0 0 0 0 1 0 0 0 0 ...
+##  $ imc   : num  24.8 24.1 26.4 23.3 25.4 25 25.2 21.5 21.8 25.9 ...
+##  $ trait : int  2 3 1 2 2 3 3 3 1 1 ...
+##  $ pas   : int  140 109 156 124 131 148 125 117 132 133 ...</code></pre>
+<p>Cela permet d’avoir un code dont la décomposition est plus lisible, en enchaînant les pipes les uns après les autres :</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="pipe-natif-within-et-with.html#cb209-1" tabindex="-1"></a><span class="co"># au lieu d&#39;écrire : </span></span>
+<span id="cb209-2"><a href="pipe-natif-within-et-with.html#cb209-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">mean</span>(df_1<span class="sc">$</span>imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">digits =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 24.5</code></pre>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="pipe-natif-within-et-with.html#cb211-1" tabindex="-1"></a><span class="co"># on peut écrire, de manière équivalente, avec 2 pipes qui s&#39;enchaînent :</span></span>
+<span id="cb211-2"><a href="pipe-natif-within-et-with.html#cb211-2" tabindex="-1"></a>df_1<span class="sc">$</span>imc <span class="sc">|&gt;</span> </span>
+<span id="cb211-3"><a href="pipe-natif-within-et-with.html#cb211-3" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb211-4"><a href="pipe-natif-within-et-with.html#cb211-4" tabindex="-1"></a>  <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 24.5</code></pre>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="pipe-natif-within-et-with.html#cb213-1" tabindex="-1"></a><span class="co"># df_1$imc a été pris comme premier argument de mean(x, na.rm = TRUE)</span></span>
+<span id="cb213-2"><a href="pipe-natif-within-et-with.html#cb213-2" tabindex="-1"></a><span class="co"># puis le résultat a été pris comme premier argument de round(x, digits = 1)</span></span></code></pre></div>
+<p>Au lieu de “transférer” l’élément à gauche du pipe au premier argument de la fonction à droite du pipe, il est possible de le transférer à n’importe quel argument à droite du pipe à l’aide du “placeholder” <code>_</code> (<em>underscore</em>).</p>
+<p><code>x |&gt; funct(y, argument = _)</code> est équivalent à <code>funct(y, argument = x)</code>. Par exemple :</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="pipe-natif-within-et-with.html#cb214-1" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&quot;la moyenne de l&#39;IMC est &quot;</span>,</span>
+<span id="cb214-2"><a href="pipe-natif-within-et-with.html#cb214-2" tabindex="-1"></a>       <span class="fu">round</span>(<span class="fu">mean</span>(df_1<span class="sc">$</span>imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">digits =</span> <span class="dv">1</span>),</span>
+<span id="cb214-3"><a href="pipe-natif-within-et-with.html#cb214-3" tabindex="-1"></a>       <span class="st">&quot; kg/m2&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;la moyenne de l&#39;IMC est 24.5 kg/m2&quot;</code></pre>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="pipe-natif-within-et-with.html#cb216-1" tabindex="-1"></a><span class="do">### on peut placer le résultat de la moyenne arrondi en 2ème position des </span></span>
+<span id="cb216-2"><a href="pipe-natif-within-et-with.html#cb216-2" tabindex="-1"></a><span class="do">### arguments dans la fonction paste0() avec le placeholder &quot;_&quot;</span></span>
+<span id="cb216-3"><a href="pipe-natif-within-et-with.html#cb216-3" tabindex="-1"></a>df_1<span class="sc">$</span>imc <span class="sc">|&gt;</span> </span>
+<span id="cb216-4"><a href="pipe-natif-within-et-with.html#cb216-4" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb216-5"><a href="pipe-natif-within-et-with.html#cb216-5" tabindex="-1"></a>  <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb216-6"><a href="pipe-natif-within-et-with.html#cb216-6" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">&quot;la moyenne de l&#39;IMC est &quot;</span>, </span>
+<span id="cb216-7"><a href="pipe-natif-within-et-with.html#cb216-7" tabindex="-1"></a>         <span class="at">a =</span> _, <span class="co"># argument = placeholder </span></span>
+<span id="cb216-8"><a href="pipe-natif-within-et-with.html#cb216-8" tabindex="-1"></a>         <span class="st">&quot; kg/m2&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;la moyenne de l&#39;IMC est 24.5 kg/m2&quot;</code></pre>
+</div>
+<div id="fonction-within-créermodifier-des-variables-dans-une-base-de-données" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Fonction <code>within()</code> : créer/modifier des variables dans une base de données<a href="#fonction-within-cr%C3%A9ermodifier-des-variables-dans-une-base-de-donn%C3%A9es" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La fonction <code>within()</code> permet d’éviter d’utiliser l’opérateur dollar <code>$</code> lorsque vous souhaitez :</p>
+<ul>
+<li>créer de nouvelles variables dans une base de données,</li>
+<li>modifier des variables déjà existantes,</li>
+<li>transformer les données selon des tâches spécifiques.</li>
+</ul>
+<p>La syntaxe <code>within(df, newvar &lt;- ...)</code> va créer la variable <code>newvar</code> dans la base <code>df</code>. Pour sauvegarder cette nouvelle variable dans la base, il faudra assigner le résultat à la base souhaitée :</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="pipe-natif-within-et-with.html#cb218-1" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> <span class="fu">within</span>(df_1, </span>
+<span id="cb218-2"><a href="pipe-natif-within-et-with.html#cb218-2" tabindex="-1"></a>               sexL <span class="ot">&lt;-</span> <span class="fu">factor</span>(sex,</span>
+<span id="cb218-3"><a href="pipe-natif-within-et-with.html#cb218-3" tabindex="-1"></a>                              <span class="at">labels =</span> meta_df_1<span class="sc">$</span>labs[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;sex&quot;</span>]))</span>
+<span id="cb218-4"><a href="pipe-natif-within-et-with.html#cb218-4" tabindex="-1"></a><span class="do">### est équivalent : </span></span>
+<span id="cb218-5"><a href="pipe-natif-within-et-with.html#cb218-5" tabindex="-1"></a><span class="co"># df_1$sexL &lt;- factor(df_1$sex,</span></span>
+<span id="cb218-6"><a href="pipe-natif-within-et-with.html#cb218-6" tabindex="-1"></a><span class="co">#                     labels = meta_df_1$labs[meta_df_1$var == &quot;sex&quot;])</span></span></code></pre></div>
+<p>On peut créer plusieurs variables en même temps, en indiquant l’ensemble des commandes entre parenthèses (<em>note : les variables sont incluses dans l’ordre inverse de création dans la commande</em>) :</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="pipe-natif-within-et-with.html#cb219-1" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> <span class="fu">within</span>(df_1, {</span>
+<span id="cb219-2"><a href="pipe-natif-within-et-with.html#cb219-2" tabindex="-1"></a>  sexL <span class="ot">&lt;-</span> <span class="fu">factor</span>(sex, </span>
+<span id="cb219-3"><a href="pipe-natif-within-et-with.html#cb219-3" tabindex="-1"></a>                 <span class="at">labels =</span> meta_df_1<span class="sc">$</span>labs[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;sex&quot;</span>])</span>
+<span id="cb219-4"><a href="pipe-natif-within-et-with.html#cb219-4" tabindex="-1"></a>  traitL <span class="ot">&lt;-</span> <span class="fu">factor</span>(trait,</span>
+<span id="cb219-5"><a href="pipe-natif-within-et-with.html#cb219-5" tabindex="-1"></a>                   <span class="at">labels =</span> meta_df_1<span class="sc">$</span>labs[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;trait&quot;</span>])</span>
+<span id="cb219-6"><a href="pipe-natif-within-et-with.html#cb219-6" tabindex="-1"></a>  obesite <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(imc <span class="sc">&gt;=</span> <span class="dv">30</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb219-7"><a href="pipe-natif-within-et-with.html#cb219-7" tabindex="-1"></a>  imc_cl <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">nrow</span>(df_1))</span>
+<span id="cb219-8"><a href="pipe-natif-within-et-with.html#cb219-8" tabindex="-1"></a>  imc_cl[df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="fl">18.5</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb219-9"><a href="pipe-natif-within-et-with.html#cb219-9" tabindex="-1"></a>  imc_cl[df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="fl">18.5</span> <span class="sc">&amp;</span> df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="dv">25</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb219-10"><a href="pipe-natif-within-et-with.html#cb219-10" tabindex="-1"></a>  imc_cl[df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="dv">25</span> <span class="sc">&amp;</span> df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="dv">30</span>] <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb219-11"><a href="pipe-natif-within-et-with.html#cb219-11" tabindex="-1"></a>  imc_cl[df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="dv">30</span>] <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb219-12"><a href="pipe-natif-within-et-with.html#cb219-12" tabindex="-1"></a>})</span>
+<span id="cb219-13"><a href="pipe-natif-within-et-with.html#cb219-13" tabindex="-1"></a></span>
+<span id="cb219-14"><a href="pipe-natif-within-et-with.html#cb219-14" tabindex="-1"></a><span class="fu">head</span>(df_1)</span></code></pre></div>
+<pre><code>##   subjid sex  imc trait pas     sexL imc_cl obesite       traitL
+## 1      1   0 24.8     2 140  Féminin      2       0 Traitement A
+## 2      2   0 24.1     3 109  Féminin      2       0 Traitement B
+## 3      3   0 26.4     1 156  Féminin      3       0      Placebo
+## 4      4   0 23.3     2 124  Féminin      2       0 Traitement A
+## 5      5   0 25.4     2 131  Féminin      3       0 Traitement A
+## 6      6   1 25.0     3 148 Masculin      3       0 Traitement B</code></pre>
+<p>On voit que l’opérateur dollar <code>$</code> n’a été utilisé que pour aller récupérer l’information des labels dans la base de méta-données, ainsi que pour la sélection par indexation pour créer la variable <code>imc_cl</code>.</p>
+<p>On peut également modifier une variable (l’opérateur dollar <code>$</code> n’est utilisé que pour la sélection par indexation):</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="pipe-natif-within-et-with.html#cb221-1" tabindex="-1"></a><span class="do">### Remplacer la valeur de PAS de l&#39;individu n°137 par 123 mmHg :</span></span>
+<span id="cb221-2"><a href="pipe-natif-within-et-with.html#cb221-2" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> <span class="fu">within</span>(df_1,</span>
+<span id="cb221-3"><a href="pipe-natif-within-et-with.html#cb221-3" tabindex="-1"></a>               pas[df_1<span class="sc">$</span>subjid <span class="sc">==</span> <span class="dv">137</span>] <span class="ot">&lt;-</span> <span class="dv">123</span>)</span></code></pre></div>
+</div>
+<div id="fonction-with-analyser-des-variables-dans-une-base-de-données" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Fonction <code>with()</code> : analyser des variables dans une base de données<a href="#fonction-with-analyser-des-variables-dans-une-base-de-donn%C3%A9es" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La fonction <code>with()</code> permet d’éviter d’utiliser l’opérateur <code>$</code> lorsque l’on souhaite :</p>
+<ul>
+<li>faire des calculs statistiques appliqués aux variables d’une base de données</li>
+<li>faire des calculs temporaires (quand il n’y a pas besoin de modifier les données de manière permanente)</li>
+</ul>
+<p>Par exemple, pour calculer la moyenne de l’IMC dans la base df_1 :</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="pipe-natif-within-et-with.html#cb222-1" tabindex="-1"></a><span class="co"># la commande ...</span></span>
+<span id="cb222-2"><a href="pipe-natif-within-et-with.html#cb222-2" tabindex="-1"></a><span class="fu">mean</span>(df_1<span class="sc">$</span>imc) </span></code></pre></div>
+<pre><code>## [1] 24.481</code></pre>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="pipe-natif-within-et-with.html#cb224-1" tabindex="-1"></a><span class="co"># ... est équivalente à la commande </span></span>
+<span id="cb224-2"><a href="pipe-natif-within-et-with.html#cb224-2" tabindex="-1"></a><span class="fu">with</span>(df_1, <span class="fu">mean</span>(imc))</span></code></pre></div>
+<pre><code>## [1] 24.481</code></pre>
+<p>On peut combiner la fonction <code>with()</code> avec le pipe natif :</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="pipe-natif-within-et-with.html#cb226-1" tabindex="-1"></a><span class="co"># la commande suivante ...</span></span>
+<span id="cb226-2"><a href="pipe-natif-within-et-with.html#cb226-2" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&quot;la moyenne de l&#39;IMC est égale à &quot;</span>, </span>
+<span id="cb226-3"><a href="pipe-natif-within-et-with.html#cb226-3" tabindex="-1"></a>       <span class="fu">round</span>(<span class="fu">mean</span>(df_1<span class="sc">$</span>imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb226-4"><a href="pipe-natif-within-et-with.html#cb226-4" tabindex="-1"></a>             <span class="at">digits =</span> <span class="dv">1</span>),</span>
+<span id="cb226-5"><a href="pipe-natif-within-et-with.html#cb226-5" tabindex="-1"></a>       <span class="st">&quot; kg/m2&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;la moyenne de l&#39;IMC est égale à 24.5 kg/m2&quot;</code></pre>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="pipe-natif-within-et-with.html#cb228-1" tabindex="-1"></a><span class="co"># ... est équivalente à ...</span></span>
+<span id="cb228-2"><a href="pipe-natif-within-et-with.html#cb228-2" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb228-3"><a href="pipe-natif-within-et-with.html#cb228-3" tabindex="-1"></a>     imc <span class="sc">|&gt;</span> </span>
+<span id="cb228-4"><a href="pipe-natif-within-et-with.html#cb228-4" tabindex="-1"></a>       <span class="fu">mean</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb228-5"><a href="pipe-natif-within-et-with.html#cb228-5" tabindex="-1"></a>       <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb228-6"><a href="pipe-natif-within-et-with.html#cb228-6" tabindex="-1"></a>       <span class="fu">paste0</span>(<span class="st">&quot;la moyenne de l&#39;IMC est égale à &quot;</span>, </span>
+<span id="cb228-7"><a href="pipe-natif-within-et-with.html#cb228-7" tabindex="-1"></a>              <span class="at">a =</span> _, <span class="co"># résultat positionné avec le &quot;placeholder&quot; underscore</span></span>
+<span id="cb228-8"><a href="pipe-natif-within-et-with.html#cb228-8" tabindex="-1"></a>              <span class="st">&quot; kg/m2&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;la moyenne de l&#39;IMC est égale à 24.5 kg/m2&quot;</code></pre>
+</div>
+<div id="exemples-dapplications" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Exemples d’applications<a href="pipe-natif-within-et-with.html#exemples-dapplications" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Nous pouvons utiliser ces éléments de syntaxe pour les analyses réalisées au chapitre 2.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="pipe-natif-within-et-with.html#cb230-1" tabindex="-1"></a><span class="do">### On reprend notre fonction &quot;maison&quot; d&#39;analyse quantitative univariée </span></span>
+<span id="cb230-2"><a href="pipe-natif-within-et-with.html#cb230-2" tabindex="-1"></a>univ_quanti <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">dig =</span> <span class="dv">2</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>, <span class="at">details =</span> <span class="cn">TRUE</span>) { </span>
+<span id="cb230-3"><a href="pipe-natif-within-et-with.html#cb230-3" tabindex="-1"></a>  <span class="co"># calculer les effectifs, la moyenne, l&#39;écart type et les quantiles</span></span>
+<span id="cb230-4"><a href="pipe-natif-within-et-with.html#cb230-4" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x[<span class="sc">!</span><span class="fu">is.na</span>(x)])    </span>
+<span id="cb230-5"><a href="pipe-natif-within-et-with.html#cb230-5" tabindex="-1"></a>  moy <span class="ot">&lt;-</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> remove_miss)</span>
+<span id="cb230-6"><a href="pipe-natif-within-et-with.html#cb230-6" tabindex="-1"></a>  sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> remove_miss)</span>
+<span id="cb230-7"><a href="pipe-natif-within-et-with.html#cb230-7" tabindex="-1"></a>  q <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>), <span class="at">na.rm =</span> remove_miss)</span>
+<span id="cb230-8"><a href="pipe-natif-within-et-with.html#cb230-8" tabindex="-1"></a>  </span>
+<span id="cb230-9"><a href="pipe-natif-within-et-with.html#cb230-9" tabindex="-1"></a>  <span class="co"># stocker les résultat dans le vecteur &quot;param&quot;</span></span>
+<span id="cb230-10"><a href="pipe-natif-within-et-with.html#cb230-10" tabindex="-1"></a>  <span class="cf">if</span> (details <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb230-11"><a href="pipe-natif-within-et-with.html#cb230-11" tabindex="-1"></a>    param <span class="ot">&lt;-</span> <span class="fu">c</span>(n, </span>
+<span id="cb230-12"><a href="pipe-natif-within-et-with.html#cb230-12" tabindex="-1"></a>               <span class="fu">round</span>(moy, <span class="at">digits =</span> dig), </span>
+<span id="cb230-13"><a href="pipe-natif-within-et-with.html#cb230-13" tabindex="-1"></a>               <span class="fu">round</span>(sd, <span class="at">digits =</span> dig), </span>
+<span id="cb230-14"><a href="pipe-natif-within-et-with.html#cb230-14" tabindex="-1"></a>               q)</span>
+<span id="cb230-15"><a href="pipe-natif-within-et-with.html#cb230-15" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb230-16"><a href="pipe-natif-within-et-with.html#cb230-16" tabindex="-1"></a>    param <span class="ot">&lt;-</span> <span class="fu">c</span>(n, </span>
+<span id="cb230-17"><a href="pipe-natif-within-et-with.html#cb230-17" tabindex="-1"></a>               <span class="fu">round</span>(moy, <span class="at">digits =</span> dig), </span>
+<span id="cb230-18"><a href="pipe-natif-within-et-with.html#cb230-18" tabindex="-1"></a>               <span class="fu">round</span>(sd, <span class="at">digits =</span> dig))</span>
+<span id="cb230-19"><a href="pipe-natif-within-et-with.html#cb230-19" tabindex="-1"></a>  }</span>
+<span id="cb230-20"><a href="pipe-natif-within-et-with.html#cb230-20" tabindex="-1"></a>  </span>
+<span id="cb230-21"><a href="pipe-natif-within-et-with.html#cb230-21" tabindex="-1"></a>  <span class="co"># ajouter un nom à chaque élément du vecteur</span></span>
+<span id="cb230-22"><a href="pipe-natif-within-et-with.html#cb230-22" tabindex="-1"></a>  <span class="cf">if</span> (details <span class="sc">==</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb230-23"><a href="pipe-natif-within-et-with.html#cb230-23" tabindex="-1"></a>    <span class="fu">names</span>(param) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;sd&quot;</span>, <span class="st">&quot;min&quot;</span>, <span class="st">&quot;Q1&quot;</span>, <span class="st">&quot;median&quot;</span>, <span class="st">&quot;Q3&quot;</span>, <span class="st">&quot;max&quot;</span>)</span>
+<span id="cb230-24"><a href="pipe-natif-within-et-with.html#cb230-24" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb230-25"><a href="pipe-natif-within-et-with.html#cb230-25" tabindex="-1"></a>    <span class="fu">names</span>(param) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;mean&quot;</span>, <span class="st">&quot;sd&quot;</span>)</span>
+<span id="cb230-26"><a href="pipe-natif-within-et-with.html#cb230-26" tabindex="-1"></a>  }</span>
+<span id="cb230-27"><a href="pipe-natif-within-et-with.html#cb230-27" tabindex="-1"></a>  </span>
+<span id="cb230-28"><a href="pipe-natif-within-et-with.html#cb230-28" tabindex="-1"></a>  <span class="co"># retourne les résultats</span></span>
+<span id="cb230-29"><a href="pipe-natif-within-et-with.html#cb230-29" tabindex="-1"></a>  <span class="fu">return</span>(param)</span>
+<span id="cb230-30"><a href="pipe-natif-within-et-with.html#cb230-30" tabindex="-1"></a>}</span></code></pre></div>
+<div id="analyses-univariées-1" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Analyses univariées<a href="#analyses-univari%C3%A9es-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pour les variables quantitatives IMC et PAS :</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="pipe-natif-within-et-with.html#cb231-1" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb231-2"><a href="pipe-natif-within-et-with.html#cb231-2" tabindex="-1"></a>     <span class="co"># pour des analyses répétées sur plusieurs élémnets de df_1,</span></span>
+<span id="cb231-3"><a href="pipe-natif-within-et-with.html#cb231-3" tabindex="-1"></a>     <span class="co"># on peut les stocker dans une liste</span></span>
+<span id="cb231-4"><a href="pipe-natif-within-et-with.html#cb231-4" tabindex="-1"></a>     <span class="fu">list</span>(<span class="at">IMC =</span> <span class="fu">univ_quanti</span>(imc, <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>, <span class="at">details =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb231-5"><a href="pipe-natif-within-et-with.html#cb231-5" tabindex="-1"></a>          <span class="at">PAS =</span> <span class="fu">univ_quanti</span>(pas, <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>, <span class="at">details =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb231-6"><a href="pipe-natif-within-et-with.html#cb231-6" tabindex="-1"></a>     )</span></code></pre></div>
+<pre><code>## $IMC
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0   24.5    3.1   15.4   22.3   24.6   26.4   32.5 
+## 
+## $PAS
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0  137.1   16.8   92.0  125.0  138.0  149.0  177.0</code></pre>
+<p>Pour les variables qualitatives (dans leur format de facteurs <code>sexL</code> et <code>traitL</code>) :</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="pipe-natif-within-et-with.html#cb233-1" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb233-2"><a href="pipe-natif-within-et-with.html#cb233-2" tabindex="-1"></a>     <span class="fu">list</span>(<span class="at">SEX =</span> <span class="fu">cbind</span>(<span class="at">N =</span> <span class="fu">table</span>(sexL),</span>
+<span id="cb233-3"><a href="pipe-natif-within-et-with.html#cb233-3" tabindex="-1"></a>                      <span class="at">pct =</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(<span class="fu">table</span>(sexL)) <span class="sc">*</span> <span class="dv">100</span>, <span class="at">digits =</span> <span class="dv">1</span>),</span>
+<span id="cb233-4"><a href="pipe-natif-within-et-with.html#cb233-4" tabindex="-1"></a>                      <span class="at">deparse.level =</span> <span class="dv">2</span>), <span class="co"># ajoute les noms de colonnes</span></span>
+<span id="cb233-5"><a href="pipe-natif-within-et-with.html#cb233-5" tabindex="-1"></a>          <span class="at">TRAITEMENT =</span> <span class="fu">cbind</span>(<span class="at">N =</span> <span class="fu">table</span>(traitL),</span>
+<span id="cb233-6"><a href="pipe-natif-within-et-with.html#cb233-6" tabindex="-1"></a>                             <span class="at">pct =</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(<span class="fu">table</span>(traitL)) <span class="sc">*</span> <span class="dv">100</span>, </span>
+<span id="cb233-7"><a href="pipe-natif-within-et-with.html#cb233-7" tabindex="-1"></a>                                         <span class="at">digits =</span> <span class="dv">1</span>), </span>
+<span id="cb233-8"><a href="pipe-natif-within-et-with.html#cb233-8" tabindex="-1"></a>                             <span class="at">deparse.level =</span> <span class="dv">2</span>)))</span></code></pre></div>
+<pre><code>## $SEX
+##            N pct
+## Féminin  153  51
+## Masculin 147  49
+## 
+## $TRAITEMENT
+##                N  pct
+## Placebo      120 40.0
+## Traitement A  91 30.3
+## Traitement B  89 29.7</code></pre>
+</div>
+<div id="analyses-bivariées-1" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Analyses bivariées<a href="#analyses-bivari%C3%A9es-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="comparer-deux-moyennes" class="section level4 hasAnchor" number="4.4.2.1">
+<h4><span class="header-section-number">4.4.2.1</span> Comparer deux moyennes<a href="pipe-natif-within-et-with.html#comparer-deux-moyennes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Comparer la PAS en fonction du sexe :</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="pipe-natif-within-et-with.html#cb235-1" tabindex="-1"></a><span class="do">### Tableau descriptif bi-varié</span></span>
+<span id="cb235-2"><a href="pipe-natif-within-et-with.html#cb235-2" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb235-3"><a href="pipe-natif-within-et-with.html#cb235-3" tabindex="-1"></a>     pas <span class="sc">|&gt;</span></span>
+<span id="cb235-4"><a href="pipe-natif-within-et-with.html#cb235-4" tabindex="-1"></a>       <span class="fu">aggregate</span>(<span class="at">by =</span> <span class="fu">list</span>(sexL), </span>
+<span id="cb235-5"><a href="pipe-natif-within-et-with.html#cb235-5" tabindex="-1"></a>                 <span class="at">FUN =</span> univ_quanti, <span class="co"># fonction à utiliser</span></span>
+<span id="cb235-6"><a href="pipe-natif-within-et-with.html#cb235-6" tabindex="-1"></a>                 <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>, <span class="at">details =</span> <span class="cn">FALSE</span>)) </span></code></pre></div>
+<pre><code>##    Group.1   x.N x.mean  x.sd
+## 1  Féminin 153.0  132.4  16.8
+## 2 Masculin 147.0  142.0  15.5</code></pre>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="pipe-natif-within-et-with.html#cb237-1" tabindex="-1"></a><span class="do">### Test de Student</span></span>
+<span id="cb237-2"><a href="pipe-natif-within-et-with.html#cb237-2" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb237-3"><a href="pipe-natif-within-et-with.html#cb237-3" tabindex="-1"></a>     <span class="fu">t.test</span>(pas <span class="sc">~</span> sexL)) </span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  pas by sexL
+## t = -5.1382, df = 297.44, p-value = 5.029e-07
+## alternative hypothesis: true difference in means between group Féminin and group Masculin is not equal to 0
+## 95 percent confidence interval:
+##  -13.233087  -5.903634
+## sample estimates:
+##  mean in group Féminin mean in group Masculin 
+##               132.4248               141.9932</code></pre>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="pipe-natif-within-et-with.html#cb239-1" tabindex="-1"></a><span class="do">### On peut récupérer uniquement la p-value</span></span>
+<span id="cb239-2"><a href="pipe-natif-within-et-with.html#cb239-2" tabindex="-1"></a><span class="co"># rappel : la p-value peut être récupéré avec l&#39;opérateur dollar $</span></span>
+<span id="cb239-3"><a href="pipe-natif-within-et-with.html#cb239-3" tabindex="-1"></a><span class="co">#          appliqué au résultat de la fonction t.test</span></span>
+<span id="cb239-4"><a href="pipe-natif-within-et-with.html#cb239-4" tabindex="-1"></a><span class="fu">with</span>(<span class="fu">with</span>(df_1,</span>
+<span id="cb239-5"><a href="pipe-natif-within-et-with.html#cb239-5" tabindex="-1"></a>          <span class="fu">t.test</span>(pas <span class="sc">~</span> sexL)), </span>
+<span id="cb239-6"><a href="pipe-natif-within-et-with.html#cb239-6" tabindex="-1"></a>     p.value)</span></code></pre></div>
+<pre><code>## [1] 5.028976e-07</code></pre>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="pipe-natif-within-et-with.html#cb241-1" tabindex="-1"></a><span class="do">### Test de Levene pour vérifier l&#39;égalité des variances</span></span>
+<span id="cb241-2"><a href="pipe-natif-within-et-with.html#cb241-2" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb241-3"><a href="pipe-natif-within-et-with.html#cb241-3" tabindex="-1"></a>     pas <span class="sc">|&gt;</span> car<span class="sc">::</span><span class="fu">leveneTest</span>(<span class="at">group =</span> sexL))</span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(&gt;F)
+## group   1  1.0178 0.3139
+##       298</code></pre>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="pipe-natif-within-et-with.html#cb243-1" tabindex="-1"></a><span class="do">### Test de Wilcoxon si les conditions d&#39;application ne sont pas vérifiées</span></span>
+<span id="cb243-2"><a href="pipe-natif-within-et-with.html#cb243-2" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb243-3"><a href="pipe-natif-within-et-with.html#cb243-3" tabindex="-1"></a>     <span class="fu">wilcox.test</span>(pas <span class="sc">~</span> sexL))</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  pas by sexL
+## W = 7609.5, p-value = 1.29e-06
+## alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+<div id="comparer-3-moyennes-ou-plus-1" class="section level4 hasAnchor" number="4.4.2.2">
+<h4><span class="header-section-number">4.4.2.2</span> Comparer 3 moyennes ou plus<a href="pipe-natif-within-et-with.html#comparer-3-moyennes-ou-plus-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Comparer la PAS en fonction du traitement :</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="pipe-natif-within-et-with.html#cb245-1" tabindex="-1"></a><span class="do">### Tableau descriptif bi-varié</span></span>
+<span id="cb245-2"><a href="pipe-natif-within-et-with.html#cb245-2" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb245-3"><a href="pipe-natif-within-et-with.html#cb245-3" tabindex="-1"></a>     pas <span class="sc">|&gt;</span></span>
+<span id="cb245-4"><a href="pipe-natif-within-et-with.html#cb245-4" tabindex="-1"></a>       <span class="fu">aggregate</span>(<span class="at">by =</span> <span class="fu">list</span>(traitL), </span>
+<span id="cb245-5"><a href="pipe-natif-within-et-with.html#cb245-5" tabindex="-1"></a>                 <span class="at">FUN =</span> univ_quanti, <span class="co"># fonction à utiliser</span></span>
+<span id="cb245-6"><a href="pipe-natif-within-et-with.html#cb245-6" tabindex="-1"></a>                 <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>, <span class="at">details =</span> <span class="cn">FALSE</span>)) </span></code></pre></div>
+<pre><code>##        Group.1   x.N x.mean  x.sd
+## 1      Placebo 120.0  141.4  15.6
+## 2 Traitement A  91.0  130.7  16.4
+## 3 Traitement B  89.0  137.8  17.0</code></pre>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="pipe-natif-within-et-with.html#cb247-1" tabindex="-1"></a><span class="do">### appliquer le test d&#39;Anova au modèle linéaire pas ~ traitL</span></span>
+<span id="cb247-2"><a href="pipe-natif-within-et-with.html#cb247-2" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb247-3"><a href="pipe-natif-within-et-with.html#cb247-3" tabindex="-1"></a>     <span class="fu">lm</span>(pas <span class="sc">~</span> traitL) <span class="sc">|&gt;</span></span>
+<span id="cb247-4"><a href="pipe-natif-within-et-with.html#cb247-4" tabindex="-1"></a>       <span class="fu">anova</span>())</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: pas
+##            Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## traitL      2   5940 2970.18  11.215 2.016e-05 ***
+## Residuals 297  78656  264.83                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="pipe-natif-within-et-with.html#cb249-1" tabindex="-1"></a><span class="do">### Vérification des conditions d&#39;applications</span></span>
+<span id="cb249-2"><a href="pipe-natif-within-et-with.html#cb249-2" tabindex="-1"></a><span class="do">### 1) égalité des variances par le test de Levene</span></span>
+<span id="cb249-3"><a href="pipe-natif-within-et-with.html#cb249-3" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb249-4"><a href="pipe-natif-within-et-with.html#cb249-4" tabindex="-1"></a>     pas <span class="sc">|&gt;</span> car<span class="sc">::</span><span class="fu">leveneTest</span>(<span class="at">group =</span> traitL))</span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(&gt;F)
+## group   2  0.6669  0.514
+##       297</code></pre>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="pipe-natif-within-et-with.html#cb251-1" tabindex="-1"></a><span class="do">### 2) normalité des résidus du modèle linéaire</span></span>
+<span id="cb251-2"><a href="pipe-natif-within-et-with.html#cb251-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">with</span>(<span class="fu">with</span>(df_1, <span class="fu">lm</span>(pas <span class="sc">~</span> traitL)),</span>
+<span id="cb251-3"><a href="pipe-natif-within-et-with.html#cb251-3" tabindex="-1"></a>            residuals)</span>
+<span id="cb251-4"><a href="pipe-natif-within-et-with.html#cb251-4" tabindex="-1"></a><span class="fu">qqnorm</span>(res)</span>
+<span id="cb251-5"><a href="pipe-natif-within-et-with.html#cb251-5" tabindex="-1"></a><span class="fu">qqline</span>(res)</span></code></pre></div>
+<p><img src="_main_files/figure-html/syntax14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="pipe-natif-within-et-with.html#cb252-1" tabindex="-1"></a><span class="do">### Réaliser un test de Kruskal-Wallis si les conditions ne sont pas vérifiées</span></span>
+<span id="cb252-2"><a href="pipe-natif-within-et-with.html#cb252-2" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb252-3"><a href="pipe-natif-within-et-with.html#cb252-3" tabindex="-1"></a>     <span class="fu">kruskal.test</span>(pas <span class="sc">~</span> traitL))</span></code></pre></div>
+<pre><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  pas by traitL
+## Kruskal-Wallis chi-squared = 19.04, df = 2, p-value = 7.336e-05</code></pre>
+</div>
+<div id="comparer-des-pourcentages-1" class="section level4 hasAnchor" number="4.4.2.3">
+<h4><span class="header-section-number">4.4.2.3</span> Comparer des pourcentages<a href="pipe-natif-within-et-with.html#comparer-des-pourcentages-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Description de la répartition du sexe en fonction du traitement, et application du test du Chi-2.</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="pipe-natif-within-et-with.html#cb254-1" tabindex="-1"></a><span class="do">### Tableau descriptif bivarié</span></span>
+<span id="cb254-2"><a href="pipe-natif-within-et-with.html#cb254-2" tabindex="-1"></a><span class="fu">with</span>(df_1, </span>
+<span id="cb254-3"><a href="pipe-natif-within-et-with.html#cb254-3" tabindex="-1"></a>     <span class="fu">paste0</span>(<span class="fu">table</span>(sexL, traitL),</span>
+<span id="cb254-4"><a href="pipe-natif-within-et-with.html#cb254-4" tabindex="-1"></a>            <span class="st">&quot; (&quot;</span>,</span>
+<span id="cb254-5"><a href="pipe-natif-within-et-with.html#cb254-5" tabindex="-1"></a>            <span class="fu">round</span>(<span class="fu">prop.table</span>(<span class="fu">table</span>(sexL, trait), <span class="at">margin =</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb254-6"><a href="pipe-natif-within-et-with.html#cb254-6" tabindex="-1"></a>                  <span class="at">digits =</span> <span class="dv">1</span>),</span>
+<span id="cb254-7"><a href="pipe-natif-within-et-with.html#cb254-7" tabindex="-1"></a>            <span class="st">&quot;%)&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb254-8"><a href="pipe-natif-within-et-with.html#cb254-8" tabindex="-1"></a>       <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb254-9"><a href="pipe-natif-within-et-with.html#cb254-9" tabindex="-1"></a>              <span class="at">dimnames =</span> <span class="fu">dimnames</span>(<span class="fu">table</span>(sexL, traitL))))</span></code></pre></div>
+<pre><code>##           traitL
+## sexL       Placebo      Traitement A Traitement B
+##   Féminin  &quot;57 (47.5%)&quot; &quot;46 (50.5%)&quot; &quot;50 (56.2%)&quot;
+##   Masculin &quot;63 (52.5%)&quot; &quot;45 (49.5%)&quot; &quot;39 (43.8%)&quot;</code></pre>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="pipe-natif-within-et-with.html#cb256-1" tabindex="-1"></a><span class="do">### test du chi-2</span></span>
+<span id="cb256-2"><a href="pipe-natif-within-et-with.html#cb256-2" tabindex="-1"></a><span class="fu">with</span>(df_1, </span>
+<span id="cb256-3"><a href="pipe-natif-within-et-with.html#cb256-3" tabindex="-1"></a>     <span class="fu">table</span>(sexL, traitL) <span class="sc">|&gt;</span></span>
+<span id="cb256-4"><a href="pipe-natif-within-et-with.html#cb256-4" tabindex="-1"></a>       <span class="fu">chisq.test</span>())</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  table(sexL, traitL)
+## X-squared = 1.5512, df = 2, p-value = 0.4604</code></pre>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="pipe-natif-within-et-with.html#cb258-1" tabindex="-1"></a><span class="co"># effectifs attendus :</span></span>
+<span id="cb258-2"><a href="pipe-natif-within-et-with.html#cb258-2" tabindex="-1"></a><span class="fu">with</span>(<span class="fu">with</span>(df_1, </span>
+<span id="cb258-3"><a href="pipe-natif-within-et-with.html#cb258-3" tabindex="-1"></a>          <span class="fu">table</span>(sexL, traitL) <span class="sc">|&gt;</span></span>
+<span id="cb258-4"><a href="pipe-natif-within-et-with.html#cb258-4" tabindex="-1"></a>            <span class="fu">chisq.test</span>()),</span>
+<span id="cb258-5"><a href="pipe-natif-within-et-with.html#cb258-5" tabindex="-1"></a>     expected)</span></code></pre></div>
+<pre><code>##           traitL
+## sexL       Placebo Traitement A Traitement B
+##   Féminin     61.2        46.41        45.39
+##   Masculin    58.8        44.59        43.61</code></pre>
+<!-- avec l'exemple ci-dessous, l'arrondi ne fonctionne pas ??? -->
+<!-- with(df_1, -->
+<!--      paste0(table(sexL, traitL), -->
+<!--             " (", -->
+<!--             table(sexL, traitL) |> -->
+<!--               prop.table(margin = 2) * 100 |> -->
+<!--               round(digits = 1), -->
+<!--             "%)") |> -->
+<!--        matrix(nrow = 2, ncol = 3, byrow = FALSE, -->
+<!--               dimnames = dimnames(table(sexL, traitL)))) -->
+</div>
+<div id="corrélations-1" class="section level4 hasAnchor" number="4.4.2.4">
+<h4><span class="header-section-number">4.4.2.4</span> Corrélations<a href="#corr%C3%A9lations-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Estimation des corrélations de Pearson et de Spearman, avec test de leurs hypothèse nulles <span class="math inline">\(\rho = 0\)</span>.</p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="pipe-natif-within-et-with.html#cb260-1" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb260-2"><a href="pipe-natif-within-et-with.html#cb260-2" tabindex="-1"></a>     <span class="fu">cor.test</span>(imc, pas, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>))</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  imc and pas
+## t = 3.8534, df = 298, p-value = 0.0001427
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.1072647 0.3231284
+## sample estimates:
+##       cor 
+## 0.2178593</code></pre>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="pipe-natif-within-et-with.html#cb262-1" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb262-2"><a href="pipe-natif-within-et-with.html#cb262-2" tabindex="-1"></a>     <span class="fu">cor.test</span>(imc, pas, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>))</span></code></pre></div>
+<pre><code>## Warning in cor.test.default(imc, pas, method = &quot;spearman&quot;): Impossible de
+## calculer la p-value exacte avec des ex-aequos</code></pre>
+<pre><code>## 
+##  Spearman&#39;s rank correlation rho
+## 
+## data:  imc and pas
+## S = 3522826, p-value = 0.0001503
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##      rho 
+## 0.217141</code></pre>
+</div>
+</div>
+<div id="analyse-multivariée-1" class="section level3 hasAnchor" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> Analyse multivariée<a href="#analyse-multivari%C3%A9e-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Estimation de la régression linéaire multiple de la PAS en fonction du traitement, ajusté sur le sexe et l’IMC :</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="pipe-natif-within-et-with.html#cb265-1" tabindex="-1"></a><span class="fu">with</span>(df_1,</span>
+<span id="cb265-2"><a href="pipe-natif-within-et-with.html#cb265-2" tabindex="-1"></a>     <span class="fu">lm</span>(pas <span class="sc">~</span> traitL <span class="sc">+</span> sexL <span class="sc">+</span> imc) <span class="sc">|&gt;</span></span>
+<span id="cb265-3"><a href="pipe-natif-within-et-with.html#cb265-3" tabindex="-1"></a>       <span class="fu">summary</span>())</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = pas ~ traitL + sexL + imc)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -38.871 -10.083  -0.342  10.941  41.171 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)        109.5668     7.1403  15.345  &lt; 2e-16 ***
+## traitLTraitement A -10.9623     2.1246  -5.160 4.55e-07 ***
+## traitLTraitement B  -2.8373     2.1374  -1.327 0.185388    
+## sexLMasculin         8.5634     1.7796   4.812 2.39e-06 ***
+## imc                  1.1240     0.2904   3.870 0.000134 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 15.24 on 295 degrees of freedom
+## Multiple R-squared:  0.1902, Adjusted R-squared:  0.1792 
+## F-statistic: 17.32 on 4 and 295 DF,  p-value: 8.911e-13</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="analyse-simple-en-r-base.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/benoitlepage/formationR/03-Pipe_natif_with_within.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

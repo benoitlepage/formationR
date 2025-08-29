@@ -154,7 +154,7 @@ tail(df_1)
 str(df_1)
 ```
 
-```{r view3, eval=FALSE, include=TRUE}
+```{r view2, eval=FALSE, include=TRUE}
 View(df_1) # pour voir la base de données dans R Studio
 ```
 On voit que la base de données contient 300 observations et 5 variables : 
@@ -167,7 +167,7 @@ On voit que la base de données contient 300 observations et 5 variables :
   
 Toutes les variables dans `df_1` sont de type entier (`int`) ou réel (`num`).
 
-```{r view2, echo=TRUE}
+```{r view3, echo=TRUE}
 meta_df_1 # pour regarder le contenu des méta-données : 
 ```
 La base de méta-données contient 5 variables : 
@@ -178,6 +178,20 @@ La base de méta-données contient 5 variables :
   - `code_labs`, codage numérique du label (code utilisé dans la base `df_1`) 
   - `labs`, modalités de réponses des variables qualitatives, en détail
 
+Vous pouvez également trier les données selon les valeurs d'une ou plusieurs variables avec la fonction `sort_by()` : 
+```{r view4, echo=TRUE}
+### Nous allons trier les données pour nous aider à les inspecter :
+### en triant sur le sexe (1ère variable de tri), et l'imc (2ème variable de tri)
+
+### pour voir les première lignes de la base de données triée :
+head(sort_by(x = df_1, # x = la base à trier
+             y = c(df_1$sex, df_1$imc))) # y = variables de tri, dans l'ordre 
+
+### pour voir les dernières lignes de la base de donnée triée :
+tail(sort_by(x = df_1, 
+             y = ~ sex + imc), # demandé suivant le format de "formula"
+     n = 10) # nombre de lignes à présenter dans les fonctions head() et tail()
+```
 
 ## Créer ou modifier une variable
 ### Créer des variables
@@ -259,6 +273,30 @@ df_1$pas[df_1$subjid == 137]
 df_1$pas[df_1$subjid == 137] <- 123
 df_1[df_1$subjid %in% 135:140,] 
 # on voit que la valeur du patient 137 a bien été corrigée
+```
+
+### Sauvegarder la base de données
+Pour sauvegarder la base de données avec les variables que vous venez de créer et de modifier, vous pouvez utiliser les fonctions : 
+ 
+  - `write.csv2()` sauvegarde une base au format ".csv" avec un point-virgule comme séparateur (comme pour `read`, il existe une fonction `write.csv2()` qui utilise une virgule comme séparateur). Le format .csv peut être lu par tous les logiciels statistiques, les gestionnaires de base de données (commme Access, LibreOffice Base), les tableurs (comme Excel, LibreOffice Calc, ...) ou tout éditeur de texte (bloc-note, TextEdit, etc).
+  - `saveRDS()` permet de sauvegarder tout objet R. Il sera sauvegardé avec l'extension ".R". Vous pourrez seulement l'importer dans le logiciel R avec la commande `readRDS()`. L'intérêt de ce format est que l'objet R est sauvegardé avec tous ses attributs R. 
+
+```{r save, eval=FALSE, include=TRUE}
+### Sauvegarder la base df_1 dans le dossier data, au format .csv,
+### pensez à lui donnant un nouveau nom "df_1_new.csv" pour ne pas écraser 
+### l'ancienne base "df_1.csv"
+write.csv2(df_1, "data/df_1_new.csv")
+
+### Sauvegarder la base df_1 dans le dossier data, au format .R,
+### pensez à lui donnant un nouveau nom "df_1_new.R" pour ne pas écraser 
+### l'ancienne base "df_1.csv"
+saveRDS(df_1, "data/df_1_new.R")
+
+### pour importer à nouveau ces objets dans R : 
+df_1_new <- read.csv2("data/df_1_new.csv")
+df_1_new_bis <- readRDS("data/df_1_new.R")
+# vous retrouvez alors la base dans l'environnement avec leur nouveau nom : 
+# df_1_new et df_1_new_bis
 ```
 
 ## Analyses univariées
@@ -947,3 +985,53 @@ De manière encore plus automatisée, la commande `plot(model)` permet d'obtenir
   - le 2ème graphique permet de vérifier la normalité des résidus standardisés
   - le 3ème graphique est le nuage de points de la racine carrée des résidus standardisés en fonction des valeurs prédites
   - le 4ème graphique le nuage de points des résidus standardisés en fonction des distances de Cook (pour évaluer l'effet levier)
+  
+Pour rappel, vous pouvez sauvegarder le résultat de ce modèle linéaire sous forme d'objet R avec tous ses attributs en utilisant la fonction `saveRDS()`. Cela vous permet de stocker, puis recharger ces résultats directement dans R.
+```{r multi3, eval=FALSE, include=TRUE}
+### Créez un dossier "results" dans votre dossier de travail 
+### soit directement dans l'environnement windows ou macOS ou linux,
+### soit avec la commande dir.create()
+dir.create("results")
+
+### Sauvegardez l'objet contenant le modèle linéaire
+saveRDS(model, "results/model.R")
+
+### si vous videz la totalité des objets présents dans l'environnement
+rm(list = ls())
+
+### Vous pourrez re-importez le modèle original avec readRDS(), 
+### avec tous les attributs contenus dans le modèle
+model <- readRDS("results/model.R")
+
+summary(model)
+# Call:
+# lm(formula = pas ~ traitL + sexL + imc, data = df_1)
+# 
+# Residuals:
+#     Min      1Q  Median      3Q     Max 
+# -38.871 -10.083  -0.342  10.941  41.171 
+# 
+# Coefficients:
+#                    Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)        109.5668     7.1403  15.345  < 2e-16 ***
+# traitLTraitement A -10.9623     2.1246  -5.160 4.55e-07 ***
+# traitLTraitement B  -2.8373     2.1374  -1.327 0.185388    
+# sexLMasculin         8.5634     1.7796   4.812 2.39e-06 ***
+# imc                  1.1240     0.2904   3.870 0.000134 ***
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# Residual standard error: 15.24 on 295 degrees of freedom
+# Multiple R-squared:  0.1902,	Adjusted R-squared:  0.1792 
+# F-statistic: 17.32 on 4 and 295 DF,  p-value: 8.911e-13
+ 
+qqnorm(model$residuals)  
+
+scatter.smooth(model$fitted.values, model$residuals, 
+               lpars = list(col = "red", lwd = 0.5, lty = 1), 
+               xlab = "Valeurs prédites", ylab = "Résidus")
+abline(h = 0, # ajoute une ligne horizontale en 0
+       lwd = 0.5, # largeur de ligne (line width)
+       lty = 2) # type de ligne = pointillé
+```
+Il n'est pas nécessaire de relancer toute l'analyse pour retrouver ces résultats !

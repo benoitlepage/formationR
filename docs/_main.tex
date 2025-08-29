@@ -118,7 +118,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2025-08-28}
+\date{2025-08-29}
 
 \begin{document}
 \maketitle
@@ -3228,6 +3228,52 @@ La base de méta-données contient 5 variables :
   \texttt{labs}, modalités de réponses des variables qualitatives, en détail
 \end{itemize}
 
+Vous pouvez également trier les données selon les valeurs d'une ou plusieurs variables avec la fonction \texttt{sort\_by()} :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Nous allons trier les données pour nous aider à les inspecter :}
+\DocumentationTok{\#\#\# en triant sur le sexe (1ère variable de tri), et l\textquotesingle{}imc (2ème variable de tri)}
+
+\DocumentationTok{\#\#\# pour voir les première lignes de la base de données triée :}
+\FunctionTok{head}\NormalTok{(}\FunctionTok{sort\_by}\NormalTok{(}\AttributeTok{x =}\NormalTok{ df\_1, }\CommentTok{\# x = la base à trier}
+             \AttributeTok{y =} \FunctionTok{c}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{sex, df\_1}\SpecialCharTok{$}\NormalTok{imc))) }\CommentTok{\# y = variables de tri, dans l\textquotesingle{}ordre }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   subjid sex  imc trait pas
+## 1      1   0 24.8     2 140
+## 2      2   0 24.1     3 109
+## 3      3   0 26.4     1 156
+## 4      4   0 23.3     2 124
+## 5      5   0 25.4     2 131
+## 7      7   0 25.2     3 125
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# pour voir les dernières lignes de la base de donnée triée :}
+\FunctionTok{tail}\NormalTok{(}\FunctionTok{sort\_by}\NormalTok{(}\AttributeTok{x =}\NormalTok{ df\_1, }
+             \AttributeTok{y =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ sex }\SpecialCharTok{+}\NormalTok{ imc), }\CommentTok{\# demandé suivant le format de "formula"}
+     \AttributeTok{n =} \DecValTok{10}\NormalTok{) }\CommentTok{\# nombre de lignes à présenter dans les fonctions head() et tail()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     subjid sex  imc trait pas
+## 258    258   1 29.2     1 142
+## 173    173   1 29.5     1 129
+## 145    145   1 29.9     2 121
+## 92      92   1 30.1     3 167
+## 224    224   1 30.2     1 147
+## 132    132   1 30.3     2 141
+## 144    144   1 30.5     3 158
+## 274    274   1 30.5     1 143
+## 64      64   1 31.2     1 152
+## 223    223   1 31.2     1 172
+\end{verbatim}
+
 \section{Créer ou modifier une variable}\label{cruxe9er-ou-modifier-une-variable}
 
 \subsection{Créer des variables}\label{cruxe9er-des-variables}
@@ -3380,6 +3426,38 @@ Enfin, nous souhaitons modifier la valeur de la pression artérielle du patient 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# on voit que la valeur du patient 137 a bien été corrigée}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Sauvegarder la base de données}\label{sauvegarder-la-base-de-donnuxe9es}
+
+Pour sauvegarder la base de données avec les variables que vous venez de créer et de modifier, vous pouvez utiliser les fonctions :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{write.csv2()} sauvegarde une base au format ``.csv'' avec un point-virgule comme séparateur (comme pour \texttt{read}, il existe une fonction \texttt{write.csv2()} qui utilise une virgule comme séparateur). Le format .csv peut être lu par tous les logiciels statistiques, les gestionnaires de base de données (commme Access, LibreOffice Base), les tableurs (comme Excel, LibreOffice Calc, \ldots) ou tout éditeur de texte (bloc-note, TextEdit, etc).
+\item
+  \texttt{saveRDS()} permet de sauvegarder tout objet R. Il sera sauvegardé avec l'extension ``.R''. Vous pourrez seulement l'importer dans le logiciel R avec la commande \texttt{readRDS()}. L'intérêt de ce format est que l'objet R est sauvegardé avec tous ses attributs R.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Sauvegarder la base df\_1 dans le dossier data, au format .csv,}
+\DocumentationTok{\#\#\# pensez à lui donnant un nouveau nom "df\_1\_new.csv" pour ne pas écraser }
+\DocumentationTok{\#\#\# l\textquotesingle{}ancienne base "df\_1.csv"}
+\FunctionTok{write.csv2}\NormalTok{(df\_1, }\StringTok{"data/df\_1\_new.csv"}\NormalTok{)}
+
+\DocumentationTok{\#\#\# Sauvegarder la base df\_1 dans le dossier data, au format .R,}
+\DocumentationTok{\#\#\# pensez à lui donnant un nouveau nom "df\_1\_new.R" pour ne pas écraser }
+\DocumentationTok{\#\#\# l\textquotesingle{}ancienne base "df\_1.csv"}
+\FunctionTok{saveRDS}\NormalTok{(df\_1, }\StringTok{"data/df\_1\_new.R"}\NormalTok{)}
+
+\DocumentationTok{\#\#\# pour importer à nouveau ces objets dans R : }
+\NormalTok{df\_1\_new }\OtherTok{\textless{}{-}} \FunctionTok{read.csv2}\NormalTok{(}\StringTok{"data/df\_1\_new.csv"}\NormalTok{)}
+\NormalTok{df\_1\_new\_bis }\OtherTok{\textless{}{-}} \FunctionTok{readRDS}\NormalTok{(}\StringTok{"data/df\_1\_new.R"}\NormalTok{)}
+\CommentTok{\# vous retrouvez alors la base dans l\textquotesingle{}environnement avec leur nouveau nom : }
+\CommentTok{\# df\_1\_new et df\_1\_new\_bis}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4793,5 +4871,764 @@ De manière encore plus automatisée, la commande \texttt{plot(model)} permet d'
 \item
   le 4ème graphique le nuage de points des résidus standardisés en fonction des distances de Cook (pour évaluer l'effet levier)
 \end{itemize}
+
+Pour rappel, vous pouvez sauvegarder le résultat de ce modèle linéaire sous forme d'objet R avec tous ses attributs en utilisant la fonction \texttt{saveRDS()}. Cela vous permet de stocker, puis recharger ces résultats directement dans R.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Créez un dossier "results" dans votre dossier de travail }
+\DocumentationTok{\#\#\# soit directement dans l\textquotesingle{}environnement windows ou macOS ou linux,}
+\DocumentationTok{\#\#\# soit avec la commande dir.create()}
+\FunctionTok{dir.create}\NormalTok{(}\StringTok{"results"}\NormalTok{)}
+
+\DocumentationTok{\#\#\# Sauvegardez l\textquotesingle{}objet contenant le modèle linéaire}
+\FunctionTok{saveRDS}\NormalTok{(model, }\StringTok{"results/model.R"}\NormalTok{)}
+
+\DocumentationTok{\#\#\# si vous videz la totalité des objets présents dans l\textquotesingle{}environnement}
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
+
+\DocumentationTok{\#\#\# Vous pourrez re{-}importez le modèle original avec readRDS(), }
+\DocumentationTok{\#\#\# avec tous les attributs contenus dans le modèle}
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{readRDS}\NormalTok{(}\StringTok{"results/model.R"}\NormalTok{)}
+
+\FunctionTok{summary}\NormalTok{(model)}
+\CommentTok{\# Call:}
+\CommentTok{\# lm(formula = pas \textasciitilde{} traitL + sexL + imc, data = df\_1)}
+\CommentTok{\# }
+\CommentTok{\# Residuals:}
+\CommentTok{\#     Min      1Q  Median      3Q     Max }
+\CommentTok{\# {-}38.871 {-}10.083  {-}0.342  10.941  41.171 }
+\CommentTok{\# }
+\CommentTok{\# Coefficients:}
+\CommentTok{\#                    Estimate Std. Error t value Pr(\textgreater{}|t|)    }
+\CommentTok{\# (Intercept)        109.5668     7.1403  15.345  \textless{} 2e{-}16 ***}
+\CommentTok{\# traitLTraitement A {-}10.9623     2.1246  {-}5.160 4.55e{-}07 ***}
+\CommentTok{\# traitLTraitement B  {-}2.8373     2.1374  {-}1.327 0.185388    }
+\CommentTok{\# sexLMasculin         8.5634     1.7796   4.812 2.39e{-}06 ***}
+\CommentTok{\# imc                  1.1240     0.2904   3.870 0.000134 ***}
+\CommentTok{\# {-}{-}{-}}
+\CommentTok{\# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}
+\CommentTok{\# }
+\CommentTok{\# Residual standard error: 15.24 on 295 degrees of freedom}
+\CommentTok{\# Multiple R{-}squared:  0.1902,  Adjusted R{-}squared:  0.1792 }
+\CommentTok{\# F{-}statistic: 17.32 on 4 and 295 DF,  p{-}value: 8.911e{-}13}
+ 
+\FunctionTok{qqnorm}\NormalTok{(model}\SpecialCharTok{$}\NormalTok{residuals)  }
+
+\FunctionTok{scatter.smooth}\NormalTok{(model}\SpecialCharTok{$}\NormalTok{fitted.values, model}\SpecialCharTok{$}\NormalTok{residuals, }
+               \AttributeTok{lpars =} \FunctionTok{list}\NormalTok{(}\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{lty =} \DecValTok{1}\NormalTok{), }
+               \AttributeTok{xlab =} \StringTok{"Valeurs prédites"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Résidus"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =} \DecValTok{0}\NormalTok{, }\CommentTok{\# ajoute une ligne horizontale en 0}
+       \AttributeTok{lwd =} \FloatTok{0.5}\NormalTok{, }\CommentTok{\# largeur de ligne (line width)}
+       \AttributeTok{lty =} \DecValTok{2}\NormalTok{) }\CommentTok{\# type de ligne = pointillé}
+\end{Highlighting}
+\end{Shaded}
+
+Il n'est pas nécessaire de relancer toute l'analyse pour retrouver ces résultats !
+
+\chapter{\texorpdfstring{Pipe natif, \texttt{within()} et \texttt{with()}}{Pipe natif, within() et with()}}\label{pipe-natif-within-et-with}
+
+La syntaxe de R base peut être rendue plus lisible avec le pipe natif de R \texttt{\textbar{}\textgreater{}}, ainsi que les fonctions \texttt{within()} et \texttt{with()}.
+
+Nous allons reprendre les éléments de l'analyse réalisée au chapitre 3 en utilisant cette syntaxe complémentaire.
+
+Commençons par supprimer l'ensemble des éléments de l'environnement, puis importons à nouveau les bases \texttt{df\_1} et \texttt{meta\_df\_1} :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Vider l\textquotesingle{}environnement}
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
+
+\DocumentationTok{\#\#\# Importer df\_1 et meta\_df\_1}
+\NormalTok{df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv2}\NormalTok{(}\StringTok{"data/df\_1.csv"}\NormalTok{)}
+\NormalTok{meta\_df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv2}\NormalTok{(}\StringTok{"data/meta\_df\_1.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Pipe natif de R}\label{pipe-natif-de-r}
+
+Le principe du ``pipe'' est une syntaxe de programmation qui a été initialement introduite avec le package \texttt{maggritr} au sein de la famille de packages du ``tidyverse''. Ce principe a été repris dans R base à partir de sa version 4.1.0.
+
+Le pipe natif s'écrit avec une barre verticale suivi d'un signe supérieur \texttt{\textbar{}\textgreater{}}.
+
+La syntaxe est la suivante :
+
+\begin{itemize}
+\tightlist
+\item
+  L'élément qui se site à gauche du pipe (LHS, \emph{left hand side}) \ldots{}
+\item
+  \ldots{} est transmis au premier argument de la fonction à droite du pipe (RDS, \emph{right hand side}).
+\end{itemize}
+
+\texttt{x\ \textbar{}\textgreater{}\ funct(arguments\ =\ ...)} est équivalent à \texttt{funct(x,\ argument\ =\ ...)}
+
+Par exemple :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_1 }\SpecialCharTok{|\textgreater{}} \FunctionTok{head}\NormalTok{() }\CommentTok{\# est équivalent de head(df\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   subjid sex  imc trait pas
+## 1      1   0 24.8     2 140
+## 2      2   0 24.1     3 109
+## 3      3   0 26.4     1 156
+## 4      4   0 23.3     2 124
+## 5      5   0 25.4     2 131
+## 6      6   1 25.0     3 148
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_1 }\SpecialCharTok{|\textgreater{}} \FunctionTok{tail}\NormalTok{()  }\CommentTok{\# est équivalent de tail(df\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     subjid sex  imc trait pas
+## 295    295   1 24.1     1 148
+## 296    296   0 18.7     3 121
+## 297    297   0 23.3     3 111
+## 298    298   1 27.5     3 134
+## 299    299   1 24.7     2 158
+## 300    300   1 22.8     1 147
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_1 }\SpecialCharTok{|\textgreater{}} \FunctionTok{str}\NormalTok{() }\CommentTok{\# est équivalent de str(df\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    300 obs. of  5 variables:
+##  $ subjid: int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ sex   : int  0 0 0 0 0 1 0 0 0 0 ...
+##  $ imc   : num  24.8 24.1 26.4 23.3 25.4 25 25.2 21.5 21.8 25.9 ...
+##  $ trait : int  2 3 1 2 2 3 3 3 1 1 ...
+##  $ pas   : int  140 109 156 124 131 148 125 117 132 133 ...
+\end{verbatim}
+
+Cela permet d'avoir un code dont la décomposition est plus lisible, en enchaînant les pipes les uns après les autres :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# au lieu d\textquotesingle{}écrire : }
+\FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 24.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# on peut écrire, de manière équivalente, avec 2 pipes qui s\textquotesingle{}enchaînent :}
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mean}\NormalTok{(}\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{round}\NormalTok{(}\AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 24.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# df\_1$imc a été pris comme premier argument de mean(x, na.rm = TRUE)}
+\CommentTok{\# puis le résultat a été pris comme premier argument de round(x, digits = 1)}
+\end{Highlighting}
+\end{Shaded}
+
+Au lieu de ``transférer'' l'élément à gauche du pipe au premier argument de la fonction à droite du pipe, il est possible de le transférer à n'importe quel argument à droite du pipe à l'aide du ``placeholder'' \texttt{\_} (\emph{underscore}).
+
+\texttt{x\ \textbar{}\textgreater{}\ funct(y,\ argument\ =\ \_)} est équivalent à \texttt{funct(y,\ argument\ =\ x)}. Par exemple :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{paste0}\NormalTok{(}\StringTok{"la moyenne de l\textquotesingle{}IMC est "}\NormalTok{,}
+       \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{digits =} \DecValTok{1}\NormalTok{),}
+       \StringTok{" kg/m2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "la moyenne de l'IMC est 24.5 kg/m2"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# on peut placer le résultat de la moyenne arrondi en 2ème position des }
+\DocumentationTok{\#\#\# arguments dans la fonction paste0() avec le placeholder "\_"}
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mean}\NormalTok{(}\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{round}\NormalTok{(}\AttributeTok{digits =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{paste0}\NormalTok{(}\StringTok{"la moyenne de l\textquotesingle{}IMC est "}\NormalTok{, }
+         \AttributeTok{a =}\NormalTok{ \_, }\CommentTok{\# argument = placeholder }
+         \StringTok{" kg/m2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "la moyenne de l'IMC est 24.5 kg/m2"
+\end{verbatim}
+
+\section{\texorpdfstring{Fonction \texttt{within()} : créer/modifier des variables dans une base de données}{Fonction within() : créer/modifier des variables dans une base de données}}\label{fonction-within-cruxe9ermodifier-des-variables-dans-une-base-de-donnuxe9es}
+
+La fonction \texttt{within()} permet d'éviter d'utiliser l'opérateur dollar \texttt{\$} lorsque vous souhaitez :
+
+\begin{itemize}
+\tightlist
+\item
+  créer de nouvelles variables dans une base de données,
+\item
+  modifier des variables déjà existantes,
+\item
+  transformer les données selon des tâches spécifiques.
+\end{itemize}
+
+La syntaxe \texttt{within(df,\ newvar\ \textless{}-\ ...)} va créer la variable \texttt{newvar} dans la base \texttt{df}. Pour sauvegarder cette nouvelle variable dans la base, il faudra assigner le résultat à la base souhaitée :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{within}\NormalTok{(df\_1, }
+\NormalTok{               sexL }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(sex,}
+                              \AttributeTok{labels =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{labs[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sex"}\NormalTok{]))}
+\DocumentationTok{\#\#\# est équivalent : }
+\CommentTok{\# df\_1$sexL \textless{}{-} factor(df\_1$sex,}
+\CommentTok{\#                     labels = meta\_df\_1$labs[meta\_df\_1$var == "sex"])}
+\end{Highlighting}
+\end{Shaded}
+
+On peut créer plusieurs variables en même temps, en indiquant l'ensemble des commandes entre parenthèses (\emph{note : les variables sont incluses dans l'ordre inverse de création dans la commande}) :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{within}\NormalTok{(df\_1, \{}
+\NormalTok{  sexL }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(sex, }
+                 \AttributeTok{labels =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{labs[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sex"}\NormalTok{])}
+\NormalTok{  traitL }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(trait,}
+                   \AttributeTok{labels =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{labs[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"trait"}\NormalTok{])}
+\NormalTok{  obesite }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(imc }\SpecialCharTok{\textgreater{}=} \DecValTok{30}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{  imc\_cl }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(df\_1))}
+\NormalTok{  imc\_cl[df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textless{}} \FloatTok{18.5}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{  imc\_cl[df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textgreater{}=} \FloatTok{18.5} \SpecialCharTok{\&}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textless{}} \DecValTok{25}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{2}
+\NormalTok{  imc\_cl[df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textgreater{}=} \DecValTok{25} \SpecialCharTok{\&}\NormalTok{ df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textless{}} \DecValTok{30}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{3}
+\NormalTok{  imc\_cl[df\_1}\SpecialCharTok{$}\NormalTok{imc }\SpecialCharTok{\textgreater{}=} \DecValTok{30}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{4}
+\NormalTok{\})}
+
+\FunctionTok{head}\NormalTok{(df\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   subjid sex  imc trait pas     sexL imc_cl obesite       traitL
+## 1      1   0 24.8     2 140  Féminin      2       0 Traitement A
+## 2      2   0 24.1     3 109  Féminin      2       0 Traitement B
+## 3      3   0 26.4     1 156  Féminin      3       0      Placebo
+## 4      4   0 23.3     2 124  Féminin      2       0 Traitement A
+## 5      5   0 25.4     2 131  Féminin      3       0 Traitement A
+## 6      6   1 25.0     3 148 Masculin      3       0 Traitement B
+\end{verbatim}
+
+On voit que l'opérateur dollar \texttt{\$} n'a été utilisé que pour aller récupérer l'information des labels dans la base de méta-données, ainsi que pour la sélection par indexation pour créer la variable \texttt{imc\_cl}.
+
+On peut également modifier une variable (l'opérateur dollar \texttt{\$} n'est utilisé que pour la sélection par indexation):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Remplacer la valeur de PAS de l\textquotesingle{}individu n°137 par 123 mmHg :}
+\NormalTok{df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{within}\NormalTok{(df\_1,}
+\NormalTok{               pas[df\_1}\SpecialCharTok{$}\NormalTok{subjid }\SpecialCharTok{==} \DecValTok{137}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{123}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{\texorpdfstring{Fonction \texttt{with()} : analyser des variables dans une base de données}{Fonction with() : analyser des variables dans une base de données}}\label{fonction-with-analyser-des-variables-dans-une-base-de-donnuxe9es}
+
+La fonction \texttt{with()} permet d'éviter d'utiliser l'opérateur \texttt{\$} lorsque l'on souhaite :
+
+\begin{itemize}
+\tightlist
+\item
+  faire des calculs statistiques appliqués aux variables d'une base de données
+\item
+  faire des calculs temporaires (quand il n'y a pas besoin de modifier les données de manière permanente)
+\end{itemize}
+
+Par exemple, pour calculer la moyenne de l'IMC dans la base df\_1 :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# la commande ...}
+\FunctionTok{mean}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 24.481
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ... est équivalente à la commande }
+\FunctionTok{with}\NormalTok{(df\_1, }\FunctionTok{mean}\NormalTok{(imc))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 24.481
+\end{verbatim}
+
+On peut combiner la fonction \texttt{with()} avec le pipe natif :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# la commande suivante ...}
+\FunctionTok{paste0}\NormalTok{(}\StringTok{"la moyenne de l\textquotesingle{}IMC est égale à "}\NormalTok{, }
+       \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+             \AttributeTok{digits =} \DecValTok{1}\NormalTok{),}
+       \StringTok{" kg/m2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "la moyenne de l'IMC est égale à 24.5 kg/m2"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ... est équivalente à ...}
+\FunctionTok{with}\NormalTok{(df\_1,}
+\NormalTok{     imc }\SpecialCharTok{|\textgreater{}} 
+       \FunctionTok{mean}\NormalTok{(}\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+       \FunctionTok{round}\NormalTok{(}\AttributeTok{digits =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+       \FunctionTok{paste0}\NormalTok{(}\StringTok{"la moyenne de l\textquotesingle{}IMC est égale à "}\NormalTok{, }
+              \AttributeTok{a =}\NormalTok{ \_, }\CommentTok{\# résultat positionné avec le "placeholder" underscore}
+              \StringTok{" kg/m2"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "la moyenne de l'IMC est égale à 24.5 kg/m2"
+\end{verbatim}
+
+\section{Exemples d'applications}\label{exemples-dapplications}
+
+Nous pouvons utiliser ces éléments de syntaxe pour les analyses réalisées au chapitre 2.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# On reprend notre fonction "maison" d\textquotesingle{}analyse quantitative univariée }
+\NormalTok{univ\_quanti }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, }\AttributeTok{dig =} \DecValTok{2}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{details =} \ConstantTok{TRUE}\NormalTok{) \{ }
+  \CommentTok{\# calculer les effectifs, la moyenne, l\textquotesingle{}écart type et les quantiles}
+\NormalTok{  n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(x[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(x)])    }
+\NormalTok{  moy }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm =}\NormalTok{ remove\_miss)}
+\NormalTok{  sd }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(x, }\AttributeTok{na.rm =}\NormalTok{ remove\_miss)}
+\NormalTok{  q }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(x, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{na.rm =}\NormalTok{ remove\_miss)}
+  
+  \CommentTok{\# stocker les résultat dans le vecteur "param"}
+  \ControlFlowTok{if}\NormalTok{ (details }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{) \{}
+\NormalTok{    param }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(n, }
+               \FunctionTok{round}\NormalTok{(moy, }\AttributeTok{digits =}\NormalTok{ dig), }
+               \FunctionTok{round}\NormalTok{(sd, }\AttributeTok{digits =}\NormalTok{ dig), }
+\NormalTok{               q)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    param }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(n, }
+               \FunctionTok{round}\NormalTok{(moy, }\AttributeTok{digits =}\NormalTok{ dig), }
+               \FunctionTok{round}\NormalTok{(sd, }\AttributeTok{digits =}\NormalTok{ dig))}
+\NormalTok{  \}}
+  
+  \CommentTok{\# ajouter un nom à chaque élément du vecteur}
+  \ControlFlowTok{if}\NormalTok{ (details }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{) \{}
+    \FunctionTok{names}\NormalTok{(param) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"N"}\NormalTok{, }\StringTok{"mean"}\NormalTok{, }\StringTok{"sd"}\NormalTok{, }\StringTok{"min"}\NormalTok{, }\StringTok{"Q1"}\NormalTok{, }\StringTok{"median"}\NormalTok{, }\StringTok{"Q3"}\NormalTok{, }\StringTok{"max"}\NormalTok{)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \FunctionTok{names}\NormalTok{(param) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"N"}\NormalTok{, }\StringTok{"mean"}\NormalTok{, }\StringTok{"sd"}\NormalTok{)}
+\NormalTok{  \}}
+  
+  \CommentTok{\# retourne les résultats}
+  \FunctionTok{return}\NormalTok{(param)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Analyses univariées}\label{analyses-univariuxe9es-1}
+
+Pour les variables quantitatives IMC et PAS :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{with}\NormalTok{(df\_1,}
+     \CommentTok{\# pour des analyses répétées sur plusieurs élémnets de df\_1,}
+     \CommentTok{\# on peut les stocker dans une liste}
+     \FunctionTok{list}\NormalTok{(}\AttributeTok{IMC =} \FunctionTok{univ\_quanti}\NormalTok{(imc, }\AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{details =} \ConstantTok{TRUE}\NormalTok{),}
+          \AttributeTok{PAS =} \FunctionTok{univ\_quanti}\NormalTok{(pas, }\AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{details =} \ConstantTok{TRUE}\NormalTok{))}
+\NormalTok{     )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $IMC
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0   24.5    3.1   15.4   22.3   24.6   26.4   32.5 
+## 
+## $PAS
+##      N   mean     sd    min     Q1 median     Q3    max 
+##  300.0  137.1   16.8   92.0  125.0  138.0  149.0  177.0
+\end{verbatim}
+
+Pour les variables qualitatives (dans leur format de facteurs \texttt{sexL} et \texttt{traitL}) :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{with}\NormalTok{(df\_1,}
+     \FunctionTok{list}\NormalTok{(}\AttributeTok{SEX =} \FunctionTok{cbind}\NormalTok{(}\AttributeTok{N =} \FunctionTok{table}\NormalTok{(sexL),}
+                      \AttributeTok{pct =} \FunctionTok{round}\NormalTok{(}\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(sexL)) }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }\AttributeTok{digits =} \DecValTok{1}\NormalTok{),}
+                      \AttributeTok{deparse.level =} \DecValTok{2}\NormalTok{), }\CommentTok{\# ajoute les noms de colonnes}
+          \AttributeTok{TRAITEMENT =} \FunctionTok{cbind}\NormalTok{(}\AttributeTok{N =} \FunctionTok{table}\NormalTok{(traitL),}
+                             \AttributeTok{pct =} \FunctionTok{round}\NormalTok{(}\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(traitL)) }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }
+                                         \AttributeTok{digits =} \DecValTok{1}\NormalTok{), }
+                             \AttributeTok{deparse.level =} \DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $SEX
+##            N pct
+## Féminin  153  51
+## Masculin 147  49
+## 
+## $TRAITEMENT
+##                N  pct
+## Placebo      120 40.0
+## Traitement A  91 30.3
+## Traitement B  89 29.7
+\end{verbatim}
+
+\subsection{Analyses bivariées}\label{analyses-bivariuxe9es-1}
+
+\subsubsection{Comparer deux moyennes}\label{comparer-deux-moyennes}
+
+Comparer la PAS en fonction du sexe :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Tableau descriptif bi{-}varié}
+\FunctionTok{with}\NormalTok{(df\_1,}
+\NormalTok{     pas }\SpecialCharTok{|\textgreater{}}
+       \FunctionTok{aggregate}\NormalTok{(}\AttributeTok{by =} \FunctionTok{list}\NormalTok{(sexL), }
+                 \AttributeTok{FUN =}\NormalTok{ univ\_quanti, }\CommentTok{\# fonction à utiliser}
+                 \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{details =} \ConstantTok{FALSE}\NormalTok{)) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Group.1   x.N x.mean  x.sd
+## 1  Féminin 153.0  132.4  16.8
+## 2 Masculin 147.0  142.0  15.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Test de Student}
+\FunctionTok{with}\NormalTok{(df\_1,}
+     \FunctionTok{t.test}\NormalTok{(pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sexL)) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  pas by sexL
+## t = -5.1382, df = 297.44, p-value = 5.029e-07
+## alternative hypothesis: true difference in means between group Féminin and group Masculin is not equal to 0
+## 95 percent confidence interval:
+##  -13.233087  -5.903634
+## sample estimates:
+##  mean in group Féminin mean in group Masculin 
+##               132.4248               141.9932
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# On peut récupérer uniquement la p{-}value}
+\CommentTok{\# rappel : la p{-}value peut être récupéré avec l\textquotesingle{}opérateur dollar $}
+\CommentTok{\#          appliqué au résultat de la fonction t.test}
+\FunctionTok{with}\NormalTok{(}\FunctionTok{with}\NormalTok{(df\_1,}
+          \FunctionTok{t.test}\NormalTok{(pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sexL)), }
+\NormalTok{     p.value)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.028976e-07
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Test de Levene pour vérifier l\textquotesingle{}égalité des variances}
+\FunctionTok{with}\NormalTok{(df\_1,}
+\NormalTok{     pas }\SpecialCharTok{|\textgreater{}}\NormalTok{ car}\SpecialCharTok{::}\FunctionTok{leveneTest}\NormalTok{(}\AttributeTok{group =}\NormalTok{ sexL))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(>F)
+## group   1  1.0178 0.3139
+##       298
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Test de Wilcoxon si les conditions d\textquotesingle{}application ne sont pas vérifiées}
+\FunctionTok{with}\NormalTok{(df\_1,}
+     \FunctionTok{wilcox.test}\NormalTok{(pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ sexL))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  pas by sexL
+## W = 7609.5, p-value = 1.29e-06
+## alternative hypothesis: true location shift is not equal to 0
+\end{verbatim}
+
+\subsubsection{Comparer 3 moyennes ou plus}\label{comparer-3-moyennes-ou-plus-1}
+
+Comparer la PAS en fonction du traitement :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Tableau descriptif bi{-}varié}
+\FunctionTok{with}\NormalTok{(df\_1,}
+\NormalTok{     pas }\SpecialCharTok{|\textgreater{}}
+       \FunctionTok{aggregate}\NormalTok{(}\AttributeTok{by =} \FunctionTok{list}\NormalTok{(traitL), }
+                 \AttributeTok{FUN =}\NormalTok{ univ\_quanti, }\CommentTok{\# fonction à utiliser}
+                 \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{details =} \ConstantTok{FALSE}\NormalTok{)) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        Group.1   x.N x.mean  x.sd
+## 1      Placebo 120.0  141.4  15.6
+## 2 Traitement A  91.0  130.7  16.4
+## 3 Traitement B  89.0  137.8  17.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# appliquer le test d\textquotesingle{}Anova au modèle linéaire pas \textasciitilde{} traitL}
+\FunctionTok{with}\NormalTok{(df\_1,}
+     \FunctionTok{lm}\NormalTok{(pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitL) }\SpecialCharTok{|\textgreater{}}
+       \FunctionTok{anova}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Response: pas
+##            Df Sum Sq Mean Sq F value    Pr(>F)    
+## traitL      2   5940 2970.18  11.215 2.016e-05 ***
+## Residuals 297  78656  264.83                      
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Vérification des conditions d\textquotesingle{}applications}
+\DocumentationTok{\#\#\# 1) égalité des variances par le test de Levene}
+\FunctionTok{with}\NormalTok{(df\_1,}
+\NormalTok{     pas }\SpecialCharTok{|\textgreater{}}\NormalTok{ car}\SpecialCharTok{::}\FunctionTok{leveneTest}\NormalTok{(}\AttributeTok{group =}\NormalTok{ traitL))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(>F)
+## group   2  0.6669  0.514
+##       297
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# 2) normalité des résidus du modèle linéaire}
+\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{with}\NormalTok{(}\FunctionTok{with}\NormalTok{(df\_1, }\FunctionTok{lm}\NormalTok{(pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitL)),}
+\NormalTok{            residuals)}
+\FunctionTok{qqnorm}\NormalTok{(res)}
+\FunctionTok{qqline}\NormalTok{(res)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/syntax14-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Réaliser un test de Kruskal{-}Wallis si les conditions ne sont pas vérifiées}
+\FunctionTok{with}\NormalTok{(df\_1,}
+     \FunctionTok{kruskal.test}\NormalTok{(pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitL))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  pas by traitL
+## Kruskal-Wallis chi-squared = 19.04, df = 2, p-value = 7.336e-05
+\end{verbatim}
+
+\subsubsection{Comparer des pourcentages}\label{comparer-des-pourcentages-1}
+
+Description de la répartition du sexe en fonction du traitement, et application du test du Chi-2.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# Tableau descriptif bivarié}
+\FunctionTok{with}\NormalTok{(df\_1, }
+     \FunctionTok{paste0}\NormalTok{(}\FunctionTok{table}\NormalTok{(sexL, traitL),}
+            \StringTok{" ("}\NormalTok{,}
+            \FunctionTok{round}\NormalTok{(}\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(sexL, trait), }\AttributeTok{margin =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}\NormalTok{,}
+                  \AttributeTok{digits =} \DecValTok{1}\NormalTok{),}
+            \StringTok{"\%)"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+       \FunctionTok{matrix}\NormalTok{(}\AttributeTok{nrow =} \DecValTok{2}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{3}\NormalTok{, }\AttributeTok{byrow =} \ConstantTok{FALSE}\NormalTok{, }
+              \AttributeTok{dimnames =} \FunctionTok{dimnames}\NormalTok{(}\FunctionTok{table}\NormalTok{(sexL, traitL))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           traitL
+## sexL       Placebo      Traitement A Traitement B
+##   Féminin  "57 (47.5%)" "46 (50.5%)" "50 (56.2%)"
+##   Masculin "63 (52.5%)" "45 (49.5%)" "39 (43.8%)"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\# test du chi{-}2}
+\FunctionTok{with}\NormalTok{(df\_1, }
+     \FunctionTok{table}\NormalTok{(sexL, traitL) }\SpecialCharTok{|\textgreater{}}
+       \FunctionTok{chisq.test}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's Chi-squared test
+## 
+## data:  table(sexL, traitL)
+## X-squared = 1.5512, df = 2, p-value = 0.4604
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# effectifs attendus :}
+\FunctionTok{with}\NormalTok{(}\FunctionTok{with}\NormalTok{(df\_1, }
+          \FunctionTok{table}\NormalTok{(sexL, traitL) }\SpecialCharTok{|\textgreater{}}
+            \FunctionTok{chisq.test}\NormalTok{()),}
+\NormalTok{     expected)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           traitL
+## sexL       Placebo Traitement A Traitement B
+##   Féminin     61.2        46.41        45.39
+##   Masculin    58.8        44.59        43.61
+\end{verbatim}
+
+\subsubsection{Corrélations}\label{corruxe9lations-1}
+
+Estimation des corrélations de Pearson et de Spearman, avec test de leurs hypothèse nulles \(\rho = 0\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{with}\NormalTok{(df\_1,}
+     \FunctionTok{cor.test}\NormalTok{(imc, pas, }\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's product-moment correlation
+## 
+## data:  imc and pas
+## t = 3.8534, df = 298, p-value = 0.0001427
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.1072647 0.3231284
+## sample estimates:
+##       cor 
+## 0.2178593
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{with}\NormalTok{(df\_1,}
+     \FunctionTok{cor.test}\NormalTok{(imc, pas, }\AttributeTok{method =} \StringTok{"spearman"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in cor.test.default(imc, pas, method = "spearman"): Impossible de
+## calculer la p-value exacte avec des ex-aequos
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Spearman's rank correlation rho
+## 
+## data:  imc and pas
+## S = 3522826, p-value = 0.0001503
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##      rho 
+## 0.217141
+\end{verbatim}
+
+\subsection{Analyse multivariée}\label{analyse-multivariuxe9e-1}
+
+Estimation de la régression linéaire multiple de la PAS en fonction du traitement, ajusté sur le sexe et l'IMC :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{with}\NormalTok{(df\_1,}
+     \FunctionTok{lm}\NormalTok{(pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitL }\SpecialCharTok{+}\NormalTok{ sexL }\SpecialCharTok{+}\NormalTok{ imc) }\SpecialCharTok{|\textgreater{}}
+       \FunctionTok{summary}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = pas ~ traitL + sexL + imc)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -38.871 -10.083  -0.342  10.941  41.171 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)        109.5668     7.1403  15.345  < 2e-16 ***
+## traitLTraitement A -10.9623     2.1246  -5.160 4.55e-07 ***
+## traitLTraitement B  -2.8373     2.1374  -1.327 0.185388    
+## sexLMasculin         8.5634     1.7796   4.812 2.39e-06 ***
+## imc                  1.1240     0.2904   3.870 0.000134 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 15.24 on 295 degrees of freedom
+## Multiple R-squared:  0.1902, Adjusted R-squared:  0.1792 
+## F-statistic: 17.32 on 4 and 295 DF,  p-value: 8.911e-13
+\end{verbatim}
 
 \end{document}

@@ -1,0 +1,317 @@
+# Pipe natif, `within()` et `with()`
+
+La syntaxe de R base peut être rendue plus lisible avec le pipe natif de R `|>`, ainsi que les fonctions `within()` et `with()`.
+
+Nous allons reprendre les éléments de l'analyse réalisée au chapitre 3 en utilisant cette syntaxe complémentaire.
+
+Commençons par supprimer l'ensemble des éléments de l'environnement, puis importons à nouveau les bases `df_1` et `meta_df_1` : 
+```{r syntax1, echo=TRUE}
+### Vider l'environnement
+rm(list = ls())
+
+### Importer df_1 et meta_df_1
+df_1 <- read.csv2("data/df_1.csv")
+meta_df_1 <- read.csv2("data/meta_df_1.csv")
+```
+
+## Pipe natif de R
+Le principe du "pipe" est une syntaxe de programmation qui a été initialement introduite avec le package `maggritr` au sein de la famille de packages du "tidyverse". Ce principe a été repris dans R base à partir de sa version 4.1.0.
+
+Le pipe natif s'écrit avec une barre verticale suivi d'un signe supérieur `|>`. 
+
+La syntaxe est la suivante : 
+
+  - L'élément qui se site à gauche du pipe (LHS, _left hand side_) ...
+  - ... est transmis au premier argument de la fonction à droite du pipe (RDS, _right hand side_).
+
+`x |> funct(arguments = ...)` est équivalent à `funct(x, argument = ...)`
+  
+Par exemple : 
+```{r syntax2, echo=TRUE}
+df_1 |> head() # est équivalent de head(df_1)
+df_1 |> tail()  # est équivalent de tail(df_1)
+df_1 |> str() # est équivalent de str(df_1)
+```
+
+Cela permet d'avoir un code dont la décomposition est plus lisible, en enchaînant les pipes les uns après les autres : 
+```{r syntax3, echo=TRUE}
+# au lieu d'écrire : 
+round(mean(df_1$imc, na.rm = TRUE), digits = 1)
+
+# on peut écrire, de manière équivalente, avec 2 pipes qui s'enchaînent :
+df_1$imc |> 
+  mean(na.rm = TRUE) |>
+  round(digits = 1)
+# df_1$imc a été pris comme premier argument de mean(x, na.rm = TRUE)
+# puis le résultat a été pris comme premier argument de round(x, digits = 1)
+```
+
+Au lieu de "transférer" l'élément à gauche du pipe au premier argument de la fonction à droite du pipe, il est possible de le transférer à n'importe quel argument à droite du pipe à l'aide du "placeholder" `_` (_underscore_). 
+
+`x |> funct(y, argument = _)` est équivalent à `funct(y, argument = x)`. Par exemple : 
+```{r syntax4, echo=TRUE}
+paste0("la moyenne de l'IMC est ",
+       round(mean(df_1$imc, na.rm = TRUE), digits = 1),
+       " kg/m2")
+
+### on peut placer le résultat de la moyenne arrondi en 2ème position des 
+### arguments dans la fonction paste0() avec le placeholder "_"
+df_1$imc |> 
+  mean(na.rm = TRUE) |>
+  round(digits = 1) |>
+  paste0("la moyenne de l'IMC est ", 
+         a = _, # argument = placeholder 
+         " kg/m2")
+```
+
+## Fonction `within()` : créer/modifier des variables dans une base de données
+La fonction `within()` permet d'éviter d'utiliser l'opérateur dollar `$` lorsque vous souhaitez :
+
+  - créer de nouvelles variables dans une base de données,
+  - modifier des variables déjà existantes,
+  - transformer les données selon des tâches spécifiques.
+
+La syntaxe `within(df, newvar <- ...)` va créer la variable `newvar` dans la base `df`. Pour sauvegarder cette nouvelle variable dans la base, il faudra assigner le résultat à la base souhaitée : 
+```{r syntax5, echo=TRUE}
+df_1 <- within(df_1, 
+               sexL <- factor(sex,
+                              labels = meta_df_1$labs[meta_df_1$var == "sex"]))
+### est équivalent : 
+# df_1$sexL <- factor(df_1$sex,
+#                     labels = meta_df_1$labs[meta_df_1$var == "sex"])
+```
+
+On peut créer plusieurs variables en même temps, en indiquant l'ensemble des commandes entre parenthèses (_note : les variables sont incluses dans l'ordre inverse de création dans la commande_) : 
+```{r syntax6, echo=TRUE}
+df_1 <- within(df_1, {
+  sexL <- factor(sex, 
+                 labels = meta_df_1$labs[meta_df_1$var == "sex"])
+  traitL <- factor(trait,
+                   labels = meta_df_1$labs[meta_df_1$var == "trait"])
+  obesite <- ifelse(imc >= 30, 1, 0)
+  imc_cl <- rep(NA, nrow(df_1))
+  imc_cl[df_1$imc < 18.5] <- 1
+  imc_cl[df_1$imc >= 18.5 & df_1$imc < 25] <- 2
+  imc_cl[df_1$imc >= 25 & df_1$imc < 30] <- 3
+  imc_cl[df_1$imc >= 30] <- 4
+})
+
+head(df_1)
+```
+On voit que l'opérateur dollar `$` n'a été utilisé que pour aller récupérer l'information des labels dans la base de méta-données, ainsi que pour la sélection par indexation pour créer la variable `imc_cl`.
+
+On peut également modifier une variable (l'opérateur dollar `$` n'est utilisé que pour la sélection par indexation):
+```{r syntax7, echo=TRUE}
+### Remplacer la valeur de PAS de l'individu n°137 par 123 mmHg :
+df_1 <- within(df_1,
+               pas[df_1$subjid == 137] <- 123)
+```
+
+## Fonction `with()` : analyser des variables dans une base de données
+La fonction `with()` permet d'éviter d'utiliser l'opérateur `$` lorsque l'on souhaite :
+
+  - faire des calculs statistiques appliqués aux variables d'une base de données
+  - faire des calculs temporaires (quand il n'y a pas besoin de modifier les données de manière permanente)
+  
+Par exemple, pour calculer la moyenne de l'IMC dans la base df_1 : 
+```{r syntax8, echo=TRUE}
+# la commande ...
+mean(df_1$imc) 
+
+# ... est équivalente à la commande 
+with(df_1, mean(imc))
+```
+
+On peut combiner la fonction `with()` avec le pipe natif : 
+```{r syntax9, echo=TRUE}
+# la commande suivante ...
+paste0("la moyenne de l'IMC est égale à ", 
+       round(mean(df_1$imc, na.rm = TRUE),
+             digits = 1),
+       " kg/m2")
+
+# ... est équivalente à ...
+with(df_1,
+     imc |> 
+       mean(na.rm = TRUE) |>
+       round(digits = 1) |>
+       paste0("la moyenne de l'IMC est égale à ", 
+              a = _, # résultat positionné avec le "placeholder" underscore
+              " kg/m2"))
+```
+
+## Exemples d'applications
+Nous pouvons utiliser ces éléments de syntaxe pour les analyses réalisées au chapitre 2.
+
+```{r syntax10, echo=TRUE}
+### On reprend notre fonction "maison" d'analyse quantitative univariée 
+univ_quanti <- function(x, dig = 2, remove_miss = TRUE, details = TRUE) { 
+  # calculer les effectifs, la moyenne, l'écart type et les quantiles
+  n <- length(x[!is.na(x)])    
+  moy <- mean(x, na.rm = remove_miss)
+  sd <- sd(x, na.rm = remove_miss)
+  q <- quantile(x, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = remove_miss)
+  
+  # stocker les résultat dans le vecteur "param"
+  if (details == TRUE) {
+    param <- c(n, 
+               round(moy, digits = dig), 
+               round(sd, digits = dig), 
+               q)
+  } else {
+    param <- c(n, 
+               round(moy, digits = dig), 
+               round(sd, digits = dig))
+  }
+  
+  # ajouter un nom à chaque élément du vecteur
+  if (details == TRUE) {
+    names(param) <- c("N", "mean", "sd", "min", "Q1", "median", "Q3", "max")
+  } else {
+    names(param) <- c("N", "mean", "sd")
+  }
+  
+  # retourne les résultats
+  return(param)
+}
+```
+
+### Analyses univariées
+Pour les variables quantitatives IMC et PAS : 
+```{r syntax11, echo=TRUE}
+with(df_1,
+     # pour des analyses répétées sur plusieurs élémnets de df_1,
+     # on peut les stocker dans une liste
+     list(IMC = univ_quanti(imc, dig = 1, remove_miss = TRUE, details = TRUE),
+          PAS = univ_quanti(pas, dig = 1, remove_miss = TRUE, details = TRUE))
+     )
+```
+
+Pour les variables qualitatives (dans leur format de facteurs `sexL` et `traitL`) : 
+```{r syntax12, echo=TRUE}
+with(df_1,
+     list(SEX = cbind(N = table(sexL),
+                      pct = round(prop.table(table(sexL)) * 100, digits = 1),
+                      deparse.level = 2), # ajoute les noms de colonnes
+          TRAITEMENT = cbind(N = table(traitL),
+                             pct = round(prop.table(table(traitL)) * 100, 
+                                         digits = 1), 
+                             deparse.level = 2)))
+```
+
+
+### Analyses bivariées
+#### Comparer deux moyennes 
+Comparer la PAS en fonction du sexe : 
+```{r syntax13, echo=TRUE}
+### Tableau descriptif bi-varié
+with(df_1,
+     pas |>
+       aggregate(by = list(sexL), 
+                 FUN = univ_quanti, # fonction à utiliser
+                 dig = 1, remove_miss = TRUE, details = FALSE)) 
+
+### Test de Student
+with(df_1,
+     t.test(pas ~ sexL)) 
+
+### On peut récupérer uniquement la p-value
+# rappel : la p-value peut être récupéré avec l'opérateur dollar $
+#          appliqué au résultat de la fonction t.test
+with(with(df_1,
+          t.test(pas ~ sexL)), 
+     p.value)
+
+### Test de Levene pour vérifier l'égalité des variances
+with(df_1,
+     pas |> car::leveneTest(group = sexL))
+
+### Test de Wilcoxon si les conditions d'application ne sont pas vérifiées
+with(df_1,
+     wilcox.test(pas ~ sexL))
+```
+
+
+#### Comparer 3 moyennes ou plus
+Comparer la PAS en fonction du traitement : 
+```{r syntax14, echo=TRUE}
+### Tableau descriptif bi-varié
+with(df_1,
+     pas |>
+       aggregate(by = list(traitL), 
+                 FUN = univ_quanti, # fonction à utiliser
+                 dig = 1, remove_miss = TRUE, details = FALSE)) 
+
+### appliquer le test d'Anova au modèle linéaire pas ~ traitL
+with(df_1,
+     lm(pas ~ traitL) |>
+       anova())
+
+### Vérification des conditions d'applications
+### 1) égalité des variances par le test de Levene
+with(df_1,
+     pas |> car::leveneTest(group = traitL))
+### 2) normalité des résidus du modèle linéaire
+res <- with(with(df_1, lm(pas ~ traitL)),
+            residuals)
+qqnorm(res)
+qqline(res)
+
+### Réaliser un test de Kruskal-Wallis si les conditions ne sont pas vérifiées
+with(df_1,
+     kruskal.test(pas ~ traitL))
+```
+
+#### Comparer des pourcentages
+Description de la répartition du sexe en fonction du traitement, et application du test du Chi-2.
+```{r syntax15, echo=TRUE}
+### Tableau descriptif bivarié
+with(df_1, 
+     paste0(table(sexL, traitL),
+            " (",
+            round(prop.table(table(sexL, trait), margin = 2) * 100,
+                  digits = 1),
+            "%)") |>
+       matrix(nrow = 2, ncol = 3, byrow = FALSE, 
+              dimnames = dimnames(table(sexL, traitL))))
+
+### test du chi-2
+with(df_1, 
+     table(sexL, traitL) |>
+       chisq.test())
+
+# effectifs attendus :
+with(with(df_1, 
+          table(sexL, traitL) |>
+            chisq.test()),
+     expected)
+```
+
+<!-- avec l'exemple ci-dessous, l'arrondi ne fonctionne pas ??? -->
+<!-- with(df_1, -->
+<!--      paste0(table(sexL, traitL), -->
+<!--             " (", -->
+<!--             table(sexL, traitL) |> -->
+<!--               prop.table(margin = 2) * 100 |> -->
+<!--               round(digits = 1), -->
+<!--             "%)") |> -->
+<!--        matrix(nrow = 2, ncol = 3, byrow = FALSE, -->
+<!--               dimnames = dimnames(table(sexL, traitL)))) -->
+
+#### Corrélations
+Estimation des corrélations de Pearson et de Spearman, avec test de leurs hypothèse nulles $\rho = 0$.
+```{r syntax16, echo=TRUE}
+with(df_1,
+     cor.test(imc, pas, method = "pearson"))
+
+with(df_1,
+     cor.test(imc, pas, method = "spearman"))
+```
+
+### Analyse multivariée
+Estimation de la régression linéaire multiple de la PAS en fonction du traitement, ajusté sur le sexe et l'IMC :
+```{r syntax17, echo=TRUE}
+with(df_1,
+     lm(pas ~ traitL + sexL + imc) |>
+       summary())
+```
