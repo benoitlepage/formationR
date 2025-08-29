@@ -15,7 +15,7 @@ meta_df_1 <- read.csv2("data/meta_df_1.csv")
 ```
 
 ## Pipe natif de R
-Le principe du "pipe" est une syntaxe de programmation qui a été initialement introduite avec le package `maggritr` au sein de la famille de packages du "tidyverse". Ce principe a été repris dans R base à partir de sa version 4.1.0.
+Le principe du "pipe" est une syntaxe de programmation qui a été initialement introduite avec le package [`maggritr`](https://magrittr.tidyverse.org/) au sein de la famille de packages du "tidyverse". Ce principe a été repris dans R base à partir de sa version 4.1.0.
 
 Le pipe natif s'écrit avec une barre verticale suivi d'un signe supérieur `|>`. 
 

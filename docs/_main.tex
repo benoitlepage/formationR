@@ -695,7 +695,7 @@ Les principales structures de données que nous allons détailler dans la suite 
   les \textbf{bases de données} (\texttt{?data.frames}). Les bases de données sont des listes de vecteurs atomiques de même longueur. Il existe d'autres formats de base de données qui seront présentés plus tard (avec les packages \texttt{tidyverse} et \texttt{data.table}).
 \end{itemize}
 
-\section{Objet à une seule valeur (scalaire ou texte)}\label{objet-uxe0-une-seule-valeur-scalaire-ou-texte}
+\section{Objet à une seule valeur (scalaire)}\label{objet-uxe0-une-seule-valeur-scalaire}
 
 \subsection{Scalaires}\label{scalaires}
 
@@ -4947,7 +4947,7 @@ Commençons par supprimer l'ensemble des éléments de l'environnement, puis imp
 
 \section{Pipe natif de R}\label{pipe-natif-de-r}
 
-Le principe du ``pipe'' est une syntaxe de programmation qui a été initialement introduite avec le package \texttt{maggritr} au sein de la famille de packages du ``tidyverse''. Ce principe a été repris dans R base à partir de sa version 4.1.0.
+Le principe du ``pipe'' est une syntaxe de programmation qui a été initialement introduite avec le package \href{https://magrittr.tidyverse.org/}{\texttt{maggritr}} au sein de la famille de packages du ``tidyverse''. Ce principe a été repris dans R base à partir de sa version 4.1.0.
 
 Le pipe natif s'écrit avec une barre verticale suivi d'un signe supérieur \texttt{\textbar{}\textgreater{}}.
 
@@ -5633,9 +5633,115 @@ Estimation de la régression linéaire multiple de la PAS en fonction du traitem
 
 \chapter{Tidyverse}\label{tidyverse}
 
-Le Tidyverse est une collection de packages qui apportent de nouvelles fonctions avec une nouvelle philosophie, une nouvelle grammaire et de nouvelles structures de données, est très utilisés dans la communauté des utilisateurs de R.
+Le \href{https://www.tidyverse.org/}{Tidyverse} est une collection de packages qui apportent de nouvelles fonctions avec une nouvelle philosophie, une nouvelle grammaire et de nouvelles structures de données, est très utilisés dans la communauté des utilisateurs de R.
 
 Nous allons reproduire les analyses R bases réalisées aux chapitres 3 et 4 avec les fonctions du Tidyverse.
+
+Le livre \href{https://r4ds.hadley.nz/}{R for data science} donne une formation à R qui exploite largement les fonctions du Tidyverse.
+
+\section{Charger les packages du Tidyverse}\label{charger-les-packages-du-tidyverse}
+
+Vous pouvez installer les packages du Tidyverse :
+
+\begin{itemize}
+\tightlist
+\item
+  dans R Studio, menu ``Tools \textgreater{} Install packages'', tapez ``tidyverse'' dans le champ de recherche puis cliquez sur ``Install''.
+\item
+  dans la console, saisissez \texttt{install.packages("tidyverse")}
+\end{itemize}
+
+R Studio va alors télécharger l'ensemble des packages de la collection.
+
+Pour pouvoir utiliser les fonctions de ces packages, il faudra les charger avec \texttt{library(tidyverse)}. Un message va s'afficher indiquant quels sont les packages qui viennent d'être chargés. Un avertissement indique également de possibles conflits entre fonctions de même nom : par exemple, \texttt{filter()} et \texttt{lag()} du package \texttt{dplyr} que vous venez de charger vont remplacer les fonctions de même nom du package \texttt{stats} de Rbase.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.1.4     v readr     2.1.5
+## v forcats   1.0.0     v stringr   1.5.1
+## v ggplot2   3.5.2     v tibble    3.3.0
+## v lubridate 1.9.4     v tidyr     1.3.1
+## v purrr     1.0.4     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## x dplyr::sym()    masks ggplot2::sym(), r2symbols::sym()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\section{Pipe du tidyverse}\label{pipe-du-tidyverse}
+
+Avant d'être implémenté dans R base, la syntaxe par ``pipe'' a d'abord été proposée par le package \href{https://magrittr.tidyverse.org/}{\texttt{maggritr}} avec l'opérateur \texttt{\%\textgreater{}\%}. Il fonctionne de manière assez similaire au pipe natif de R, à quelques détails près.
+
+Nous allons voir quelques exemples à partir de l'objet :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+Comme pour le pipe natif, l'élément à gauche du pipe est transféré comme 1er argument dans la fonction à droite du pipe. La table suivante indique l'équivalence entre les 3 syntaxes. \emph{Notez que la fonction dans son expression la plus simple n'a pas besoin de parenthèses avec le pipe du Tidyverse}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2955}}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3295}}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3750}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+R base
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+pipe natif
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+pipe du Tidyverse
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{mean(x)} & \texttt{x\ \textbar{}\textgreater{}\ mean()} & \texttt{x\ \%\textgreater{}\%\ mean} \\
+\texttt{quantile(x,\ c(0,0.5,1))} & \texttt{x\ \textbar{}\textgreater{}\ quantile(c(0,0.5,1))} & \texttt{x\ \%\textgreater{}\%\ quantile(c(0,0.5,1))} \\
+\texttt{round(mean(x))} & \texttt{x\ \textbar{}\textgreater{}\ mean()\ \textbar{}\textgreater{}\ round()} & \texttt{x\ \%\textgreater{}\%\ mean\ \%\textgreater{}\%\ round} \\
+\end{longtable}
+
+Il est possible de transférer l'élément à gauche du pipe vers n'importe quel argument à droite du pipe à l'aide du ``placeholder'' \texttt{.}. La table ci-dessous indique l'équivalence entre les 3 syntaxes.
+
+Si l'argument doit apparaître dans une expression nichée,
+
+\begin{itemize}
+\tightlist
+\item
+  il faut ajouter des accolades avec le pipe du Tidyverse.
+\item
+  il faut enchaîner les fonctions avec le pipe natif (\emph{A vérifier : y a t'il d'autre solution ?})
+\end{itemize}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2752}}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3670}}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3578}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+R base
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+pipe natif (placeholder = \texttt{\_})
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+pipe du Tidyverse (placeholder = \texttt{.})
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{paste0(letters{[}1:10{]},\ x)} & \texttt{x\ \textbar{}\textgreater{}\ paste0(letters{[}1:10{]},\ a=\_)} & \texttt{x\ \%\textgreater{}\%\ paste0(letters{[}1:10{]},\ .)} \\
+\texttt{seq(1,100,\ along.with=x)} & \texttt{x\ \textbar{}\textgreater{}\ seq(1,100,\ along.with=\_)} & \texttt{x\ \%\textgreater{}\%\ seq(1,100,\ along.with=.)} \\
+\texttt{seq(1,100,\ by=length(x))} & \texttt{x\ \textbar{}\textgreater{}\ length()\ \textbar{}\textgreater{}\ seq(1,100,\ by=\_)} & \texttt{x\ \%\textgreater{}\%\ \{seq(1,100,\ by=length(.))\}} \\
+\end{longtable}
 
 \chapter{\texorpdfstring{Package \texttt{data.table}}{Package data.table}}\label{package-data.table}
 

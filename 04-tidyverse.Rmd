@@ -1,4 +1,49 @@
 # Tidyverse
-Le Tidyverse est une collection de packages qui apportent de nouvelles fonctions avec une nouvelle philosophie, une nouvelle grammaire et de nouvelles structures de données, est très utilisés dans la communauté des utilisateurs de R.
+Le [Tidyverse](https://www.tidyverse.org/) est une collection de packages qui apportent de nouvelles fonctions avec une nouvelle philosophie, une nouvelle grammaire et de nouvelles structures de données, est très utilisés dans la communauté des utilisateurs de R.
 
 Nous allons reproduire les analyses R bases réalisées aux chapitres 3 et 4 avec les fonctions du Tidyverse.
+
+Le livre [R for data science](https://r4ds.hadley.nz/) donne une formation à R qui exploite largement les fonctions du Tidyverse.
+
+## Charger les packages du Tidyverse
+Vous pouvez installer les packages du Tidyverse : 
+
+  - dans R Studio, menu "Tools > Install packages", tapez "tidyverse" dans le champ de recherche puis cliquez sur "Install".
+  - dans la console, saisissez `install.packages("tidyverse")`
+  
+R Studio va alors télécharger l'ensemble des packages de la collection. 
+
+Pour pouvoir utiliser les fonctions de ces packages, il faudra les charger avec `library(tidyverse)`. Un message va s'afficher indiquant quels sont les packages qui viennent d'être chargés. Un avertissement indique également de possibles conflits entre fonctions de même nom : par exemple, `filter()` et `lag()` du package `dplyr` que vous venez de charger vont remplacer les fonctions de même nom du package `stats` de Rbase.
+
+```{r tidy1, echo=TRUE}
+library(tidyverse)
+```
+
+## Pipe du tidyverse
+Avant d'être implémenté dans R base, la syntaxe par "pipe" a d'abord été proposée par le package [`maggritr`](https://magrittr.tidyverse.org/) avec l'opérateur `%>%`. Il fonctionne de manière assez similaire au pipe natif de R, à quelques détails près.
+
+Nous allons voir quelques exemples à partir de l'objet : 
+```{r tidy2, echo=TRUE}
+x <- 1:10
+```
+
+Comme pour le pipe natif, l'élément à gauche du pipe est transféré comme 1er argument dans la fonction à droite du pipe. La table suivante indique l'équivalence entre les 3 syntaxes. _Notez que la fonction dans son expression la plus simple n'a pas besoin de parenthèses avec le pipe du Tidyverse_
+
+| R base                   | pipe natif                  | pipe du Tidyverse               | 
+|:------------------------:|:---------------------------:|:-------------------------------:|
+| `mean(x)`                | `x |> mean()`               | `x %>% mean`                 | 
+| `quantile(x, c(0,0.5,1))`| `x |> quantile(c(0,0.5,1))` | `x %>% quantile(c(0,0.5,1))` | 
+| `round(mean(x))`         | `x |> mean() |> round()`    | `x %>% mean %>% round`      | 
+
+Il est possible de transférer l'élément à gauche du pipe vers n'importe quel argument à droite du pipe à l'aide du "placeholder" `.`. La table ci-dessous indique l'équivalence entre les 3 syntaxes. 
+
+Si l'argument doit apparaître dans une expression nichée, 
+
+  - il faut ajouter des accolades avec le pipe du Tidyverse.
+  - il faut enchaîner les fonctions avec le pipe natif (_A vérifier : y a t'il d'autre solution ?_)
+
+| R base                       | pipe natif (placeholder = `_`)         | pipe du Tidyverse (placeholder = `.`) | 
+|:----------------------------:|:--------------------------------------:|:-------------------------------------:|
+| `paste0(letters[1:10], x)`   | `x |> paste0(letters[1:10], a=_)`    | `x %>% paste0(letters[1:10], .)`      | 
+| `seq(1,100, along.with=x)` | `x |> seq(1,100, along.with=_)`      | `x %>% seq(1,100, along.with=.)`    | 
+| `seq(1,100, by=length(x))` | `x |> length() |> seq(1,100, by=_)`  | `x %>% {seq(1,100, by=length(.))}`  | 

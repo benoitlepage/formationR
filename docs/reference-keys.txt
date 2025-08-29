@@ -19,7 +19,7 @@ principaux-types-de-données
 données-manquantes
 décrire-le-type-de-lobjet-spadesuit
 principales-structures-de-données
-objet-à-une-seule-valeur-scalaire-ou-texte
+objet-à-une-seule-valeur-scalaire
 scalaires
 opérations-mathématiques-sur-les-scalaires
 calculatrice
@@ -102,5 +102,7 @@ comparer-des-pourcentages-1
 corrélations-1
 analyse-multivariée-1
 tidyverse
+charger-les-packages-du-tidyverse
+pipe-du-tidyverse
 package-data.table
 reporting

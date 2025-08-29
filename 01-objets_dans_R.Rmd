@@ -139,7 +139,7 @@ Les principales structures de données que nous allons détailler dans la suite 
  - les **matrices** (`?matrix`, `?array`), qui sont des vecteurs atomiques réarrangés sous forme de tables à 2 dimensions ou plus ;
  - les **bases de données** (`?data.frames`). Les bases de données sont des listes de vecteurs atomiques de même longueur. Il existe d'autres formats de base de données qui seront présentés plus tard (avec les packages `tidyverse` et `data.table`).
  
-## Objet à une seule valeur (scalaire ou texte)
+## Objet à une seule valeur (scalaire)
 ### Scalaires
 Assignez les valeurs 4 et 5 à deux objets
 ```{r scalaires1, echo=TRUE}
