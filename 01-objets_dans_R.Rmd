@@ -430,7 +430,7 @@ xor((5 > 10), (2 == 5)) # (FALSE) OU exclusif (FALSE) donne FALSE
 
 ## Les vecteurs atomiques `c()`
 ### Création d'un vecteur atomique
-La fonction `c()` (pour concaténer) permet de créer des vecteurs atomiques. 
+La fonction `c()` (pour combiner) permet de créer des vecteurs atomiques. 
 Les valeurs d'un vecteur atomique doivent toutes être du même type et séparées par une virgule.
 
 

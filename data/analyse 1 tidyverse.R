@@ -1,0 +1,310 @@
+
+library(tidyverse)
+
+# 1) Importer les données ----
+df_1 <- read_csv2("data/df_1.csv")
+meta_df_1 <- read_csv2("data/meta_df_1.csv")
+class(df_1)  # [1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame"
+
+# Voir les différences par rapport au data.frames https://tibble.tidyverse.org/articles/tibble.html
+# La base de données est importé au format "tibble" (abbréviation "tbl"), grâce au package [`tibble`](https://tibble.tidyverse.org/)
+# à la différence des data.frames: 
+#  - tibble ne prend pas en compte les rownames()
+df_test <- data.frame(a = 10:15, b = letters[1:6])
+rownames(df_test) <- c("janvier", "février", "mars", "avril", "mai", "juin")
+rownames(df_test)
+rownames(as_tibble(df_test)) # [1] "1" "2" "3" "4" "5" "6"
+#  - il est facile de créer des colonnes correspondant à des listes (un vecteur comportant des valeurs de types différents)
+tibble(x = 1:3, 
+       y = list(1:5, letters[1:10], 1:20))
+#  - il ne change pas les noms de colonnes que l'on souhaite écrire dans un format non-conventionnelle
+data.frame(`1 N (%)` = 1:3) # la commande data frame a changé le nom de variable
+tibble(`1 N (%)` = 1:3) # le nom de variable non-conventionnel est conservé
+#  - il recycle uniquement les vecteurs de longueur 1 pour éviter des erreurs
+data.frame(id = 1:10,
+           var1 = 20:24, # ces valeurs sont recyclées avec data.frame
+           var2 = 30) # la valeur est recyclée avec data.frame
+tibble(id = 1:10, 
+       var1 = 20:24, # message d'erreur en cas valeurs de longueur > 1
+       var2 = 30)
+tibble(id = 1:10, 
+       var2 = 30) # mais est capable de recycler des valeurs de longueur 1
+
+# un sous-ensemble de tibble sélectionné par indexation retourne un autre tibble
+df_1[c(100:103), c(2,3)]
+# on peut sélectionner une variable avec [[]] ou l'opérateur dollar (comme pour les data.frames)
+df_1[[4]]
+df_1$trait
+
+
+### Les fonctions de manipulation de données sont associées au package dplyr du tidyverse
+# cf cheatsheet https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf
+
+
+# 2) Inspecter les données ----
+
+# contrairement au format data.frame, à l'affiche, le format tibble n'imprime à l'écran que les 10 premières lignes 
+# et les colonnes qui peuvent être affichée dans un même écran. Sont également ajoutés le type de variable (double, caractère, facteur, ...)
+# et met en valeurs les valeurs particulières par des couleurs (les NA par exemple)
+df_1
+# # A tibble: 300 × 5
+#        subjid   sex   imc trait   pas
+#         <dbl> <dbl> <dbl> <dbl> <dbl>
+#      1      1     0  24.8     2   140
+#      2      2     0  24.1     3   109
+#      3      3     0  26.4     1   156
+#      4      4     0  23.3     2   124
+#      5      5     0  25.4     2   131
+#      6      6     1  25       3   148
+#      7      7     0  25.2     3   125
+#      8      8     0  21.5     3   117
+#      9      9     0  21.8     1   132
+#     10     10     0  25.9     1   133
+# # ℹ 290 more rows
+# # ℹ Use `print(n = ...)` to see more row
+
+# affiche une version transposée de la base (les colonnes sont imprimées en lignes)
+# un peu à la manière de la fonction str() de R base
+glimpse(df_1)
+
+## La fonction `arrange` permet de trier les données selon une ou plusieurs variables
+arrange(df_1, sex, imc) # trie la base df_1 sur le sexe, puis sur l'imc
+
+## pour sélectionner des lignes, on peut utiliser la fonction slice et autres fonctions associées
+## slice_head() et slice_tail() pour sélectionner les premières et dernière lignes
+## voir l'aide ?dplyr::slice
+## les arguments `n` permet d'indiquer le nombre de ligne, et `prop` le pourcentage de lignes que 
+## l'on souhaite sélectionner
+slice_head(df_1, n = 5) # voir les 5 premières lignes
+df_1 %>% arrange(sex, imc) %>% slice_head(n = 6)  # voir les 6 premières lignes
+# après avoir rangé les données selon le sexe et l'imc
+## attention avec l'écriture par pipe : 
+df_1 %>% slice_head(n = 6) %>% arrange(sex, imc) # ici, on a d'abord séléctionné
+# les données (ce qui donne une base de type tibble de 6 lignes), et on a ensuite
+# rangé cette petite base de 6 lignes selon le sexe et l'imc
+
+df_1 %>% slice_tail(prop = 0.01) # voir 1% des dernières lignes (càd 3 lignes)
+
+## slice_sample() sélection des rangs au hasard
+df_1 %>% slice_sample(n = 6)
+
+## slice() permet de sélection des lignes spécifiques (4ème, 10ème et 15ème ligne)
+df_1 %>% slice(4, 10, 15) 
+# est équivalent à l'écriture avec indexaction par position R base df_1[c(4,10,15), ]
+
+## la fonction filter() permet de sélectionner des lignes en indiquant une condition
+## voir l'aide ?dplyr::filter()
+df_1 %>% filter(sex == 0 & imc < 21)
+# si on écrit plusieurs conditions séparées par une virgule, 
+# c'est équivalent à des conditions séparées par ET (condition1 & condition2)
+df_1 %>% filter(sex == 0, imc < 21) 
+# c'est équivalent à la sélection par condition entre crochets de R base 
+df_1[df_1$sex == 0 & df_1$imc < 21, ]
+
+## pour sélectionner des colonnes (= des variables) : fonction select()
+# qui détaille un certains nombre de fonctions qui peuvent être utiles pour 
+# faciliter la sélection de variable au sein de la fonction select()
+df_1 %>% select(c(sex, trait)) # sélectionne les colonnes sexe et trait
+df_1 %>% select(sex, trait) # équivalent à la syntaxe précédente (pas besoin de c())
+# c'est équivalent à la sélection par indexation sur le nom R base
+df_1[,c("sex", "trait")]
+
+df_1 %>% select(subjid:imc) # sélectionne les colonnes allant de sexe à imc
+df_1 %>% select(!sex) # ensemble complémentaire de la variable sexe
+df_1 %>% select(-sex, -imc) # toutes les variables sauf sex et imc
+df_1 %>% select(last_col()) # sélectionne la dernière colonne
+df_1 %>% select(starts_with("pa")) # toutes les variables dont le nom commence par "pa"
+df_1 %>% select(ends_with("as")) # toutes les variables dont le nom termine par "as"
+df_1 %>% select(contains("bj")) # toutes les variables dont le nom contient par "bj"
+# on peut également combiner plusieurs modes de sélection : 
+df_1 %>% select(subjid, starts_with("im"), last_col())
+# etc, voir l'aide
+?select()
+
+# select() permet également de renommer directement les variables sélectionnées
+df_1 %>% select(Sexe = sex, Traitement = trait)
+
+# on peut s'en servir pour changer l'ordre des variables
+select(df_1, 
+       imc, trait, subjid, # commence avec ces 3 variables dans cet ordre
+       everything()) # everything() sélection toutes les autres variables
+
+### pour sélectionner une variable et la retourner comme une colonne de base de données : 
+df_1[3]
+class(df_1[3]) # c'est une base de données (tibble ou data.frame)
+# équivalent en dplyr
+select(df_1, imc)
+class(select(df_1, imc)) # une colonne de base de données (tibble ou data.frame)
+
+### pour sélectionner une variable et la retourner comme un vecteur : 
+df_1$imc # retourne le vecteur imc (équivalent à df_1[["imc"]])
+df_1[[3]]
+df_1[["imc"]]
+class(df_1$imc) # c'est un vecteur numérique
+typeof(df_1$imc) # un vecteur de réels (double) pour être plus précis
+# équivalent en dplyr
+pull(df_1, imc)
+class(pull(df_1, imc)) # c'est un vecteur numérique
+typeof(pull(df_1, imc)) # un vecteur de réels (double) pour être plus précis
+
+
+
+# 3) Créer ou modifier une variable ----
+## 3.1) Créer des variables ----
+# la fonction mutate() permet de créer des nouvelles variable
+# la fonction if_else() de dplyr fonctionne selon le même principe que la 
+# fonction ifelse() de Rbase (notez la différence d'écriture) à quelques différences prêt :
+#  - if_else() de dplyr s'assure que le résultat est du même "type"
+ifelse(1:10 < 5, "<5", 0) # renvoi un vecteur caractère (le 0 est transformé en "0" par coercition)
+if_else(1:10 < 5, "<5", 0) # renvoi une erreur
+#  - if_else() permet de préciser un argument missing pour préciser comment 
+#    considérer les manquants
+ifelse(c(1,2,NA,4,5) <= 3, 1, 0) # renvoie NA pour la valeur manquante
+if_else(c(1,2,NA,4,5) <= 3, 1, 0, missing = NULL) # renvoie NA pour la valeur manquante
+if_else(c(1,2,NA,4,5) <= 3, 1, 0, missing = 9) # indique le code choisit (=9) au lieu de NA
+
+### créer la variable obésité.
+# note avec le pipe, penser à assigner le résultat dans df_1 pour que la 
+# variable crée soit bien sauvegardée dans la base df_1
+# (sinon, elle est uniquement crée de manière temporaire)
+df_1 %>% 
+  mutate(obesite = if_else(df_1$imc >= 30, 1, 0)) 
+df_1 # la variable n'a pas été enregistrée dans la base df_1 !
+
+df_1 <- df_1 %>% 
+  mutate(obesite = if_else(df_1$imc >= 30, 1, 0))
+df_1 # ici, on voit que la variable a bien été ajoutée dans la base df_1
+
+# Vérifier que la variable est crée correctement en calculant le min et le max
+# dans chaque groupe d'obésité nouvellement créé :
+# on va utiliser la fonction summarise qui permet de calculer différents paramètres
+# d'une distribution de variables, voir ?summarise()
+# ces analyses peuvent se faire par sous-groupes, qui ont identifiés en amont 
+# par la fonction group_by()
+df_1 %>%
+  group_by(obesite) %>% # prépare à une analyse par groupe
+  summarise(min = min(imc), # calcul le min et max selon les groupes définis
+            max = max(imc)) # par la fonction "group_by()"
+# note : summarise()/summarize() peut s'écrire avec un "s" ou un "z"
+
+### Créer la variable imc à 4 classe, on peut utiliser pour cela la fonction case_when
+### qui fonctionne selon le principe de if_else, mais pour plus de 2 catégories :
+### voir ?case_when : chaque catégorie va être définie par une formule avec : 
+### la condition à gauche du signe ~ et la valeur à assigner à droite du signe ~
+df_1 <- df_1 %>% 
+  mutate(imc_cl = case_when(imc < 18.5 ~ 1,
+                            imc >= 18.5 & imc < 25 ~ 2,
+                            imc >= 25 & imc < 30 ~ 3,
+                            imc >= 30 ~ 4))
+df_1 # la variable imc_cl a été ajoutée à la base df_1
+
+### vérifier que la variable a été correctement créée
+df_1 %>%
+  group_by(imc_cl) %>%
+  summarise(min = min(imc),
+            max = max(imc))
+
+### le croisement entre imc en classe et obésité doit être cohérent :
+with(df_1, table(as.factor(imc_cl), as.factor(obesite), deparse.level = 2))
+
+df_1 %>% group_by(imc_cl, obesite) %>% summarise(n = n())
+df_1 %>% count(imc_cl, obesite) # équivalent à la commande précédente
+
+## le package dyplr contient également une fonction fonction rename() pour renommer
+## une variable sans changer la position
+df_1 %>% rename(imc_en_classe = imc_cl)
+
+## fonction relocate() : pour changer l'ordre des colonnes
+df_1
+# déplacer les colonnes imc_cl et obesité (dans cet ordre) après la variable imc
+df_1 %>% relocate(imc_cl, obesite, .after = imc)
+
+### Compléter la base de méta-données en ajoutant des lignes
+# la fonction add_row() du package tibble permet d'ajouter des lignes
+meta_df_1
+# on commence par rajouter les labels de la variable imc_cl
+meta_df_1 <- meta_df_1 %>% add_row(var = rep("imc_cl", 4), 
+                                   label = rep("IMC en classes", 4), 
+                                   id_labs = 1:4, 
+                                   code_labs = 1:4,
+                                   labs = c("Maigreur", "Normal", "Surpoids", "Obèse"))
+meta_df_1
+# on ajoute les lables de la variable obesite 
+# mais en les positionnant juste avant les labels de imc_cl
+meta_df_1 <- meta_df_1 %>% add_row(var = rep("obesite", 2), 
+                                   label = rep("Obésité", 2), 
+                                   id_labs = c(1,2), 
+                                   code_labs = c(0,1),
+                                   labs = c("Non", "Oui"), 
+                                   .before = 9) # avant la 9ème ligne
+                      
+## 3.2) Modifier des variables ----
+df_1 %>% filter(subjid %in% 135:140)
+# modifier la valeur de PAS du patient n°137 de 133 mmHg à  123 mmHg
+# change la valeur à 123 si subjid == 137, sinon garde la valeur pas originale
+df_1 <- df_1 %>% mutate(pas = ifelse(subjid == 137, 123, pas)) 
+# vérifier :
+df_1 %>% filter(subjid %in% 135:140)
+
+## autre possibilité avec la fonction rows_update() où indique un sous-ensemble 
+##de la base mise à jour
+df_1 %>% # ici, on fait une transformation temporaire, car pas d'assignation
+  rows_update(tibble(subjid = 137, pas = 133)) %>% # revient à la valeur de 133
+  filter(subjid %in% 135:140) # visualiser les lignes subjid = 135 à 140
+
+# 4) Sauvegarder la base de données ----
+# fonction write_csv() et write_csv2() du tidyverse sont analogues aux fonctions
+# write.csv() et write.csv2() de Rbase
+# cf ?write_delim
+write_csv2(df_1, "data/df_1_new.csv")
+
+
+# 5) Analyses univariées ----
+## 5.1) fonction summarise() ----
+?summarize()
+# permet de décrire différents paramètres avec les fonctions suivantes à indiquer 
+# au sein de la fonction summarize()
+#  - moyenne et écart type avec mean() et sd()
+#  - min, max, médiane et intervalles interquartiles : min(), max(), media() IQR(), quantile()
+#  - compte avec n() et n_distinct()
+
+## 5.2) variables quantitatives
+# on peut décrire pour une variable quantitative, 
+# le nombre de valeurs non-manquantes, la moyenne, l'écart type, 
+# le min, le max, l'intervalle interquartile et la médiane
+
+## pour l'imc
+df_1 %>% summarise(n = sum(!is.na(imc)), # nombre de non-manquants
+                   mean = mean(imc), 
+                   sd = sd(imc), 
+                   min = min(imc), 
+                   p25 = quantile(imc, probs = 0.25),
+                   med = median(imc),
+                   p75 = quantile(imc, probs = 0.75),
+                   max = max(imc))
+
+df_1 %>% summarise(mean = mean(imc, pas))
+
+## pour faire un descriptif de plusieurs variables quantitatif, on peut utiliser 
+## des fonctions connexes de summurize : summarise_at(), summarise_all(), 
+## etc. voir ? summarise_at()
+df_1 %>% summarise_at(c("imc", "pas"), 
+                      list(mean = mean, 
+                           sd = sd), 
+                      na.rm = TRUE)
+# il crée une nouvelle variable à chaque pour la présenter en tibble.
+# pas très pratique pour décrire plus de paramètre sur un grand ensemble de variables
+
+# proposition : faire une boucle, puis bind_rows() ? 
+for(i in c(3,5)) {
+  select(df_1[i]) %>% 
+    summarise(#n = sum(!is.na()), # nombre de non-manquants
+              mean = "mean", 
+              sd = "sd", 
+              min = "min", 
+              # p25 = quantile(probs = 0.25),
+              med = "median",
+              # p75 = quantile(probs = 0.75),
+              max = "max") %>% print()
+}
+
