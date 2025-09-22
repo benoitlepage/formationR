@@ -23,7 +23,7 @@
 <meta name="author" content="Benoît Lepage" />
 
 
-<meta name="date" content="2025-09-02" />
+<meta name="date" content="2025-09-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -258,6 +258,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.1" data-path="tidyverse.html"><a href="tidyverse.html#charger-les-packages-du-tidyverse"><i class="fa fa-check"></i><b>5.1</b> Charger les packages du Tidyverse</a></li>
 <li class="chapter" data-level="5.2" data-path="tidyverse.html"><a href="tidyverse.html#pipe-du-tidyverse"><i class="fa fa-check"></i><b>5.2</b> Pipe du tidyverse</a></li>
+<li class="chapter" data-level="5.3" data-path="04-tidyverse.html"><a href="#importer-une-base-de-donn%C3%A9es-1"><i class="fa fa-check"></i><b>5.3</b> Importer une base de données</a></li>
+<li class="chapter" data-level="5.4" data-path="04-tidyverse.html"><a href="#inspecter-les-donn%C3%A9es"><i class="fa fa-check"></i><b>5.4</b> Inspecter les données</a></li>
+<li class="chapter" data-level="5.5" data-path="04-tidyverse.html"><a href="#cr%C3%A9er-ou-modifier-une-variable-1"><i class="fa fa-check"></i><b>5.5</b> Créer ou modifier une variable</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="04-tidyverse.html"><a href="#cr%C3%A9er-des-variables-1"><i class="fa fa-check"></i><b>5.5.1</b> Créer des variables</a></li>
+<li class="chapter" data-level="5.5.2" data-path="tidyverse.html"><a href="tidyverse.html#renommer-une-variable-changer-sa-position"><i class="fa fa-check"></i><b>5.5.2</b> Renommer une variable, changer sa position</a></li>
+<li class="chapter" data-level="5.5.3" data-path="tidyverse.html"><a href="tidyverse.html#ajouter-des-lignes"><i class="fa fa-check"></i><b>5.5.3</b> Ajouter des lignes</a></li>
+<li class="chapter" data-level="5.5.4" data-path="04-tidyverse.html"><a href="#modifier-des-variables-d%C3%A9j%C3%A0-existantes"><i class="fa fa-check"></i><b>5.5.4</b> Modifier des variables déjà existantes</a></li>
+<li class="chapter" data-level="5.5.5" data-path="04-tidyverse.html"><a href="#sauvegarder-la-base-de-donn%C3%A9es-1"><i class="fa fa-check"></i><b>5.5.5</b> Sauvegarder la base de données</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="04-tidyverse.html"><a href="#analyses-univari%C3%A9es-2"><i class="fa fa-check"></i><b>5.6</b> Analyses univariées</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="04-tidyverse.html"><a href="#cr%C3%A9ation-de-variables-de-type-factor"><i class="fa fa-check"></i><b>5.6.1</b> Création de variables de type “factor”</a></li>
+<li class="chapter" data-level="5.6.2" data-path="tidyverse.html"><a href="tidyverse.html#description-de-variables-quantitatives"><i class="fa fa-check"></i><b>5.6.2</b> Description de variables quantitatives</a></li>
+<li class="chapter" data-level="5.6.3" data-path="tidyverse.html"><a href="tidyverse.html#description-de-variables-qualitatives"><i class="fa fa-check"></i><b>5.6.3</b> Description de variables qualitatives</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="04-tidyverse.html"><a href="#repr%C3%A9sentations-graphiques-1"><i class="fa fa-check"></i><b>5.7</b> Représentations graphiques</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="04-tidyverse.html"><a href="#distributions-univari%C3%A9es-1"><i class="fa fa-check"></i><b>5.7.1</b> Distributions univariées</a></li>
+<li class="chapter" data-level="5.7.2" data-path="04-tidyverse.html"><a href="#distributions-bivari%C3%A9es-1"><i class="fa fa-check"></i><b>5.7.2</b> Distributions bivariées</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="04-tidyverse.html"><a href="#analyses-bivari%C3%A9es-2"><i class="fa fa-check"></i><b>5.8</b> Analyses bivariées</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="tidyverse.html"><a href="tidyverse.html#variable-quantitative-times-qualitative-1"><i class="fa fa-check"></i><b>5.8.1</b> Variable quantitative <span class="math inline">\(\times\)</span> qualitative</a></li>
+<li class="chapter" data-level="5.8.2" data-path="tidyverse.html"><a href="tidyverse.html#variable-qualitative-times-qualitative-1"><i class="fa fa-check"></i><b>5.8.2</b> Variable qualitative <span class="math inline">\(\times\)</span> qualitative</a></li>
+<li class="chapter" data-level="5.8.3" data-path="tidyverse.html"><a href="tidyverse.html#comparer-2-moyennes-1"><i class="fa fa-check"></i><b>5.8.3</b> Comparer 2 moyennes</a></li>
+<li class="chapter" data-level="5.8.4" data-path="tidyverse.html"><a href="tidyverse.html#comparer-3-moyennes-ou-plus-2"><i class="fa fa-check"></i><b>5.8.4</b> Comparer 3 moyennes ou plus</a></li>
+<li class="chapter" data-level="5.8.5" data-path="tidyverse.html"><a href="tidyverse.html#comparer-des-pourcentages-2"><i class="fa fa-check"></i><b>5.8.5</b> Comparer des pourcentages</a></li>
+<li class="chapter" data-level="5.8.6" data-path="04-tidyverse.html"><a href="#corr%C3%A9lations-2"><i class="fa fa-check"></i><b>5.8.6</b> Corrélations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="04-tidyverse.html"><a href="#analyse-multivari%C3%A9e-2"><i class="fa fa-check"></i><b>5.9</b> Analyse multivariée</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="package-data.html"><a href="package-data.html"><i class="fa fa-check"></i><b>6</b> Package <code>data.table</code></a></li>
 <li class="chapter" data-level="7" data-path="reporting.html"><a href="reporting.html"><i class="fa fa-check"></i><b>7</b> Reporting</a></li>
@@ -283,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="tidyverse" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Tidyverse<a href="tidyverse.html#tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Le <a href="https://www.tidyverse.org/">Tidyverse</a> est une collection de packages qui apportent de nouvelles fonctions avec une nouvelle philosophie, une nouvelle grammaire et de nouvelles structures de données, est très utilisés dans la communauté des utilisateurs de R.</p>
+<p>Le <a href="https://www.tidyverse.org/">Tidyverse</a> est une collection de packages qui apportent de nouvelles fonctions avec une nouvelle philosophie, une nouvelle grammaire et de nouvelles structures de données. IL est très utilisé dans la communauté des utilisateurs de R.</p>
 <p>Nous allons reproduire les analyses R bases réalisées aux chapitres 3 et 4 avec les fonctions du Tidyverse.</p>
 <p>Le livre <a href="https://r4ds.hadley.nz/">R for data science</a> donne une formation à R qui exploite largement les fonctions du Tidyverse.</p>
 <div id="charger-les-packages-du-tidyverse" class="section level2 hasAnchor" number="5.1">
@@ -382,6 +413,1060 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
+</div>
+<div id="importer-une-base-de-données-1" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Importer une base de données<a href="#importer-une-base-de-donn%C3%A9es-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Au sein du Tidyverse, les bases de données .csv peuvent être importées avec les commandes <code>read_csv()</code> et <code>read_csv2()</code> (analogues aux commandes Rbase <code>read.csv()</code> et <code>read.csv2()</code>). Les bases sont converties au format <code>tibble</code> (abbréviation “tbl”), grâce au package <a href="https://tibble.tidyverse.org/"><code>tibble</code></a>.</p>
+<p><em>Note : une base au format tibble est également de type <code>data.frame</code>, donc les commandes permettant de manipuler un <code>data.frame</code> fonctionneront de la même manière sur un <code>tibble</code>.</em></p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="tidyverse.html#cb270-1" tabindex="-1"></a><span class="do">## Importer les bases df_1 et meta_df_1 au format tibble :</span></span>
+<span id="cb270-2"><a href="tidyverse.html#cb270-2" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">&quot;data/df_1.csv&quot;</span>)</span>
+<span id="cb270-3"><a href="tidyverse.html#cb270-3" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">&quot;data/meta_df_1.csv&quot;</span>)</span>
+<span id="cb270-4"><a href="tidyverse.html#cb270-4" tabindex="-1"></a><span class="do">## Vérifiez quel est le format de df_1 :</span></span>
+<span id="cb270-5"><a href="tidyverse.html#cb270-5" tabindex="-1"></a><span class="fu">class</span>(df_1) <span class="co"># df_1 est de format &quot;Tibble&quot; (tbl) et de format &quot;data.frame&quot;</span></span></code></pre></div>
+<pre><code>## [1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot;</code></pre>
+<p>Les différences entre une base de données au format <code>tibble</code> ou au format <code>data.frame</code> sont décrites dans la vignette sur les <a href="https://tibble.tidyverse.org/articles/tibble.html">tibbles</a>.</p>
+<p>En résumé, à la différence des data.frames :</p>
+<ul>
+<li>tibble ne prend pas en compte les <code>rownames()</code></li>
+</ul>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="tidyverse.html#cb272-1" tabindex="-1"></a>df_test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>, <span class="at">b =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>])</span>
+<span id="cb272-2"><a href="tidyverse.html#cb272-2" tabindex="-1"></a><span class="fu">rownames</span>(df_test) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;janvier&quot;</span>, <span class="st">&quot;février&quot;</span>, <span class="st">&quot;mars&quot;</span>, <span class="st">&quot;avril&quot;</span>, <span class="st">&quot;mai&quot;</span>, <span class="st">&quot;juin&quot;</span>)</span>
+<span id="cb272-3"><a href="tidyverse.html#cb272-3" tabindex="-1"></a><span class="fu">rownames</span>(df_test)</span>
+<span id="cb272-4"><a href="tidyverse.html#cb272-4" tabindex="-1"></a><span class="fu">rownames</span>(<span class="fu">as_tibble</span>(df_test)) <span class="co"># [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot;</span></span></code></pre></div>
+<ul>
+<li>il est facile de créer des colonnes correspondant à des listes (un vecteur comportant des valeurs de types différents)</li>
+</ul>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="tidyverse.html#cb273-1" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, </span>
+<span id="cb273-2"><a href="tidyverse.html#cb273-2" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))</span></code></pre></div>
+<ul>
+<li>il ne change pas les noms de colonnes que l’on souhaite écrire dans un format non-conventionnel</li>
+</ul>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="tidyverse.html#cb274-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="st">`</span><span class="at">1 N (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="co"># la commande data frame a changé le nom de la variable</span></span>
+<span id="cb274-2"><a href="tidyverse.html#cb274-2" tabindex="-1"></a><span class="fu">tibble</span>(<span class="st">`</span><span class="at">1 N (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="co"># le nom de variable non-conventionnel est conservé</span></span></code></pre></div>
+<ul>
+<li>il recycle uniquement les vecteurs de longueur 1 pour éviter des erreurs</li>
+</ul>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="tidyverse.html#cb275-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb275-2"><a href="tidyverse.html#cb275-2" tabindex="-1"></a>           <span class="at">var1 =</span> <span class="dv">20</span><span class="sc">:</span><span class="dv">24</span>, <span class="co"># ces valeurs sont recyclées avec data.frame</span></span>
+<span id="cb275-3"><a href="tidyverse.html#cb275-3" tabindex="-1"></a>           <span class="at">var2 =</span> <span class="dv">30</span>) <span class="co"># la valeur est recyclée avec data.frame</span></span>
+<span id="cb275-4"><a href="tidyverse.html#cb275-4" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, </span>
+<span id="cb275-5"><a href="tidyverse.html#cb275-5" tabindex="-1"></a>       <span class="at">var1 =</span> <span class="dv">20</span><span class="sc">:</span><span class="dv">24</span>, <span class="co"># message d&#39;erreur en cas valeurs de longueur &gt; 1</span></span>
+<span id="cb275-6"><a href="tidyverse.html#cb275-6" tabindex="-1"></a>       <span class="at">var2 =</span> <span class="dv">30</span>)</span>
+<span id="cb275-7"><a href="tidyverse.html#cb275-7" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, </span>
+<span id="cb275-8"><a href="tidyverse.html#cb275-8" tabindex="-1"></a>       <span class="at">var2 =</span> <span class="dv">30</span>) <span class="co"># mais tibble peut recycler des valeurs de longueur 1</span></span></code></pre></div>
+<p>Par ailleurs, un sous-ensemble d’un tibble sélectionné par indexation est également un autre tibble. Comme pour les <code>data.frames</code>, on peut sélectionner une variable avec les doubles crochets <code>[[]]</code> ou l’opérateur dollar.</p>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="tidyverse.html#cb276-1" tabindex="-1"></a>df_1[<span class="fu">c</span>(<span class="dv">100</span><span class="sc">:</span><span class="dv">103</span>), <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)]</span>
+<span id="cb276-2"><a href="tidyverse.html#cb276-2" tabindex="-1"></a><span class="co"># on peut sélectionner une variable avec [[]] ou l&#39;opérateur dollar </span></span>
+<span id="cb276-3"><a href="tidyverse.html#cb276-3" tabindex="-1"></a>df_1[[<span class="dv">4</span>]]</span>
+<span id="cb276-4"><a href="tidyverse.html#cb276-4" tabindex="-1"></a>df_1<span class="sc">$</span>trait</span></code></pre></div>
+<p>Vous pouvez vous référer au <a href="https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf">cheatsheet</a> du package <code>dplyr</code> pour avoir un pense-bête des fonctions de manipulation de données associées au Tidyverse.</p>
+</div>
+<div id="inspecter-les-données" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Inspecter les données<a href="#inspecter-les-donn%C3%A9es" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Contrairement au format <code>data.frame</code>, le format tibble n’imprime à l’écran que les 10 premières lignes et les colonnes qui peuvent être affichée dans un même écran. Le type de variable (double, caractère, facteur, …) apparaît en en-tête de colonne. Certaines informations particulières sont mises en valeurs par des couleurs (par exemple, les NA apparaîssent en couleur).</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="tidyverse.html#cb277-1" tabindex="-1"></a>df_1</span></code></pre></div>
+<pre><code>## # A tibble: 300 × 5
+##    subjid   sex   imc trait   pas
+##     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1      1     0  24.8     2   140
+##  2      2     0  24.1     3   109
+##  3      3     0  26.4     1   156
+##  4      4     0  23.3     2   124
+##  5      5     0  25.4     2   131
+##  6      6     1  25       3   148
+##  7      7     0  25.2     3   125
+##  8      8     0  21.5     3   117
+##  9      9     0  21.8     1   132
+## 10     10     0  25.9     1   133
+## # ℹ 290 more rows</code></pre>
+<p>On peut <strong>afficher une version transposée</strong> de la base (les colonnes sont imprimées en lignes) avec la fonction <code>glimpse()</code>, un peu à la manière de la fonction <code>str()</code> de R base.</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="tidyverse.html#cb279-1" tabindex="-1"></a><span class="fu">glimpse</span>(df_1)</span></code></pre></div>
+<pre><code>## Rows: 300
+## Columns: 5
+## $ subjid &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, …
+## $ sex    &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, …
+## $ imc    &lt;dbl&gt; 24.8, 24.1, 26.4, 23.3, 25.4, 25.0, 25.2, 21.5, 21.8, 25.9, 22.…
+## $ trait  &lt;dbl&gt; 2, 3, 1, 2, 2, 3, 3, 3, 1, 1, 1, 2, 2, 2, 2, 1, 3, 3, 2, 3, 2, …
+## $ pas    &lt;dbl&gt; 140, 109, 156, 124, 131, 148, 125, 117, 132, 133, 134, 127, 139…</code></pre>
+<p>La fonction <code>arrange</code> permet de <strong>trier les données</strong> selon une ou plusieurs variables</p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="tidyverse.html#cb281-1" tabindex="-1"></a><span class="fu">arrange</span>(df_1, sex, imc) <span class="co"># trie la base df_1 sur le sexe, puis sur l&#39;imc</span></span></code></pre></div>
+<p>Pour <strong>sélectionner des lignes</strong>, on peut utiliser la fonction <code>slice</code> et autres fonctions associées (voir l’aide <code>?dplyr::slice</code>):</p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="tidyverse.html#cb282-1" tabindex="-1"></a><span class="do">## slice_head() et slice_tail() permettent de sélectionner les premières et </span></span>
+<span id="cb282-2"><a href="tidyverse.html#cb282-2" tabindex="-1"></a><span class="do">## dernières lignes. </span></span>
+<span id="cb282-3"><a href="tidyverse.html#cb282-3" tabindex="-1"></a><span class="do">##   - l&#39;argument &quot;n&quot; permet d&#39;indiquer le nombre de lignes, </span></span>
+<span id="cb282-4"><a href="tidyverse.html#cb282-4" tabindex="-1"></a><span class="do">##   - l&#39;argument &quot;prop&quot; permet d&#39;indiquer le pourcentage de lignes que l&#39;on </span></span>
+<span id="cb282-5"><a href="tidyverse.html#cb282-5" tabindex="-1"></a><span class="do">##     souhaite afficher</span></span>
+<span id="cb282-6"><a href="tidyverse.html#cb282-6" tabindex="-1"></a><span class="fu">slice_head</span>(df_1, <span class="at">n =</span> <span class="dv">5</span>) <span class="co"># voir les 5 premières lignes</span></span>
+<span id="cb282-7"><a href="tidyverse.html#cb282-7" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(sex, imc) <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">6</span>)  <span class="co"># voir les 6 premières lignes</span></span>
+<span id="cb282-8"><a href="tidyverse.html#cb282-8" tabindex="-1"></a><span class="co"># après avoir trié les données selon le sexe et l&#39;imc</span></span>
+<span id="cb282-9"><a href="tidyverse.html#cb282-9" tabindex="-1"></a></span>
+<span id="cb282-10"><a href="tidyverse.html#cb282-10" tabindex="-1"></a><span class="do">## Attention avec l&#39;écriture par pipe (l&#39;ordre des commandes à une influence) +++ </span></span>
+<span id="cb282-11"><a href="tidyverse.html#cb282-11" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(sex, imc) <span class="co"># ici, on a d&#39;abord séléctionné</span></span>
+<span id="cb282-12"><a href="tidyverse.html#cb282-12" tabindex="-1"></a><span class="co"># les données (ce qui donne une base de type tibble de 6 lignes), et on a ensuite</span></span>
+<span id="cb282-13"><a href="tidyverse.html#cb282-13" tabindex="-1"></a><span class="co"># trié cette petite base de 6 lignes selon le sexe et l&#39;imc</span></span>
+<span id="cb282-14"><a href="tidyverse.html#cb282-14" tabindex="-1"></a></span>
+<span id="cb282-15"><a href="tidyverse.html#cb282-15" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">slice_tail</span>(<span class="at">prop =</span> <span class="fl">0.01</span>) <span class="co"># voir 1% des dernières lignes (càd 3 lignes)</span></span>
+<span id="cb282-16"><a href="tidyverse.html#cb282-16" tabindex="-1"></a></span>
+<span id="cb282-17"><a href="tidyverse.html#cb282-17" tabindex="-1"></a><span class="do">## slice_sample() sélectionne des lignes au hasard</span></span>
+<span id="cb282-18"><a href="tidyverse.html#cb282-18" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">6</span>)</span>
+<span id="cb282-19"><a href="tidyverse.html#cb282-19" tabindex="-1"></a></span>
+<span id="cb282-20"><a href="tidyverse.html#cb282-20" tabindex="-1"></a><span class="do">## slice() permet de sélectionner des lignes spécifiques (4è, 10è et 15è ligne)</span></span>
+<span id="cb282-21"><a href="tidyverse.html#cb282-21" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">15</span>) </span>
+<span id="cb282-22"><a href="tidyverse.html#cb282-22" tabindex="-1"></a><span class="do">## cette commande est équivalente à l&#39;écriture avec indexation par position </span></span>
+<span id="cb282-23"><a href="tidyverse.html#cb282-23" tabindex="-1"></a>df_1[<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">15</span>), ]</span></code></pre></div>
+<p>La fonction <code>filter()</code> permet de <strong>sélectionner des lignes à l’aide d’une condition</strong> (voir l’aide <code>?dplyr::filter</code>).</p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="tidyverse.html#cb283-1" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> imc <span class="sc">&lt;</span> <span class="dv">21</span>)</span>
+<span id="cb283-2"><a href="tidyverse.html#cb283-2" tabindex="-1"></a><span class="do">## Indiquer plusieurs conditions séparées par une virgule est équivalent à des </span></span>
+<span id="cb283-3"><a href="tidyverse.html#cb283-3" tabindex="-1"></a><span class="do">## conditions séparées par ET (condition1 &amp; condition2)</span></span>
+<span id="cb283-4"><a href="tidyverse.html#cb283-4" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="dv">0</span>, imc <span class="sc">&lt;</span> <span class="dv">21</span>) </span>
+<span id="cb283-5"><a href="tidyverse.html#cb283-5" tabindex="-1"></a><span class="co"># est équivalent à la sélection par condition entre crochets de R base </span></span>
+<span id="cb283-6"><a href="tidyverse.html#cb283-6" tabindex="-1"></a>df_1[df_1<span class="sc">$</span>sex <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> df_1<span class="sc">$</span>imc <span class="sc">&lt;</span> <span class="dv">21</span>, ]</span></code></pre></div>
+<p>La fonction <code>select()</code> permet de <strong>sélectionner des colonnes (des variables)</strong>. Un certains nombre de fonctions peuvent être utilisées au sein de la fonction <code>select</code> pour faciliter le travail de sélection.</p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="tidyverse.html#cb284-1" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">c</span>(sex, trait)) <span class="co"># sélectionne les colonnes sexe et trait</span></span>
+<span id="cb284-2"><a href="tidyverse.html#cb284-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(sex, trait) <span class="co"># équivalent à la syntaxe précédente : pas besoin de c()</span></span>
+<span id="cb284-3"><a href="tidyverse.html#cb284-3" tabindex="-1"></a><span class="co"># c&#39;est équivalent à une sélection entre crochets par indexation sur le nom </span></span>
+<span id="cb284-4"><a href="tidyverse.html#cb284-4" tabindex="-1"></a>df_1[,<span class="fu">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;trait&quot;</span>)]</span>
+<span id="cb284-5"><a href="tidyverse.html#cb284-5" tabindex="-1"></a></span>
+<span id="cb284-6"><a href="tidyverse.html#cb284-6" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(subjid<span class="sc">:</span>imc) <span class="co"># sélectionne les colonnes allant de sexe à imc</span></span>
+<span id="cb284-7"><a href="tidyverse.html#cb284-7" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">!</span>sex) <span class="co"># ensemble complémentaire de la variable sexe</span></span>
+<span id="cb284-8"><a href="tidyverse.html#cb284-8" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>sex, <span class="sc">-</span>imc) <span class="co"># toutes les variables sauf sex et imc</span></span>
+<span id="cb284-9"><a href="tidyverse.html#cb284-9" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">last_col</span>()) <span class="co"># sélectionne la dernière colonne</span></span>
+<span id="cb284-10"><a href="tidyverse.html#cb284-10" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">&quot;pa&quot;</span>)) <span class="co"># les variables dont le nom commence par &quot;pa&quot;</span></span>
+<span id="cb284-11"><a href="tidyverse.html#cb284-11" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">&quot;as&quot;</span>)) <span class="co"># les variables dont le nom termine par &quot;as&quot;</span></span>
+<span id="cb284-12"><a href="tidyverse.html#cb284-12" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;bj&quot;</span>)) <span class="co"># les variables dont le nom contient &quot;bj&quot;</span></span>
+<span id="cb284-13"><a href="tidyverse.html#cb284-13" tabindex="-1"></a><span class="co"># on peut également combiner plusieurs modes de sélection : </span></span>
+<span id="cb284-14"><a href="tidyverse.html#cb284-14" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(subjid, <span class="fu">starts_with</span>(<span class="st">&quot;im&quot;</span>), <span class="fu">last_col</span>())</span>
+<span id="cb284-15"><a href="tidyverse.html#cb284-15" tabindex="-1"></a><span class="co"># etc, voir l&#39;aide</span></span>
+<span id="cb284-16"><a href="tidyverse.html#cb284-16" tabindex="-1"></a>?<span class="fu">select</span>()</span>
+<span id="cb284-17"><a href="tidyverse.html#cb284-17" tabindex="-1"></a></span>
+<span id="cb284-18"><a href="tidyverse.html#cb284-18" tabindex="-1"></a><span class="do">## select() permet également de renommer directement les variables sélectionnées</span></span>
+<span id="cb284-19"><a href="tidyverse.html#cb284-19" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="at">Sexe =</span> sex, <span class="at">Traitement =</span> trait)</span>
+<span id="cb284-20"><a href="tidyverse.html#cb284-20" tabindex="-1"></a></span>
+<span id="cb284-21"><a href="tidyverse.html#cb284-21" tabindex="-1"></a><span class="do">## select() permet de changer l&#39;ordre des variables</span></span>
+<span id="cb284-22"><a href="tidyverse.html#cb284-22" tabindex="-1"></a><span class="fu">select</span>(df_1, </span>
+<span id="cb284-23"><a href="tidyverse.html#cb284-23" tabindex="-1"></a>       imc, trait, subjid, <span class="co"># commence avec ces 3 variables dans cet ordre</span></span>
+<span id="cb284-24"><a href="tidyverse.html#cb284-24" tabindex="-1"></a>       <span class="fu">everything</span>()) <span class="co"># everything() sélection toutes les autres variables</span></span></code></pre></div>
+<p>L’indexation d’une seule variable :</p>
+<ul>
+<li>par simple crochet <code>[]</code> permet de sélectionner la variable et de la retourner au format tibble. La fonction <code>select()</code> du package <code>dplyr</code> appliquée à une seule variable donne un résultat équivalent.</li>
+<li>par double crochet <code>[[]]</code> ou avec l’opérateur dollar <code>$</code> permet de sélectionner la variable et de la retourner au format de vecteur. La fonction <code>pull</code> du package <code>dplyr</code> appliquée à une seule variable donne un résultat équivalent.</li>
+</ul>
+<p>Cela peut avoir son importance car certaines fonction s’appliquent à des tibbles, et d’autres à des vecteurs.</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="tidyverse.html#cb285-1" tabindex="-1"></a><span class="do">## Sélection par simples crochets et retour sous format tibble</span></span>
+<span id="cb285-2"><a href="tidyverse.html#cb285-2" tabindex="-1"></a>df_1[<span class="dv">3</span>]</span>
+<span id="cb285-3"><a href="tidyverse.html#cb285-3" tabindex="-1"></a><span class="fu">class</span>(df_1[<span class="dv">3</span>]) <span class="co"># c&#39;est une base de données (tibble ou data.frame)</span></span>
+<span id="cb285-4"><a href="tidyverse.html#cb285-4" tabindex="-1"></a><span class="do">## équivalent en dplyr</span></span>
+<span id="cb285-5"><a href="tidyverse.html#cb285-5" tabindex="-1"></a><span class="fu">select</span>(df_1, imc)</span>
+<span id="cb285-6"><a href="tidyverse.html#cb285-6" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">select</span>(df_1, imc)) <span class="co"># une colonne de base de données (tibble ou data.frame)</span></span>
+<span id="cb285-7"><a href="tidyverse.html#cb285-7" tabindex="-1"></a></span>
+<span id="cb285-8"><a href="tidyverse.html#cb285-8" tabindex="-1"></a><span class="do">### pour sélectionner une variable et la retourner comme un vecteur : </span></span>
+<span id="cb285-9"><a href="tidyverse.html#cb285-9" tabindex="-1"></a>df_1<span class="sc">$</span>imc <span class="co"># retourne le vecteur imc (équivalent à df_1[[&quot;imc&quot;]])</span></span>
+<span id="cb285-10"><a href="tidyverse.html#cb285-10" tabindex="-1"></a>df_1[[<span class="dv">3</span>]]</span>
+<span id="cb285-11"><a href="tidyverse.html#cb285-11" tabindex="-1"></a>df_1[[<span class="st">&quot;imc&quot;</span>]]</span>
+<span id="cb285-12"><a href="tidyverse.html#cb285-12" tabindex="-1"></a><span class="fu">class</span>(df_1<span class="sc">$</span>imc) <span class="co"># c&#39;est un vecteur numérique</span></span>
+<span id="cb285-13"><a href="tidyverse.html#cb285-13" tabindex="-1"></a><span class="fu">typeof</span>(df_1<span class="sc">$</span>imc) <span class="co"># un vecteur de réels (double) pour être plus précis</span></span>
+<span id="cb285-14"><a href="tidyverse.html#cb285-14" tabindex="-1"></a><span class="co"># équivalent en dplyr</span></span>
+<span id="cb285-15"><a href="tidyverse.html#cb285-15" tabindex="-1"></a><span class="fu">pull</span>(df_1, imc)</span>
+<span id="cb285-16"><a href="tidyverse.html#cb285-16" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">pull</span>(df_1, imc)) <span class="co"># c&#39;est un vecteur numérique</span></span>
+<span id="cb285-17"><a href="tidyverse.html#cb285-17" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">pull</span>(df_1, imc)) <span class="co"># un vecteur de réels (double) pour être plus précis</span></span></code></pre></div>
+</div>
+<div id="créer-ou-modifier-une-variable-1" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Créer ou modifier une variable<a href="#cr%C3%A9er-ou-modifier-une-variable-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="créer-des-variables-1" class="section level3 hasAnchor" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> Créer des variables<a href="#cr%C3%A9er-des-variables-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pour créer des variables au sein des tibbles, on utilise les fonctions :</p>
+<ul>
+<li><code>mutate()</code> permet de <strong>créer des nouvelles variables</strong></li>
+<li><code>if_else()</code> fonctionne selon le même principe que la fonction <code>ifelse()</code> de Rbase (notez la différence d’écriture) à quelques différences prêt :</li>
+</ul>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="tidyverse.html#cb286-1" tabindex="-1"></a><span class="do">## La fonction if_else() de dplyr s&#39;assure que le résultat est du même &quot;type&quot;</span></span>
+<span id="cb286-2"><a href="tidyverse.html#cb286-2" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">&lt;</span> <span class="dv">5</span>, <span class="st">&quot;&lt;5&quot;</span>, <span class="dv">0</span>) </span>
+<span id="cb286-3"><a href="tidyverse.html#cb286-3" tabindex="-1"></a><span class="co"># ifelse retourne un vecteur caractère (le 0 est transformé en &quot;0&quot; par coercition)</span></span>
+<span id="cb286-4"><a href="tidyverse.html#cb286-4" tabindex="-1"></a><span class="fu">if_else</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">&lt;</span> <span class="dv">5</span>, <span class="st">&quot;&lt;5&quot;</span>, <span class="dv">0</span>) <span class="co"># dans la même situation, if_else retourne une erreur </span></span>
+<span id="cb286-5"><a href="tidyverse.html#cb286-5" tabindex="-1"></a></span>
+<span id="cb286-6"><a href="tidyverse.html#cb286-6" tabindex="-1"></a><span class="do">## La fonction if_else() de dplyr permet de préciser un argument missing pour </span></span>
+<span id="cb286-7"><a href="tidyverse.html#cb286-7" tabindex="-1"></a><span class="do">## indiquer comment considérer les manquants</span></span>
+<span id="cb286-8"><a href="tidyverse.html#cb286-8" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>) <span class="co"># retourne NA pour la valeur manquante</span></span>
+<span id="cb286-9"><a href="tidyverse.html#cb286-9" tabindex="-1"></a><span class="fu">if_else</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="at">missing =</span> <span class="cn">NULL</span>) </span>
+<span id="cb286-10"><a href="tidyverse.html#cb286-10" tabindex="-1"></a><span class="co"># ici, la fonction if_else retourne NA pour la valeur manquante</span></span>
+<span id="cb286-11"><a href="tidyverse.html#cb286-11" tabindex="-1"></a><span class="fu">if_else</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>,<span class="dv">4</span>,<span class="dv">5</span>) <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="at">missing =</span> <span class="dv">9</span>) </span>
+<span id="cb286-12"><a href="tidyverse.html#cb286-12" tabindex="-1"></a><span class="co"># ici, la fonction if_else indique le code choisi (= 9) au lieu de NA</span></span></code></pre></div>
+<ul>
+<li><code>case_when</code> fonctionne selon le même principe que la fonction <code>if_else</code> mais pour créer des variables à plus de 2 catégories. Voir l’aide <code>?case_when</code>.</li>
+</ul>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="tidyverse.html#cb287-1" tabindex="-1"></a><span class="do">### créer la variable obésité.</span></span>
+<span id="cb287-2"><a href="tidyverse.html#cb287-2" tabindex="-1"></a><span class="co"># note avec le pipe, pensez à assigner le résultat dans df_1 pour que la </span></span>
+<span id="cb287-3"><a href="tidyverse.html#cb287-3" tabindex="-1"></a><span class="co"># variable crée soit bien sauvegardée dans la base df_1</span></span>
+<span id="cb287-4"><a href="tidyverse.html#cb287-4" tabindex="-1"></a><span class="co"># (ci-dessous, la variable est uniquement crée de manière temporaire)</span></span>
+<span id="cb287-5"><a href="tidyverse.html#cb287-5" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb287-6"><a href="tidyverse.html#cb287-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">obesite =</span> <span class="fu">if_else</span>(df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="dv">30</span>, <span class="dv">1</span>, <span class="dv">0</span>)) </span></code></pre></div>
+<pre><code>## # A tibble: 300 × 6
+##    subjid   sex   imc trait   pas obesite
+##     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1      1     0  24.8     2   140       0
+##  2      2     0  24.1     3   109       0
+##  3      3     0  26.4     1   156       0
+##  4      4     0  23.3     2   124       0
+##  5      5     0  25.4     2   131       0
+##  6      6     1  25       3   148       0
+##  7      7     0  25.2     3   125       0
+##  8      8     0  21.5     3   117       0
+##  9      9     0  21.8     1   132       0
+## 10     10     0  25.9     1   133       0
+## # ℹ 290 more rows</code></pre>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="tidyverse.html#cb289-1" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="co"># la variable n&#39;a pas été enregistrée dans df_1 !</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 × 5
+##   subjid   sex   imc trait   pas
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1      1     0  24.8     2   140
+## 2      2     0  24.1     3   109
+## 3      3     0  26.4     1   156</code></pre>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="tidyverse.html#cb291-1" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb291-2"><a href="tidyverse.html#cb291-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">obesite =</span> <span class="fu">if_else</span>(df_1<span class="sc">$</span>imc <span class="sc">&gt;=</span> <span class="dv">30</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb291-3"><a href="tidyverse.html#cb291-3" tabindex="-1"></a>df_1  <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="co"># ici, la variable a bien été ajoutée dans df_1</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 × 6
+##   subjid   sex   imc trait   pas obesite
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1      1     0  24.8     2   140       0
+## 2      2     0  24.1     3   109       0
+## 3      3     0  26.4     1   156       0</code></pre>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="tidyverse.html#cb293-1" tabindex="-1"></a><span class="do">### Vérifier que la variable est crée correctement en calculant le min et le max</span></span>
+<span id="cb293-2"><a href="tidyverse.html#cb293-2" tabindex="-1"></a><span class="do">### dans chaque groupe d&#39;obésité nouvellement créé :</span></span>
+<span id="cb293-3"><a href="tidyverse.html#cb293-3" tabindex="-1"></a><span class="co"># on va utiliser la fonction summarise qui permet de calculer différents paramètres</span></span>
+<span id="cb293-4"><a href="tidyverse.html#cb293-4" tabindex="-1"></a><span class="co"># d&#39;une distribution de variables, voir ?summarise()</span></span>
+<span id="cb293-5"><a href="tidyverse.html#cb293-5" tabindex="-1"></a><span class="co"># ces analyses peuvent se faire par sous-groupes, qui sont identifiés en amont </span></span>
+<span id="cb293-6"><a href="tidyverse.html#cb293-6" tabindex="-1"></a><span class="co"># par la fonction group_by()</span></span>
+<span id="cb293-7"><a href="tidyverse.html#cb293-7" tabindex="-1"></a><span class="do">### La fonction summarise sera revue plus en détails pour l&#39;analyse descriptive</span></span>
+<span id="cb293-8"><a href="tidyverse.html#cb293-8" tabindex="-1"></a><span class="co"># Note : summarise()/summarize() peut s&#39;écrire avec un &quot;s&quot; ou un &quot;z&quot;</span></span>
+<span id="cb293-9"><a href="tidyverse.html#cb293-9" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span></span>
+<span id="cb293-10"><a href="tidyverse.html#cb293-10" tabindex="-1"></a>  <span class="fu">group_by</span>(obesite) <span class="sc">%&gt;%</span> <span class="co"># prépare à une analyse par groupe</span></span>
+<span id="cb293-11"><a href="tidyverse.html#cb293-11" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">min =</span> <span class="fu">min</span>(imc), <span class="co"># calcul le min et max selon les groupes définis</span></span>
+<span id="cb293-12"><a href="tidyverse.html#cb293-12" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(imc)) <span class="co"># par la fonction &quot;group_by()&quot;</span></span></code></pre></div>
+<pre><code>## # A tibble: 2 × 3
+##   obesite   min   max
+##     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1       0  15.4  29.9
+## 2       1  30.1  32.5</code></pre>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="tidyverse.html#cb295-1" tabindex="-1"></a><span class="do">### Créer la variable imc à 4 classe, avec la fonction case_when()</span></span>
+<span id="cb295-2"><a href="tidyverse.html#cb295-2" tabindex="-1"></a><span class="do">### qui fonctionne selon le principe de if_else, mais pour plus de 2 catégories :</span></span>
+<span id="cb295-3"><a href="tidyverse.html#cb295-3" tabindex="-1"></a><span class="do">### Chaque catégorie va être définie par une formule avec : </span></span>
+<span id="cb295-4"><a href="tidyverse.html#cb295-4" tabindex="-1"></a><span class="do">### la condition à gauche du signe ~ et la valeur à assigner à droite du signe ~</span></span>
+<span id="cb295-5"><a href="tidyverse.html#cb295-5" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb295-6"><a href="tidyverse.html#cb295-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">imc_cl =</span> <span class="fu">case_when</span>(imc <span class="sc">&lt;</span> <span class="fl">18.5</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb295-7"><a href="tidyverse.html#cb295-7" tabindex="-1"></a>                            imc <span class="sc">&gt;=</span> <span class="fl">18.5</span> <span class="sc">&amp;</span> imc <span class="sc">&lt;</span> <span class="dv">25</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb295-8"><a href="tidyverse.html#cb295-8" tabindex="-1"></a>                            imc <span class="sc">&gt;=</span> <span class="dv">25</span> <span class="sc">&amp;</span> imc <span class="sc">&lt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb295-9"><a href="tidyverse.html#cb295-9" tabindex="-1"></a>                            imc <span class="sc">&gt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="dv">4</span>))</span>
+<span id="cb295-10"><a href="tidyverse.html#cb295-10" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="co"># la variable imc_cl a été ajoutée à la base df_1</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 × 7
+##   subjid   sex   imc trait   pas obesite imc_cl
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1      1     0  24.8     2   140       0      2
+## 2      2     0  24.1     3   109       0      2
+## 3      3     0  26.4     1   156       0      3</code></pre>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="tidyverse.html#cb297-1" tabindex="-1"></a><span class="do">### vérifier que la variable a été correctement créée</span></span>
+<span id="cb297-2"><a href="tidyverse.html#cb297-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span></span>
+<span id="cb297-3"><a href="tidyverse.html#cb297-3" tabindex="-1"></a>  <span class="fu">group_by</span>(imc_cl) <span class="sc">%&gt;%</span></span>
+<span id="cb297-4"><a href="tidyverse.html#cb297-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">min =</span> <span class="fu">min</span>(imc),</span>
+<span id="cb297-5"><a href="tidyverse.html#cb297-5" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(imc))</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 3
+##   imc_cl   min   max
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1      1  15.4  18.4
+## 2      2  18.7  24.9
+## 3      3  25    29.9
+## 4      4  30.1  32.5</code></pre>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="tidyverse.html#cb299-1" tabindex="-1"></a><span class="do">### le croisement entre imc en classe et obésité doit être cohérent :</span></span>
+<span id="cb299-2"><a href="tidyverse.html#cb299-2" tabindex="-1"></a><span class="fu">with</span>(df_1, <span class="fu">table</span>(<span class="fu">as.factor</span>(imc_cl), <span class="fu">as.factor</span>(obesite), <span class="at">deparse.level =</span> <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>##                  as.factor(obesite)
+## as.factor(imc_cl)   0   1
+##                 1   9   0
+##                 2 159   0
+##                 3 119   0
+##                 4   0  13</code></pre>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="tidyverse.html#cb301-1" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(imc_cl, obesite) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 3
+## # Groups:   imc_cl [4]
+##   imc_cl obesite     n
+##    &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+## 1      1       0     9
+## 2      2       0   159
+## 3      3       0   119
+## 4      4       1    13</code></pre>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="tidyverse.html#cb303-1" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">count</span>(imc_cl, obesite) <span class="co"># équivalent à la commande précédente</span></span></code></pre></div>
+<pre><code>## # A tibble: 4 × 3
+##   imc_cl obesite     n
+##    &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+## 1      1       0     9
+## 2      2       0   159
+## 3      3       0   119
+## 4      4       1    13</code></pre>
+</div>
+<div id="renommer-une-variable-changer-sa-position" class="section level3 hasAnchor" number="5.5.2">
+<h3><span class="header-section-number">5.5.2</span> Renommer une variable, changer sa position<a href="tidyverse.html#renommer-une-variable-changer-sa-position" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Les fonctions :</p>
+<ul>
+<li><code>rename()</code> permet de renommer une variable (sans changer sa position)</li>
+<li><code>relocate()</code> permet de changer l’ordre des colonnes.</li>
+</ul>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="tidyverse.html#cb305-1" tabindex="-1"></a><span class="do">## Après les modifications suivantes, on inspectera les 3 premières lignes : </span></span>
+<span id="cb305-2"><a href="tidyverse.html#cb305-2" tabindex="-1"></a><span class="do">##   - Renommer une variable sans changer sa position</span></span>
+<span id="cb305-3"><a href="tidyverse.html#cb305-3" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb305-4"><a href="tidyverse.html#cb305-4" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">imc_en_classe =</span> imc_cl) <span class="sc">%&gt;%</span> </span>
+<span id="cb305-5"><a href="tidyverse.html#cb305-5" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 7
+##   subjid   sex   imc trait   pas obesite imc_en_classe
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+## 1      1     0  24.8     2   140       0             2
+## 2      2     0  24.1     3   109       0             2
+## 3      3     0  26.4     1   156       0             3</code></pre>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="tidyverse.html#cb307-1" tabindex="-1"></a><span class="do">##   - Changer l&#39;ordre des colonnes, par exemple, déplacer les colonnes </span></span>
+<span id="cb307-2"><a href="tidyverse.html#cb307-2" tabindex="-1"></a><span class="do">##     imc_cl et obesité (dans cet ordre) après la variable imc</span></span>
+<span id="cb307-3"><a href="tidyverse.html#cb307-3" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb307-4"><a href="tidyverse.html#cb307-4" tabindex="-1"></a>  <span class="fu">relocate</span>(imc_cl, obesite, <span class="at">.after =</span> imc) <span class="sc">%&gt;%</span> </span>
+<span id="cb307-5"><a href="tidyverse.html#cb307-5" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 7
+##   subjid   sex   imc imc_cl obesite trait   pas
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1      1     0  24.8      2       0     2   140
+## 2      2     0  24.1      2       0     3   109
+## 3      3     0  26.4      3       0     1   156</code></pre>
+</div>
+<div id="ajouter-des-lignes" class="section level3 hasAnchor" number="5.5.3">
+<h3><span class="header-section-number">5.5.3</span> Ajouter des lignes<a href="tidyverse.html#ajouter-des-lignes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La fonction <code>add_row()</code> permet d’ajouter des lignes à l’endroit de notre choix.</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="tidyverse.html#cb309-1" tabindex="-1"></a><span class="do">## Nous allons compléter la base de méta-données en ajoutant des lignes</span></span>
+<span id="cb309-2"><a href="tidyverse.html#cb309-2" tabindex="-1"></a>meta_df_1</span></code></pre></div>
+<pre><code>## # A tibble: 8 × 5
+##   var    label               id_labs code_labs labs        
+##   &lt;chr&gt;  &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       
+## 1 subjid Identifiant patient       1        NA &lt;NA&gt;        
+## 2 sex    Sexe                      1         0 Féminin     
+## 3 sex    Sexe                      2         1 Masculin    
+## 4 imc    IMC (kg/m²)               1        NA &lt;NA&gt;        
+## 5 trait  Traitement                1         1 Placebo     
+## 6 trait  Traitement                2         2 Traitement A
+## 7 trait  Traitement                3         3 Traitement B
+## 8 pas    PAS (mmHg)                1        NA &lt;NA&gt;</code></pre>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="tidyverse.html#cb311-1" tabindex="-1"></a><span class="do">## On commence par rajouter les labels de la variable imc_cl</span></span>
+<span id="cb311-2"><a href="tidyverse.html#cb311-2" tabindex="-1"></a><span class="co"># Note : pensez à assigner la commande à la base meta_df_1 pour enregistrer les </span></span>
+<span id="cb311-3"><a href="tidyverse.html#cb311-3" tabindex="-1"></a><span class="co"># modifications sinon, la création ne sera que temporaire</span></span>
+<span id="cb311-4"><a href="tidyverse.html#cb311-4" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> meta_df_1 <span class="sc">%&gt;%</span> <span class="fu">add_row</span>(<span class="at">var =</span> <span class="fu">rep</span>(<span class="st">&quot;imc_cl&quot;</span>, <span class="dv">4</span>), </span>
+<span id="cb311-5"><a href="tidyverse.html#cb311-5" tabindex="-1"></a>                                   <span class="at">label =</span> <span class="fu">rep</span>(<span class="st">&quot;IMC en classes&quot;</span>, <span class="dv">4</span>), </span>
+<span id="cb311-6"><a href="tidyverse.html#cb311-6" tabindex="-1"></a>                                   <span class="at">id_labs =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, </span>
+<span id="cb311-7"><a href="tidyverse.html#cb311-7" tabindex="-1"></a>                                   <span class="at">code_labs =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
+<span id="cb311-8"><a href="tidyverse.html#cb311-8" tabindex="-1"></a>                                   <span class="at">labs =</span> <span class="fu">c</span>(<span class="st">&quot;Maigreur&quot;</span>, <span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Surpoids&quot;</span>, <span class="st">&quot;Obèse&quot;</span>))</span>
+<span id="cb311-9"><a href="tidyverse.html#cb311-9" tabindex="-1"></a>meta_df_1 <span class="sc">%&gt;%</span> <span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">6</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+##   var    label          id_labs code_labs labs        
+##   &lt;chr&gt;  &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       
+## 1 trait  Traitement           3         3 Traitement B
+## 2 pas    PAS (mmHg)           1        NA &lt;NA&gt;        
+## 3 imc_cl IMC en classes       1         1 Maigreur    
+## 4 imc_cl IMC en classes       2         2 Normal      
+## 5 imc_cl IMC en classes       3         3 Surpoids    
+## 6 imc_cl IMC en classes       4         4 Obèse</code></pre>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="tidyverse.html#cb313-1" tabindex="-1"></a><span class="do">## Puis, on ajoute les labels de la variable obesite </span></span>
+<span id="cb313-2"><a href="tidyverse.html#cb313-2" tabindex="-1"></a><span class="do">## mais en les positionnant juste avant les labels de imc_cl</span></span>
+<span id="cb313-3"><a href="tidyverse.html#cb313-3" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> meta_df_1 <span class="sc">%&gt;%</span> <span class="fu">add_row</span>(<span class="at">var =</span> <span class="fu">rep</span>(<span class="st">&quot;obesite&quot;</span>, <span class="dv">2</span>), </span>
+<span id="cb313-4"><a href="tidyverse.html#cb313-4" tabindex="-1"></a>                                   <span class="at">label =</span> <span class="fu">rep</span>(<span class="st">&quot;Obésité&quot;</span>, <span class="dv">2</span>), </span>
+<span id="cb313-5"><a href="tidyverse.html#cb313-5" tabindex="-1"></a>                                   <span class="at">id_labs =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
+<span id="cb313-6"><a href="tidyverse.html#cb313-6" tabindex="-1"></a>                                   <span class="at">code_labs =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb313-7"><a href="tidyverse.html#cb313-7" tabindex="-1"></a>                                   <span class="at">labs =</span> <span class="fu">c</span>(<span class="st">&quot;Non&quot;</span>, <span class="st">&quot;Oui&quot;</span>), </span>
+<span id="cb313-8"><a href="tidyverse.html#cb313-8" tabindex="-1"></a>                                   <span class="at">.before =</span> <span class="dv">9</span>) <span class="co"># avant la 9ème ligne</span></span>
+<span id="cb313-9"><a href="tidyverse.html#cb313-9" tabindex="-1"></a>meta_df_1 <span class="sc">%&gt;%</span> <span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">7</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 7 × 5
+##   var     label          id_labs code_labs labs    
+##   &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;   
+## 1 pas     PAS (mmHg)           1        NA &lt;NA&gt;    
+## 2 obesite Obésité              1         0 Non     
+## 3 obesite Obésité              2         1 Oui     
+## 4 imc_cl  IMC en classes       1         1 Maigreur
+## 5 imc_cl  IMC en classes       2         2 Normal  
+## 6 imc_cl  IMC en classes       3         3 Surpoids
+## 7 imc_cl  IMC en classes       4         4 Obèse</code></pre>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="tidyverse.html#cb315-1" tabindex="-1"></a><span class="fu">View</span>(meta_df_1) <span class="co"># visualiser l&#39;ensemble de la base de méta-données dans RStudio</span></span></code></pre></div>
+</div>
+<div id="modifier-des-variables-déjà-existantes" class="section level3 hasAnchor" number="5.5.4">
+<h3><span class="header-section-number">5.5.4</span> Modifier des variables déjà existantes<a href="#modifier-des-variables-d%C3%A9j%C3%A0-existantes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Il est possible de modifier des variables déjà existantes :</p>
+<ul>
+<li>les fonctions <code>mutate()</code> et <code>if_else()</code> que l’on a vu précédemment peuvent être utilisée. Ci-dessous, on modifie la valeur de PAS du patient n°137 et on ne modifie pas les valeurs des autres patients.</li>
+<li>la fonction <code>rows_update()</code> peut également être utilisée en indiquant un sous-ensemble de la base qui doit être mis à jour.</li>
+</ul>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="tidyverse.html#cb316-1" tabindex="-1"></a><span class="do">## Inspecter les données des patients 135 à 140 :</span></span>
+<span id="cb316-2"><a href="tidyverse.html#cb316-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(subjid <span class="sc">%in%</span> <span class="dv">135</span><span class="sc">:</span><span class="dv">140</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 7
+##   subjid   sex   imc trait   pas obesite imc_cl
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1    135     0  28       2   154       0      3
+## 2    136     1  26.2     1   138       0      3
+## 3    137     0  20.1     1   133       0      2
+## 4    138     0  24.7     3   155       0      2
+## 5    139     0  17       2   115       0      1
+## 6    140     1  25.7     1   160       0      3</code></pre>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="tidyverse.html#cb318-1" tabindex="-1"></a><span class="co"># Modifier la valeur de PAS du patient n°137 de 133 mmHg à 123 mmHg</span></span>
+<span id="cb318-2"><a href="tidyverse.html#cb318-2" tabindex="-1"></a><span class="co"># =&gt; change la valeur à 123 si subjid == 137, sinon garde la valeur pas originale</span></span>
+<span id="cb318-3"><a href="tidyverse.html#cb318-3" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> df_1 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">pas =</span> <span class="fu">if_else</span>(subjid <span class="sc">==</span> <span class="dv">137</span>, <span class="dv">123</span>, pas)) </span>
+<span id="cb318-4"><a href="tidyverse.html#cb318-4" tabindex="-1"></a><span class="do">## Vérifier que la modification est bien enregistrée :</span></span>
+<span id="cb318-5"><a href="tidyverse.html#cb318-5" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(subjid <span class="sc">%in%</span> <span class="dv">135</span><span class="sc">:</span><span class="dv">140</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 7
+##   subjid   sex   imc trait   pas obesite imc_cl
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1    135     0  28       2   154       0      3
+## 2    136     1  26.2     1   138       0      3
+## 3    137     0  20.1     1   123       0      2
+## 4    138     0  24.7     3   155       0      2
+## 5    139     0  17       2   115       0      1
+## 6    140     1  25.7     1   160       0      3</code></pre>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="tidyverse.html#cb320-1" tabindex="-1"></a><span class="do">## Autre possibilité avec la fonction rows_update() où indique un sous-ensemble </span></span>
+<span id="cb320-2"><a href="tidyverse.html#cb320-2" tabindex="-1"></a><span class="do">## de la base qui doit être mise à jour</span></span>
+<span id="cb320-3"><a href="tidyverse.html#cb320-3" tabindex="-1"></a><span class="co"># Note : dans l&#39;exemple ci-dessous, on fait une transformation temporaire</span></span>
+<span id="cb320-4"><a href="tidyverse.html#cb320-4" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="co"># pas d&#39;assignation (pour une transformation temporaire)</span></span>
+<span id="cb320-5"><a href="tidyverse.html#cb320-5" tabindex="-1"></a>  <span class="fu">rows_update</span>(<span class="fu">tibble</span>(<span class="at">subjid =</span> <span class="dv">137</span>, <span class="at">pas =</span> <span class="dv">133</span>)) <span class="sc">%&gt;%</span> <span class="co"># revient à la valeur de 133</span></span>
+<span id="cb320-6"><a href="tidyverse.html#cb320-6" tabindex="-1"></a>  <span class="fu">filter</span>(subjid <span class="sc">%in%</span> <span class="dv">135</span><span class="sc">:</span><span class="dv">140</span>) <span class="co"># visualiser les lignes subjid = 135 à 140</span></span></code></pre></div>
+<pre><code>## Matching, by = &quot;subjid&quot;</code></pre>
+<pre><code>## # A tibble: 6 × 7
+##   subjid   sex   imc trait   pas obesite imc_cl
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1    135     0  28       2   154       0      3
+## 2    136     1  26.2     1   138       0      3
+## 3    137     0  20.1     1   133       0      2
+## 4    138     0  24.7     3   155       0      2
+## 5    139     0  17       2   115       0      1
+## 6    140     1  25.7     1   160       0      3</code></pre>
+</div>
+<div id="sauvegarder-la-base-de-données-1" class="section level3 hasAnchor" number="5.5.5">
+<h3><span class="header-section-number">5.5.5</span> Sauvegarder la base de données<a href="#sauvegarder-la-base-de-donn%C3%A9es-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Les fonctions <code>write_csv()</code> et <code>write_csv2()</code> du tidyverse sont analogues aux fonctions <code>write.csv()</code> et <code>write.csv2()</code> de Rbase. Voir l’aide <code>?write_delim</code>.</p>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="tidyverse.html#cb323-1" tabindex="-1"></a><span class="do">## Sauvegardez les données au format .csv dans votre dossier &quot;data&quot;</span></span>
+<span id="cb323-2"><a href="tidyverse.html#cb323-2" tabindex="-1"></a><span class="fu">write_csv2</span>(df_1, <span class="st">&quot;data/df_1_new.csv&quot;</span>) </span></code></pre></div>
+</div>
+</div>
+<div id="analyses-univariées-2" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Analyses univariées<a href="#analyses-univari%C3%A9es-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="création-de-variables-de-type-factor" class="section level3 hasAnchor" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Création de variables de type “factor”<a href="#cr%C3%A9ation-de-variables-de-type-factor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Afin de faire une analyse descriptive ou graphique des variables qualitatives, il est utile de les convertir en vecteurs de type “factor”.</p>
+<p>Pour cela, on peut se servir de la fonction <code>factor()</code> au sein de la fonction <code>mutate()</code> que nous avons déjà utilisée pour créer de nouvelles variables de type “factor.”</p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="tidyverse.html#cb324-1" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb324-2"><a href="tidyverse.html#cb324-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sexL =</span> <span class="fu">factor</span>(sex, </span>
+<span id="cb324-3"><a href="tidyverse.html#cb324-3" tabindex="-1"></a>                       <span class="at">labels =</span> meta_df_1<span class="sc">$</span>labs[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;sex&quot;</span>]),</span>
+<span id="cb324-4"><a href="tidyverse.html#cb324-4" tabindex="-1"></a>         <span class="at">traitL =</span> <span class="fu">factor</span>(trait))</span>
+<span id="cb324-5"><a href="tidyverse.html#cb324-5" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="co"># sexL et traitL ont été ajoutées à df_1</span></span></code></pre></div>
+<pre><code>## # A tibble: 5 × 9
+##   subjid   sex   imc trait   pas obesite imc_cl sexL    traitL
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt; 
+## 1      1     0  24.8     2   140       0      2 Féminin 2     
+## 2      2     0  24.1     3   109       0      2 Féminin 3     
+## 3      3     0  26.4     1   156       0      3 Féminin 1     
+## 4      4     0  23.3     2   124       0      2 Féminin 2     
+## 5      5     0  25.4     2   131       0      3 Féminin 2</code></pre>
+<p>Le package <a href="https://forcats.tidyverse.org/index.html"><code>forcats</code></a>du tidyverse apporte de nombreuses fonctions pour manipuler les variables de type “factor”. Toutes ces fonctions commencent par <code>ftc_...</code> (pour “factor”). Voir le cheatsheet de <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf">forcats</a> ou encore sa <a href="https://forcats.tidyverse.org/articles/forcats.html">vignette</a>.</p>
+<p>Par exemple, la fonction <code>fct_recode()</code> permet de recoder des facteurs. Pour chaque catégorie à recoder, on indiquer le “nouveau nom” suivi de égal, puis “l’ancien nom”.</p>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="tidyverse.html#cb326-1" tabindex="-1"></a><span class="do">## Utilisons la fonction fct_recode() pour recoder les levels de la variable traitL, </span></span>
+<span id="cb326-2"><a href="tidyverse.html#cb326-2" tabindex="-1"></a>df_1<span class="sc">$</span>traitL <span class="ot">&lt;-</span> <span class="fu">fct_recode</span>(df_1<span class="sc">$</span>traitL, </span>
+<span id="cb326-3"><a href="tidyverse.html#cb326-3" tabindex="-1"></a>                          <span class="at">Placebo =</span> <span class="st">&quot;1&quot;</span>, <span class="co"># nouveau label = &quot;ancien label&quot;</span></span>
+<span id="cb326-4"><a href="tidyverse.html#cb326-4" tabindex="-1"></a>                          <span class="st">&quot;Traitement A&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>, </span>
+<span id="cb326-5"><a href="tidyverse.html#cb326-5" tabindex="-1"></a>                          <span class="st">&quot;Traitement B&quot;</span> <span class="ot">=</span> <span class="st">&quot;3&quot;</span>)</span>
+<span id="cb326-6"><a href="tidyverse.html#cb326-6" tabindex="-1"></a><span class="co"># s&#39;il y a des caractètres spéciaux (comme des espaces, le nouveau nom doit être</span></span>
+<span id="cb326-7"><a href="tidyverse.html#cb326-7" tabindex="-1"></a><span class="co"># entre guillements)</span></span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="tidyverse.html#cb327-1" tabindex="-1"></a><span class="do">## Notez que la commande avec le pipe ci-dessous </span></span>
+<span id="cb327-2"><a href="tidyverse.html#cb327-2" tabindex="-1"></a><span class="do">## ne fonctionne pas car le premier argument de fct_recode doit être un facteur. </span></span>
+<span id="cb327-3"><a href="tidyverse.html#cb327-3" tabindex="-1"></a><span class="do">## Cette écriture avec le pipe extrait la colonne au format &quot;tibble&quot; </span></span>
+<span id="cb327-4"><a href="tidyverse.html#cb327-4" tabindex="-1"></a><span class="do">## (pas au format &quot;factor&quot;) </span></span>
+<span id="cb327-5"><a href="tidyverse.html#cb327-5" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">fct_recode</span>(traitL, </span>
+<span id="cb327-6"><a href="tidyverse.html#cb327-6" tabindex="-1"></a>                    <span class="at">Placebo =</span> <span class="st">&quot;1&quot;</span>, <span class="co"># nouveau label = &quot;ancien label&quot;</span></span>
+<span id="cb327-7"><a href="tidyverse.html#cb327-7" tabindex="-1"></a>                    <span class="st">&quot;Traitement A&quot;</span> <span class="ot">=</span> <span class="st">&quot;2&quot;</span>, </span>
+<span id="cb327-8"><a href="tidyverse.html#cb327-8" tabindex="-1"></a>                    <span class="st">&quot;Traitement B&quot;</span> <span class="ot">=</span> <span class="st">&quot;3&quot;</span>) </span></code></pre></div>
+</div>
+<div id="description-de-variables-quantitatives" class="section level3 hasAnchor" number="5.6.2">
+<h3><span class="header-section-number">5.6.2</span> Description de variables quantitatives<a href="tidyverse.html#description-de-variables-quantitatives" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La fonction <code>summarise()</code> permet de décrire différents paramètres avec les fonctions suivantes à indiquer au sein de la fonction (voir l’aide <code>?summarize()</code>) :</p>
+<ul>
+<li>moyenne et écart type avec <code>mean()</code> et <code>sd()</code></li>
+<li>min, max, médiane et intervalles interquartiles : <code>min()</code>, <code>max()</code>, <code>median()</code>, <code>IQR()</code>, <code>quantile()</code></li>
+<li>comptes avec <code>n()</code> et <code>n_distinct()</code></li>
+</ul>
+<p>Les fonctions connexes <code>summarise_at()</code>, <code>summarise_all()</code>, … permettent de décrire plusieurs variables en même temps. A chaque analyse, une nouvelle table est crée (sous format tibble) avec une colonne par paramètre calculé.</p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="tidyverse.html#cb328-1" tabindex="-1"></a><span class="do">## Par exemple, nous pouvons décrire les paramètres de la distribution de l&#39;IMC </span></span>
+<span id="cb328-2"><a href="tidyverse.html#cb328-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(imc)), <span class="co"># nombre de non-manquants</span></span>
+<span id="cb328-3"><a href="tidyverse.html#cb328-3" tabindex="-1"></a>                   <span class="at">mean =</span> <span class="fu">mean</span>(imc), </span>
+<span id="cb328-4"><a href="tidyverse.html#cb328-4" tabindex="-1"></a>                   <span class="at">sd =</span> <span class="fu">sd</span>(imc), </span>
+<span id="cb328-5"><a href="tidyverse.html#cb328-5" tabindex="-1"></a>                   <span class="at">min =</span> <span class="fu">min</span>(imc), </span>
+<span id="cb328-6"><a href="tidyverse.html#cb328-6" tabindex="-1"></a>                   <span class="at">p25 =</span> <span class="fu">quantile</span>(imc, <span class="at">probs =</span> <span class="fl">0.25</span>),</span>
+<span id="cb328-7"><a href="tidyverse.html#cb328-7" tabindex="-1"></a>                   <span class="at">med =</span> <span class="fu">median</span>(imc),</span>
+<span id="cb328-8"><a href="tidyverse.html#cb328-8" tabindex="-1"></a>                   <span class="at">p75 =</span> <span class="fu">quantile</span>(imc, <span class="at">probs =</span> <span class="fl">0.75</span>),</span>
+<span id="cb328-9"><a href="tidyverse.html#cb328-9" tabindex="-1"></a>                   <span class="at">max =</span> <span class="fu">max</span>(imc))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 8
+##       n  mean    sd   min   p25   med   p75   max
+##   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1   300  24.5  3.07  15.4  22.3  24.6  26.4  32.5</code></pre>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="tidyverse.html#cb330-1" tabindex="-1"></a><span class="do">## Moyenne et écart type des deux variables quantitatives </span></span>
+<span id="cb330-2"><a href="tidyverse.html#cb330-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">summarise_at</span>(<span class="fu">c</span>(<span class="st">&quot;imc&quot;</span>, <span class="st">&quot;pas&quot;</span>), </span>
+<span id="cb330-3"><a href="tidyverse.html#cb330-3" tabindex="-1"></a>                      <span class="fu">list</span>(<span class="at">mean =</span> mean, </span>
+<span id="cb330-4"><a href="tidyverse.html#cb330-4" tabindex="-1"></a>                           <span class="at">sd =</span> sd), </span>
+<span id="cb330-5"><a href="tidyverse.html#cb330-5" tabindex="-1"></a>                      <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># argument des fonctions mean et sd</span></span></code></pre></div>
+<pre><code>## # A tibble: 1 × 4
+##   imc_mean pas_mean imc_sd pas_sd
+##      &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1     24.5     137.   3.07   16.8</code></pre>
+<p>Comme la fonction <code>summarise_at()</code> crée une nouvelle colonne par paramètre, ce n’est pas très pratique si on veut décrire de nombreux paramètres pour plusieurs variables.</p>
+<p>Une autre solution est de créer une ligne contenant tous les paramètres, pour chaque variable. Puis de fusionner l’ensemble des lignes ainsi créées dans une nouvelle table.</p>
+<p>Au sein du package <code>dplyr</code> du Tidyverse, les fonctions <code>bind_rows()</code> et <code>bind_cols()</code> sont analogues aux fonctions Rbases <code>rbind()</code> et <code>cbind()</code> (qui permettent de fusionner des vecteurs ou des matrices ou des “data.frame” par rang ou par colonnes).</p>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="tidyverse.html#cb332-1" tabindex="-1"></a><span class="do">## On créé une 1ère ligne pour l&#39;IMC, stockée dans l&#39;objet &quot;row_imc&quot;</span></span>
+<span id="cb332-2"><a href="tidyverse.html#cb332-2" tabindex="-1"></a>row_imc <span class="ot">&lt;-</span> df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb332-3"><a href="tidyverse.html#cb332-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(imc)), <span class="co"># créé une ligne avec les paramètres</span></span>
+<span id="cb332-4"><a href="tidyverse.html#cb332-4" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb332-5"><a href="tidyverse.html#cb332-5" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb332-6"><a href="tidyverse.html#cb332-6" tabindex="-1"></a>            <span class="at">min =</span> <span class="fu">min</span>(imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb332-7"><a href="tidyverse.html#cb332-7" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(imc, <span class="at">probs =</span> <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb332-8"><a href="tidyverse.html#cb332-8" tabindex="-1"></a>            <span class="at">med =</span> <span class="fu">median</span>(imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb332-9"><a href="tidyverse.html#cb332-9" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(imc, <span class="at">probs =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb332-10"><a href="tidyverse.html#cb332-10" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb332-11"><a href="tidyverse.html#cb332-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var =</span> <span class="st">&quot;IMC (kg/m2)&quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># ajoute une colonne avec le nom de variable</span></span>
+<span id="cb332-12"><a href="tidyverse.html#cb332-12" tabindex="-1"></a>  <span class="fu">relocate</span>(var, <span class="at">.before =</span> n) <span class="co"># déplace le nom de variable en 1ère colonne</span></span>
+<span id="cb332-13"><a href="tidyverse.html#cb332-13" tabindex="-1"></a></span>
+<span id="cb332-14"><a href="tidyverse.html#cb332-14" tabindex="-1"></a><span class="do">## On créé une 2ème ligne pour la PAS, stockée dans l&#39;objet &quot;row_pas</span></span>
+<span id="cb332-15"><a href="tidyverse.html#cb332-15" tabindex="-1"></a>row_pas <span class="ot">&lt;-</span> df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb332-16"><a href="tidyverse.html#cb332-16" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(pas)), <span class="co"># créé une ligne avec les paramètres</span></span>
+<span id="cb332-17"><a href="tidyverse.html#cb332-17" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(pas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb332-18"><a href="tidyverse.html#cb332-18" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(pas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb332-19"><a href="tidyverse.html#cb332-19" tabindex="-1"></a>            <span class="at">min =</span> <span class="fu">min</span>(pas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb332-20"><a href="tidyverse.html#cb332-20" tabindex="-1"></a>            <span class="at">p25 =</span> <span class="fu">quantile</span>(pas, <span class="at">probs =</span> <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb332-21"><a href="tidyverse.html#cb332-21" tabindex="-1"></a>            <span class="at">med =</span> <span class="fu">median</span>(pas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb332-22"><a href="tidyverse.html#cb332-22" tabindex="-1"></a>            <span class="at">p75 =</span> <span class="fu">quantile</span>(pas, <span class="at">probs =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb332-23"><a href="tidyverse.html#cb332-23" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(pas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb332-24"><a href="tidyverse.html#cb332-24" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var =</span> <span class="st">&quot;PAS (mmHg)&quot;</span>) <span class="sc">%&gt;%</span> <span class="co"># ajoute une colonne avec le nom de variable</span></span>
+<span id="cb332-25"><a href="tidyverse.html#cb332-25" tabindex="-1"></a>  <span class="fu">relocate</span>(var, <span class="at">.before =</span> n) <span class="co"># déplace le nom de variable en 1ère colonne</span></span>
+<span id="cb332-26"><a href="tidyverse.html#cb332-26" tabindex="-1"></a></span>
+<span id="cb332-27"><a href="tidyverse.html#cb332-27" tabindex="-1"></a><span class="do">## on fusionne le deux lignes avec la fonction bind_rows()</span></span>
+<span id="cb332-28"><a href="tidyverse.html#cb332-28" tabindex="-1"></a><span class="fu">bind_rows</span>(row_imc, row_pas)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 9
+##   var             n  mean    sd   min   p25   med   p75   max
+##   &lt;chr&gt;       &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 IMC (kg/m2)   300  24.5  3.07  15.4  22.3  24.6  26.4  32.5
+## 2 PAS (mmHg)    300 137.  16.8   92   125   138   149   177</code></pre>
+</div>
+<div id="description-de-variables-qualitatives" class="section level3 hasAnchor" number="5.6.3">
+<h3><span class="header-section-number">5.6.3</span> Description de variables qualitatives<a href="tidyverse.html#description-de-variables-qualitatives" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pour décrire les variables qualitatives, on peut utiliser les fonctions <code>table()</code> et <code>prop.table()</code> de Rbase.</p>
+<p>Au sein du Tidyverse, la fonction <code>fct_count()</code> du package <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf">forcats</a> permet de décrire les variables de type “factor” avec deux arguments intéressants :</p>
+<ul>
+<li><code>sort = TRUE</code> permet de présenter les modalités de réponses de la plus fréquente à la moins fréquente</li>
+<li><code>prop = TRUE</code> ajoute les pourcentages au dénombrement .</li>
+</ul>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="tidyverse.html#cb334-1" tabindex="-1"></a><span class="do">## Description avec les fonctions classiques de Rbase</span></span>
+<span id="cb334-2"><a href="tidyverse.html#cb334-2" tabindex="-1"></a><span class="fu">table</span>(df_1<span class="sc">$</span>traitL)</span></code></pre></div>
+<pre><code>## 
+##      Placebo Traitement A Traitement B 
+##          120           91           89</code></pre>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="tidyverse.html#cb336-1" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(df_1<span class="sc">$</span>traitL))</span></code></pre></div>
+<pre><code>## 
+##      Placebo Traitement A Traitement B 
+##    0.4000000    0.3033333    0.2966667</code></pre>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="tidyverse.html#cb338-1" tabindex="-1"></a><span class="do">## Description avec la fonction fct_count() du package forcats</span></span>
+<span id="cb338-2"><a href="tidyverse.html#cb338-2" tabindex="-1"></a><span class="fu">fct_count</span>(df_1<span class="sc">$</span>traitL)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##   f                n
+##   &lt;fct&gt;        &lt;int&gt;
+## 1 Placebo        120
+## 2 Traitement A    91
+## 3 Traitement B    89</code></pre>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="tidyverse.html#cb340-1" tabindex="-1"></a><span class="fu">fct_count</span>(df_1<span class="sc">$</span>traitL, </span>
+<span id="cb340-2"><a href="tidyverse.html#cb340-2" tabindex="-1"></a>          <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="co"># trie les modalités de réponses du + au - fréquent</span></span>
+<span id="cb340-3"><a href="tidyverse.html#cb340-3" tabindex="-1"></a>          <span class="at">prop =</span> <span class="cn">TRUE</span>) <span class="co"># ajoute les proportions</span></span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
+##   f                n     p
+##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt;
+## 1 Placebo        120 0.4  
+## 2 Traitement A    91 0.303
+## 3 Traitement B    89 0.297</code></pre>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="tidyverse.html#cb342-1" tabindex="-1"></a><span class="do">## Comme précédemment, on peut combiner dans une seule table la description des </span></span>
+<span id="cb342-2"><a href="tidyverse.html#cb342-2" tabindex="-1"></a><span class="do">## variables sexe et traitement avec la fonction bind_row()</span></span>
+<span id="cb342-3"><a href="tidyverse.html#cb342-3" tabindex="-1"></a><span class="co"># Note : ci-dessous, on ajoute une ligne contenant uniquement le nom de variable, </span></span>
+<span id="cb342-4"><a href="tidyverse.html#cb342-4" tabindex="-1"></a><span class="co">#        récupéré dans la base de méta-données, </span></span>
+<span id="cb342-5"><a href="tidyverse.html#cb342-5" tabindex="-1"></a><span class="co">#        puis on renomme les colonnes f et p</span></span>
+<span id="cb342-6"><a href="tidyverse.html#cb342-6" tabindex="-1"></a><span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">f =</span> meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;sex&quot;</span>][<span class="dv">1</span>]),</span>
+<span id="cb342-7"><a href="tidyverse.html#cb342-7" tabindex="-1"></a>          <span class="fu">fct_count</span>(df_1<span class="sc">$</span>sexL, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">prop =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb342-8"><a href="tidyverse.html#cb342-8" tabindex="-1"></a>          <span class="fu">tibble</span>(<span class="at">f =</span> meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;trait&quot;</span>][<span class="dv">1</span>]),</span>
+<span id="cb342-9"><a href="tidyverse.html#cb342-9" tabindex="-1"></a>          <span class="fu">fct_count</span>(df_1<span class="sc">$</span>traitL, <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">prop =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb342-10"><a href="tidyverse.html#cb342-10" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;Variable&quot;</span> <span class="ot">=</span> f, </span>
+<span id="cb342-11"><a href="tidyverse.html#cb342-11" tabindex="-1"></a>         <span class="st">&quot;%&quot;</span> <span class="ot">=</span> p)</span></code></pre></div>
+<pre><code>## # A tibble: 7 × 3
+##   Variable         n    `%`
+##   &lt;chr&gt;        &lt;int&gt;  &lt;dbl&gt;
+## 1 Sexe            NA NA    
+## 2 Féminin        153  0.51 
+## 3 Masculin       147  0.49 
+## 4 Traitement      NA NA    
+## 5 Placebo        120  0.4  
+## 6 Traitement A    91  0.303
+## 7 Traitement B    89  0.297</code></pre>
+</div>
+</div>
+<div id="représentations-graphiques-1" class="section level2 hasAnchor" number="5.7">
+<h2><span class="header-section-number">5.7</span> Représentations graphiques<a href="#repr%C3%A9sentations-graphiques-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="distributions-univariées-1" class="section level3 hasAnchor" number="5.7.1">
+<h3><span class="header-section-number">5.7.1</span> Distributions univariées<a href="#distributions-univari%C3%A9es-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Le Tidyverse utilise le package <a href="https://ggplot2.tidyverse.org/articles/ggplot2.html">ggplot2</a> pour réaliser des graphiques. Pour vous aider à utiliser ce package, vous pouvez consulter :</p>
+<ul>
+<li>le <a href="https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf">cheatsheet de ggplot2</a></li>
+<li>le livre <a href="https://r4ds.hadley.nz/">R for data science</a> qui donne de nombreux exemples de représentations graphiques avec <code>ggplot2</code></li>
+<li>le livre <a href="https://ggplot2-book.org/">ggplot2</a></li>
+<li>et bien sûr l’aide en ligne.</li>
+</ul>
+<p>Les figures sont composées de calques successifs. On commence par indiquer une première ligne <code>ggplot(data, mapping = aes(x = ...)</code> avec comme argument :</p>
+<ul>
+<li>les données,</li>
+<li>les variables à utiliser (“aesthetics”).</li>
+</ul>
+<p>Puis, on peut ajouter des calques successifs avec des <code>+</code> avant chaque calque :</p>
+<ul>
+<li>des histogrammes avec la fonction <code>geom_hist()</code></li>
+<li>des densités de kernel avec la fonction <code>geom_density()</code></li>
+<li>des box-plots avec la fonction <code>geom_boxplot()</code></li>
+<li>des diagrammes en barres (pour les variables discrètes comme les facteurs), avec la fonction <code>geom_bar()</code></li>
+<li>modifier les titres et labels avec la fonction <code>labs()</code></li>
+<li>modifier le contenu des légendes avec les fonctions <code>scale_colour_discrete()</code> pour légender les couleurs ou encore <code>scale_shape_discrete</code> pour légender les couleurs</li>
+<li>modifier le thème général de présentation avec la fonction <code>theme()</code></li>
+<li>etc.</li>
+</ul>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="tidyverse.html#cb344-1" tabindex="-1"></a><span class="do">## Variables quantitatives</span></span>
+<span id="cb344-2"><a href="tidyverse.html#cb344-2" tabindex="-1"></a><span class="do">## 1) représenter la distribution de l&#39;IMC à l&#39;aide d&#39;un histogramme</span></span>
+<span id="cb344-3"><a href="tidyverse.html#cb344-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> imc)) <span class="sc">+</span></span>
+<span id="cb344-4"><a href="tidyverse.html#cb344-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="_main_files/figure-html/tidy24-1.png" width="672" /></p>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="tidyverse.html#cb346-1" tabindex="-1"></a><span class="co"># pour voir les options possibles de l&#39;histogramme : </span></span>
+<span id="cb346-2"><a href="tidyverse.html#cb346-2" tabindex="-1"></a>?geom_histogram</span></code></pre></div>
+<pre><code>## démarrage du serveur d&#39;aide httpd ... fini</code></pre>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="tidyverse.html#cb348-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> imc)) <span class="sc">+</span></span>
+<span id="cb348-2"><a href="tidyverse.html#cb348-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>, <span class="co"># nombre de &quot;rectangles&quot; default = 30</span></span>
+<span id="cb348-3"><a href="tidyverse.html#cb348-3" tabindex="-1"></a>                 <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="co"># couleur du contour</span></span>
+<span id="cb348-4"><a href="tidyverse.html#cb348-4" tabindex="-1"></a>                 <span class="at">linewidth =</span> <span class="dv">3</span>, <span class="co"># épaisseur de ligne</span></span>
+<span id="cb348-5"><a href="tidyverse.html#cb348-5" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">&quot;dodgerblue3&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy24-2.png" width="672" /></p>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="tidyverse.html#cb349-1" tabindex="-1"></a><span class="do">## 2) La distribution de l&#39;IMC par une densité de kernel</span></span>
+<span id="cb349-2"><a href="tidyverse.html#cb349-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> imc)) <span class="sc">+</span></span>
+<span id="cb349-3"><a href="tidyverse.html#cb349-3" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy24-3.png" width="672" /></p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="tidyverse.html#cb350-1" tabindex="-1"></a><span class="co"># pour voir les options possibles de les densités de kernel : </span></span>
+<span id="cb350-2"><a href="tidyverse.html#cb350-2" tabindex="-1"></a>?geom_density</span>
+<span id="cb350-3"><a href="tidyverse.html#cb350-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> imc)) <span class="sc">+</span></span>
+<span id="cb350-4"><a href="tidyverse.html#cb350-4" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">bw =</span> <span class="st">&quot;nrd&quot;</span>, <span class="at">n =</span> <span class="dv">100</span>, <span class="co"># bandwidth selector</span></span>
+<span id="cb350-5"><a href="tidyverse.html#cb350-5" tabindex="-1"></a>               <span class="at">kernel =</span> <span class="st">&quot;rectangular&quot;</span>) <span class="co"># kernel function</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy24-4.png" width="672" /></p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="tidyverse.html#cb351-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> imc)) <span class="sc">+</span></span>
+<span id="cb351-2"><a href="tidyverse.html#cb351-2" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">bw =</span> <span class="st">&quot;nrd0&quot;</span>, <span class="co"># default bandwidth selector</span></span>
+<span id="cb351-3"><a href="tidyverse.html#cb351-3" tabindex="-1"></a>               <span class="at">kernel =</span> <span class="st">&quot;gaussian&quot;</span>, <span class="co"># default kernel function</span></span>
+<span id="cb351-4"><a href="tidyverse.html#cb351-4" tabindex="-1"></a>               <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="co"># couleur du contour</span></span>
+<span id="cb351-5"><a href="tidyverse.html#cb351-5" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="co"># épaisseur de ligne</span></span>
+<span id="cb351-6"><a href="tidyverse.html#cb351-6" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="dv">4</span>) <span class="co"># type de ligne (dotdash)</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy24-5.png" width="672" /></p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="tidyverse.html#cb352-1" tabindex="-1"></a><span class="co"># type de lignes : </span></span>
+<span id="cb352-2"><a href="tidyverse.html#cb352-2" tabindex="-1"></a><span class="co"># 0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, </span></span>
+<span id="cb352-3"><a href="tidyverse.html#cb352-3" tabindex="-1"></a><span class="co"># 6 = twodash</span></span>
+<span id="cb352-4"><a href="tidyverse.html#cb352-4" tabindex="-1"></a></span>
+<span id="cb352-5"><a href="tidyverse.html#cb352-5" tabindex="-1"></a><span class="do">## 3) La distribution de l&#39;IMC par un boxplot</span></span>
+<span id="cb352-6"><a href="tidyverse.html#cb352-6" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> imc)) <span class="sc">+</span></span>
+<span id="cb352-7"><a href="tidyverse.html#cb352-7" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy24-6.png" width="672" /></p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="tidyverse.html#cb353-1" tabindex="-1"></a><span class="co"># représentation sur l&#39;axe des Y</span></span>
+<span id="cb353-2"><a href="tidyverse.html#cb353-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> imc)) <span class="sc">+</span></span>
+<span id="cb353-3"><a href="tidyverse.html#cb353-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy24-7.png" width="672" /></p>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="tidyverse.html#cb354-1" tabindex="-1"></a><span class="co"># pour voir les options possibles des boxplots : </span></span>
+<span id="cb354-2"><a href="tidyverse.html#cb354-2" tabindex="-1"></a>?geom_boxplot</span>
+<span id="cb354-3"><a href="tidyverse.html#cb354-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> imc)) <span class="sc">+</span></span>
+<span id="cb354-4"><a href="tidyverse.html#cb354-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outliers =</span> <span class="cn">TRUE</span>, <span class="co"># afficher les outliers</span></span>
+<span id="cb354-5"><a href="tidyverse.html#cb354-5" tabindex="-1"></a>               <span class="at">outlier.colour =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb354-6"><a href="tidyverse.html#cb354-6" tabindex="-1"></a>               <span class="at">outlier.fill =</span> <span class="st">&quot;green&quot;</span>,</span>
+<span id="cb354-7"><a href="tidyverse.html#cb354-7" tabindex="-1"></a>               <span class="at">outlier.shape =</span> <span class="dv">7</span>, <span class="co"># symbole des outliers voir ?shape</span></span>
+<span id="cb354-8"><a href="tidyverse.html#cb354-8" tabindex="-1"></a>               <span class="at">outlier.size =</span> <span class="dv">5</span>, <span class="co"># taille des outliers</span></span>
+<span id="cb354-9"><a href="tidyverse.html#cb354-9" tabindex="-1"></a>               <span class="at">outlier.stroke =</span> <span class="fl">0.1</span>, <span class="co"># épaisseur de trait des outliers</span></span>
+<span id="cb354-10"><a href="tidyverse.html#cb354-10" tabindex="-1"></a>               <span class="at">outlier.alpha =</span> <span class="cn">NULL</span>, <span class="co"># transparence des outliers</span></span>
+<span id="cb354-11"><a href="tidyverse.html#cb354-11" tabindex="-1"></a>               <span class="at">staplewidth =</span> <span class="fl">0.1</span>) <span class="co"># largeur de la moustache</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy24-8.png" width="672" /></p>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="tidyverse.html#cb355-1" tabindex="-1"></a><span class="do">## Variables qualitatives</span></span>
+<span id="cb355-2"><a href="tidyverse.html#cb355-2" tabindex="-1"></a><span class="do">## Représenter la distribution du sexe par un diagramme en barres</span></span>
+<span id="cb355-3"><a href="tidyverse.html#cb355-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> sexL)) <span class="sc">+</span></span>
+<span id="cb355-4"><a href="tidyverse.html#cb355-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy24-9.png" width="672" /></p>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="tidyverse.html#cb356-1" tabindex="-1"></a><span class="co"># pour voir les options possibles de les diagrammes en barres : </span></span>
+<span id="cb356-2"><a href="tidyverse.html#cb356-2" tabindex="-1"></a>?geom_bar</span>
+<span id="cb356-3"><a href="tidyverse.html#cb356-3" tabindex="-1"></a><span class="co"># sur l&#39;axe des Y plutôt que des X</span></span>
+<span id="cb356-4"><a href="tidyverse.html#cb356-4" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> sexL)) <span class="sc">+</span> <span class="co"># ici y = sexL</span></span>
+<span id="cb356-5"><a href="tidyverse.html#cb356-5" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy24-10.png" width="672" /></p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="tidyverse.html#cb357-1" tabindex="-1"></a><span class="co"># options</span></span>
+<span id="cb357-2"><a href="tidyverse.html#cb357-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> sexL)) <span class="sc">+</span></span>
+<span id="cb357-3"><a href="tidyverse.html#cb357-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(prop)), <span class="co"># pour des % plutôt que des N</span></span>
+<span id="cb357-4"><a href="tidyverse.html#cb357-4" tabindex="-1"></a>           <span class="at">just =</span> <span class="fl">0.1</span>, <span class="co"># emplacement : 0=à gauche, 1=à droite, 0.5=centré</span></span>
+<span id="cb357-5"><a href="tidyverse.html#cb357-5" tabindex="-1"></a>           <span class="at">width =</span> <span class="fl">0.5</span>, <span class="co"># largeur de bande (0.9 par défaut)</span></span>
+<span id="cb357-6"><a href="tidyverse.html#cb357-6" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="co"># couleur de ligne</span></span>
+<span id="cb357-7"><a href="tidyverse.html#cb357-7" tabindex="-1"></a>           <span class="at">linewidth =</span> <span class="dv">2</span>, <span class="co"># largeur de ligne</span></span>
+<span id="cb357-8"><a href="tidyverse.html#cb357-8" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">&quot;orange2&quot;</span>) <span class="co"># couleur de remplissage</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy24-11.png" width="672" /></p>
+</div>
+<div id="distributions-bivariées-1" class="section level3 hasAnchor" number="5.7.2">
+<h3><span class="header-section-number">5.7.2</span> Distributions bivariées<a href="#distributions-bivari%C3%A9es-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pour représenter graphiquement des distributions bi- ou multivariées, on peut combiner plusieurs “aesthetics” dans la fonction <code>ggplot()</code>, pour associer une variable à une représentation graphique :</p>
+<ul>
+<li>sur l’axe des abcisses <code>x</code> ou l’axe des ordonnées <code>y</code></li>
+<li>type de ligne avec <code>linetype</code></li>
+<li>symbole <code>shape</code></li>
+<li>couleur de lignes ou de symboles avec <code>color</code> (ou <code>colour</code>)</li>
+<li>remplissage de surfaces avec <code>fill</code></li>
+</ul>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="tidyverse.html#cb358-1" tabindex="-1"></a><span class="do">### Boxplot de la PAS en fonction du sexe </span></span>
+<span id="cb358-2"><a href="tidyverse.html#cb358-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> sexL, <span class="at">y =</span> pas)) <span class="sc">+</span></span>
+<span id="cb358-3"><a href="tidyverse.html#cb358-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outliers =</span> <span class="cn">TRUE</span>, <span class="at">staplewidth =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb358-4"><a href="tidyverse.html#cb358-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Sexe&quot;</span>, <span class="at">y =</span> <span class="st">&quot;PAS (mmHg)&quot;</span>, </span>
+<span id="cb358-5"><a href="tidyverse.html#cb358-5" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;PAS en fonction du sexe&quot;</span>, </span>
+<span id="cb358-6"><a href="tidyverse.html#cb358-6" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;vous pouvez ajouter un sous-titre&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy25-1.png" width="672" /></p>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="tidyverse.html#cb359-1" tabindex="-1"></a><span class="do">### Boxplot de la PAS en fonction du traitement</span></span>
+<span id="cb359-2"><a href="tidyverse.html#cb359-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> traitL, <span class="at">y =</span> pas)) <span class="sc">+</span></span>
+<span id="cb359-3"><a href="tidyverse.html#cb359-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outliers =</span> <span class="cn">TRUE</span>, <span class="at">staplewidth =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb359-4"><a href="tidyverse.html#cb359-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Traitement&quot;</span>, <span class="at">y =</span> <span class="st">&quot;PAS (mmHg)&quot;</span>, </span>
+<span id="cb359-5"><a href="tidyverse.html#cb359-5" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;PAS en fonction du traitement&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy25-2.png" width="672" /></p>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="tidyverse.html#cb360-1" tabindex="-1"></a><span class="do">### Répartition du sexe par traitement</span></span>
+<span id="cb360-2"><a href="tidyverse.html#cb360-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> traitL, <span class="at">fill =</span> sexL)) <span class="sc">+</span></span>
+<span id="cb360-3"><a href="tidyverse.html#cb360-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;stack&quot;</span>) <span class="sc">+</span> <span class="co"># empilé</span></span>
+<span id="cb360-4"><a href="tidyverse.html#cb360-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Traitement&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Sexe et traitement&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy25-3.png" width="672" /></p>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="tidyverse.html#cb361-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> traitL, <span class="at">fill =</span> sexL)) <span class="sc">+</span></span>
+<span id="cb361-2"><a href="tidyverse.html#cb361-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span> <span class="co"># côte à côte</span></span>
+<span id="cb361-3"><a href="tidyverse.html#cb361-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Traitement&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Sexe et traitement&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy25-4.png" width="672" /></p>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="tidyverse.html#cb362-1" tabindex="-1"></a><span class="do">### On peut représenter un nuage de points de la PAS en fonction de l&#39;IMC : </span></span>
+<span id="cb362-2"><a href="tidyverse.html#cb362-2" tabindex="-1"></a><span class="do">### où les hommes et les femmes ont deux symboles différents et les traitements </span></span>
+<span id="cb362-3"><a href="tidyverse.html#cb362-3" tabindex="-1"></a><span class="do">### trois couleurs différentes</span></span>
+<span id="cb362-4"><a href="tidyverse.html#cb362-4" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> pas, </span>
+<span id="cb362-5"><a href="tidyverse.html#cb362-5" tabindex="-1"></a>                                  <span class="at">x =</span> imc,</span>
+<span id="cb362-6"><a href="tidyverse.html#cb362-6" tabindex="-1"></a>                                  <span class="at">shape =</span> sexL,</span>
+<span id="cb362-7"><a href="tidyverse.html#cb362-7" tabindex="-1"></a>                                  <span class="at">color =</span> traitL)) <span class="sc">+</span></span>
+<span id="cb362-8"><a href="tidyverse.html#cb362-8" tabindex="-1"></a>  <span class="fu">geom_point</span>() </span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy25-5.png" width="672" /></p>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="tidyverse.html#cb363-1" tabindex="-1"></a><span class="co"># avec plus d&#39;options</span></span>
+<span id="cb363-2"><a href="tidyverse.html#cb363-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df_1, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> pas, <span class="at">x =</span> imc, <span class="at">shape =</span> sexL, </span>
+<span id="cb363-3"><a href="tidyverse.html#cb363-3" tabindex="-1"></a>                                  <span class="at">color =</span> traitL)) <span class="sc">+</span></span>
+<span id="cb363-4"><a href="tidyverse.html#cb363-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="co"># taille des symboles</span></span>
+<span id="cb363-5"><a href="tidyverse.html#cb363-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;IMC (kg/m²)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;PAS (mmHg)&quot;</span>, <span class="co"># titre et axes</span></span>
+<span id="cb363-6"><a href="tidyverse.html#cb363-6" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;PAS en fonction de l&#39;IMC&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb363-7"><a href="tidyverse.html#cb363-7" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Traitement&quot;</span>, <span class="co"># 1ère légende liée aux couleurs</span></span>
+<span id="cb363-8"><a href="tidyverse.html#cb363-8" tabindex="-1"></a>                          <span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, <span class="st">&quot;Traitement A&quot;</span>, <span class="st">&quot;Traitement B&quot;</span>),</span>
+<span id="cb363-9"><a href="tidyverse.html#cb363-9" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, <span class="st">&quot;Traitement&quot;</span>, <span class="st">&quot;Traitement B&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb363-10"><a href="tidyverse.html#cb363-10" tabindex="-1"></a>  <span class="fu">scale_shape_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Sex&quot;</span>, <span class="co"># 2ème légende liée aux symboles</span></span>
+<span id="cb363-11"><a href="tidyverse.html#cb363-11" tabindex="-1"></a>                       <span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">&quot;Féminin&quot;</span>, <span class="st">&quot;Masculin&quot;</span>),</span>
+<span id="cb363-12"><a href="tidyverse.html#cb363-12" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Féminin&quot;</span>, <span class="st">&quot;Masculin&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb363-13"><a href="tidyverse.html#cb363-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)) <span class="co"># taille des valeurs sur les axes</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy25-6.png" width="672" /></p>
+</div>
+</div>
+<div id="analyses-bivariées-2" class="section level2 hasAnchor" number="5.8">
+<h2><span class="header-section-number">5.8</span> Analyses bivariées<a href="#analyses-bivari%C3%A9es-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="variable-quantitative-times-qualitative-1" class="section level3 hasAnchor" number="5.8.1">
+<h3><span class="header-section-number">5.8.1</span> Variable quantitative <span class="math inline">\(\times\)</span> qualitative<a href="tidyverse.html#variable-quantitative-times-qualitative-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Le package <code>dplyr</code> permet décrire une variable quantitative en fonction d’une variable qualitative, avec la fonction <code>group_by()</code>.</p>
+<p>Par exemple, la fonction <code>summarise()</code> créé les indicateurs statistiques par sous-groupe lorsque qu’elle est utilisée après la commande <code>group_by()</code>.</p>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="tidyverse.html#cb364-1" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span></span>
+<span id="cb364-2"><a href="tidyverse.html#cb364-2" tabindex="-1"></a>  <span class="fu">group_by</span>(sexL)</span></code></pre></div>
+<pre><code>## # A tibble: 300 × 9
+## # Groups:   sexL [2]
+##    subjid   sex   imc trait   pas obesite imc_cl sexL     traitL      
+##     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;       
+##  1      1     0  24.8     2   140       0      2 Féminin  Traitement A
+##  2      2     0  24.1     3   109       0      2 Féminin  Traitement B
+##  3      3     0  26.4     1   156       0      3 Féminin  Placebo     
+##  4      4     0  23.3     2   124       0      2 Féminin  Traitement A
+##  5      5     0  25.4     2   131       0      3 Féminin  Traitement A
+##  6      6     1  25       3   148       0      3 Masculin Traitement B
+##  7      7     0  25.2     3   125       0      3 Féminin  Traitement B
+##  8      8     0  21.5     3   117       0      2 Féminin  Traitement B
+##  9      9     0  21.8     1   132       0      2 Féminin  Placebo     
+## 10     10     0  25.9     1   133       0      3 Féminin  Placebo     
+## # ℹ 290 more rows</code></pre>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="tidyverse.html#cb366-1" tabindex="-1"></a><span class="co"># Notez qu&#39;en description, le tibble indique qu&#39;il considère la variable sexL</span></span>
+<span id="cb366-2"><a href="tidyverse.html#cb366-2" tabindex="-1"></a><span class="co"># comme une variable de groupe =&gt; cela est pris en compte pour les analyses qui </span></span>
+<span id="cb366-3"><a href="tidyverse.html#cb366-3" tabindex="-1"></a><span class="co"># suivront dans le pipe.</span></span>
+<span id="cb366-4"><a href="tidyverse.html#cb366-4" tabindex="-1"></a><span class="co"># Si vous avez sauvegardé une base tibble avec une propriété de sous-groupe, </span></span>
+<span id="cb366-5"><a href="tidyverse.html#cb366-5" tabindex="-1"></a><span class="co"># vous pouvez la supprimer avec la fonction ungroup()</span></span>
+<span id="cb366-6"><a href="tidyverse.html#cb366-6" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span></span>
+<span id="cb366-7"><a href="tidyverse.html#cb366-7" tabindex="-1"></a>  <span class="fu">group_by</span>(sexL) <span class="sc">%&gt;%</span></span>
+<span id="cb366-8"><a href="tidyverse.html#cb366-8" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 300 × 9
+##    subjid   sex   imc trait   pas obesite imc_cl sexL     traitL      
+##     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;       
+##  1      1     0  24.8     2   140       0      2 Féminin  Traitement A
+##  2      2     0  24.1     3   109       0      2 Féminin  Traitement B
+##  3      3     0  26.4     1   156       0      3 Féminin  Placebo     
+##  4      4     0  23.3     2   124       0      2 Féminin  Traitement A
+##  5      5     0  25.4     2   131       0      3 Féminin  Traitement A
+##  6      6     1  25       3   148       0      3 Masculin Traitement B
+##  7      7     0  25.2     3   125       0      3 Féminin  Traitement B
+##  8      8     0  21.5     3   117       0      2 Féminin  Traitement B
+##  9      9     0  21.8     1   132       0      2 Féminin  Placebo     
+## 10     10     0  25.9     1   133       0      3 Féminin  Placebo     
+## # ℹ 290 more rows</code></pre>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="tidyverse.html#cb368-1" tabindex="-1"></a><span class="do">## Description de l&#39;IMC en fonction du sexe</span></span>
+<span id="cb368-2"><a href="tidyverse.html#cb368-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span></span>
+<span id="cb368-3"><a href="tidyverse.html#cb368-3" tabindex="-1"></a>  <span class="fu">group_by</span>(sexL) <span class="sc">%&gt;%</span></span>
+<span id="cb368-4"><a href="tidyverse.html#cb368-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(imc)), <span class="co"># nombre de non-manquants</span></span>
+<span id="cb368-5"><a href="tidyverse.html#cb368-5" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(imc), </span>
+<span id="cb368-6"><a href="tidyverse.html#cb368-6" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(imc))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 4
+##   sexL         n  mean    sd
+##   &lt;fct&gt;    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Féminin    153  24.1  3.09
+## 2 Masculin   147  24.9  3.00</code></pre>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="tidyverse.html#cb370-1" tabindex="-1"></a><span class="do">## Description de la PAS en fonction du traitement</span></span>
+<span id="cb370-2"><a href="tidyverse.html#cb370-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span></span>
+<span id="cb370-3"><a href="tidyverse.html#cb370-3" tabindex="-1"></a>  <span class="fu">group_by</span>(traitL) <span class="sc">%&gt;%</span></span>
+<span id="cb370-4"><a href="tidyverse.html#cb370-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(pas)), <span class="co"># nombre de non-manquants</span></span>
+<span id="cb370-5"><a href="tidyverse.html#cb370-5" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(pas), </span>
+<span id="cb370-6"><a href="tidyverse.html#cb370-6" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(pas))</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 4
+##   traitL           n  mean    sd
+##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Placebo        120  141.  15.6
+## 2 Traitement A    91  131.  16.4
+## 3 Traitement B    89  138.  17.0</code></pre>
+</div>
+<div id="variable-qualitative-times-qualitative-1" class="section level3 hasAnchor" number="5.8.2">
+<h3><span class="header-section-number">5.8.2</span> Variable qualitative <span class="math inline">\(\times\)</span> qualitative<a href="tidyverse.html#variable-qualitative-times-qualitative-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>De la même manière, on peut décrire les effectifs et pourcentages de la variable sexL (en lignes), en fonction de la variable traitement (en colonnes) avec la fonction <code>summarise()</code> après une fonction<code>group_by()</code>.</p>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="tidyverse.html#cb372-1" tabindex="-1"></a><span class="co"># Dans l&#39;exemple ci-dessous, pour décrire une variable catégorielle par groupe, </span></span>
+<span id="cb372-2"><a href="tidyverse.html#cb372-2" tabindex="-1"></a><span class="co"># on décrit le résultat d&#39;un test de condition, le calcule des paramètres sum() </span></span>
+<span id="cb372-3"><a href="tidyverse.html#cb372-3" tabindex="-1"></a><span class="co"># et mean() va transformer par coercition la variable vrai/faux en variable </span></span>
+<span id="cb372-4"><a href="tidyverse.html#cb372-4" tabindex="-1"></a><span class="co"># binaire 1/0 avant de faire le calcul </span></span>
+<span id="cb372-5"><a href="tidyverse.html#cb372-5" tabindex="-1"></a><span class="co"># (pour rappel, un pourcentage est une moyenne de 0 et de 1).</span></span>
+<span id="cb372-6"><a href="tidyverse.html#cb372-6" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span></span>
+<span id="cb372-7"><a href="tidyverse.html#cb372-7" tabindex="-1"></a>  <span class="fu">group_by</span>(sexL) <span class="sc">%&gt;%</span></span>
+<span id="cb372-8"><a href="tidyverse.html#cb372-8" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">&quot;Placebo, n&quot;</span> <span class="ot">=</span> <span class="fu">sum</span>(trait <span class="sc">==</span> <span class="dv">1</span>), <span class="co"># effectif</span></span>
+<span id="cb372-9"><a href="tidyverse.html#cb372-9" tabindex="-1"></a>            <span class="st">&quot;Placebo, %&quot;</span> <span class="ot">=</span> <span class="fu">mean</span>(trait <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="co"># % en ligne (selon le sex)</span></span>
+<span id="cb372-10"><a href="tidyverse.html#cb372-10" tabindex="-1"></a>            <span class="st">&quot;Traitement A, n&quot;</span> <span class="ot">=</span> <span class="fu">sum</span>(trait <span class="sc">==</span> <span class="dv">2</span>), </span>
+<span id="cb372-11"><a href="tidyverse.html#cb372-11" tabindex="-1"></a>            <span class="st">&quot;Traitement A, %&quot;</span> <span class="ot">=</span> <span class="fu">mean</span>(trait <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb372-12"><a href="tidyverse.html#cb372-12" tabindex="-1"></a>            <span class="st">&quot;Traitement B, n&quot;</span> <span class="ot">=</span> <span class="fu">sum</span>(trait <span class="sc">==</span> <span class="dv">3</span>), </span>
+<span id="cb372-13"><a href="tidyverse.html#cb372-13" tabindex="-1"></a>            <span class="st">&quot;Traitement B, %&quot;</span> <span class="ot">=</span> <span class="fu">mean</span>(trait <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 7
+##   sexL     `Placebo, n` `Placebo, %` `Traitement A, n` `Traitement A, %`
+##   &lt;fct&gt;           &lt;int&gt;        &lt;dbl&gt;             &lt;int&gt;             &lt;dbl&gt;
+## 1 Féminin            57         37.3                46              30.1
+## 2 Masculin           63         42.9                45              30.6
+## # ℹ 2 more variables: `Traitement B, n` &lt;int&gt;, `Traitement B, %` &lt;dbl&gt;</code></pre>
+</div>
+<div id="comparer-2-moyennes-1" class="section level3 hasAnchor" number="5.8.3">
+<h3><span class="header-section-number">5.8.3</span> Comparer 2 moyennes<a href="tidyverse.html#comparer-2-moyennes-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Le test de Student, le test de Levene, le test des rangs de Wilcoxon se font avec les mêmes commandes R base. On pourra vérifier la normalité des distributions dans chaque groupe avec le package <code>ggplot2</code>.</p>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="tidyverse.html#cb374-1" tabindex="-1"></a><span class="do">## Test de Student</span></span>
+<span id="cb374-2"><a href="tidyverse.html#cb374-2" tabindex="-1"></a>ttest_pas_sex <span class="ot">&lt;-</span> df_1 <span class="sc">%&gt;%</span> <span class="fu">t.test</span>(<span class="at">data =</span> ., <span class="co"># placeholder pour la position de df_1</span></span>
+<span id="cb374-3"><a href="tidyverse.html#cb374-3" tabindex="-1"></a>                                 pas <span class="sc">~</span> sexL, <span class="co"># formula</span></span>
+<span id="cb374-4"><a href="tidyverse.html#cb374-4" tabindex="-1"></a>                                 <span class="at">var.equal =</span> <span class="cn">TRUE</span>) <span class="co"># pour le test de Student</span></span>
+<span id="cb374-5"><a href="tidyverse.html#cb374-5" tabindex="-1"></a>ttest_pas_sex</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  pas by sexL
+## t = -5.1297, df = 298, p-value = 5.239e-07
+## alternative hypothesis: true difference in means between group Féminin and group Masculin is not equal to 0
+## 95 percent confidence interval:
+##  -13.239193  -5.897528
+## sample estimates:
+##  mean in group Féminin mean in group Masculin 
+##               132.4248               141.9932</code></pre>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="tidyverse.html#cb376-1" tabindex="-1"></a><span class="do">## test de Levene</span></span>
+<span id="cb376-2"><a href="tidyverse.html#cb376-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> car<span class="sc">::</span><span class="fu">leveneTest</span>(pas <span class="sc">~</span> sexL,</span>
+<span id="cb376-3"><a href="tidyverse.html#cb376-3" tabindex="-1"></a>                         <span class="at">data =</span> .) <span class="co"># placeholder</span></span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(&gt;F)
+## group   1  1.0178 0.3139
+##       298</code></pre>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="tidyverse.html#cb378-1" tabindex="-1"></a><span class="do">## Distribution de la PAS chez les femmes</span></span>
+<span id="cb378-2"><a href="tidyverse.html#cb378-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb378-3"><a href="tidyverse.html#cb378-3" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb378-4"><a href="tidyverse.html#cb378-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pas)) <span class="sc">+</span> </span>
+<span id="cb378-5"><a href="tidyverse.html#cb378-5" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
+<span id="cb378-6"><a href="tidyverse.html#cb378-6" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, </span>
+<span id="cb378-7"><a href="tidyverse.html#cb378-7" tabindex="-1"></a>                <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(df_1<span class="sc">$</span>pas[df_1<span class="sc">$</span>sex <span class="sc">==</span> <span class="dv">0</span>]), </span>
+<span id="cb378-8"><a href="tidyverse.html#cb378-8" tabindex="-1"></a>                            <span class="at">sd =</span> <span class="fu">sd</span>(df_1<span class="sc">$</span>pas[df_1<span class="sc">$</span>sex <span class="sc">==</span> <span class="dv">0</span>])),</span>
+<span id="cb378-9"><a href="tidyverse.html#cb378-9" tabindex="-1"></a>                <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="fl">0.5</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb378-10"><a href="tidyverse.html#cb378-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Chez les femmes&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy28-1.png" width="672" /></p>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="tidyverse.html#cb379-1" tabindex="-1"></a><span class="do">## Distribution de la PAS chez les hommes</span></span>
+<span id="cb379-2"><a href="tidyverse.html#cb379-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb379-3"><a href="tidyverse.html#cb379-3" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb379-4"><a href="tidyverse.html#cb379-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pas)) <span class="sc">+</span> </span>
+<span id="cb379-5"><a href="tidyverse.html#cb379-5" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
+<span id="cb379-6"><a href="tidyverse.html#cb379-6" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, </span>
+<span id="cb379-7"><a href="tidyverse.html#cb379-7" tabindex="-1"></a>                <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(df_1<span class="sc">$</span>pas[df_1<span class="sc">$</span>sex <span class="sc">==</span> <span class="dv">1</span>]), </span>
+<span id="cb379-8"><a href="tidyverse.html#cb379-8" tabindex="-1"></a>                            <span class="at">sd =</span> <span class="fu">sd</span>(df_1<span class="sc">$</span>pas[df_1<span class="sc">$</span>sex <span class="sc">==</span> <span class="dv">1</span>])),</span>
+<span id="cb379-9"><a href="tidyverse.html#cb379-9" tabindex="-1"></a>                <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="fl">0.5</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>)<span class="sc">+</span> </span>
+<span id="cb379-10"><a href="tidyverse.html#cb379-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Chez les hommes&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy28-2.png" width="672" /></p>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="tidyverse.html#cb380-1" tabindex="-1"></a><span class="do">## On peut également combiner 2 QQ-plots pour vérifier la normalité </span></span>
+<span id="cb380-2"><a href="tidyverse.html#cb380-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">sample =</span> pas, <span class="at">colour =</span> sexL)) <span class="sc">+</span> </span>
+<span id="cb380-3"><a href="tidyverse.html#cb380-3" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> </span>
+<span id="cb380-4"><a href="tidyverse.html#cb380-4" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() </span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy28-3.png" width="672" /></p>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="tidyverse.html#cb381-1" tabindex="-1"></a><span class="do">## Si on veut appliquer un test de Wilcoxon</span></span>
+<span id="cb381-2"><a href="tidyverse.html#cb381-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">wilcox.test</span>(<span class="at">data =</span> ., <span class="co"># placeholder</span></span>
+<span id="cb381-3"><a href="tidyverse.html#cb381-3" tabindex="-1"></a>                     pas <span class="sc">~</span> sex) <span class="co"># p-value = 1.529e-06</span></span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  pas by sex
+## W = 7609.5, p-value = 1.29e-06
+## alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+<div id="comparer-3-moyennes-ou-plus-2" class="section level3 hasAnchor" number="5.8.4">
+<h3><span class="header-section-number">5.8.4</span> Comparer 3 moyennes ou plus<a href="tidyverse.html#comparer-3-moyennes-ou-plus-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>On peut utiliser le pipe pour enchaîner les analyses nécessaires à une anova.</p>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="tidyverse.html#cb383-1" tabindex="-1"></a>anova_pas_trait <span class="ot">&lt;-</span> df_1 <span class="sc">%&gt;%</span></span>
+<span id="cb383-2"><a href="tidyverse.html#cb383-2" tabindex="-1"></a>  <span class="fu">lm</span>(pas <span class="sc">~</span> traitL, </span>
+<span id="cb383-3"><a href="tidyverse.html#cb383-3" tabindex="-1"></a>     <span class="at">data =</span> .) <span class="sc">%&gt;%</span> <span class="co"># placeholder</span></span>
+<span id="cb383-4"><a href="tidyverse.html#cb383-4" tabindex="-1"></a>  <span class="fu">anova</span>()</span>
+<span id="cb383-5"><a href="tidyverse.html#cb383-5" tabindex="-1"></a>anova_pas_trait</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: pas
+##            Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## traitL      2   5940 2970.18  11.215 2.016e-05 ***
+## Residuals 297  78656  264.83                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="tidyverse.html#cb385-1" tabindex="-1"></a><span class="do">## Tester la normalité avec un QQ-plot sur les résidus du modèle linéaire : </span></span>
+<span id="cb385-2"><a href="tidyverse.html#cb385-2" tabindex="-1"></a>mod_pas_trait <span class="ot">&lt;-</span> df_1 <span class="sc">%&gt;%</span></span>
+<span id="cb385-3"><a href="tidyverse.html#cb385-3" tabindex="-1"></a>  <span class="fu">lm</span>(pas <span class="sc">~</span> traitL, </span>
+<span id="cb385-4"><a href="tidyverse.html#cb385-4" tabindex="-1"></a>     <span class="at">data =</span> .)</span>
+<span id="cb385-5"><a href="tidyverse.html#cb385-5" tabindex="-1"></a></span>
+<span id="cb385-6"><a href="tidyverse.html#cb385-6" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">sample =</span> mod_pas_trait<span class="sc">$</span>residuals)) <span class="sc">+</span> </span>
+<span id="cb385-7"><a href="tidyverse.html#cb385-7" tabindex="-1"></a>  <span class="fu">geom_qq</span>() <span class="sc">+</span> </span>
+<span id="cb385-8"><a href="tidyverse.html#cb385-8" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>() <span class="co"># ajoute la ligne de référence</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy29-1.png" width="672" /></p>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="tidyverse.html#cb386-1" tabindex="-1"></a><span class="do">## si on veut faire un test de Kruskal Wallis</span></span>
+<span id="cb386-2"><a href="tidyverse.html#cb386-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb386-3"><a href="tidyverse.html#cb386-3" tabindex="-1"></a>  <span class="fu">kruskal.test</span>(pas <span class="sc">~</span> traitL, <span class="at">data =</span> .) <span class="co"># p-value = 7.336e-05</span></span></code></pre></div>
+<pre><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  pas by traitL
+## Kruskal-Wallis chi-squared = 19.04, df = 2, p-value = 7.336e-05</code></pre>
+</div>
+<div id="comparer-des-pourcentages-2" class="section level3 hasAnchor" number="5.8.5">
+<h3><span class="header-section-number">5.8.5</span> Comparer des pourcentages<a href="tidyverse.html#comparer-des-pourcentages-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>On utilise la même fonction qu’en baseR, voici un exemple avec une syntaxe en pipe.</p>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="tidyverse.html#cb388-1" tabindex="-1"></a>chi2 <span class="ot">&lt;-</span> df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb388-2"><a href="tidyverse.html#cb388-2" tabindex="-1"></a>  <span class="fu">with</span>(<span class="fu">table</span>(sexL, traitL)) <span class="sc">%&gt;%</span></span>
+<span id="cb388-3"><a href="tidyverse.html#cb388-3" tabindex="-1"></a>  <span class="fu">chisq.test</span>(<span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb388-4"><a href="tidyverse.html#cb388-4" tabindex="-1"></a></span>
+<span id="cb388-5"><a href="tidyverse.html#cb388-5" tabindex="-1"></a><span class="co"># effectifs attendus</span></span>
+<span id="cb388-6"><a href="tidyverse.html#cb388-6" tabindex="-1"></a>chi2<span class="sc">$</span>expected</span></code></pre></div>
+<pre><code>##           traitL
+## sexL       Placebo Traitement A Traitement B
+##   Féminin     61.2        46.41        45.39
+##   Masculin    58.8        44.59        43.61</code></pre>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="tidyverse.html#cb390-1" tabindex="-1"></a><span class="co"># On peut également appliquer le test exact de Fisher</span></span>
+<span id="cb390-2"><a href="tidyverse.html#cb390-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb390-3"><a href="tidyverse.html#cb390-3" tabindex="-1"></a>  <span class="fu">with</span>(<span class="fu">table</span>(sexL, traitL)) <span class="sc">%&gt;%</span></span>
+<span id="cb390-4"><a href="tidyverse.html#cb390-4" tabindex="-1"></a>  <span class="fu">fisher.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  .
+## p-value = 0.4536
+## alternative hypothesis: two.sided</code></pre>
+</div>
+<div id="corrélations-2" class="section level3 hasAnchor" number="5.8.6">
+<h3><span class="header-section-number">5.8.6</span> Corrélations<a href="#corr%C3%A9lations-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>On utilise la même fonction qu’en baseR, voici un exemple avec une syntaxe en pipe.</p>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="tidyverse.html#cb392-1" tabindex="-1"></a><span class="do">## Corrélation de Pearson et Spearman entre PAS et IMC</span></span>
+<span id="cb392-2"><a href="tidyverse.html#cb392-2" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">with</span>(<span class="fu">cor.test</span>(imc, pas, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>))</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  imc and pas
+## t = 3.8534, df = 298, p-value = 0.0001427
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.1072647 0.3231284
+## sample estimates:
+##       cor 
+## 0.2178593</code></pre>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="tidyverse.html#cb394-1" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> <span class="fu">with</span>(<span class="fu">cor.test</span>(imc, pas, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>))</span></code></pre></div>
+<pre><code>## 
+##  Spearman&#39;s rank correlation rho
+## 
+## data:  imc and pas
+## S = 3522826, p-value = 0.0001503
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##      rho 
+## 0.217141</code></pre>
+</div>
+</div>
+<div id="analyse-multivariée-2" class="section level2 hasAnchor" number="5.9">
+<h2><span class="header-section-number">5.9</span> Analyse multivariée<a href="#analyse-multivari%C3%A9e-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Les commandes sont les mêmes qu’en Rbase, voici un exemple avec une syntaxe en pipe.</p>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="tidyverse.html#cb396-1" tabindex="-1"></a><span class="do">## Modèle linéaire mumltivarié de la PAS en fonction du traitement, du sexe </span></span>
+<span id="cb396-2"><a href="tidyverse.html#cb396-2" tabindex="-1"></a><span class="do">## et de l&#39;IMC</span></span>
+<span id="cb396-3"><a href="tidyverse.html#cb396-3" tabindex="-1"></a>model <span class="ot">&lt;-</span> df_1 <span class="sc">%&gt;%</span> <span class="fu">lm</span>(pas <span class="sc">~</span> traitL <span class="sc">+</span> sexL <span class="sc">+</span> imc, </span>
+<span id="cb396-4"><a href="tidyverse.html#cb396-4" tabindex="-1"></a>                     <span class="at">data =</span> .) <span class="co"># placeholder</span></span>
+<span id="cb396-5"><a href="tidyverse.html#cb396-5" tabindex="-1"></a></span>
+<span id="cb396-6"><a href="tidyverse.html#cb396-6" tabindex="-1"></a>df_1 <span class="sc">%&gt;%</span> </span>
+<span id="cb396-7"><a href="tidyverse.html#cb396-7" tabindex="-1"></a>  <span class="fu">lm</span>(pas <span class="sc">~</span> traitL <span class="sc">+</span> sexL <span class="sc">+</span> imc, </span>
+<span id="cb396-8"><a href="tidyverse.html#cb396-8" tabindex="-1"></a>     <span class="at">data =</span> .) <span class="sc">%&gt;%</span></span>
+<span id="cb396-9"><a href="tidyverse.html#cb396-9" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = pas ~ traitL + sexL + imc, data = .)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -38.871 -10.083  -0.342  10.941  41.171 
+## 
+## Coefficients:
+##                    Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)        109.5668     7.1403  15.345  &lt; 2e-16 ***
+## traitLTraitement A -10.9623     2.1246  -5.160 4.55e-07 ***
+## traitLTraitement B  -2.8373     2.1374  -1.327 0.185388    
+## sexLMasculin         8.5634     1.7796   4.812 2.39e-06 ***
+## imc                  1.1240     0.2904   3.870 0.000134 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 15.24 on 295 degrees of freedom
+## Multiple R-squared:  0.1902, Adjusted R-squared:  0.1792 
+## F-statistic: 17.32 on 4 and 295 DF,  p-value: 8.911e-13</code></pre>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="tidyverse.html#cb398-1" tabindex="-1"></a><span class="do">## Graphique de diagnostic des rédidus en fonction des valeurs prédites</span></span>
+<span id="cb398-2"><a href="tidyverse.html#cb398-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb398-3"><a href="tidyverse.html#cb398-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> model<span class="sc">$</span>residuals, <span class="co"># résidus</span></span>
+<span id="cb398-4"><a href="tidyverse.html#cb398-4" tabindex="-1"></a>                           <span class="at">x =</span> model<span class="sc">$</span>fitted.values)) <span class="sc">+</span> <span class="co"># valeurs prédites</span></span>
+<span id="cb398-5"><a href="tidyverse.html#cb398-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> model<span class="sc">$</span>residuals, </span>
+<span id="cb398-6"><a href="tidyverse.html#cb398-6" tabindex="-1"></a>                           <span class="at">x =</span> model<span class="sc">$</span>fitted.values)) <span class="sc">+</span> </span>
+<span id="cb398-7"><a href="tidyverse.html#cb398-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;résidus&quot;</span>, <span class="at">x =</span> <span class="st">&quot;valeurs prédites&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy32-1.png" width="672" /></p>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="tidyverse.html#cb399-1" tabindex="-1"></a><span class="co"># par défaut, geom_smooth fait un spline</span></span>
+<span id="cb399-2"><a href="tidyverse.html#cb399-2" tabindex="-1"></a><span class="co"># si on veut une fonction loess comme dans l&#39;exemple du chapitre d&#39;analyse Rbase</span></span>
+<span id="cb399-3"><a href="tidyverse.html#cb399-3" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb399-4"><a href="tidyverse.html#cb399-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> model<span class="sc">$</span>residuals, <span class="co"># résidus</span></span>
+<span id="cb399-5"><a href="tidyverse.html#cb399-5" tabindex="-1"></a>                           <span class="at">x =</span> model<span class="sc">$</span>fitted.values), <span class="co"># valeurs prédites</span></span>
+<span id="cb399-6"><a href="tidyverse.html#cb399-6" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># symbole des points</span></span>
+<span id="cb399-7"><a href="tidyverse.html#cb399-7" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">y =</span> model<span class="sc">$</span>residuals, </span>
+<span id="cb399-8"><a href="tidyverse.html#cb399-8" tabindex="-1"></a>                            <span class="at">x =</span> model<span class="sc">$</span>fitted.values),</span>
+<span id="cb399-9"><a href="tidyverse.html#cb399-9" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="co"># méthode de lissage</span></span>
+<span id="cb399-10"><a href="tidyverse.html#cb399-10" tabindex="-1"></a>              <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="co"># couleur de ligne</span></span>
+<span id="cb399-11"><a href="tidyverse.html#cb399-11" tabindex="-1"></a>              <span class="at">linetype =</span> <span class="dv">2</span>, <span class="co"># type de ligne</span></span>
+<span id="cb399-12"><a href="tidyverse.html#cb399-12" tabindex="-1"></a>              <span class="at">linewidth =</span> <span class="fl">0.5</span>, <span class="co"># largeur de ligne</span></span>
+<span id="cb399-13"><a href="tidyverse.html#cb399-13" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> <span class="co"># supprime la bande d&#39;IC95% </span></span>
+<span id="cb399-14"><a href="tidyverse.html#cb399-14" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;résidus&quot;</span>, <span class="at">x =</span> <span class="st">&quot;valeurs prédites&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy32-2.png" width="672" /></p>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="tidyverse.html#cb400-1" tabindex="-1"></a><span class="do">## QQ plot des résidus</span></span>
+<span id="cb400-2"><a href="tidyverse.html#cb400-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">sample =</span> model<span class="sc">$</span>residuals)) <span class="sc">+</span> </span>
+<span id="cb400-3"><a href="tidyverse.html#cb400-3" tabindex="-1"></a>  <span class="fu">geom_qq</span>(<span class="at">shape =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb400-4"><a href="tidyverse.html#cb400-4" tabindex="-1"></a>  <span class="fu">stat_qq</span>(<span class="at">shape =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">stat_qq_line</span>() </span></code></pre></div>
+<p><img src="_main_files/figure-html/tidy32-3.png" width="672" /></p>
 
 </div>
 </div>

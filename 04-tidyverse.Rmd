@@ -1,5 +1,5 @@
 # Tidyverse
-Le [Tidyverse](https://www.tidyverse.org/) est une collection de packages qui apportent de nouvelles fonctions avec une nouvelle philosophie, une nouvelle grammaire et de nouvelles structures de données, est très utilisés dans la communauté des utilisateurs de R.
+Le [Tidyverse](https://www.tidyverse.org/) est une collection de packages qui apportent de nouvelles fonctions avec une nouvelle philosophie, une nouvelle grammaire et de nouvelles structures de données. IL est très utilisé dans la communauté des utilisateurs de R.
 
 Nous allons reproduire les analyses R bases réalisées aux chapitres 3 et 4 avec les fonctions du Tidyverse.
 
@@ -47,3 +47,784 @@ Si l'argument doit apparaître dans une expression nichée,
 | `paste0(letters[1:10], x)`   | `x |> paste0(letters[1:10], a=_)`    | `x %>% paste0(letters[1:10], .)`      | 
 | `seq(1,100, along.with=x)` | `x |> seq(1,100, along.with=_)`      | `x %>% seq(1,100, along.with=.)`    | 
 | `seq(1,100, by=length(x))` | `x |> length() |> seq(1,100, by=_)`  | `x %>% {seq(1,100, by=length(.))}`  | 
+
+
+## Importer une base de données
+Au sein du Tidyverse, les bases de données .csv peuvent être importées avec les commandes `read_csv()` et `read_csv2()` (analogues aux commandes Rbase `read.csv()` et `read.csv2()`). Les bases sont converties au format `tibble` (abbréviation "tbl"), grâce au package [`tibble`](https://tibble.tidyverse.org/). 
+
+_Note : une base au format tibble est également de type `data.frame`, donc les commandes permettant de manipuler un `data.frame` fonctionneront de la même manière sur un `tibble`._
+
+```{r tidy3, echo=TRUE, message=FALSE, warning=FALSE}
+## Importer les bases df_1 et meta_df_1 au format tibble :
+df_1 <- read_csv2("data/df_1.csv")
+meta_df_1 <- read_csv2("data/meta_df_1.csv")
+## Vérifiez quel est le format de df_1 :
+class(df_1) # df_1 est de format "Tibble" (tbl) et de format "data.frame"
+```
+Les différences entre une base de données au format `tibble` ou au format `data.frame` sont décrites dans la vignette sur les [tibbles](https://tibble.tidyverse.org/articles/tibble.html). 
+
+En résumé, à la différence des data.frames : 
+
+  - tibble ne prend pas en compte les `rownames()`
+```{r tidy4_1, eval=FALSE, include=TRUE}
+df_test <- data.frame(a = 10:15, b = letters[1:6])
+rownames(df_test) <- c("janvier", "février", "mars", "avril", "mai", "juin")
+rownames(df_test)
+rownames(as_tibble(df_test)) # [1] "1" "2" "3" "4" "5" "6"
+```
+
+  - il est facile de créer des colonnes correspondant à des listes (un vecteur comportant des valeurs de types différents)
+```{r tidy4_2, eval=FALSE, include=TRUE}
+tibble(x = 1:3, 
+       y = list(1:5, letters[1:10], 1:20))
+```
+
+  - il ne change pas les noms de colonnes que l'on souhaite écrire dans un format non-conventionnel
+```{r tidy4_3, eval=FALSE, include=TRUE}
+data.frame(`1 N (%)` = 1:3) # la commande data frame a changé le nom de la variable
+tibble(`1 N (%)` = 1:3) # le nom de variable non-conventionnel est conservé
+```
+
+  - il recycle uniquement les vecteurs de longueur 1 pour éviter des erreurs
+```{r tidy4_4, eval=FALSE, include=TRUE}
+data.frame(id = 1:10,
+           var1 = 20:24, # ces valeurs sont recyclées avec data.frame
+           var2 = 30) # la valeur est recyclée avec data.frame
+tibble(id = 1:10, 
+       var1 = 20:24, # message d'erreur en cas valeurs de longueur > 1
+       var2 = 30)
+tibble(id = 1:10, 
+       var2 = 30) # mais tibble peut recycler des valeurs de longueur 1
+```
+Par ailleurs, un sous-ensemble d'un tibble sélectionné par indexation est également un autre tibble. Comme pour les `data.frames`, on peut sélectionner une variable avec les doubles crochets `[[]]` ou l'opérateur dollar.
+
+```{r tidy4_5, eval=FALSE, include=TRUE}
+df_1[c(100:103), c(2,3)]
+# on peut sélectionner une variable avec [[]] ou l'opérateur dollar 
+df_1[[4]]
+df_1$trait
+```
+
+Vous pouvez vous référer au [cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf) du package `dplyr` pour avoir un pense-bête des fonctions de manipulation de données associées au Tidyverse.
+
+## Inspecter les données
+Contrairement au format `data.frame`, le format tibble n'imprime à l'écran que les 10 premières lignes et les colonnes qui peuvent être affichée dans un même écran. Le type de variable (double, caractère, facteur, ...) apparaît en en-tête de colonne. Certaines informations particulières sont mises en valeurs par des couleurs (par exemple, les NA apparaîssent en couleur).
+```{r tidy5, echo=TRUE}
+df_1
+```
+
+On peut **afficher une version transposée** de la base (les colonnes sont imprimées en lignes) avec la fonction `glimpse()`, un peu à la manière de la fonction `str()` de R base.
+```{r tidy6, echo=TRUE}
+glimpse(df_1)
+```
+
+La fonction `arrange` permet de **trier les données** selon une ou plusieurs variables
+```{r tidy7, eval=FALSE, include=TRUE}
+arrange(df_1, sex, imc) # trie la base df_1 sur le sexe, puis sur l'imc
+```
+
+Pour **sélectionner des lignes**, on peut utiliser la fonction `slice` et autres fonctions associées (voir l'aide `?dplyr::slice`): 
+```{r tidy8, eval=FALSE, include=TRUE}
+## slice_head() et slice_tail() permettent de sélectionner les premières et 
+## dernières lignes. 
+##   - l'argument "n" permet d'indiquer le nombre de lignes, 
+##   - l'argument "prop" permet d'indiquer le pourcentage de lignes que l'on 
+##     souhaite afficher
+slice_head(df_1, n = 5) # voir les 5 premières lignes
+df_1 %>% arrange(sex, imc) %>% slice_head(n = 6)  # voir les 6 premières lignes
+# après avoir trié les données selon le sexe et l'imc
+
+## Attention avec l'écriture par pipe (l'ordre des commandes à une influence) +++ 
+df_1 %>% slice_head(n = 6) %>% arrange(sex, imc) # ici, on a d'abord séléctionné
+# les données (ce qui donne une base de type tibble de 6 lignes), et on a ensuite
+# trié cette petite base de 6 lignes selon le sexe et l'imc
+
+df_1 %>% slice_tail(prop = 0.01) # voir 1% des dernières lignes (càd 3 lignes)
+
+## slice_sample() sélectionne des lignes au hasard
+df_1 %>% slice_sample(n = 6)
+
+## slice() permet de sélectionner des lignes spécifiques (4è, 10è et 15è ligne)
+df_1 %>% slice(4, 10, 15) 
+## cette commande est équivalente à l'écriture avec indexation par position 
+df_1[c(4,10,15), ]
+```
+
+La fonction `filter()` permet de **sélectionner des lignes à l'aide d'une condition** (voir l'aide `?dplyr::filter`).
+```{r tidy9, eval=FALSE, include=TRUE}
+df_1 %>% filter(sex == 0 & imc < 21)
+## Indiquer plusieurs conditions séparées par une virgule est équivalent à des 
+## conditions séparées par ET (condition1 & condition2)
+df_1 %>% filter(sex == 0, imc < 21) 
+# est équivalent à la sélection par condition entre crochets de R base 
+df_1[df_1$sex == 0 & df_1$imc < 21, ]
+```
+
+La fonction `select()` permet de **sélectionner des colonnes (des variables)**. Un certains nombre de fonctions peuvent être utilisées au sein de la fonction `select` pour faciliter le travail de sélection.
+```{r tidy10, eval=FALSE, include=TRUE}
+df_1 %>% select(c(sex, trait)) # sélectionne les colonnes sexe et trait
+df_1 %>% select(sex, trait) # équivalent à la syntaxe précédente : pas besoin de c()
+# c'est équivalent à une sélection entre crochets par indexation sur le nom 
+df_1[,c("sex", "trait")]
+
+df_1 %>% select(subjid:imc) # sélectionne les colonnes allant de sexe à imc
+df_1 %>% select(!sex) # ensemble complémentaire de la variable sexe
+df_1 %>% select(-sex, -imc) # toutes les variables sauf sex et imc
+df_1 %>% select(last_col()) # sélectionne la dernière colonne
+df_1 %>% select(starts_with("pa")) # les variables dont le nom commence par "pa"
+df_1 %>% select(ends_with("as")) # les variables dont le nom termine par "as"
+df_1 %>% select(contains("bj")) # les variables dont le nom contient "bj"
+# on peut également combiner plusieurs modes de sélection : 
+df_1 %>% select(subjid, starts_with("im"), last_col())
+# etc, voir l'aide
+?select()
+
+## select() permet également de renommer directement les variables sélectionnées
+df_1 %>% select(Sexe = sex, Traitement = trait)
+
+## select() permet de changer l'ordre des variables
+select(df_1, 
+       imc, trait, subjid, # commence avec ces 3 variables dans cet ordre
+       everything()) # everything() sélection toutes les autres variables
+```
+
+L'indexation d'une seule variable :
+
+  - par simple crochet `[]` permet de sélectionner la variable et de la retourner au format tibble. La fonction `select()` du package `dplyr` appliquée à une seule variable donne un résultat équivalent.
+  - par double crochet `[[]]` ou avec l'opérateur dollar `$` permet de sélectionner la variable et de la retourner au format de vecteur. La fonction `pull` du package `dplyr` appliquée à une seule variable donne un résultat équivalent.
+
+Cela peut avoir son importance car certaines fonction s'appliquent à des tibbles, et d'autres à des vecteurs.
+```{r tidy11, eval=FALSE, include=TRUE}
+## Sélection par simples crochets et retour sous format tibble
+df_1[3]
+class(df_1[3]) # c'est une base de données (tibble ou data.frame)
+## équivalent en dplyr
+select(df_1, imc)
+class(select(df_1, imc)) # une colonne de base de données (tibble ou data.frame)
+
+### pour sélectionner une variable et la retourner comme un vecteur : 
+df_1$imc # retourne le vecteur imc (équivalent à df_1[["imc"]])
+df_1[[3]]
+df_1[["imc"]]
+class(df_1$imc) # c'est un vecteur numérique
+typeof(df_1$imc) # un vecteur de réels (double) pour être plus précis
+# équivalent en dplyr
+pull(df_1, imc)
+class(pull(df_1, imc)) # c'est un vecteur numérique
+typeof(pull(df_1, imc)) # un vecteur de réels (double) pour être plus précis
+``` 
+
+
+## Créer ou modifier une variable
+
+### Créer des variables
+Pour créer des variables au sein des tibbles, on utilise les fonctions : 
+
+  - `mutate()` permet de **créer des nouvelles variables**
+  - `if_else()` fonctionne selon le même principe que la fonction `ifelse()` de Rbase (notez la différence d'écriture) à quelques différences prêt :
+```{r tidy12, eval=FALSE, include=TRUE}
+## La fonction if_else() de dplyr s'assure que le résultat est du même "type"
+ifelse(1:10 < 5, "<5", 0) 
+# ifelse retourne un vecteur caractère (le 0 est transformé en "0" par coercition)
+if_else(1:10 < 5, "<5", 0) # dans la même situation, if_else retourne une erreur 
+
+## La fonction if_else() de dplyr permet de préciser un argument missing pour 
+## indiquer comment considérer les manquants
+ifelse(c(1,2,NA,4,5) <= 3, 1, 0) # retourne NA pour la valeur manquante
+if_else(c(1,2,NA,4,5) <= 3, 1, 0, missing = NULL) 
+# ici, la fonction if_else retourne NA pour la valeur manquante
+if_else(c(1,2,NA,4,5) <= 3, 1, 0, missing = 9) 
+# ici, la fonction if_else indique le code choisi (= 9) au lieu de NA
+```
+  - `case_when` fonctionne selon le même principe que la fonction `if_else` mais pour créer des variables à plus de 2 catégories. Voir l'aide `?case_when`.
+
+```{r tidy13, echo=TRUE, message=FALSE}
+### créer la variable obésité.
+# note avec le pipe, pensez à assigner le résultat dans df_1 pour que la 
+# variable crée soit bien sauvegardée dans la base df_1
+# (ci-dessous, la variable est uniquement crée de manière temporaire)
+df_1 %>% 
+  mutate(obesite = if_else(df_1$imc >= 30, 1, 0)) 
+df_1 %>% slice_head(n = 3) # la variable n'a pas été enregistrée dans df_1 !
+
+df_1 <- df_1 %>% 
+  mutate(obesite = if_else(df_1$imc >= 30, 1, 0))
+df_1  %>% slice_head(n = 3) # ici, la variable a bien été ajoutée dans df_1
+
+### Vérifier que la variable est crée correctement en calculant le min et le max
+### dans chaque groupe d'obésité nouvellement créé :
+# on va utiliser la fonction summarise qui permet de calculer différents paramètres
+# d'une distribution de variables, voir ?summarise()
+# ces analyses peuvent se faire par sous-groupes, qui sont identifiés en amont 
+# par la fonction group_by()
+### La fonction summarise sera revue plus en détails pour l'analyse descriptive
+# Note : summarise()/summarize() peut s'écrire avec un "s" ou un "z"
+df_1 %>%
+  group_by(obesite) %>% # prépare à une analyse par groupe
+  summarise(min = min(imc), # calcul le min et max selon les groupes définis
+            max = max(imc)) # par la fonction "group_by()"
+
+### Créer la variable imc à 4 classe, avec la fonction case_when()
+### qui fonctionne selon le principe de if_else, mais pour plus de 2 catégories :
+### Chaque catégorie va être définie par une formule avec : 
+### la condition à gauche du signe ~ et la valeur à assigner à droite du signe ~
+df_1 <- df_1 %>% 
+  mutate(imc_cl = case_when(imc < 18.5 ~ 1,
+                            imc >= 18.5 & imc < 25 ~ 2,
+                            imc >= 25 & imc < 30 ~ 3,
+                            imc >= 30 ~ 4))
+df_1 %>% slice_head(n = 3) # la variable imc_cl a été ajoutée à la base df_1
+
+### vérifier que la variable a été correctement créée
+df_1 %>%
+  group_by(imc_cl) %>%
+  summarise(min = min(imc),
+            max = max(imc))
+
+### le croisement entre imc en classe et obésité doit être cohérent :
+with(df_1, table(as.factor(imc_cl), as.factor(obesite), deparse.level = 2))
+
+df_1 %>% group_by(imc_cl, obesite) %>% summarise(n = n())
+df_1 %>% count(imc_cl, obesite) # équivalent à la commande précédente
+```
+
+### Renommer une variable, changer sa position
+Les fonctions : 
+
+  - `rename()` permet de renommer une variable (sans changer sa position)
+  - `relocate()` permet de changer l'ordre des colonnes.
+```{r tidy14, echo=TRUE}
+## Après les modifications suivantes, on inspectera les 3 premières lignes : 
+##   - Renommer une variable sans changer sa position
+df_1 %>% 
+  rename(imc_en_classe = imc_cl) %>% 
+  slice_head(n = 3)
+
+##   - Changer l'ordre des colonnes, par exemple, déplacer les colonnes 
+##     imc_cl et obesité (dans cet ordre) après la variable imc
+df_1 %>% 
+  relocate(imc_cl, obesite, .after = imc) %>% 
+  slice_head(n = 3)
+```
+
+### Ajouter des lignes
+La fonction `add_row()` permet d'ajouter des lignes à l'endroit de notre choix.
+```{r tidy15, echo=TRUE}
+## Nous allons compléter la base de méta-données en ajoutant des lignes
+meta_df_1
+## On commence par rajouter les labels de la variable imc_cl
+# Note : pensez à assigner la commande à la base meta_df_1 pour enregistrer les 
+# modifications sinon, la création ne sera que temporaire
+meta_df_1 <- meta_df_1 %>% add_row(var = rep("imc_cl", 4), 
+                                   label = rep("IMC en classes", 4), 
+                                   id_labs = 1:4, 
+                                   code_labs = 1:4,
+                                   labs = c("Maigreur", "Normal", "Surpoids", "Obèse"))
+meta_df_1 %>% slice_tail(n = 6)
+## Puis, on ajoute les labels de la variable obesite 
+## mais en les positionnant juste avant les labels de imc_cl
+meta_df_1 <- meta_df_1 %>% add_row(var = rep("obesite", 2), 
+                                   label = rep("Obésité", 2), 
+                                   id_labs = c(1,2), 
+                                   code_labs = c(0,1),
+                                   labs = c("Non", "Oui"), 
+                                   .before = 9) # avant la 9ème ligne
+meta_df_1 %>% slice_tail(n = 7)
+```
+```{r tidy15bis, eval=FALSE, include=TRUE}
+View(meta_df_1) # visualiser l'ensemble de la base de méta-données dans RStudio
+```
+                      
+### Modifier des variables déjà existantes
+Il est possible de modifier des variables déjà existantes : 
+
+  - les fonctions `mutate()` et `if_else()` que l'on a vu précédemment peuvent être utilisée. Ci-dessous, on modifie la valeur de PAS du patient n°137 et on ne modifie pas les valeurs des autres patients.
+  - la fonction `rows_update()` peut également être utilisée en indiquant un sous-ensemble de la base qui doit être mis à jour.
+```{r tidy16, echo=TRUE}
+## Inspecter les données des patients 135 à 140 :
+df_1 %>% filter(subjid %in% 135:140)
+# Modifier la valeur de PAS du patient n°137 de 133 mmHg à 123 mmHg
+# => change la valeur à 123 si subjid == 137, sinon garde la valeur pas originale
+df_1 <- df_1 %>% mutate(pas = if_else(subjid == 137, 123, pas)) 
+## Vérifier que la modification est bien enregistrée :
+df_1 %>% filter(subjid %in% 135:140)
+
+## Autre possibilité avec la fonction rows_update() où indique un sous-ensemble 
+## de la base qui doit être mise à jour
+# Note : dans l'exemple ci-dessous, on fait une transformation temporaire
+df_1 %>% # pas d'assignation (pour une transformation temporaire)
+  rows_update(tibble(subjid = 137, pas = 133)) %>% # revient à la valeur de 133
+  filter(subjid %in% 135:140) # visualiser les lignes subjid = 135 à 140
+```
+
+### Sauvegarder la base de données
+Les fonctions `write_csv()` et `write_csv2()` du tidyverse sont analogues aux fonctions `write.csv()` et `write.csv2()` de Rbase. Voir l'aide `?write_delim`.
+```{r tidy17, eval=FALSE, include=TRUE}
+## Sauvegardez les données au format .csv dans votre dossier "data"
+write_csv2(df_1, "data/df_1_new.csv") 
+```
+
+## Analyses univariées
+### Création de variables de type "factor"
+Afin de faire une analyse descriptive ou graphique des variables qualitatives, il est utile de les convertir en vecteurs de type "factor".
+
+Pour cela, on peut se servir de la fonction `factor()` au sein de la fonction `mutate()` que nous avons déjà utilisée pour créer de nouvelles variables de type "factor."
+```{r tidy18, echo=TRUE, message=FALSE, warning=FALSE}
+df_1 <- df_1 %>% 
+  mutate(sexL = factor(sex, 
+                       labels = meta_df_1$labs[meta_df_1$var == "sex"]),
+         traitL = factor(trait))
+df_1 %>% slice_head(n = 5) # sexL et traitL ont été ajoutées à df_1
+```
+Le package [`forcats`](https://forcats.tidyverse.org/index.html)du tidyverse apporte de nombreuses fonctions pour manipuler les variables de type "factor". Toutes ces fonctions commencent par `ftc_...` (pour "factor"). Voir le cheatsheet de [forcats](https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf) ou encore sa [vignette](https://forcats.tidyverse.org/articles/forcats.html).
+
+Par exemple, la fonction `fct_recode()` permet de recoder des facteurs. Pour chaque catégorie à recoder, on indiquer le "nouveau nom" suivi de égal, puis "l'ancien nom".
+```{r tidy19, echo=TRUE, message=FALSE, warning=FALSE}
+## Utilisons la fonction fct_recode() pour recoder les levels de la variable traitL, 
+df_1$traitL <- fct_recode(df_1$traitL, 
+                          Placebo = "1", # nouveau label = "ancien label"
+                          "Traitement A" = "2", 
+                          "Traitement B" = "3")
+# s'il y a des caractètres spéciaux (comme des espaces, le nouveau nom doit être
+# entre guillements)
+```
+```{r tidy20, eval=FALSE, include=TRUE}
+## Notez que la commande avec le pipe ci-dessous 
+## ne fonctionne pas car le premier argument de fct_recode doit être un facteur. 
+## Cette écriture avec le pipe extrait la colonne au format "tibble" 
+## (pas au format "factor") 
+df_1 %>% fct_recode(traitL, 
+                    Placebo = "1", # nouveau label = "ancien label"
+                    "Traitement A" = "2", 
+                    "Traitement B" = "3") 
+```
+
+
+### Description de variables quantitatives
+La fonction `summarise()` permet de décrire différents paramètres avec les fonctions suivantes à indiquer au sein de la fonction (voir l'aide `?summarize()`) :
+
+  - moyenne et écart type avec `mean()` et `sd()`
+  - min, max, médiane et intervalles interquartiles : `min()`, `max()`, `median()`, `IQR()`, `quantile()`
+  - comptes avec `n()` et `n_distinct()`
+
+Les fonctions connexes `summarise_at()`, `summarise_all()`, ... permettent de décrire plusieurs variables en même temps. A chaque analyse, une nouvelle table est crée (sous format tibble) avec une colonne par paramètre calculé.
+```{r tidy21, echo=TRUE}
+## Par exemple, nous pouvons décrire les paramètres de la distribution de l'IMC 
+df_1 %>% summarise(n = sum(!is.na(imc)), # nombre de non-manquants
+                   mean = mean(imc), 
+                   sd = sd(imc), 
+                   min = min(imc), 
+                   p25 = quantile(imc, probs = 0.25),
+                   med = median(imc),
+                   p75 = quantile(imc, probs = 0.75),
+                   max = max(imc))
+
+## Moyenne et écart type des deux variables quantitatives 
+df_1 %>% summarise_at(c("imc", "pas"), 
+                      list(mean = mean, 
+                           sd = sd), 
+                      na.rm = TRUE) # argument des fonctions mean et sd
+```
+
+Comme la fonction `summarise_at()` crée une nouvelle colonne par paramètre, ce n'est pas très pratique si on veut décrire de nombreux paramètres pour plusieurs variables.
+
+Une autre solution est de créer une ligne contenant tous les paramètres, pour chaque variable. Puis de fusionner l'ensemble des lignes ainsi créées dans une nouvelle table.
+
+Au sein du package `dplyr` du Tidyverse, les fonctions `bind_rows()` et `bind_cols()` sont analogues aux fonctions Rbases `rbind()` et `cbind()` (qui permettent de fusionner des vecteurs ou des matrices ou des "data.frame" par rang ou par colonnes). 
+
+```{r tidy22, echo=TRUE}
+## On créé une 1ère ligne pour l'IMC, stockée dans l'objet "row_imc"
+row_imc <- df_1 %>% 
+  summarise(n = sum(!is.na(imc)), # créé une ligne avec les paramètres
+            mean = mean(imc, na.rm = TRUE),
+            sd = sd(imc, na.rm = TRUE), 
+            min = min(imc, na.rm = TRUE), 
+            p25 = quantile(imc, probs = 0.25, na.rm = TRUE),
+            med = median(imc, na.rm = TRUE),
+            p75 = quantile(imc, probs = 0.75, na.rm = TRUE),
+            max = max(imc, na.rm = TRUE)) %>%
+  mutate(var = "IMC (kg/m2)") %>% # ajoute une colonne avec le nom de variable
+  relocate(var, .before = n) # déplace le nom de variable en 1ère colonne
+
+## On créé une 2ème ligne pour la PAS, stockée dans l'objet "row_pas
+row_pas <- df_1 %>% 
+  summarise(n = sum(!is.na(pas)), # créé une ligne avec les paramètres
+            mean = mean(pas, na.rm = TRUE),
+            sd = sd(pas, na.rm = TRUE), 
+            min = min(pas, na.rm = TRUE), 
+            p25 = quantile(pas, probs = 0.25, na.rm = TRUE),
+            med = median(pas, na.rm = TRUE),
+            p75 = quantile(pas, probs = 0.75, na.rm = TRUE),
+            max = max(pas, na.rm = TRUE)) %>%
+  mutate(var = "PAS (mmHg)") %>% # ajoute une colonne avec le nom de variable
+  relocate(var, .before = n) # déplace le nom de variable en 1ère colonne
+
+## on fusionne le deux lignes avec la fonction bind_rows()
+bind_rows(row_imc, row_pas)
+```
+
+### Description de variables qualitatives
+Pour décrire les variables qualitatives, on peut utiliser les fonctions `table()` et `prop.table()` de Rbase.
+
+Au sein du Tidyverse, la fonction `fct_count()` du package [forcats](https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf) permet de décrire les variables de type "factor" avec deux arguments intéressants : 
+
+  - `sort = TRUE` permet de présenter les modalités de réponses de la plus fréquente à la moins fréquente
+  - `prop = TRUE` ajoute les pourcentages au dénombrement .
+
+```{r tidy23, echo=TRUE}
+## Description avec les fonctions classiques de Rbase
+table(df_1$traitL)
+prop.table(table(df_1$traitL))
+
+## Description avec la fonction fct_count() du package forcats
+fct_count(df_1$traitL)
+
+fct_count(df_1$traitL, 
+          sort = TRUE, # trie les modalités de réponses du + au - fréquent
+          prop = TRUE) # ajoute les proportions
+
+
+## Comme précédemment, on peut combiner dans une seule table la description des 
+## variables sexe et traitement avec la fonction bind_row()
+# Note : ci-dessous, on ajoute une ligne contenant uniquement le nom de variable, 
+#        récupéré dans la base de méta-données, 
+#        puis on renomme les colonnes f et p
+bind_rows(tibble(f = meta_df_1$label[meta_df_1$var == "sex"][1]),
+          fct_count(df_1$sexL, sort = TRUE, prop = TRUE),
+          tibble(f = meta_df_1$label[meta_df_1$var == "trait"][1]),
+          fct_count(df_1$traitL, sort = TRUE, prop = TRUE)) %>%
+  rename("Variable" = f, 
+         "%" = p)
+```
+
+## Représentations graphiques
+### Distributions univariées
+Le Tidyverse utilise le package [ggplot2](https://ggplot2.tidyverse.org/articles/ggplot2.html) pour réaliser des graphiques. Pour vous aider à utiliser ce package, vous pouvez consulter : 
+
+  - le [cheatsheet de ggplot2](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf)
+  - le livre [R for data science](https://r4ds.hadley.nz/) qui donne de nombreux exemples de représentations graphiques avec `ggplot2`
+  - le livre [ggplot2](https://ggplot2-book.org/)
+  - et bien sûr l'aide en ligne.
+  
+Les figures sont composées de calques successifs. On commence par indiquer une première ligne `ggplot(data, mapping = aes(x = ...)` avec comme argument : 
+
+  - les données,
+  - les variables à utiliser ("aesthetics").
+  
+Puis, on peut ajouter des calques successifs avec des `+` avant chaque calque : 
+
+  - des histogrammes avec la fonction `geom_hist()`
+  - des densités de kernel avec la fonction `geom_density()`
+  - des box-plots avec la fonction `geom_boxplot()`
+  - des diagrammes en barres (pour les variables discrètes comme les facteurs), avec la fonction `geom_bar()`
+  - modifier les titres et labels avec la fonction `labs()`
+  - modifier le contenu des légendes avec les fonctions `scale_colour_discrete()` pour légender les couleurs ou encore `scale_shape_discrete` pour légender les couleurs
+  - modifier le thème général de présentation avec la fonction `theme()`
+  - etc.
+  
+```{r tidy24, echo=TRUE}
+## Variables quantitatives
+## 1) représenter la distribution de l'IMC à l'aide d'un histogramme
+ggplot(data = df_1, mapping = aes(x = imc)) +
+  geom_histogram()
+# pour voir les options possibles de l'histogramme : 
+?geom_histogram
+ggplot(data = df_1, mapping = aes(x = imc)) +
+  geom_histogram(bins = 10, # nombre de "rectangles" default = 30
+                 colour = "black", # couleur du contour
+                 linewidth = 3, # épaisseur de ligne
+                 fill = "dodgerblue3")
+
+## 2) La distribution de l'IMC par une densité de kernel
+ggplot(data = df_1, mapping = aes(x = imc)) +
+  geom_density()
+# pour voir les options possibles de les densités de kernel : 
+?geom_density
+ggplot(data = df_1, mapping = aes(x = imc)) +
+  geom_density(bw = "nrd", n = 100, # bandwidth selector
+               kernel = "rectangular") # kernel function
+ggplot(data = df_1, mapping = aes(x = imc)) +
+  geom_density(bw = "nrd0", # default bandwidth selector
+               kernel = "gaussian", # default kernel function
+               colour = "red", # couleur du contour
+               linewidth = 2, # épaisseur de ligne
+               linetype = 4) # type de ligne (dotdash)
+# type de lignes : 
+# 0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 
+# 6 = twodash
+
+## 3) La distribution de l'IMC par un boxplot
+ggplot(data = df_1, mapping = aes(x = imc)) +
+  geom_boxplot()
+# représentation sur l'axe des Y
+ggplot(data = df_1, mapping = aes(y = imc)) +
+  geom_boxplot()
+# pour voir les options possibles des boxplots : 
+?geom_boxplot
+ggplot(data = df_1, mapping = aes(x = imc)) +
+  geom_boxplot(outliers = TRUE, # afficher les outliers
+               outlier.colour = "blue",
+               outlier.fill = "green",
+               outlier.shape = 7, # symbole des outliers voir ?shape
+               outlier.size = 5, # taille des outliers
+               outlier.stroke = 0.1, # épaisseur de trait des outliers
+               outlier.alpha = NULL, # transparence des outliers
+               staplewidth = 0.1) # largeur de la moustache
+
+
+## Variables qualitatives
+## Représenter la distribution du sexe par un diagramme en barres
+ggplot(data = df_1, mapping = aes(x = sexL)) +
+  geom_bar()
+# pour voir les options possibles de les diagrammes en barres : 
+?geom_bar
+# sur l'axe des Y plutôt que des X
+ggplot(data = df_1, mapping = aes(y = sexL)) + # ici y = sexL
+  geom_bar()
+# options
+ggplot(data = df_1, mapping = aes(x = sexL)) +
+  geom_bar(mapping = aes(y = after_stat(prop)), # pour des % plutôt que des N
+           just = 0.1, # emplacement : 0=à gauche, 1=à droite, 0.5=centré
+           width = 0.5, # largeur de bande (0.9 par défaut)
+           colour = "red", # couleur de ligne
+           linewidth = 2, # largeur de ligne
+           fill = "orange2") # couleur de remplissage
+```
+
+### Distributions bivariées
+Pour représenter graphiquement des distributions bi- ou multivariées, on peut combiner plusieurs "aesthetics" dans la fonction `ggplot()`, pour associer une variable à une représentation graphique : 
+
+  - sur l'axe des abcisses `x` ou l'axe des ordonnées `y`
+  - type de ligne avec `linetype` 
+  - symbole `shape`
+  - couleur de lignes ou de symboles avec `color` (ou `colour`)
+  - remplissage de surfaces avec `fill` 
+
+```{r tidy25, echo=TRUE, message=FALSE, warning=FALSE}
+### Boxplot de la PAS en fonction du sexe 
+ggplot(data = df_1, mapping = aes(x = sexL, y = pas)) +
+  geom_boxplot(outliers = TRUE, staplewidth = 0.2) + 
+  labs(x = "Sexe", y = "PAS (mmHg)", 
+       title = "PAS en fonction du sexe", 
+       subtitle = "vous pouvez ajouter un sous-titre")
+
+### Boxplot de la PAS en fonction du traitement
+ggplot(data = df_1, mapping = aes(x = traitL, y = pas)) +
+  geom_boxplot(outliers = TRUE, staplewidth = 0.2) + 
+  labs(x = "Traitement", y = "PAS (mmHg)", 
+       title = "PAS en fonction du traitement")
+
+### Répartition du sexe par traitement
+ggplot(data = df_1, mapping = aes(x = traitL, fill = sexL)) +
+  geom_bar(position = "stack") + # empilé
+  labs(x = "Traitement", title = "Sexe et traitement")
+
+ggplot(data = df_1, mapping = aes(x = traitL, fill = sexL)) +
+  geom_bar(position = "dodge") + # côte à côte
+  labs(x = "Traitement", title = "Sexe et traitement")
+
+### On peut représenter un nuage de points de la PAS en fonction de l'IMC : 
+### où les hommes et les femmes ont deux symboles différents et les traitements 
+### trois couleurs différentes
+ggplot(data = df_1, mapping = aes(y = pas, 
+                                  x = imc,
+                                  shape = sexL,
+                                  color = traitL)) +
+  geom_point() 
+# avec plus d'options
+ggplot(data = df_1, mapping = aes(y = pas, x = imc, shape = sexL, 
+                                  color = traitL)) +
+  geom_point(size = 2) + # taille des symboles
+  labs(x = "IMC (kg/m²)", y = "PAS (mmHg)", # titre et axes
+       title = "PAS en fonction de l'IMC") + 
+  scale_colour_discrete(name = "Traitement", # 1ère légende liée aux couleurs
+                          breaks = c("Placebo", "Traitement A", "Traitement B"),
+                          labels = c("Placebo", "Traitement", "Traitement B")) +
+  scale_shape_discrete(name = "Sex", # 2ème légende liée aux symboles
+                       breaks = c("Féminin", "Masculin"),
+                       labels = c("Féminin", "Masculin")) + 
+  theme(axis.text = element_text(size = 12)) # taille des valeurs sur les axes
+```
+  
+## Analyses bivariées
+### Variable quantitative $\times$ qualitative
+Le package `dplyr` permet décrire une variable quantitative en fonction d'une variable qualitative, avec la fonction `group_by()`. 
+
+Par exemple, la fonction `summarise()` créé les indicateurs statistiques par sous-groupe lorsque qu'elle est utilisée après la commande `group_by()`.
+```{r tidy26, echo=TRUE, message=FALSE, warning=FALSE}
+df_1 %>%
+  group_by(sexL)
+# Notez qu'en description, le tibble indique qu'il considère la variable sexL
+# comme une variable de groupe => cela est pris en compte pour les analyses qui 
+# suivront dans le pipe.
+# Si vous avez sauvegardé une base tibble avec une propriété de sous-groupe, 
+# vous pouvez la supprimer avec la fonction ungroup()
+df_1 %>%
+  group_by(sexL) %>%
+  ungroup()
+
+## Description de l'IMC en fonction du sexe
+df_1 %>%
+  group_by(sexL) %>%
+  summarise(n = sum(!is.na(imc)), # nombre de non-manquants
+            mean = mean(imc), 
+            sd = sd(imc))
+
+## Description de la PAS en fonction du traitement
+df_1 %>%
+  group_by(traitL) %>%
+  summarise(n = sum(!is.na(pas)), # nombre de non-manquants
+            mean = mean(pas), 
+            sd = sd(pas))
+```
+
+### Variable qualitative $\times$ qualitative
+De la même manière, on peut décrire les effectifs et pourcentages de la variable sexL (en lignes), en fonction de la variable traitement (en colonnes) avec la fonction `summarise()` après une fonction` group_by()`.
+```{r tidy27, echo=TRUE, message=FALSE, warning=FALSE}
+# Dans l'exemple ci-dessous, pour décrire une variable catégorielle par groupe, 
+# on décrit le résultat d'un test de condition, le calcule des paramètres sum() 
+# et mean() va transformer par coercition la variable vrai/faux en variable 
+# binaire 1/0 avant de faire le calcul 
+# (pour rappel, un pourcentage est une moyenne de 0 et de 1).
+df_1 %>%
+  group_by(sexL) %>%
+  summarise("Placebo, n" = sum(trait == 1), # effectif
+            "Placebo, %" = mean(trait == 1) * 100, # % en ligne (selon le sex)
+            "Traitement A, n" = sum(trait == 2), 
+            "Traitement A, %" = mean(trait == 2) * 100,
+            "Traitement B, n" = sum(trait == 3), 
+            "Traitement B, %" = mean(trait == 3) * 100)
+```
+
+### Comparer 2 moyennes
+Le test de Student, le test de Levene, le test des rangs de Wilcoxon se font avec les mêmes commandes R base. On pourra vérifier la normalité des distributions dans chaque groupe avec le package `ggplot2`.
+```{r tidy28, echo=TRUE, message=FALSE, warning=FALSE}
+## Test de Student
+ttest_pas_sex <- df_1 %>% t.test(data = ., # placeholder pour la position de df_1
+                                 pas ~ sexL, # formula
+                                 var.equal = TRUE) # pour le test de Student
+ttest_pas_sex
+## test de Levene
+df_1 %>% car::leveneTest(pas ~ sexL,
+                         data = .) # placeholder
+
+## Distribution de la PAS chez les femmes
+df_1 %>% 
+  filter(sex == 0) %>%
+  ggplot(aes(x = pas)) + 
+  geom_density() + 
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(df_1$pas[df_1$sex == 0]), 
+                            sd = sd(df_1$pas[df_1$sex == 0])),
+                col = "red", lwd = 0.5, lty = "dashed") + 
+  labs(title = "Chez les femmes")
+
+## Distribution de la PAS chez les hommes
+df_1 %>% 
+  filter(sex == 1) %>%
+  ggplot(aes(x = pas)) + 
+  geom_density() + 
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(df_1$pas[df_1$sex == 1]), 
+                            sd = sd(df_1$pas[df_1$sex == 1])),
+                col = "red", lwd = 0.5, lty = "dashed")+ 
+  labs(title = "Chez les hommes")
+
+## On peut également combiner 2 QQ-plots pour vérifier la normalité 
+df_1 %>% ggplot(mapping = aes(sample = pas, colour = sexL)) + 
+  stat_qq() + 
+  stat_qq_line() 
+
+## Si on veut appliquer un test de Wilcoxon
+df_1 %>% wilcox.test(data = ., # placeholder
+                     pas ~ sex) # p-value = 1.529e-06
+```
+
+### Comparer 3 moyennes ou plus
+On peut utiliser le pipe pour enchaîner les analyses nécessaires à une anova.
+```{r tidy29, echo=TRUE, message=FALSE, warning=FALSE}
+anova_pas_trait <- df_1 %>%
+  lm(pas ~ traitL, 
+     data = .) %>% # placeholder
+  anova()
+anova_pas_trait
+
+## Tester la normalité avec un QQ-plot sur les résidus du modèle linéaire : 
+mod_pas_trait <- df_1 %>%
+  lm(pas ~ traitL, 
+     data = .)
+
+ggplot(mapping = aes(sample = mod_pas_trait$residuals)) + 
+  geom_qq() + 
+  stat_qq() + stat_qq_line() # ajoute la ligne de référence
+
+## si on veut faire un test de Kruskal Wallis
+df_1 %>% 
+  kruskal.test(pas ~ traitL, data = .) # p-value = 7.336e-05
+```
+
+### Comparer des pourcentages
+On utilise la même fonction qu'en baseR, voici un exemple avec une syntaxe en pipe.
+```{r tidy30, echo=TRUE, message=FALSE, warning=FALSE}
+chi2 <- df_1 %>% 
+  with(table(sexL, traitL)) %>%
+  chisq.test(correct = FALSE)
+
+# effectifs attendus
+chi2$expected
+
+# On peut également appliquer le test exact de Fisher
+df_1 %>% 
+  with(table(sexL, traitL)) %>%
+  fisher.test()
+```
+
+### Corrélations
+On utilise la même fonction qu'en baseR, voici un exemple avec une syntaxe en pipe.
+```{r tidy31, echo=TRUE, message=FALSE, warning=FALSE}
+## Corrélation de Pearson et Spearman entre PAS et IMC
+df_1 %>% with(cor.test(imc, pas, method = "pearson"))
+df_1 %>% with(cor.test(imc, pas, method = "spearman"))
+```
+
+## Analyse multivariée
+Les commandes sont les mêmes qu'en Rbase, voici un exemple avec une syntaxe en pipe.
+```{r tidy32, echo=TRUE, message=FALSE, warning=FALSE}
+## Modèle linéaire mumltivarié de la PAS en fonction du traitement, du sexe 
+## et de l'IMC
+model <- df_1 %>% lm(pas ~ traitL + sexL + imc, 
+                     data = .) # placeholder
+
+df_1 %>% 
+  lm(pas ~ traitL + sexL + imc, 
+     data = .) %>%
+  summary()
+
+## Graphique de diagnostic des rédidus en fonction des valeurs prédites
+ggplot() + 
+  geom_point(mapping = aes(y = model$residuals, # résidus
+                           x = model$fitted.values)) + # valeurs prédites
+  geom_smooth(mapping = aes(y = model$residuals, 
+                           x = model$fitted.values)) + 
+  labs(y = "résidus", x = "valeurs prédites")
+
+# par défaut, geom_smooth fait un spline
+# si on veut une fonction loess comme dans l'exemple du chapitre d'analyse Rbase
+ggplot() + 
+  geom_point(mapping = aes(y = model$residuals, # résidus
+                           x = model$fitted.values), # valeurs prédites
+             shape = 1) + # symbole des points
+  geom_smooth(mapping = aes(y = model$residuals, 
+                            x = model$fitted.values),
+              method = "loess", # méthode de lissage
+              colour = "red", # couleur de ligne
+              linetype = 2, # type de ligne
+              linewidth = 0.5, # largeur de ligne
+              se = FALSE) + # supprime la bande d'IC95% 
+  labs(y = "résidus", x = "valeurs prédites")
+               
+## QQ plot des résidus
+ggplot(mapping = aes(sample = model$residuals)) + 
+  geom_qq(shape = 1) + 
+  stat_qq(shape = 1) + stat_qq_line() 
+```
