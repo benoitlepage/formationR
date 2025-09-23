@@ -128,4 +128,5 @@ comparer-des-pourcentages-2
 corrélations-2
 analyse-multivariée-2
 package-data.table
+tableaux
 reporting

@@ -118,7 +118,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2025-09-22}
+\date{2025-09-23}
 
 \begin{document}
 \maketitle
@@ -5913,6 +5913,11 @@ Pour \textbf{sélectionner des lignes}, on peut utiliser la fonction \texttt{sli
 
 \NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_tail}\NormalTok{(}\AttributeTok{prop =} \FloatTok{0.01}\NormalTok{) }\CommentTok{\# voir 1\% des dernières lignes (càd 3 lignes)}
 
+\DocumentationTok{\#\# slice\_min() et slice\_max() affiche les n rangs correspondant aux n valeurs }
+\DocumentationTok{\#\# minimales ou aux n valeurs maximales d\textquotesingle{}une variable}
+\NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_min}\NormalTok{(imc, }\AttributeTok{n =} \DecValTok{5}\NormalTok{) }\CommentTok{\# lignes avec les 5 plus petites valeurs d\textquotesingle{}imc }
+\NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_max}\NormalTok{(pas, }\AttributeTok{n =} \DecValTok{5}\NormalTok{) }\CommentTok{\# lignes avec les 5 plus grandes valeurs de pas }
+
 \DocumentationTok{\#\# slice\_sample() sélectionne des lignes au hasard}
 \NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_sample}\NormalTok{(}\AttributeTok{n =} \DecValTok{6}\NormalTok{)}
 
@@ -6445,9 +6450,9 @@ Les fonctions \texttt{write\_csv()} et \texttt{write\_csv2()} du tidyverse sont 
 
 \subsection{Création de variables de type ``factor''}\label{cruxe9ation-de-variables-de-type-factor}
 
-Afin de faire une analyse descriptive ou graphique des variables qualitatives, il est utile de les convertir en vecteurs de type ``factor''.
+Afin de faire une analyse descriptive ou graphique des variables qualitatives, il est utile de créer ou de convertir les vecteurs correspondants en type ``factor''.
 
-Pour cela, on peut se servir de la fonction \texttt{factor()} au sein de la fonction \texttt{mutate()} que nous avons déjà utilisée pour créer de nouvelles variables de type ``factor.''
+Pour cela, on peut se servir de la fonction \texttt{factor()} au sein de la fonction \texttt{mutate()} (que nous avons déjà utilisée précédemment).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6614,6 +6619,8 @@ Au sein du Tidyverse, la fonction \texttt{fct\_count()} du package \href{https:/
   \texttt{prop\ =\ TRUE} ajoute les pourcentages au dénombrement .
 \end{itemize}
 
+\_Note : pour appliquer une syntaxe en ``pipe'', la commande \texttt{fct\_count()} prend pour 1er argument un vecteur de type ``factor''. Il faut donc utiliser la fonction \texttt{pull()} plutôt que \texttt{select()} pour sélectionner une variable et la retourner au format vecteur.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \DocumentationTok{\#\# Description avec les fonctions classiques de Rbase}
@@ -6660,6 +6667,24 @@ Au sein du Tidyverse, la fonction \texttt{fct\_count()} du package \href{https:/
 \FunctionTok{fct\_count}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{traitL, }
           \AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{, }\CommentTok{\# trie les modalités de réponses du + au {-} fréquent}
           \AttributeTok{prop =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# ajoute les proportions}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 3
+##   f                n     p
+##   <fct>        <int> <dbl>
+## 1 Placebo        120 0.4  
+## 2 Traitement A    91 0.303
+## 3 Traitement B    89 0.297
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# avec une syntaxe en "pipe" :}
+\NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pull}\NormalTok{(traitL) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# utiliser pull() plutôt que select() pour obtenir un vecteur}
+  \FunctionTok{fct\_count}\NormalTok{(}\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{prop =} \ConstantTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7472,16 +7497,19 @@ Les commandes sont les mêmes qu'en Rbase, voici un exemple avec une syntaxe en 
 
 Le package \texttt{data.table} apporte un nouveau format de base de données (\texttt{data.table}) qui peut remplacer les formats \texttt{tibble} ou \texttt{data.frame}. Il apporte principalement un gain de performance pour la manipulation de bases de grandes dimensions. Le package apporte également une syntaxe qui peut sembler un peu plus intuitive d'utilisation que la syntaxe R base pour le data-management.
 
-\chapter{Reporting}\label{reporting}
+\chapter{Tableaux}\label{tableaux}
 
 Dans ce chapitre, nous présenterons quelques packages permettant d'obtenir des tables descriptives complètes, faciles à mettre en forme pour les intégrer dans un rapport d'analyse.
 
+gt
 gtsummary (basé sur gt)
 table1
 
 pour présenter un data.frame sous forme de table publiable
 flextable
-gt
+tinytable
+
+\chapter{Reporting}\label{reporting}
 
 Ecritures de rapports avec Rmarkdown et Quarto
 

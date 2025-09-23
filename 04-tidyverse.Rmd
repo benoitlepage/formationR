@@ -141,6 +141,11 @@ df_1 %>% slice_head(n = 6) %>% arrange(sex, imc) # ici, on a d'abord séléction
 
 df_1 %>% slice_tail(prop = 0.01) # voir 1% des dernières lignes (càd 3 lignes)
 
+## slice_min() et slice_max() affiche les n rangs correspondant aux n valeurs 
+## minimales ou aux n valeurs maximales d'une variable
+df_1 %>% slice_min(imc, n = 5) # lignes avec les 5 plus petites valeurs d'imc 
+df_1 %>% slice_max(pas, n = 5) # lignes avec les 5 plus grandes valeurs de pas 
+
 ## slice_sample() sélectionne des lignes au hasard
 df_1 %>% slice_sample(n = 6)
 
@@ -366,9 +371,9 @@ write_csv2(df_1, "data/df_1_new.csv")
 
 ## Analyses univariées
 ### Création de variables de type "factor"
-Afin de faire une analyse descriptive ou graphique des variables qualitatives, il est utile de les convertir en vecteurs de type "factor".
+Afin de faire une analyse descriptive ou graphique des variables qualitatives, il est utile de créer ou de convertir les vecteurs correspondants en type "factor".
 
-Pour cela, on peut se servir de la fonction `factor()` au sein de la fonction `mutate()` que nous avons déjà utilisée pour créer de nouvelles variables de type "factor."
+Pour cela, on peut se servir de la fonction `factor()` au sein de la fonction `mutate()` (que nous avons déjà utilisée précédemment).
 ```{r tidy18, echo=TRUE, message=FALSE, warning=FALSE}
 df_1 <- df_1 %>% 
   mutate(sexL = factor(sex, 
@@ -471,6 +476,7 @@ Au sein du Tidyverse, la fonction `fct_count()` du package [forcats](https://raw
   - `sort = TRUE` permet de présenter les modalités de réponses de la plus fréquente à la moins fréquente
   - `prop = TRUE` ajoute les pourcentages au dénombrement .
 
+_Note : pour appliquer une syntaxe en "pipe", la commande `fct_count()` prend pour 1er argument un vecteur de type "factor". Il faut donc utiliser la fonction `pull()` plutôt que `select()` pour sélectionner une variable et la retourner au format vecteur.
 ```{r tidy23, echo=TRUE}
 ## Description avec les fonctions classiques de Rbase
 table(df_1$traitL)
@@ -483,6 +489,10 @@ fct_count(df_1$traitL,
           sort = TRUE, # trie les modalités de réponses du + au - fréquent
           prop = TRUE) # ajoute les proportions
 
+## avec une syntaxe en "pipe" :
+df_1 %>%
+  pull(traitL) %>% # utiliser pull() plutôt que select() pour obtenir un vecteur
+  fct_count(sort = TRUE, prop = TRUE)
 
 ## Comme précédemment, on peut combiner dans une seule table la description des 
 ## variables sexe et traitement avec la fonction bind_row()
