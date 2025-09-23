@@ -395,6 +395,13 @@ fct_count(df_1$traitL,
           sort = TRUE, # les résultats étaient déjà triés du + au - fréquent
           prop = TRUE)
 
+# pour appliquer une syntaxe en "pipe", fct_count prend pour 1er argument 
+# un vecteur de type "factor". Il faut donc utiliser la fonction "pull()" plutôt
+# que "select()" pour sélectionner une variable et la retourner au format vecteur
+df_1 %>%
+  pull(traitL) %>%
+  fct_count(sort = TRUE, prop = TRUE)
+
 
 ### combiner dans une seule table la description des variables sex et trait
 bind_rows(tibble(f = meta_df_1$label[meta_df_1$var == "sex"][1]),

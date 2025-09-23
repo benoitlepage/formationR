@@ -1,12 +1,11 @@
-# Reporting
+# Tableaux
 
 Dans ce chapitre, nous présenterons quelques packages permettant d'obtenir des tables descriptives complètes, faciles à mettre en forme pour les intégrer dans un rapport d'analyse.
 
+gt
 gtsummary (basé sur gt)
 table1
 
 pour présenter un data.frame sous forme de table publiable
 flextable
-gt
-
-Ecritures de rapports avec Rmarkdown et Quarto
+tinytable
