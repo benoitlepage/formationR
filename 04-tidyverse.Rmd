@@ -540,7 +540,8 @@ ggplot(data = df_1, mapping = aes(x = imc)) +
 # pour voir les options possibles de l'histogramme : 
 ?geom_histogram
 ggplot(data = df_1, mapping = aes(x = imc)) +
-  geom_histogram(bins = 10, # nombre de "rectangles" default = 30
+  geom_histogram(aes(y = after_stat(density)), # densité plutôt que compte en Y
+                 bins = 10, # nombre de "rectangles" default = 30
                  colour = "black", # couleur du contour
                  linewidth = 3, # épaisseur de ligne
                  fill = "dodgerblue3")
