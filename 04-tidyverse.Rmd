@@ -369,43 +369,7 @@ Les fonctions `write_csv()` et `write_csv2()` du tidyverse sont analogues aux fo
 write_csv2(df_1, "data/df_1_new.csv") 
 ```
 
-## Analyses univariées
-### Création de variables de type "factor"
-Afin de faire une analyse descriptive ou graphique des variables qualitatives, il est utile de créer ou de convertir les vecteurs correspondants en type "factor".
-
-Pour cela, on peut se servir de la fonction `factor()` au sein de la fonction `mutate()` (que nous avons déjà utilisée précédemment).
-```{r tidy18, echo=TRUE, message=FALSE, warning=FALSE}
-df_1 <- df_1 %>% 
-  mutate(sexL = factor(sex, 
-                       labels = meta_df_1$labs[meta_df_1$var == "sex"]),
-         traitL = factor(trait))
-df_1 %>% slice_head(n = 5) # sexL et traitL ont été ajoutées à df_1
-```
-Le package [`forcats`](https://forcats.tidyverse.org/index.html)du tidyverse apporte de nombreuses fonctions pour manipuler les variables de type "factor". Toutes ces fonctions commencent par `ftc_...` (pour "factor"). Voir le cheatsheet de [forcats](https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf) ou encore sa [vignette](https://forcats.tidyverse.org/articles/forcats.html).
-
-Par exemple, la fonction `fct_recode()` permet de recoder des facteurs. Pour chaque catégorie à recoder, on indiquer le "nouveau nom" suivi de égal, puis "l'ancien nom".
-```{r tidy19, echo=TRUE, message=FALSE, warning=FALSE}
-## Utilisons la fonction fct_recode() pour recoder les levels de la variable traitL, 
-df_1$traitL <- fct_recode(df_1$traitL, 
-                          Placebo = "1", # nouveau label = "ancien label"
-                          "Traitement A" = "2", 
-                          "Traitement B" = "3")
-# s'il y a des caractètres spéciaux (comme des espaces, le nouveau nom doit être
-# entre guillements)
-```
-```{r tidy20, eval=FALSE, include=TRUE}
-## Notez que la commande avec le pipe ci-dessous 
-## ne fonctionne pas car le premier argument de fct_recode doit être un facteur. 
-## Cette écriture avec le pipe extrait la colonne au format "tibble" 
-## (pas au format "factor") 
-df_1 %>% fct_recode(traitL, 
-                    Placebo = "1", # nouveau label = "ancien label"
-                    "Traitement A" = "2", 
-                    "Traitement B" = "3") 
-```
-
-
-### Description de variables quantitatives
+## Analyses univariées de variables quantitatives
 La fonction `summarise()` permet de décrire différents paramètres avec les fonctions suivantes à indiquer au sein de la fonction (voir l'aide `?summarize()`) :
 
   - moyenne et écart type avec `mean()` et `sd()`
@@ -468,7 +432,128 @@ row_pas <- df_1 %>%
 bind_rows(row_imc, row_pas)
 ```
 
-### Description de variables qualitatives
+## Programmation fonctionnelle avec le Tidyverse
+Le package [`purrr`](https://purrr.tidyverse.org/index.html) au sein du Tidyverse apporte des outils supplémentaires de programmation fonctionnelle, en particulier : 
+
+  - les fonctions de la famille `map()` et `walk()`, qui sont analogues aux fonctions Rbase de type `lapply()`, `sapply()`...
+  
+Les relations entres les outils de programmation fonctionnelle de R base et du Tidyverse sont décrites dans cette [vignette](https://purrr.tidyverse.org/articles/base.html) du package `purrr`
+
+Une présentation détaillée de la programmation fonctionnelle avec le Tidyverse est présentée dans le livre [Functional Programming](https://dcl-prog.stanford.edu/).
+
+La fonction `map()` permet d'appliquer une fonction à chaque élément d'un vecteur ou d'une liste. L'objet retourné est au même format et de même longueur que l'objet en entrée.
+
+Les fonctions `map_lgl()`, `map_int()`, `map_dbl()`, `map_chr()` retournent respectivement un vecteur de valeurs logiques, d'entiers, de réels ou de caractères pour des fonctions dont le résultat de longueur 1. Plus généralement, la fonction `map_vec()` fonctionne avec la plupart des types de vecteurs (y compris de type dates, facteurs, etc).
+```{r tidy22_1, echo=TRUE}
+## Calculer la moyenne pour les deux variables imc et pas
+map(df_1[,c("imc","pas")], mean) # retourne un résultat sous forme de liste
+map_dbl(df_1[,c("imc","pas")], mean) # retourne un vecteur de réels (= double)
+map_vec(df_1[,c("imc","pas")], mean) # retourne un vecteur au format des données initiales
+
+## On peut également appliquer des fonctions personnalisées
+# ci-dessous, avec une syntaxe en pipe : 
+#  - on sélectionne les variables "imc" et "pas" de la base "df_1"
+#  - on applique la fonction qui estime le nombre de non-manquants, mean, sd, 
+#    min et max pour chaque variable
+#  - les résultats sont retournés au format liste (avec map()) ou au format tibble 
+#    avec map_dfr() ou map_dfc()
+df_1 %>%
+  select(imc, pas) %>%
+  map(function(x) {return(c(n = sum(!is.na(x)),
+                            mean = mean(x, na.rm = TRUE),
+                            sd = sd(x, na.rm = TRUE),
+                            min = min(x, na.rm = TRUE),
+                            max = max(x, na.rm = TRUE)))})
+
+## map_dfr() et map_dfc() retournent des tibbles (par rang ou par colonne)
+df_1 %>%
+  select(imc, pas) %>%
+  map_dfr(function(x) {return(c(n = sum(!is.na(x)),
+                                mean = mean(x, na.rm = TRUE),
+                                sd = sd(x, na.rm = TRUE),
+                                min = min(x, na.rm = TRUE),
+                                max = max(x, na.rm = TRUE)))})
+## ci-dessous, on crée un tibble par colonne
+## puis, on créé une colonne "parameter" décrivant le nom des paramètres
+##  et on déplace la colonne "parameter" juste avant la colonne "imc".
+df_1 %>%
+  select(imc, pas) %>%
+  map_dfc(function(x) {return(c(n = sum(!is.na(x)),
+                                mean = mean(x, na.rm = TRUE),
+                                sd = sd(x, na.rm = TRUE),
+                                min = min(x, na.rm = TRUE), 
+                                max = max(x, na.rm = TRUE)))}) %>%
+  mutate(parameter = c("n", "mean", "sd", "min", "max")) %>%
+  relocate(parameter, .before = imc)
+```
+
+
+La fonction `walk()` fonctionne de la même manière que la fonction `map()`, mais pour appliquer des fonctions qui réalisent des actions (comme faire des graphiques, enregistrer des bases de données, etc) plutôt que de produire des données (comme calculer des paramètres de distribution).
+```{r tidy22_2, echo=TRUE}
+par(mfrow = c(1,2)) # combine les prochains graphiques sur 1 ligne et 2 colonnes
+df_1 %>%
+  select(imc, pas) %>%
+  walk(.x = ., # placeholder
+       .f = ~boxplot(.x))
+par(mfrow = c(1,1)) # revient à un seul graphique par commande graphique
+```
+
+
+
+## Analyse univariée de variables qualitatives
+### Création de variables de type "factor"
+Afin de faire une analyse descriptive ou graphique des variables qualitatives, il est utile de créer ou de convertir les vecteurs correspondants en type "factor".
+
+Pour cela, on peut se servir de la fonction `factor()` au sein de la fonction `mutate()` (que nous avons déjà utilisée précédemment).
+```{r tidy18, echo=TRUE, message=FALSE, warning=FALSE}
+## On créer un facteur "sexL" avec des labels et un facteur "traitL" que nous
+## labéliseront plus tard
+df_1 <- df_1 %>% 
+  mutate(sexL = factor(sex, 
+                       labels = meta_df_1$labs[meta_df_1$var == "sex"]),
+         traitL = factor(trait))
+df_1 %>% slice_head(n = 5) # sexL et traitL ont été ajoutées à df_1
+```
+Le package [`forcats`](https://forcats.tidyverse.org/index.html)du tidyverse apporte de nombreuses fonctions pour manipuler les variables de type "factor". Toutes ces fonctions commencent par `ftc_...` (pour "factor"). Voir le cheatsheet de [forcats](https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf) ou encore sa [vignette](https://forcats.tidyverse.org/articles/forcats.html).
+
+Par exemple, la fonction `fct_recode()` permet de recoder des facteurs. Pour chaque catégorie à recoder, on indiquer le "nouveau nom" suivi de égal, puis "l'ancien nom".
+```{r tidy19, echo=TRUE, message=FALSE, warning=FALSE}
+## Utilisons la fonction fct_recode() pour recoder les levels de la variable "traitL", 
+df_1$traitL <- fct_recode(df_1$traitL, 
+                          Placebo = "1", # nouveau label = "ancien label"
+                          "Traitement A" = "2", 
+                          "Traitement B" = "3")
+# s'il y a des caractètres spéciaux (comme des espaces, le nouveau nom doit être
+# entre guillements)
+```
+```{r tidy20, eval=FALSE, echo=TRUE}
+## Notez que la commande avec le pipe ci-dessous 
+## ne fonctionne pas car le premier argument de fct_recode doit être un facteur. 
+## Cette écriture avec le pipe extrait la colonne au format "tibble" 
+## (pas au format "factor") 
+df_1 %>% fct_recode(traitL, 
+                    Placebo = "1", # nouveau label = "ancien label"
+                    "Traitement A" = "2", 
+                    "Traitement B" = "3") 
+
+## de même, la fonction "select()" extrait un tibble plutôt qu'un facteur,
+## la fonction fct_recode() ne peut pas fonctionner
+df_1 %>% 
+  select(traitL) %>%
+  fct_recode(Placebo = "1", # nouveau label = "ancien label"
+             "Traitement A" = "2", 
+             "Traitement B" = "3") 
+
+## Pour extraire la colonne comme vecteur (de type factor), il faut utiliser
+## la fonction "pull()"
+df_1$traitL <- df_1 %>%
+  pull(traitL) %>% # pull() extrait un facteur (= un vecteur) 
+  fct_recode(Placebo = "1", 
+             "Traitement A" = "2", 
+             "Traitement B" = "3")
+```
+
+### Description de facteurs
 Pour décrire les variables qualitatives, on peut utiliser les fonctions `table()` et `prop.table()` de Rbase.
 
 Au sein du Tidyverse, la fonction `fct_count()` du package [forcats](https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf) permet de décrire les variables de type "factor" avec deux arguments intéressants : 
@@ -476,7 +561,7 @@ Au sein du Tidyverse, la fonction `fct_count()` du package [forcats](https://raw
   - `sort = TRUE` permet de présenter les modalités de réponses de la plus fréquente à la moins fréquente
   - `prop = TRUE` ajoute les pourcentages au dénombrement .
 
-_Note : pour appliquer une syntaxe en "pipe", la commande `fct_count()` prend pour 1er argument un vecteur de type "factor". Il faut donc utiliser la fonction `pull()` plutôt que `select()` pour sélectionner une variable et la retourner au format vecteur.
+_Note : pour appliquer une syntaxe en "pipe", la commande `fct_count()` prend pour 1er argument un vecteur de type "factor". Il faut donc utiliser la fonction `pull()` plutôt que `select()` pour sélectionner une variable et la retourner au format vecteur._
 ```{r tidy23, echo=TRUE}
 ## Description avec les fonctions classiques de Rbase
 table(df_1$traitL)

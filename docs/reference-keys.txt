@@ -112,10 +112,11 @@ renommer-une-variable-changer-sa-position
 ajouter-des-lignes
 modifier-des-variables-déjà-existantes
 sauvegarder-la-base-de-données-1
-analyses-univariées-2
+analyses-univariées-de-variables-quantitatives
+programmation-fonctionnelle-avec-le-tidyverse
+analyse-univariée-de-variables-qualitatives
 création-de-variables-de-type-factor
-description-de-variables-quantitatives
-description-de-variables-qualitatives
+description-de-facteurs
 représentations-graphiques-1
 distributions-univariées-1
 distributions-bivariées-1

@@ -117,7 +117,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2025-09-30}
+\date{2025-10-17}
 
 \begin{document}
 \maketitle
@@ -3772,7 +3772,7 @@ On peut également lancer une fonction de manière répétée appliquée :
 \item
   à des colonnes ou des lignes de matrices (ou de data frame) avec la fonction \texttt{apply()}
 \item
-  à des vecteurs ou des listes avec \texttt{lapply()} (qui retourne les résultats sous forme de liste) ou \texttt{sapply()} (qui retourne les résultats sous forme de matrice ou de vecteur)
+  à des vecteurs ou des listes avec \texttt{lapply()} (qui retourne les résultats sous forme de liste) ou \texttt{sapply()} (qui retournent les résultats sous forme ``simplifiée'' de matrice ou de vecteur)
 \end{itemize}
 
 \textbf{Exemple 1 :} La fonction \texttt{apply()} permet d'appliquer notre fonction de description des paramètres aux colonnes \texttt{"imc"} et \texttt{"pas"} de la la base \texttt{df\_1} (Le résultat sera une matrice de réels) :
@@ -6445,65 +6445,7 @@ Les fonctions \texttt{write\_csv()} et \texttt{write\_csv2()} du tidyverse sont 
 \end{Highlighting}
 \end{Shaded}
 
-\section{Analyses univariées}\label{analyses-univariuxe9es-2}
-
-\subsection{Création de variables de type ``factor''}\label{cruxe9ation-de-variables-de-type-factor}
-
-Afin de faire une analyse descriptive ou graphique des variables qualitatives, il est utile de créer ou de convertir les vecteurs correspondants en type ``factor''.
-
-Pour cela, on peut se servir de la fonction \texttt{factor()} au sein de la fonction \texttt{mutate()} (que nous avons déjà utilisée précédemment).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{df\_1 }\OtherTok{\textless{}{-}}\NormalTok{ df\_1 }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sexL =} \FunctionTok{factor}\NormalTok{(sex, }
-                       \AttributeTok{labels =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{labs[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sex"}\NormalTok{]),}
-         \AttributeTok{traitL =} \FunctionTok{factor}\NormalTok{(trait))}
-\NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{) }\CommentTok{\# sexL et traitL ont été ajoutées à df\_1}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 5 x 9
-##   subjid   sex   imc trait   pas obesite imc_cl sexL    traitL
-##    <dbl> <dbl> <dbl> <dbl> <dbl>   <dbl>  <dbl> <fct>   <fct> 
-## 1      1     0  24.8     2   140       0      2 Féminin 2     
-## 2      2     0  24.1     3   109       0      2 Féminin 3     
-## 3      3     0  26.4     1   156       0      3 Féminin 1     
-## 4      4     0  23.3     2   124       0      2 Féminin 2     
-## 5      5     0  25.4     2   131       0      3 Féminin 2
-\end{verbatim}
-
-Le package \href{https://forcats.tidyverse.org/index.html}{\texttt{forcats}}du tidyverse apporte de nombreuses fonctions pour manipuler les variables de type ``factor''. Toutes ces fonctions commencent par \texttt{ftc\_...} (pour ``factor''). Voir le cheatsheet de \href{https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf}{forcats} ou encore sa \href{https://forcats.tidyverse.org/articles/forcats.html}{vignette}.
-
-Par exemple, la fonction \texttt{fct\_recode()} permet de recoder des facteurs. Pour chaque catégorie à recoder, on indiquer le ``nouveau nom'' suivi de égal, puis ``l'ancien nom''.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\DocumentationTok{\#\# Utilisons la fonction fct\_recode() pour recoder les levels de la variable traitL, }
-\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{traitL }\OtherTok{\textless{}{-}} \FunctionTok{fct\_recode}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{traitL, }
-                          \AttributeTok{Placebo =} \StringTok{"1"}\NormalTok{, }\CommentTok{\# nouveau label = "ancien label"}
-                          \StringTok{"Traitement A"} \OtherTok{=} \StringTok{"2"}\NormalTok{, }
-                          \StringTok{"Traitement B"} \OtherTok{=} \StringTok{"3"}\NormalTok{)}
-\CommentTok{\# s\textquotesingle{}il y a des caractètres spéciaux (comme des espaces, le nouveau nom doit être}
-\CommentTok{\# entre guillements)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\DocumentationTok{\#\# Notez que la commande avec le pipe ci{-}dessous }
-\DocumentationTok{\#\# ne fonctionne pas car le premier argument de fct\_recode doit être un facteur. }
-\DocumentationTok{\#\# Cette écriture avec le pipe extrait la colonne au format "tibble" }
-\DocumentationTok{\#\# (pas au format "factor") }
-\NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{fct\_recode}\NormalTok{(traitL, }
-                    \AttributeTok{Placebo =} \StringTok{"1"}\NormalTok{, }\CommentTok{\# nouveau label = "ancien label"}
-                    \StringTok{"Traitement A"} \OtherTok{=} \StringTok{"2"}\NormalTok{, }
-                    \StringTok{"Traitement B"} \OtherTok{=} \StringTok{"3"}\NormalTok{) }
-\end{Highlighting}
-\end{Shaded}
-
-\subsection{Description de variables quantitatives}\label{description-de-variables-quantitatives}
+\section{Analyses univariées de variables quantitatives}\label{analyses-univariuxe9es-de-variables-quantitatives}
 
 La fonction \texttt{summarise()} permet de décrire différents paramètres avec les fonctions suivantes à indiquer au sein de la fonction (voir l'aide \texttt{?summarize()}) :
 
@@ -6604,7 +6546,236 @@ Au sein du package \texttt{dplyr} du Tidyverse, les fonctions \texttt{bind\_rows
 ## 2 PAS (mmHg)    300 137.  16.8   92   125   138   149   177
 \end{verbatim}
 
-\subsection{Description de variables qualitatives}\label{description-de-variables-qualitatives}
+\section{Programmation fonctionnelle avec le Tidyverse}\label{programmation-fonctionnelle-avec-le-tidyverse}
+
+Le package \href{https://purrr.tidyverse.org/index.html}{\texttt{purrr}} au sein du Tidyverse apporte des outils supplémentaires de programmation fonctionnelle, en particulier :
+
+\begin{itemize}
+\tightlist
+\item
+  les fonctions de la famille \texttt{map()} et \texttt{walk()}, qui sont analogues aux fonctions Rbase de type \texttt{lapply()}, \texttt{sapply()}\ldots{}
+\end{itemize}
+
+Les relations entres les outils de programmation fonctionnelle de R base et du Tidyverse sont décrites dans cette \href{https://purrr.tidyverse.org/articles/base.html}{vignette} du package \texttt{purrr}
+
+Une présentation détaillée de la programmation fonctionnelle avec le Tidyverse est présentée dans le livre \href{https://dcl-prog.stanford.edu/}{Functional Programming}.
+
+La fonction \texttt{map()} permet d'appliquer une fonction à chaque élément d'un vecteur ou d'une liste. L'objet retourné est au même format et de même longueur que l'objet en entrée.
+
+Les fonctions \texttt{map\_lgl()}, \texttt{map\_int()}, \texttt{map\_dbl()}, \texttt{map\_chr()} retournent respectivement un vecteur de valeurs logiques, d'entiers, de réels ou de caractères pour des fonctions dont le résultat de longueur 1. Plus généralement, la fonction \texttt{map\_vec()} fonctionne avec la plupart des types de vecteurs (y compris de type dates, facteurs, etc).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Calculer la moyenne pour les deux variables imc et pas}
+\FunctionTok{map}\NormalTok{(df\_1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"imc"}\NormalTok{,}\StringTok{"pas"}\NormalTok{)], mean) }\CommentTok{\# retourne un résultat sous forme de liste}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $imc
+## [1] 24.481
+## 
+## $pas
+## [1] 137.1133
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{map\_dbl}\NormalTok{(df\_1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"imc"}\NormalTok{,}\StringTok{"pas"}\NormalTok{)], mean) }\CommentTok{\# retourne un vecteur de réels (= double)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      imc      pas 
+##  24.4810 137.1133
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{map\_vec}\NormalTok{(df\_1[,}\FunctionTok{c}\NormalTok{(}\StringTok{"imc"}\NormalTok{,}\StringTok{"pas"}\NormalTok{)], mean) }\CommentTok{\# retourne un vecteur au format des données initiales}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      imc      pas 
+##  24.4810 137.1133
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On peut également appliquer des fonctions personnalisées}
+\CommentTok{\# ci{-}dessous, avec une syntaxe en pipe : }
+\CommentTok{\#  {-} on sélectionne les variables "imc" et "pas" de la base "df\_1"}
+\CommentTok{\#  {-} on applique la fonction qui estime le nombre de non{-}manquants, mean, sd, }
+\CommentTok{\#    min et max pour chaque variable}
+\CommentTok{\#  {-} les résultats sont retournés au format liste (avec map()) ou au format tibble }
+\CommentTok{\#    avec map\_dfr() ou map\_dfc()}
+\NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(imc, pas) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{map}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) \{}\FunctionTok{return}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\AttributeTok{n =} \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(x)),}
+                            \AttributeTok{mean =} \FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+                            \AttributeTok{sd =} \FunctionTok{sd}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+                            \AttributeTok{min =} \FunctionTok{min}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+                            \AttributeTok{max =} \FunctionTok{max}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)))\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $imc
+##          n       mean         sd        min        max 
+## 300.000000  24.481000   3.069072  15.400000  32.500000 
+## 
+## $pas
+##         n      mean        sd       min       max 
+## 300.00000 137.11333  16.82053  92.00000 177.00000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# map\_dfr() et map\_dfc() retournent des tibbles (par rang ou par colonne)}
+\NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(imc, pas) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{map\_dfr}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) \{}\FunctionTok{return}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\AttributeTok{n =} \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(x)),}
+                                \AttributeTok{mean =} \FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+                                \AttributeTok{sd =} \FunctionTok{sd}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+                                \AttributeTok{min =} \FunctionTok{min}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+                                \AttributeTok{max =} \FunctionTok{max}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)))\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##       n  mean    sd   min   max
+##   <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1   300  24.5  3.07  15.4  32.5
+## 2   300 137.  16.8   92   177
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# ci{-}dessous, on crée un tibble par colonne}
+\DocumentationTok{\#\# puis, on créé une colonne "parameter" décrivant le nom des paramètres}
+\DocumentationTok{\#\#  et on déplace la colonne "parameter" juste avant la colonne "imc".}
+\NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(imc, pas) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{map\_dfc}\NormalTok{(}\ControlFlowTok{function}\NormalTok{(x) \{}\FunctionTok{return}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\AttributeTok{n =} \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(x)),}
+                                \AttributeTok{mean =} \FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+                                \AttributeTok{sd =} \FunctionTok{sd}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+                                \AttributeTok{min =} \FunctionTok{min}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }
+                                \AttributeTok{max =} \FunctionTok{max}\NormalTok{(x, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)))\}) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{parameter =} \FunctionTok{c}\NormalTok{(}\StringTok{"n"}\NormalTok{, }\StringTok{"mean"}\NormalTok{, }\StringTok{"sd"}\NormalTok{, }\StringTok{"min"}\NormalTok{, }\StringTok{"max"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{relocate}\NormalTok{(parameter, }\AttributeTok{.before =}\NormalTok{ imc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 3
+##   parameter    imc   pas
+##   <chr>      <dbl> <dbl>
+## 1 n         300    300  
+## 2 mean       24.5  137. 
+## 3 sd          3.07  16.8
+## 4 min        15.4   92  
+## 5 max        32.5  177
+\end{verbatim}
+
+La fonction \texttt{walk()} fonctionne de la même manière que la fonction \texttt{map()}, mais pour appliquer des fonctions qui réalisent des actions (comme faire des graphiques, enregistrer des bases de données, etc) plutôt que de produire des données (comme calculer des paramètres de distribution).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)) }\CommentTok{\# combine les prochains graphiques sur 1 ligne et 2 colonnes}
+\NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(imc, pas) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{walk}\NormalTok{(}\AttributeTok{.x =}\NormalTok{ ., }\CommentTok{\# placeholder}
+       \AttributeTok{.f =} \SpecialCharTok{\textasciitilde{}}\FunctionTok{boxplot}\NormalTok{(.x))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy22_2-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{)) }\CommentTok{\# revient à un seul graphique par commande graphique}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Analyse univariée de variables qualitatives}\label{analyse-univariuxe9e-de-variables-qualitatives}
+
+\subsection{Création de variables de type ``factor''}\label{cruxe9ation-de-variables-de-type-factor}
+
+Afin de faire une analyse descriptive ou graphique des variables qualitatives, il est utile de créer ou de convertir les vecteurs correspondants en type ``factor''.
+
+Pour cela, on peut se servir de la fonction \texttt{factor()} au sein de la fonction \texttt{mutate()} (que nous avons déjà utilisée précédemment).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On créer un facteur "sexL" avec des labels et un facteur "traitL" que nous}
+\DocumentationTok{\#\# labéliseront plus tard}
+\NormalTok{df\_1 }\OtherTok{\textless{}{-}}\NormalTok{ df\_1 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sexL =} \FunctionTok{factor}\NormalTok{(sex, }
+                       \AttributeTok{labels =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{labs[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sex"}\NormalTok{]),}
+         \AttributeTok{traitL =} \FunctionTok{factor}\NormalTok{(trait))}
+\NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{slice\_head}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{) }\CommentTok{\# sexL et traitL ont été ajoutées à df\_1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 9
+##   subjid   sex   imc trait   pas obesite imc_cl sexL    traitL
+##    <dbl> <dbl> <dbl> <dbl> <dbl>   <dbl>  <dbl> <fct>   <fct> 
+## 1      1     0  24.8     2   140       0      2 Féminin 2     
+## 2      2     0  24.1     3   109       0      2 Féminin 3     
+## 3      3     0  26.4     1   156       0      3 Féminin 1     
+## 4      4     0  23.3     2   124       0      2 Féminin 2     
+## 5      5     0  25.4     2   131       0      3 Féminin 2
+\end{verbatim}
+
+Le package \href{https://forcats.tidyverse.org/index.html}{\texttt{forcats}}du tidyverse apporte de nombreuses fonctions pour manipuler les variables de type ``factor''. Toutes ces fonctions commencent par \texttt{ftc\_...} (pour ``factor''). Voir le cheatsheet de \href{https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf}{forcats} ou encore sa \href{https://forcats.tidyverse.org/articles/forcats.html}{vignette}.
+
+Par exemple, la fonction \texttt{fct\_recode()} permet de recoder des facteurs. Pour chaque catégorie à recoder, on indiquer le ``nouveau nom'' suivi de égal, puis ``l'ancien nom''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Utilisons la fonction fct\_recode() pour recoder les levels de la variable "traitL", }
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{traitL }\OtherTok{\textless{}{-}} \FunctionTok{fct\_recode}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{traitL, }
+                          \AttributeTok{Placebo =} \StringTok{"1"}\NormalTok{, }\CommentTok{\# nouveau label = "ancien label"}
+                          \StringTok{"Traitement A"} \OtherTok{=} \StringTok{"2"}\NormalTok{, }
+                          \StringTok{"Traitement B"} \OtherTok{=} \StringTok{"3"}\NormalTok{)}
+\CommentTok{\# s\textquotesingle{}il y a des caractètres spéciaux (comme des espaces, le nouveau nom doit être}
+\CommentTok{\# entre guillements)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Notez que la commande avec le pipe ci{-}dessous }
+\DocumentationTok{\#\# ne fonctionne pas car le premier argument de fct\_recode doit être un facteur. }
+\DocumentationTok{\#\# Cette écriture avec le pipe extrait la colonne au format "tibble" }
+\DocumentationTok{\#\# (pas au format "factor") }
+\NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{fct\_recode}\NormalTok{(traitL, }
+                    \AttributeTok{Placebo =} \StringTok{"1"}\NormalTok{, }\CommentTok{\# nouveau label = "ancien label"}
+                    \StringTok{"Traitement A"} \OtherTok{=} \StringTok{"2"}\NormalTok{, }
+                    \StringTok{"Traitement B"} \OtherTok{=} \StringTok{"3"}\NormalTok{) }
+
+\DocumentationTok{\#\# de même, la fonction "select()" extrait un tibble plutôt qu\textquotesingle{}un facteur,}
+\DocumentationTok{\#\# la fonction fct\_recode() ne peut pas fonctionner}
+\NormalTok{df\_1 }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(traitL) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{fct\_recode}\NormalTok{(}\AttributeTok{Placebo =} \StringTok{"1"}\NormalTok{, }\CommentTok{\# nouveau label = "ancien label"}
+             \StringTok{"Traitement A"} \OtherTok{=} \StringTok{"2"}\NormalTok{, }
+             \StringTok{"Traitement B"} \OtherTok{=} \StringTok{"3"}\NormalTok{) }
+
+\DocumentationTok{\#\# Pour extraire la colonne comme vecteur (de type factor), il faut utiliser}
+\DocumentationTok{\#\# la fonction "pull()"}
+\NormalTok{df\_1}\SpecialCharTok{$}\NormalTok{traitL }\OtherTok{\textless{}{-}}\NormalTok{ df\_1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pull}\NormalTok{(traitL) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# pull() extrait un facteur (= un vecteur) }
+  \FunctionTok{fct\_recode}\NormalTok{(}\AttributeTok{Placebo =} \StringTok{"1"}\NormalTok{, }
+             \StringTok{"Traitement A"} \OtherTok{=} \StringTok{"2"}\NormalTok{, }
+             \StringTok{"Traitement B"} \OtherTok{=} \StringTok{"3"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Description de facteurs}\label{description-de-facteurs}
 
 Pour décrire les variables qualitatives, on peut utiliser les fonctions \texttt{table()} et \texttt{prop.table()} de Rbase.
 
@@ -6618,7 +6789,7 @@ Au sein du Tidyverse, la fonction \texttt{fct\_count()} du package \href{https:/
   \texttt{prop\ =\ TRUE} ajoute les pourcentages au dénombrement .
 \end{itemize}
 
-\_Note : pour appliquer une syntaxe en ``pipe'', la commande \texttt{fct\_count()} prend pour 1er argument un vecteur de type ``factor''. Il faut donc utiliser la fonction \texttt{pull()} plutôt que \texttt{select()} pour sélectionner une variable et la retourner au format vecteur.
+\emph{Note : pour appliquer une syntaxe en ``pipe'', la commande \texttt{fct\_count()} prend pour 1er argument un vecteur de type ``factor''. Il faut donc utiliser la fonction \texttt{pull()} plutôt que \texttt{select()} pour sélectionner une variable et la retourner au format vecteur.}
 
 \begin{Shaded}
 \begin{Highlighting}[]

@@ -461,7 +461,7 @@ Question bonus : que se passe t'il si vous n'indiquez pas la fonction `print()` 
 On peut également lancer une fonction de manière répétée appliquée :
 
   - à des colonnes ou des lignes de matrices (ou de data frame) avec la fonction `apply()`
-  - à des vecteurs ou des listes avec `lapply()` (qui retourne les résultats sous forme de liste) ou `sapply()` (qui retourne les résultats sous forme de matrice ou de vecteur)
+  - à des vecteurs ou des listes avec `lapply()` (qui retourne les résultats sous forme de liste) ou `sapply()` (qui retournent les résultats sous forme "simplifiée" de matrice ou de vecteur)
 
 **Exemple 1 :** La fonction `apply()` permet d'appliquer notre fonction de description des paramètres aux colonnes `"imc"` et `"pas"` de la la base `df_1` (Le résultat sera une matrice de réels) : 
 ```{r apply1, echo=TRUE}
