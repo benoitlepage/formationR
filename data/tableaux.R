@@ -28,7 +28,7 @@ std <- sd(df_1miss$imc, na.rm = TRUE)
 
 tab_imc <- data.frame(var = 
                       stat= paste0())
-
+# test
 
 
 # 1) library gt ---- 
