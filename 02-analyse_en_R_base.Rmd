@@ -333,7 +333,7 @@ nrow(df_1) # 300
 length(df_1$imc) # 300
 
 ### Pour compter les effectifs non-manquants, de manière explicite :
-length(df_1$imc[!is.na(df_1$imc)]) # 300
+length(which(!is.na(df_1miss$imc))) # 300
 
 ### moyennes
 mean(df_1$imc, na.rm = TRUE) # 24.481

@@ -1,6 +1,36 @@
 ### exemple pour créer des tableaux
 rm(list=ls())
 
+# Import des données
+df_1 <- read.csv2("data/df_1.csv")
+meta_df_1 <- read.csv2("data/meta_df_1.csv")
+
+# on va créer quelques données manquantes dans la base pour plus de réalisme :
+# pour chaque variable, 10% des valeurs sont remplacées au hasard par des manquants
+set.seed((6543))
+df_1miss <- df_1
+for (i in 2:ncol(df_1miss)) {
+  df_1miss[[i]] <- ifelse(rbinom(n = nrow(df_1miss), size = 1, prob = 0.10) == 1, NA, df_1miss[[i]])
+}
+summary(df_1miss)
+
+# On souhaite présenter sous forme de tableau mise en forme pour être inclus dans un rapport d'analyse : 
+# - 1 table descriptive univariée des 4 variables (sex, imc, traitement et PAS)
+# - 1 table bivariée comparant les distribution de sex, imc et PAS en fonction des groupes de traitement
+
+# 1) Création d'une base de données correspondant au tableau à présenter ----
+
+# Pour les variables quantitatives : n / n missing et mean (SD)
+N <- length(which(!is.na(df_1miss$imc)))
+N_miss <- length(which(is.na(df_1miss$imc)))
+moy <- mean(df_1miss$imc, na.rm = TRUE)
+std <- sd(df_1miss$imc, na.rm = TRUE)
+
+tab_imc <- data.frame(var = 
+                      stat= paste0())
+
+
+
 # 1) library gt ---- 
 ## voir https://gt.rstudio.com/index.html
 # puis, "Get started" pour avoir une vignette de présentation générale
