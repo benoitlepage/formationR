@@ -107,6 +107,21 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \usepackage{booktabs}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabularx}
+\usepackage{xltabular}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -3362,7 +3377,7 @@ Pensez à vérifier que vous n'avez pas fait d'erreur en créant cette variable.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/create_verif2-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/create_verif2-1.pdf}}
 
 Après avoir créé ces deux nouvelles variables, nous pouvons compléter la base de méta-données pour définir les noms de variables et de labels en clair. Pour cela, nous allons ajouter des lignes supplémentaires avec la fonction \texttt{rbind()} (\emph{row bind} pour ``fusion par rang''). \emph{A noter qu'il existe aussi une fonction \texttt{cbind()} qui permet de fusionner des bases ou des matrices par colonnes}
 
@@ -3970,7 +3985,7 @@ Note : On peut modifier les paramètres des graphiques avec la fonction \texttt{
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph1-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph1-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3978,7 +3993,7 @@ Note : On peut modifier les paramètres des graphiques avec la fonction \texttt{
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph1-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph1-2.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3991,7 +4006,7 @@ Note : On peut modifier les paramètres des graphiques avec la fonction \texttt{
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph1-3.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph1-3.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4001,7 +4016,7 @@ Note : On peut modifier les paramètres des graphiques avec la fonction \texttt{
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph1-4.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph1-4.pdf}}
 
 Les distributions des variables qualitatives peuvent être représentées par des diagrammes en barres \texttt{barplot()}.
 
@@ -4018,7 +4033,7 @@ Les distributions des variables qualitatives peuvent être représentées par de
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph2-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph2-1.pdf}}
 
 \subsection{Distributions bivariées}\label{distributions-bivariuxe9es}
 
@@ -4040,7 +4055,7 @@ Une bonne pratique est d'indiquer clairement le noms des axes, les titres et lé
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph3-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph3-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4052,7 +4067,7 @@ Une bonne pratique est d'indiquer clairement le noms des axes, les titres et lé
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph3-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph3-2.pdf}}
 
 Un nuage de points peut être utilisé pour représenter le croisement de deux variables quantitatives.
 
@@ -4143,7 +4158,7 @@ La fonction exemple permet d'avoir des exemples d'utilisation paramètres graphi
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph4-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph4-1.pdf}}
 Pour trouver des informations détaillées sur l'utilisation des fonction graphiques de R base, vous pouvez lire le \href{https://github.com/karoliskoncevicius/r_notes/blob/main/baseplotting.md}{tutoriel détaillé de Karolis Koncevičius}.
 
 \section{Analyses bivariées}\label{analyses-bivariuxe9es}
@@ -4481,7 +4496,7 @@ Pour vérifier la normalité de la distribution de la PAS par sexe, on peut trac
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/bivarie7-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/bivarie7-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4637,7 +4652,7 @@ Pour vérifier la condition de normalité, on va évaluer la normalité des rés
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/bivarie12-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/bivarie12-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4868,7 +4883,7 @@ Pour vérifier les conditions d'application, la méthode la plus classique est d
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/multi2-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/multi2-1.pdf}}
 
 De manière encore plus automatisée, la commande \texttt{plot(model)} permet d'obtenir une série de 4 graphiques de diagnostic post-estimation d'un modèle de régression linéaire (tapez la touche ``entrée'' 4 fois pour obtenir les graphiques) :
 
@@ -5481,7 +5496,7 @@ Comparer la PAS en fonction du traitement :
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/syntax14-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/syntax14-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5678,6 +5693,10 @@ Pour pouvoir utiliser les fonctions de ces packages, il faudra les charger avec 
 \end{verbatim}
 
 \begin{verbatim}
+## Warning: le package 'ggplot2' a été compilé avec la version R 4.5.3
+\end{verbatim}
+
+\begin{verbatim}
 ## Warning: le package 'tibble' a été compilé avec la version R 4.5.3
 \end{verbatim}
 
@@ -5705,7 +5724,7 @@ Pour pouvoir utiliser les fonctions de ces packages, il faudra les charger avec 
 ## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
 ## v dplyr     1.2.1     v readr     2.2.0
 ## v forcats   1.0.1     v stringr   1.6.0
-## v ggplot2   4.0.1     v tibble    3.3.1
+## v ggplot2   4.0.3     v tibble    3.3.1
 ## v lubridate 1.9.5     v tidyr     1.3.2
 ## v purrr     1.2.2     
 ## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
@@ -6736,7 +6755,7 @@ La fonction \texttt{walk()} fonctionne de la même manière que la fonction \tex
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy22_2-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy22_2-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7004,7 +7023,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 ## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7028,7 +7047,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-2.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7038,7 +7057,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-3.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-3.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7050,7 +7069,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-4.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-4.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7063,7 +7082,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-5.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-5.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7077,7 +7096,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-6.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-6.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7087,7 +7106,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-7.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-7.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7105,7 +7124,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-8.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-8.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7116,7 +7135,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-9.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-9.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7128,7 +7147,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-10.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-10.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7143,7 +7162,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-11.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-11.pdf}}
 
 \subsection{Distributions bivariées}\label{distributions-bivariuxe9es-1}
 
@@ -7174,7 +7193,7 @@ Pour représenter graphiquement des distributions bi- ou multivariées, on peut 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy25-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy25-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7186,7 +7205,7 @@ Pour représenter graphiquement des distributions bi- ou multivariées, on peut 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy25-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy25-2.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7197,7 +7216,7 @@ Pour représenter graphiquement des distributions bi- ou multivariées, on peut 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy25-3.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy25-3.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7207,7 +7226,7 @@ Pour représenter graphiquement des distributions bi- ou multivariées, on peut 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy25-4.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy25-4.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7222,7 +7241,7 @@ Pour représenter graphiquement des distributions bi- ou multivariées, on peut 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy25-5.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy25-5.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7242,7 +7261,7 @@ Pour représenter graphiquement des distributions bi- ou multivariées, on peut 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy25-6.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy25-6.pdf}}
 
 \section{Analyses bivariées}\label{analyses-bivariuxe9es-2}
 
@@ -7435,7 +7454,7 @@ Le test de Student, le test de Levene, le test des rangs de Wilcoxon se font ave
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy28-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy28-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7452,7 +7471,7 @@ Le test de Student, le test de Levene, le test des rangs de Wilcoxon se font ave
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy28-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy28-2.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7463,7 +7482,7 @@ Le test de Student, le test de Levene, le test des rangs de Wilcoxon se font ave
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy28-3.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy28-3.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7520,7 +7539,7 @@ On peut utiliser le pipe pour enchaîner les analyses nécessaires à une anova.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy29-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy29-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7675,7 +7694,7 @@ Les commandes sont les mêmes qu'en Rbase, voici un exemple avec une syntaxe en 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy32-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy32-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7696,7 +7715,7 @@ Les commandes sont les mêmes qu'en Rbase, voici un exemple avec une syntaxe en 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy32-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy32-2.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7707,7 +7726,7 @@ Les commandes sont les mêmes qu'en Rbase, voici un exemple avec une syntaxe en 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy32-3.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy32-3.pdf}}
 
 \chapter{\texorpdfstring{Package \texttt{data.table}}{Package data.table}}\label{package-data.table}
 
@@ -7716,6 +7735,392 @@ Le package \texttt{data.table} apporte un nouveau format de base de données (\t
 \chapter{Tableaux}\label{tableaux}
 
 Dans ce chapitre, nous présenterons quelques packages permettant d'obtenir des tables descriptives complètes, faciles à mettre en forme pour les intégrer dans un rapport d'analyse.
+
+\section{Base d'exemple pour une analyse uni- et bivariée}\label{base-dexemple-pour-une-analyse-uni--et-bivariuxe9e}
+
+Nous allons utiliser la base \texttt{df\_1} déjà utilisées au sein de laquelle nous allons créer quelques données manquantes pour corser les choses !
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list=}\FunctionTok{ls}\NormalTok{())}
+\DocumentationTok{\#\# Import des données}
+\NormalTok{df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv2}\NormalTok{(}\StringTok{"data/df\_1.csv"}\NormalTok{)}
+\NormalTok{meta\_df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv2}\NormalTok{(}\StringTok{"data/meta\_df\_1.csv"}\NormalTok{)}
+
+\CommentTok{\# pour chaque variable, 10\% des valeurs sont remplacées au hasard par des manquants}
+\FunctionTok{set.seed}\NormalTok{((}\DecValTok{6543}\NormalTok{))}
+\NormalTok{df\_1miss }\OtherTok{\textless{}{-}}\NormalTok{ df\_1}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(df\_1miss)) \{}
+\NormalTok{  df\_1miss[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{rbinom}\NormalTok{(}\AttributeTok{n =} \FunctionTok{nrow}\NormalTok{(df\_1miss), }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.10}\NormalTok{) }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, }
+                          \ConstantTok{NA}\NormalTok{, df\_1miss[[i]])}
+\NormalTok{\}}
+\FunctionTok{summary}\NormalTok{(df\_1miss)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      subjid            sex              imc            trait      
+##  Min.   :  1.00   Min.   :0.0000   Min.   :15.40   Min.   :1.000  
+##  1st Qu.: 75.75   1st Qu.:0.0000   1st Qu.:22.20   1st Qu.:1.000  
+##  Median :150.50   Median :1.0000   Median :24.50   Median :2.000  
+##  Mean   :150.50   Mean   :0.5054   Mean   :24.36   Mean   :1.906  
+##  3rd Qu.:225.25   3rd Qu.:1.0000   3rd Qu.:26.30   3rd Qu.:3.000  
+##  Max.   :300.00   Max.   :1.0000   Max.   :32.20   Max.   :3.000  
+##                   NA's   :23       NA's   :37      NA's   :33     
+##       pas       
+##  Min.   : 92.0  
+##  1st Qu.:125.0  
+##  Median :138.0  
+##  Mean   :137.2  
+##  3rd Qu.:149.0  
+##  Max.   :177.0  
+##  NA's   :33
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# on va créer des variables qualitatives au format factor pour le sexe et traitement}
+\NormalTok{df\_1miss}\SpecialCharTok{$}\NormalTok{sexL }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sex,}
+                        \AttributeTok{labels =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{labs[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sex"}\NormalTok{])}
+\NormalTok{df\_1miss}\SpecialCharTok{$}\NormalTok{traitL }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{trait,}
+                          \AttributeTok{labels =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{labs[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"trait"}\NormalTok{])}
+
+\DocumentationTok{\#\# pensez à vérifier que le recodage est correct}
+\CommentTok{\# table(df\_1miss$sexL, df\_1miss$sex)}
+\CommentTok{\# table(df\_1miss$traitL, df\_1miss$trait)}
+
+\CommentTok{\# mise à jour de la base de méta données}
+\NormalTok{meta\_df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(meta\_df\_1, }
+                   \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{var =} \StringTok{"sexL"}\NormalTok{, }
+                              \AttributeTok{label =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sex"}\NormalTok{],}
+                              \AttributeTok{id\_labs =} \FunctionTok{names}\NormalTok{(}\FunctionTok{table}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL))),}
+                              \AttributeTok{code\_labs =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{names}\NormalTok{(}\FunctionTok{table}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL)))),}
+                              \AttributeTok{labs =} \FunctionTok{levels}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL)))}
+\NormalTok{meta\_df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(meta\_df\_1, }
+                   \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{var =} \StringTok{"traitL"}\NormalTok{, }
+                              \AttributeTok{label =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"trait"}\NormalTok{],}
+                              \AttributeTok{id\_labs =} \FunctionTok{names}\NormalTok{(}\FunctionTok{table}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{traitL))),}
+                              \AttributeTok{code\_labs =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{names}\NormalTok{(}\FunctionTok{table}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{traitL)))),}
+                              \AttributeTok{labs =} \FunctionTok{levels}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{traitL)))}
+\end{Highlighting}
+\end{Shaded}
+
+L'objectif sera de faire une table descriptive univariée de l'IMC, de la PAS, du sexe et du traitement. Puis, on fera une table bivariée de l'IMC, de la PAS et du sexe en fonction des groupes de traitement.
+
+\section{\texorpdfstring{Package \texttt{table1}}{Package table1}}\label{package-table1}
+
+Le package \href{https://cran.r-project.org/web/packages/table1/vignettes/table1-examples.html}{\texttt{table1}} permet de mettre facilement en forme des tableaux de statistiques descriptives uni- ou bivariées que l'on peut ensuite copier-coller dans un rapport (ou directement l'intégrer dans un rapport écrit avec Rmarkdown ou Quarto).
+
+\subsection{Tables univariées}\label{tables-univariuxe9es}
+
+Une table univariée peut être obtenue avec une écriture au format \texttt{formula}, où les variables à décrire sont à gauche d'un signe \texttt{\textasciitilde{}} espacés de \texttt{+}. Voici un exmple ci-dessous
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(table1)}
+\DocumentationTok{\#\# Pour une analyse descriptive univariée}
+\FunctionTok{table1}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc }\SpecialCharTok{+}\NormalTok{ pas }\SpecialCharTok{+}\NormalTok{ traitL }\SpecialCharTok{+}\NormalTok{ sexL, }\AttributeTok{data =}\NormalTok{ df\_1miss)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}[t]{lc}
+\toprule
+\textbf{ } & \textbf{\makecell[c]{Overall\\(N=300)}}\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{2}{l}{\textbf{imc}}\\
+\hspace{1em}Mean (SD) & 24.4 (3.04)\\
+\hspace{1em}Median [Min, Max] & 24.5 [15.4, 32.2]\\
+\hspace{1em}Missing & 37 (12.3\%)\\
+\addlinespace[0.3em]
+\multicolumn{2}{l}{\textbf{pas}}\\
+\hspace{1em}Mean (SD) & 137 (16.9)\\
+\hspace{1em}Median [Min, Max] & 138 [92.0, 177]\\
+\hspace{1em}Missing & 33 \vphantom{1} (11.0\%)\\
+\addlinespace[0.3em]
+\multicolumn{2}{l}{\textbf{traitL}}\\
+\hspace{1em}Placebo & 104 (34.7\%)\\
+\hspace{1em}Traitement A & 84 (28.0\%)\\
+\hspace{1em}Traitement B & 79 (26.3\%)\\
+\hspace{1em}Missing & 33 (11.0\%)\\
+\addlinespace[0.3em]
+\multicolumn{2}{l}{\textbf{sexL}}\\
+\hspace{1em}Féminin & 137 (45.7\%)\\
+\hspace{1em}Masculin & 140 (46.7\%)\\
+\hspace{1em}Missing & 23 (7.7\%)\\
+\bottomrule
+\end{tabular}
+
+A noter que \textbf{par défaut, les données manquantes des variables catégorielles sont considérées comme une catégorie à part entière, et les pourcentages sont calculés en prenant en compte les manquants}. Par exemple pour le sexe, 45.7\% + 46.7\% + 7.7\% = 100\% en prenant en compte les 7.7\% de données manquantes.
+
+Généralement pour calculer les pourcentages, on préfèrera exclure les données manquantes.
+
+Le package \texttt{table1} permet d'ajouter un nom de variable plus explicite aux variables :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# la fonction label() permet d\textquotesingle{}ajouter un nom de variable sous forme d\textquotesingle{}attribut}
+\FunctionTok{label}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL) }\OtherTok{\textless{}{-}}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sexL"}\NormalTok{][}\DecValTok{1}\NormalTok{]}
+\FunctionTok{label}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{traitL) }\OtherTok{\textless{}{-}}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"traitL"}\NormalTok{][}\DecValTok{1}\NormalTok{]}
+\FunctionTok{label}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{imc) }\OtherTok{\textless{}{-}}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"imc"}\NormalTok{]}
+\FunctionTok{label}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{pas) }\OtherTok{\textless{}{-}}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"pas"}\NormalTok{]}
+
+\FunctionTok{attributes}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $levels
+## [1] "Féminin"  "Masculin"
+## 
+## $class
+## [1] "factor"
+## 
+## $label
+## [1] "Sexe"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{attributes}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{imc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $label
+## [1] "IMC (kg/m²)"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# si on relance la fonction, les noms de variables explicites sont visibles}
+\FunctionTok{table1}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc }\SpecialCharTok{+}\NormalTok{ pas }\SpecialCharTok{+}\NormalTok{ traitL }\SpecialCharTok{+}\NormalTok{ sexL, }\AttributeTok{data =}\NormalTok{ df\_1miss)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}[t]{lc}
+\toprule
+\textbf{ } & \textbf{\makecell[c]{Overall\\(N=300)}}\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{2}{l}{\textbf{IMC (kg/m²)}}\\
+\hspace{1em}Mean (SD) & 24.4 (3.04)\\
+\hspace{1em}Median [Min, Max] & 24.5 [15.4, 32.2]\\
+\hspace{1em}Missing & 37 (12.3\%)\\
+\addlinespace[0.3em]
+\multicolumn{2}{l}{\textbf{PAS (mmHg)}}\\
+\hspace{1em}Mean (SD) & 137 (16.9)\\
+\hspace{1em}Median [Min, Max] & 138 [92.0, 177]\\
+\hspace{1em}Missing & 33 \vphantom{1} (11.0\%)\\
+\addlinespace[0.3em]
+\multicolumn{2}{l}{\textbf{Traitement}}\\
+\hspace{1em}Placebo & 104 (34.7\%)\\
+\hspace{1em}Traitement A & 84 (28.0\%)\\
+\hspace{1em}Traitement B & 79 (26.3\%)\\
+\hspace{1em}Missing & 33 (11.0\%)\\
+\addlinespace[0.3em]
+\multicolumn{2}{l}{\textbf{Sexe}}\\
+\hspace{1em}Féminin & 137 (45.7\%)\\
+\hspace{1em}Masculin & 140 (46.7\%)\\
+\hspace{1em}Missing & 23 (7.7\%)\\
+\bottomrule
+\end{tabular}
+
+Il est possible de choisir plus spécifiquement quels paramètres afficher. Pour plus d'information sur les paramètres de distributions disponibles avec \texttt{table1}, vous pouvez chercher dans l'aide \texttt{?stats.default}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# par défaut, les variables continues sont présentées avec cet argument}
+\NormalTok{render.continuous.default}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## function (x, ...) 
+## {
+##     with(stats.apply.rounding(stats.default(x, ...), ...), c("", 
+##         `Mean (SD)` = sprintf("%s (%s)", MEAN, SD), `Median [Min, Max]` = sprintf("%s [%s, %s]", 
+##             MEDIAN, MIN, MAX)))
+## }
+## <bytecode: 0x000001b9c7e705b0>
+## <environment: namespace:table1>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# les variables catégorielles sont présentése avec cet argument}
+\NormalTok{render.categorical.default}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## function (x, ..., na.is.category = TRUE) 
+## {
+##     c("", sapply(stats.apply.rounding(stats.default(x, ...), 
+##         ...), function(y) with(y, sprintf("%s (%s%%)", FREQ, 
+##         if (na.is.category) PCT else PCTnoNA))))
+## }
+## <bytecode: 0x000001b9c7e6f270>
+## <environment: namespace:table1>
+\end{verbatim}
+
+On peut créer de nouvelles fonctions de rendu en prenant ces deux fonctions pour modèle.
+Ci-dessous, on va créer une fonction de rendu pour les variables quantitatives qui ne donne que la moyenne et la déviation standard entre parenthèses.
+
+Puis, on va créer une fonction de rendu pour les variables catégorielles qui calcule les pourcentages en excluant les données manquantes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# fonction pour afficher uniquement la moyenne +/{-} écart type pour les variables}
+\CommentTok{\# quantitatives}
+\NormalTok{render\_var\_quanti }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{   }
+  \FunctionTok{with}\NormalTok{(}\FunctionTok{stats.default}\NormalTok{(x), }
+       \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }
+         \StringTok{\textasciigrave{}}\AttributeTok{Mean (SD)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{sprintf}\NormalTok{(}\StringTok{"\%0.1f (\%0.1f)"}\NormalTok{, MEAN, SD)))}
+\NormalTok{\}}
+
+\CommentTok{\# fonction pour exclure les données manquantes pour le calcul des pourcentages}
+\NormalTok{render\_var\_quali }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (x, ..., }\AttributeTok{na.is.category =} \ConstantTok{FALSE}\NormalTok{) \{ }\CommentTok{\# FALSE remplace TRUE}
+    \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{,}
+      \FunctionTok{sapply}\NormalTok{(}\FunctionTok{stats.apply.rounding}\NormalTok{(}\FunctionTok{stats.default}\NormalTok{(x, ...), ...),}
+             \ControlFlowTok{function}\NormalTok{(y) }\FunctionTok{with}\NormalTok{(y, }\FunctionTok{sprintf}\NormalTok{(}\StringTok{"\%s (\%s\%\%)"}\NormalTok{, FREQ,}
+                                         \ControlFlowTok{if}\NormalTok{ (na.is.category) PCT }\ControlFlowTok{else}\NormalTok{ PCTnoNA)))) }
+\NormalTok{\}}
+
+\DocumentationTok{\#\# on applique ensuite ces deux fonctions de rendus dans la fonction table1}
+\FunctionTok{table1}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc }\SpecialCharTok{+}\NormalTok{ pas }\SpecialCharTok{+}\NormalTok{ traitL }\SpecialCharTok{+}\NormalTok{ sexL, }
+       \AttributeTok{data =}\NormalTok{ df\_1miss, }
+       \AttributeTok{render.continuous =}\NormalTok{ render\_var\_quanti, }
+       \AttributeTok{render.categorical =}\NormalTok{ render\_var\_quali)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}[t]{lc}
+\toprule
+\textbf{ } & \textbf{\makecell[c]{Overall\\(N=300)}}\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{2}{l}{\textbf{IMC (kg/m²)}}\\
+\hspace{1em}Mean (SD) & 24.4 (3.0)\\
+\hspace{1em}Missing & 37 (12.3\%)\\
+\addlinespace[0.3em]
+\multicolumn{2}{l}{\textbf{PAS (mmHg)}}\\
+\hspace{1em}Mean (SD) & 137.2 (16.9)\\
+\hspace{1em}Missing & 33 \vphantom{1} (11.0\%)\\
+\addlinespace[0.3em]
+\multicolumn{2}{l}{\textbf{Traitement}}\\
+\hspace{1em}Placebo & 104 (39.0\%)\\
+\hspace{1em}Traitement A & 84 (31.5\%)\\
+\hspace{1em}Traitement B & 79 (29.6\%)\\
+\hspace{1em}Missing & 33 (11.0\%)\\
+\addlinespace[0.3em]
+\multicolumn{2}{l}{\textbf{Sexe}}\\
+\hspace{1em}Féminin & 137 (49.5\%)\\
+\hspace{1em}Masculin & 140 (50.5\%)\\
+\hspace{1em}Missing & 23 (7.7\%)\\
+\bottomrule
+\end{tabular}
+
+A présent, on voit que pour le sexe, la somme 49.5\% + 50.5\% = 100\%, la catégorie des manquants n'est pas prise en compte pour le calcul des pourcentages.
+
+\subsection{Tables bivariées}\label{tables-bivariuxe9es}
+
+Pour obtenir une table bivariée, on ajoute une barre verticale suivie d'une variable de format \texttt{factor}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Exemple de formule pour une table bivariée en fonction de traitL}
+\FunctionTok{table1}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc }\SpecialCharTok{+}\NormalTok{ pas }\SpecialCharTok{+}\NormalTok{ sexL }\SpecialCharTok{|}\NormalTok{ traitL, }\AttributeTok{data =}\NormalTok{ df\_1miss)}
+\CommentTok{\# mais cet exemple ne fonctionne pas car la variable de stratification }
+\CommentTok{\# ne doit pas contenir de données manquante +++}
+
+\DocumentationTok{\#\# Il faut donc exclure les lignes avec un traitement manquant dans la base}
+\FunctionTok{table1}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc }\SpecialCharTok{+}\NormalTok{ pas }\SpecialCharTok{+}\NormalTok{ sexL }\SpecialCharTok{|}\NormalTok{ traitL, }
+       \AttributeTok{data =} \FunctionTok{subset}\NormalTok{(df\_1miss, }\AttributeTok{subset =} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(traitL))) }
+\CommentTok{\# la fonction subset a effacé les attributs "level" des noms de variables}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Pour ne pas supprimer les attibuts de variables, il vaut mieux utiliser}
+\DocumentationTok{\#\# la fonction filter du tidyverse (qui conserve les attributs)}
+\FunctionTok{table1}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc }\SpecialCharTok{+}\NormalTok{ pas }\SpecialCharTok{+}\NormalTok{ sexL }\SpecialCharTok{|}\NormalTok{ traitL, }
+       \AttributeTok{data =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(df\_1miss, }\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(traitL))) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}[t]{lcccc}
+\toprule
+\textbf{ } & \textbf{\makecell[c]{Placebo\\(N=104)}} & \textbf{\makecell[c]{Traitement A\\(N=84)}} & \textbf{\makecell[c]{Traitement B\\(N=79)}} & \textbf{\makecell[c]{Overall\\(N=267)}}\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{5}{l}{\textbf{IMC (kg/m²)}}\\
+\hspace{1em}Mean (SD) & 24.4 (2.84) & 24.7 (3.03) & 24.2 (3.53) & 24.4 (3.12)\\
+\hspace{1em}Median [Min, Max] & 24.5 [17.0, 31.2] & 24.8 [15.4, 30.3] & 24.1 [16.1, 32.2] & 24.6 [15.4, 32.2]\\
+\hspace{1em}Missing & 11 (10.6\%) & 11 (13.1\%) & 9 (11.4\%) & 31 (11.6\%)\\
+\addlinespace[0.3em]
+\multicolumn{5}{l}{\textbf{PAS (mmHg)}}\\
+\hspace{1em}Mean (SD) & 143 (15.8) & 130 (16.2) & 137 (17.0) & 137 (17.1)\\
+\hspace{1em}Median [Min, Max] & 142 [105, 177] & 130 [92.0, 161] & 138 [103, 177] & 138 [92.0, 177]\\
+\hspace{1em}Missing & 17 (16.3\%) & 9 (10.7\%) & 7 (8.9\%) & 33 (12.4\%)\\
+\addlinespace[0.3em]
+\multicolumn{5}{l}{\textbf{Sexe}}\\
+\hspace{1em}Féminin & 40 (38.5\%) & 40 (47.6\%) & 37 (46.8\%) & 117 (43.8\%)\\
+\hspace{1em}Masculin & 58 (55.8\%) & 40 (47.6\%) & 30 (38.0\%) & 128 (47.9\%)\\
+\hspace{1em}Missing & 6 (5.8\%) & 4 (4.8\%) & 12 (15.2\%) & 22 (8.2\%)\\
+\bottomrule
+\end{tabular}
+
+Comme pour l'analyse univariée, on peut choisir de n'afficher que la moyenne et l'écart type pour les variables quantitatives et calculer les pourcentages en excluant les manquants pour les variables qualitatives.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table1}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ imc }\SpecialCharTok{+}\NormalTok{ pas }\SpecialCharTok{+}\NormalTok{ sexL }\SpecialCharTok{|}\NormalTok{ traitL, }
+       \AttributeTok{data =}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(df\_1miss, }\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(traitL)),}
+       \AttributeTok{render.continuous =}\NormalTok{ render\_var\_quanti, }
+       \AttributeTok{render.categorical =}\NormalTok{ render\_var\_quali) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}[t]{lcccc}
+\toprule
+\textbf{ } & \textbf{\makecell[c]{Placebo\\(N=104)}} & \textbf{\makecell[c]{Traitement A\\(N=84)}} & \textbf{\makecell[c]{Traitement B\\(N=79)}} & \textbf{\makecell[c]{Overall\\(N=267)}}\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{5}{l}{\textbf{IMC (kg/m²)}}\\
+\hspace{1em}Mean (SD) & 24.4 (2.8) & 24.7 (3.0) & 24.2 (3.5) & 24.4 (3.1)\\
+\hspace{1em}Missing & 11 (10.6\%) & 11 (13.1\%) & 9 (11.4\%) & 31 (11.6\%)\\
+\addlinespace[0.3em]
+\multicolumn{5}{l}{\textbf{PAS (mmHg)}}\\
+\hspace{1em}Mean (SD) & 143.1 (15.8) & 130.5 (16.2) & 137.2 (17.0) & 137.2 (17.1)\\
+\hspace{1em}Missing & 17 (16.3\%) & 9 (10.7\%) & 7 (8.9\%) & 33 (12.4\%)\\
+\addlinespace[0.3em]
+\multicolumn{5}{l}{\textbf{Sexe}}\\
+\hspace{1em}Féminin & 40 (40.8\%) & 40 (50.0\%) & 37 (55.2\%) & 117 (47.8\%)\\
+\hspace{1em}Masculin & 58 (59.2\%) & 40 (50.0\%) & 30 (44.8\%) & 128 (52.2\%)\\
+\hspace{1em}Missing & 6 (5.8\%) & 4 (4.8\%) & 12 (15.2\%) & 22 (8.2\%)\\
+\bottomrule
+\end{tabular}
+
+Une des limites du package \texttt{table1} est qu'il ne permet pas d'afficher une colonne de p-values pour donner les résultats de tests de comparaison bivariés.
+
+\chapter{Méthodes plus flexibles}\label{muxe9thodes-plus-flexibles}
+
+Le package \texttt{table1} permet d'obtenir des tables uni- et bivariées très faciement, mais il ne donne pas beaucoup de possibilité pour adatper la table à sa guise.
+
+Pour obtenir des tables avec une plus grande liberté de présentation, on peut créer un tableau (\texttt{data.frame}) contenant exactement les résultats que l'on veut présenter.
+
+Par exemple, on va chercher à obtenir une mise en forme comme celle de la figure ci-dessous :
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{./images/format_tableaux} 
+
+}
+
+\caption{Formats souhaités}\label{fig:figtableaux}
+\end{figure}
 
 gt
 gtsummary (basé sur gt)

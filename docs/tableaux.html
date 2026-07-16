@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="package-data.html"/>
-<link rel="next" href="reporting.html"/>
+<link rel="next" href="méthodes-plus-flexibles.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -52,6 +52,7 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/table1-1.0/table1_defaults.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -293,8 +294,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.11" data-path="tidyverse.html"><a href="tidyverse.html#analyse-multivari%C3%A9e-2"><i class="fa fa-check"></i><b>5.11</b> Analyse multivariée</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="package-data.html"><a href="package-data.html"><i class="fa fa-check"></i><b>6</b> Package <code>data.table</code></a></li>
-<li class="chapter" data-level="7" data-path="tableaux.html"><a href="tableaux.html"><i class="fa fa-check"></i><b>7</b> Tableaux</a></li>
-<li class="chapter" data-level="8" data-path="reporting.html"><a href="reporting.html"><i class="fa fa-check"></i><b>8</b> Reporting</a></li>
+<li class="chapter" data-level="7" data-path="tableaux.html"><a href="tableaux.html"><i class="fa fa-check"></i><b>7</b> Tableaux</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="tableaux.html"><a href="tableaux.html#base-dexemple-pour-une-analyse-uni--et-bivari%C3%A9e"><i class="fa fa-check"></i><b>7.1</b> Base d’exemple pour une analyse uni- et bivariée</a></li>
+<li class="chapter" data-level="7.2" data-path="tableaux.html"><a href="tableaux.html#package-table1"><i class="fa fa-check"></i><b>7.2</b> Package <code>table1</code></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="tableaux.html"><a href="tableaux.html#tables-univari%C3%A9es"><i class="fa fa-check"></i><b>7.2.1</b> Tables univariées</a></li>
+<li class="chapter" data-level="7.2.2" data-path="tableaux.html"><a href="tableaux.html#tables-bivari%C3%A9es"><i class="fa fa-check"></i><b>7.2.2</b> Tables bivariées</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="méthodes-plus-flexibles.html"><a href="méthodes-plus-flexibles.html"><i class="fa fa-check"></i><b>8</b> Méthodes plus flexibles</a></li>
+<li class="chapter" data-level="9" data-path="reporting.html"><a href="reporting.html"><i class="fa fa-check"></i><b>9</b> Reporting</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -318,13 +328,577 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="tableaux" class="section level1 hasAnchor" number="7">
 <h1><span class="header-section-number">Chapter 7</span> Tableaux<a href="tableaux.html#tableaux" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Dans ce chapitre, nous présenterons quelques packages permettant d’obtenir des tables descriptives complètes, faciles à mettre en forme pour les intégrer dans un rapport d’analyse.</p>
-<p>gt
-gtsummary (basé sur gt)
-table1</p>
-<p>pour présenter un data.frame sous forme de table publiable
-flextable
-tinytable</p>
-
+<div id="base-dexemple-pour-une-analyse-uni--et-bivariée" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Base d’exemple pour une analyse uni- et bivariée<a href="tableaux.html#base-dexemple-pour-une-analyse-uni--et-bivari%C3%A9e" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Nous allons utiliser la base <code>df_1</code> déjà utilisées au sein de laquelle nous allons créer quelques données manquantes pour corser les choses !</p>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="tableaux.html#cb425-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb425-2"><a href="tableaux.html#cb425-2" tabindex="-1"></a><span class="do">## Import des données</span></span>
+<span id="cb425-3"><a href="tableaux.html#cb425-3" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/df_1.csv&quot;</span>)</span>
+<span id="cb425-4"><a href="tableaux.html#cb425-4" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/meta_df_1.csv&quot;</span>)</span>
+<span id="cb425-5"><a href="tableaux.html#cb425-5" tabindex="-1"></a></span>
+<span id="cb425-6"><a href="tableaux.html#cb425-6" tabindex="-1"></a><span class="co"># pour chaque variable, 10% des valeurs sont remplacées au hasard par des manquants</span></span>
+<span id="cb425-7"><a href="tableaux.html#cb425-7" tabindex="-1"></a><span class="fu">set.seed</span>((<span class="dv">6543</span>))</span>
+<span id="cb425-8"><a href="tableaux.html#cb425-8" tabindex="-1"></a>df_1miss <span class="ot">&lt;-</span> df_1</span>
+<span id="cb425-9"><a href="tableaux.html#cb425-9" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(df_1miss)) {</span>
+<span id="cb425-10"><a href="tableaux.html#cb425-10" tabindex="-1"></a>  df_1miss[[i]] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">rbinom</span>(<span class="at">n =</span> <span class="fu">nrow</span>(df_1miss), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.10</span>) <span class="sc">==</span> <span class="dv">1</span>, </span>
+<span id="cb425-11"><a href="tableaux.html#cb425-11" tabindex="-1"></a>                          <span class="cn">NA</span>, df_1miss[[i]])</span>
+<span id="cb425-12"><a href="tableaux.html#cb425-12" tabindex="-1"></a>}</span>
+<span id="cb425-13"><a href="tableaux.html#cb425-13" tabindex="-1"></a><span class="fu">summary</span>(df_1miss)</span></code></pre></div>
+<pre><code>##      subjid            sex              imc            trait      
+##  Min.   :  1.00   Min.   :0.0000   Min.   :15.40   Min.   :1.000  
+##  1st Qu.: 75.75   1st Qu.:0.0000   1st Qu.:22.20   1st Qu.:1.000  
+##  Median :150.50   Median :1.0000   Median :24.50   Median :2.000  
+##  Mean   :150.50   Mean   :0.5054   Mean   :24.36   Mean   :1.906  
+##  3rd Qu.:225.25   3rd Qu.:1.0000   3rd Qu.:26.30   3rd Qu.:3.000  
+##  Max.   :300.00   Max.   :1.0000   Max.   :32.20   Max.   :3.000  
+##                   NA&#39;s   :23       NA&#39;s   :37      NA&#39;s   :33     
+##       pas       
+##  Min.   : 92.0  
+##  1st Qu.:125.0  
+##  Median :138.0  
+##  Mean   :137.2  
+##  3rd Qu.:149.0  
+##  Max.   :177.0  
+##  NA&#39;s   :33</code></pre>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="tableaux.html#cb427-1" tabindex="-1"></a><span class="co"># on va créer des variables qualitatives au format factor pour le sexe et traitement</span></span>
+<span id="cb427-2"><a href="tableaux.html#cb427-2" tabindex="-1"></a>df_1miss<span class="sc">$</span>sexL <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_1miss<span class="sc">$</span>sex,</span>
+<span id="cb427-3"><a href="tableaux.html#cb427-3" tabindex="-1"></a>                        <span class="at">labels =</span> meta_df_1<span class="sc">$</span>labs[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;sex&quot;</span>])</span>
+<span id="cb427-4"><a href="tableaux.html#cb427-4" tabindex="-1"></a>df_1miss<span class="sc">$</span>traitL <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_1miss<span class="sc">$</span>trait,</span>
+<span id="cb427-5"><a href="tableaux.html#cb427-5" tabindex="-1"></a>                          <span class="at">labels =</span> meta_df_1<span class="sc">$</span>labs[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;trait&quot;</span>])</span>
+<span id="cb427-6"><a href="tableaux.html#cb427-6" tabindex="-1"></a></span>
+<span id="cb427-7"><a href="tableaux.html#cb427-7" tabindex="-1"></a><span class="do">## pensez à vérifier que le recodage est correct</span></span>
+<span id="cb427-8"><a href="tableaux.html#cb427-8" tabindex="-1"></a><span class="co"># table(df_1miss$sexL, df_1miss$sex)</span></span>
+<span id="cb427-9"><a href="tableaux.html#cb427-9" tabindex="-1"></a><span class="co"># table(df_1miss$traitL, df_1miss$trait)</span></span>
+<span id="cb427-10"><a href="tableaux.html#cb427-10" tabindex="-1"></a></span>
+<span id="cb427-11"><a href="tableaux.html#cb427-11" tabindex="-1"></a><span class="co"># mise à jour de la base de méta données</span></span>
+<span id="cb427-12"><a href="tableaux.html#cb427-12" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(meta_df_1, </span>
+<span id="cb427-13"><a href="tableaux.html#cb427-13" tabindex="-1"></a>                   <span class="fu">data.frame</span>(<span class="at">var =</span> <span class="st">&quot;sexL&quot;</span>, </span>
+<span id="cb427-14"><a href="tableaux.html#cb427-14" tabindex="-1"></a>                              <span class="at">label =</span> meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;sex&quot;</span>],</span>
+<span id="cb427-15"><a href="tableaux.html#cb427-15" tabindex="-1"></a>                              <span class="at">id_labs =</span> <span class="fu">names</span>(<span class="fu">table</span>(<span class="fu">as.numeric</span>(df_1miss<span class="sc">$</span>sexL))),</span>
+<span id="cb427-16"><a href="tableaux.html#cb427-16" tabindex="-1"></a>                              <span class="at">code_labs =</span> <span class="fu">as.numeric</span>(<span class="fu">names</span>(<span class="fu">table</span>(<span class="fu">as.numeric</span>(df_1miss<span class="sc">$</span>sexL)))),</span>
+<span id="cb427-17"><a href="tableaux.html#cb427-17" tabindex="-1"></a>                              <span class="at">labs =</span> <span class="fu">levels</span>(df_1miss<span class="sc">$</span>sexL)))</span>
+<span id="cb427-18"><a href="tableaux.html#cb427-18" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(meta_df_1, </span>
+<span id="cb427-19"><a href="tableaux.html#cb427-19" tabindex="-1"></a>                   <span class="fu">data.frame</span>(<span class="at">var =</span> <span class="st">&quot;traitL&quot;</span>, </span>
+<span id="cb427-20"><a href="tableaux.html#cb427-20" tabindex="-1"></a>                              <span class="at">label =</span> meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;trait&quot;</span>],</span>
+<span id="cb427-21"><a href="tableaux.html#cb427-21" tabindex="-1"></a>                              <span class="at">id_labs =</span> <span class="fu">names</span>(<span class="fu">table</span>(<span class="fu">as.numeric</span>(df_1miss<span class="sc">$</span>traitL))),</span>
+<span id="cb427-22"><a href="tableaux.html#cb427-22" tabindex="-1"></a>                              <span class="at">code_labs =</span> <span class="fu">as.numeric</span>(<span class="fu">names</span>(<span class="fu">table</span>(<span class="fu">as.numeric</span>(df_1miss<span class="sc">$</span>traitL)))),</span>
+<span id="cb427-23"><a href="tableaux.html#cb427-23" tabindex="-1"></a>                              <span class="at">labs =</span> <span class="fu">levels</span>(df_1miss<span class="sc">$</span>traitL)))</span></code></pre></div>
+<p>L’objectif sera de faire une table descriptive univariée de l’IMC, de la PAS, du sexe et du traitement. Puis, on fera une table bivariée de l’IMC, de la PAS et du sexe en fonction des groupes de traitement.</p>
+</div>
+<div id="package-table1" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Package <code>table1</code><a href="tableaux.html#package-table1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Le package <a href="https://cran.r-project.org/web/packages/table1/vignettes/table1-examples.html"><code>table1</code></a> permet de mettre facilement en forme des tableaux de statistiques descriptives uni- ou bivariées que l’on peut ensuite copier-coller dans un rapport (ou directement l’intégrer dans un rapport écrit avec Rmarkdown ou Quarto).</p>
+<div id="tables-univariées" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Tables univariées<a href="tableaux.html#tables-univari%C3%A9es" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Une table univariée peut être obtenue avec une écriture au format <code>formula</code>, où les variables à décrire sont à gauche d’un signe <code>~</code> espacés de <code>+</code>. Voici un exmple ci-dessous</p>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="tableaux.html#cb428-1" tabindex="-1"></a><span class="fu">library</span>(table1)</span>
+<span id="cb428-2"><a href="tableaux.html#cb428-2" tabindex="-1"></a><span class="do">## Pour une analyse descriptive univariée</span></span>
+<span id="cb428-3"><a href="tableaux.html#cb428-3" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> imc <span class="sc">+</span> pas <span class="sc">+</span> traitL <span class="sc">+</span> sexL, <span class="at">data =</span> df_1miss)</span></code></pre></div>
+<div class="Rtable1"><table class="Rtable1">
+<thead>
+<tr>
+<th class='rowlabel firstrow lastrow'></th>
+<th class='firstrow lastrow'><span class='stratlabel'>Overall<br/><span class='stratn'>(N=300)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>imc</span></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>24.4 (3.04)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Median [Min, Max]</td>
+<td>24.5 [15.4, 32.2]</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>37 (12.3%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>pas</span></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>137 (16.9)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Median [Min, Max]</td>
+<td>138 [92.0, 177]</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>33 (11.0%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>traitL</span></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Placebo</td>
+<td>104 (34.7%)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Traitement A</td>
+<td>84 (28.0%)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Traitement B</td>
+<td>79 (26.3%)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>33 (11.0%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>sexL</span></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Féminin</td>
+<td>137 (45.7%)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Masculin</td>
+<td>140 (46.7%)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>23 (7.7%)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A noter que <strong>par défaut, les données manquantes des variables catégorielles sont considérées comme une catégorie à part entière, et les pourcentages sont calculés en prenant en compte les manquants</strong>. Par exemple pour le sexe, 45.7% + 46.7% + 7.7% = 100% en prenant en compte les 7.7% de données manquantes.</p>
+<p>Généralement pour calculer les pourcentages, on préfèrera exclure les données manquantes.</p>
+<p>Le package <code>table1</code> permet d’ajouter un nom de variable plus explicite aux variables :</p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="tableaux.html#cb429-1" tabindex="-1"></a><span class="do">## la fonction label() permet d&#39;ajouter un nom de variable sous forme d&#39;attribut</span></span>
+<span id="cb429-2"><a href="tableaux.html#cb429-2" tabindex="-1"></a><span class="fu">label</span>(df_1miss<span class="sc">$</span>sexL) <span class="ot">&lt;-</span> meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;sexL&quot;</span>][<span class="dv">1</span>]</span>
+<span id="cb429-3"><a href="tableaux.html#cb429-3" tabindex="-1"></a><span class="fu">label</span>(df_1miss<span class="sc">$</span>traitL) <span class="ot">&lt;-</span> meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;traitL&quot;</span>][<span class="dv">1</span>]</span>
+<span id="cb429-4"><a href="tableaux.html#cb429-4" tabindex="-1"></a><span class="fu">label</span>(df_1miss<span class="sc">$</span>imc) <span class="ot">&lt;-</span> meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;imc&quot;</span>]</span>
+<span id="cb429-5"><a href="tableaux.html#cb429-5" tabindex="-1"></a><span class="fu">label</span>(df_1miss<span class="sc">$</span>pas) <span class="ot">&lt;-</span> meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;pas&quot;</span>]</span>
+<span id="cb429-6"><a href="tableaux.html#cb429-6" tabindex="-1"></a></span>
+<span id="cb429-7"><a href="tableaux.html#cb429-7" tabindex="-1"></a><span class="fu">attributes</span>(df_1miss<span class="sc">$</span>sexL)</span></code></pre></div>
+<pre><code>## $levels
+## [1] &quot;Féminin&quot;  &quot;Masculin&quot;
+## 
+## $class
+## [1] &quot;factor&quot;
+## 
+## $label
+## [1] &quot;Sexe&quot;</code></pre>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="tableaux.html#cb431-1" tabindex="-1"></a><span class="fu">attributes</span>(df_1miss<span class="sc">$</span>imc)</span></code></pre></div>
+<pre><code>## $label
+## [1] &quot;IMC (kg/m²)&quot;</code></pre>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="tableaux.html#cb433-1" tabindex="-1"></a><span class="do">## si on relance la fonction, les noms de variables explicites sont visibles</span></span>
+<span id="cb433-2"><a href="tableaux.html#cb433-2" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> imc <span class="sc">+</span> pas <span class="sc">+</span> traitL <span class="sc">+</span> sexL, <span class="at">data =</span> df_1miss)</span></code></pre></div>
+<div class="Rtable1"><table class="Rtable1">
+<thead>
+<tr>
+<th class='rowlabel firstrow lastrow'></th>
+<th class='firstrow lastrow'><span class='stratlabel'>Overall<br/><span class='stratn'>(N=300)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>IMC (kg/m²)</span></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>24.4 (3.04)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Median [Min, Max]</td>
+<td>24.5 [15.4, 32.2]</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>37 (12.3%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>PAS (mmHg)</span></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>137 (16.9)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Median [Min, Max]</td>
+<td>138 [92.0, 177]</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>33 (11.0%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>Traitement</span></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Placebo</td>
+<td>104 (34.7%)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Traitement A</td>
+<td>84 (28.0%)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Traitement B</td>
+<td>79 (26.3%)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>33 (11.0%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>Sexe</span></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Féminin</td>
+<td>137 (45.7%)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Masculin</td>
+<td>140 (46.7%)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>23 (7.7%)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Il est possible de choisir plus spécifiquement quels paramètres afficher. Pour plus d’information sur les paramètres de distributions disponibles avec <code>table1</code>, vous pouvez chercher dans l’aide <code>?stats.default</code>.</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="tableaux.html#cb434-1" tabindex="-1"></a><span class="co"># par défaut, les variables continues sont présentées avec cet argument</span></span>
+<span id="cb434-2"><a href="tableaux.html#cb434-2" tabindex="-1"></a>render.continuous.default</span></code></pre></div>
+<pre><code>## function (x, ...) 
+## {
+##     with(stats.apply.rounding(stats.default(x, ...), ...), c(&quot;&quot;, 
+##         `Mean (SD)` = sprintf(&quot;%s (%s)&quot;, MEAN, SD), `Median [Min, Max]` = sprintf(&quot;%s [%s, %s]&quot;, 
+##             MEDIAN, MIN, MAX)))
+## }
+## &lt;bytecode: 0x0000020b5c51bab8&gt;
+## &lt;environment: namespace:table1&gt;</code></pre>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="tableaux.html#cb436-1" tabindex="-1"></a><span class="co"># les variables catégorielles sont présentése avec cet argument</span></span>
+<span id="cb436-2"><a href="tableaux.html#cb436-2" tabindex="-1"></a>render.categorical.default</span></code></pre></div>
+<pre><code>## function (x, ..., na.is.category = TRUE) 
+## {
+##     c(&quot;&quot;, sapply(stats.apply.rounding(stats.default(x, ...), 
+##         ...), function(y) with(y, sprintf(&quot;%s (%s%%)&quot;, FREQ, 
+##         if (na.is.category) PCT else PCTnoNA))))
+## }
+## &lt;bytecode: 0x0000020b5c50c158&gt;
+## &lt;environment: namespace:table1&gt;</code></pre>
+<p>On peut créer de nouvelles fonctions de rendu en prenant ces deux fonctions pour modèle.
+Ci-dessous, on va créer une fonction de rendu pour les variables quantitatives qui ne donne que la moyenne et la déviation standard entre parenthèses.</p>
+<p>Puis, on va créer une fonction de rendu pour les variables catégorielles qui calcule les pourcentages en excluant les données manquantes.</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="tableaux.html#cb438-1" tabindex="-1"></a><span class="co"># fonction pour afficher uniquement la moyenne +/- écart type pour les variables</span></span>
+<span id="cb438-2"><a href="tableaux.html#cb438-2" tabindex="-1"></a><span class="co"># quantitatives</span></span>
+<span id="cb438-3"><a href="tableaux.html#cb438-3" tabindex="-1"></a>render_var_quanti <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {   </span>
+<span id="cb438-4"><a href="tableaux.html#cb438-4" tabindex="-1"></a>  <span class="fu">with</span>(<span class="fu">stats.default</span>(x), </span>
+<span id="cb438-5"><a href="tableaux.html#cb438-5" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, </span>
+<span id="cb438-6"><a href="tableaux.html#cb438-6" tabindex="-1"></a>         <span class="st">`</span><span class="at">Mean (SD)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">&quot;%0.1f (%0.1f)&quot;</span>, MEAN, SD)))</span>
+<span id="cb438-7"><a href="tableaux.html#cb438-7" tabindex="-1"></a>}</span>
+<span id="cb438-8"><a href="tableaux.html#cb438-8" tabindex="-1"></a></span>
+<span id="cb438-9"><a href="tableaux.html#cb438-9" tabindex="-1"></a><span class="co"># fonction pour exclure les données manquantes pour le calcul des pourcentages</span></span>
+<span id="cb438-10"><a href="tableaux.html#cb438-10" tabindex="-1"></a>render_var_quali <span class="ot">&lt;-</span> <span class="cf">function</span> (x, ..., <span class="at">na.is.category =</span> <span class="cn">FALSE</span>) { <span class="co"># FALSE remplace TRUE</span></span>
+<span id="cb438-11"><a href="tableaux.html#cb438-11" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">&quot;&quot;</span>,</span>
+<span id="cb438-12"><a href="tableaux.html#cb438-12" tabindex="-1"></a>      <span class="fu">sapply</span>(<span class="fu">stats.apply.rounding</span>(<span class="fu">stats.default</span>(x, ...), ...),</span>
+<span id="cb438-13"><a href="tableaux.html#cb438-13" tabindex="-1"></a>             <span class="cf">function</span>(y) <span class="fu">with</span>(y, <span class="fu">sprintf</span>(<span class="st">&quot;%s (%s%%)&quot;</span>, FREQ,</span>
+<span id="cb438-14"><a href="tableaux.html#cb438-14" tabindex="-1"></a>                                         <span class="cf">if</span> (na.is.category) PCT <span class="cf">else</span> PCTnoNA)))) </span>
+<span id="cb438-15"><a href="tableaux.html#cb438-15" tabindex="-1"></a>}</span>
+<span id="cb438-16"><a href="tableaux.html#cb438-16" tabindex="-1"></a></span>
+<span id="cb438-17"><a href="tableaux.html#cb438-17" tabindex="-1"></a><span class="do">## on applique ensuite ces deux fonctions de rendus dans la fonction table1</span></span>
+<span id="cb438-18"><a href="tableaux.html#cb438-18" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> imc <span class="sc">+</span> pas <span class="sc">+</span> traitL <span class="sc">+</span> sexL, </span>
+<span id="cb438-19"><a href="tableaux.html#cb438-19" tabindex="-1"></a>       <span class="at">data =</span> df_1miss, </span>
+<span id="cb438-20"><a href="tableaux.html#cb438-20" tabindex="-1"></a>       <span class="at">render.continuous =</span> render_var_quanti, </span>
+<span id="cb438-21"><a href="tableaux.html#cb438-21" tabindex="-1"></a>       <span class="at">render.categorical =</span> render_var_quali)</span></code></pre></div>
+<div class="Rtable1"><table class="Rtable1">
+<thead>
+<tr>
+<th class='rowlabel firstrow lastrow'></th>
+<th class='firstrow lastrow'><span class='stratlabel'>Overall<br/><span class='stratn'>(N=300)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>IMC (kg/m²)</span></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>24.4 (3.0)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>37 (12.3%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>PAS (mmHg)</span></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>137.2 (16.9)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>33 (11.0%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>Traitement</span></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Placebo</td>
+<td>104 (39.0%)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Traitement A</td>
+<td>84 (31.5%)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Traitement B</td>
+<td>79 (29.6%)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>33 (11.0%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>Sexe</span></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Féminin</td>
+<td>137 (49.5%)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Masculin</td>
+<td>140 (50.5%)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>23 (7.7%)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A présent, on voit que pour le sexe, la somme 49.5% + 50.5% = 100%, la catégorie des manquants n’est pas prise en compte pour le calcul des pourcentages.</p>
+</div>
+<div id="tables-bivariées" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Tables bivariées<a href="tableaux.html#tables-bivari%C3%A9es" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pour obtenir une table bivariée, on ajoute une barre verticale suivie d’une variable de format <code>factor</code>.</p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="tableaux.html#cb439-1" tabindex="-1"></a><span class="do">## Exemple de formule pour une table bivariée en fonction de traitL</span></span>
+<span id="cb439-2"><a href="tableaux.html#cb439-2" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> imc <span class="sc">+</span> pas <span class="sc">+</span> sexL <span class="sc">|</span> traitL, <span class="at">data =</span> df_1miss)</span>
+<span id="cb439-3"><a href="tableaux.html#cb439-3" tabindex="-1"></a><span class="co"># mais cet exemple ne fonctionne pas car la variable de stratification </span></span>
+<span id="cb439-4"><a href="tableaux.html#cb439-4" tabindex="-1"></a><span class="co"># ne doit pas contenir de données manquante +++</span></span>
+<span id="cb439-5"><a href="tableaux.html#cb439-5" tabindex="-1"></a></span>
+<span id="cb439-6"><a href="tableaux.html#cb439-6" tabindex="-1"></a><span class="do">## Il faut donc exclure les lignes avec un traitement manquant dans la base</span></span>
+<span id="cb439-7"><a href="tableaux.html#cb439-7" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> imc <span class="sc">+</span> pas <span class="sc">+</span> sexL <span class="sc">|</span> traitL, </span>
+<span id="cb439-8"><a href="tableaux.html#cb439-8" tabindex="-1"></a>       <span class="at">data =</span> <span class="fu">subset</span>(df_1miss, <span class="at">subset =</span> <span class="sc">!</span><span class="fu">is.na</span>(traitL))) </span>
+<span id="cb439-9"><a href="tableaux.html#cb439-9" tabindex="-1"></a><span class="co"># la fonction subset a effacé les attributs &quot;level&quot; des noms de variables</span></span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="tableaux.html#cb440-1" tabindex="-1"></a><span class="do">## Pour ne pas supprimer les attibuts de variables, il vaut mieux utiliser</span></span>
+<span id="cb440-2"><a href="tableaux.html#cb440-2" tabindex="-1"></a><span class="do">## la fonction filter du tidyverse (qui conserve les attributs)</span></span>
+<span id="cb440-3"><a href="tableaux.html#cb440-3" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> imc <span class="sc">+</span> pas <span class="sc">+</span> sexL <span class="sc">|</span> traitL, </span>
+<span id="cb440-4"><a href="tableaux.html#cb440-4" tabindex="-1"></a>       <span class="at">data =</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(df_1miss, <span class="sc">!</span><span class="fu">is.na</span>(traitL))) </span></code></pre></div>
+<div class="Rtable1"><table class="Rtable1">
+<thead>
+<tr>
+<th class='rowlabel firstrow lastrow'></th>
+<th class='firstrow lastrow'><span class='stratlabel'>Placebo<br/><span class='stratn'>(N=104)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>Traitement A<br/><span class='stratn'>(N=84)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>Traitement B<br/><span class='stratn'>(N=79)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>Overall<br/><span class='stratn'>(N=267)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>IMC (kg/m²)</span></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>24.4 (2.84)</td>
+<td>24.7 (3.03)</td>
+<td>24.2 (3.53)</td>
+<td>24.4 (3.12)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Median [Min, Max]</td>
+<td>24.5 [17.0, 31.2]</td>
+<td>24.8 [15.4, 30.3]</td>
+<td>24.1 [16.1, 32.2]</td>
+<td>24.6 [15.4, 32.2]</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>11 (10.6%)</td>
+<td class='lastrow'>11 (13.1%)</td>
+<td class='lastrow'>9 (11.4%)</td>
+<td class='lastrow'>31 (11.6%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>PAS (mmHg)</span></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>143 (15.8)</td>
+<td>130 (16.2)</td>
+<td>137 (17.0)</td>
+<td>137 (17.1)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Median [Min, Max]</td>
+<td>142 [105, 177]</td>
+<td>130 [92.0, 161]</td>
+<td>138 [103, 177]</td>
+<td>138 [92.0, 177]</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>17 (16.3%)</td>
+<td class='lastrow'>9 (10.7%)</td>
+<td class='lastrow'>7 (8.9%)</td>
+<td class='lastrow'>33 (12.4%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>Sexe</span></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Féminin</td>
+<td>40 (38.5%)</td>
+<td>40 (47.6%)</td>
+<td>37 (46.8%)</td>
+<td>117 (43.8%)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Masculin</td>
+<td>58 (55.8%)</td>
+<td>40 (47.6%)</td>
+<td>30 (38.0%)</td>
+<td>128 (47.9%)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>6 (5.8%)</td>
+<td class='lastrow'>4 (4.8%)</td>
+<td class='lastrow'>12 (15.2%)</td>
+<td class='lastrow'>22 (8.2%)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Comme pour l’analyse univariée, on peut choisir de n’afficher que la moyenne et l’écart type pour les variables quantitatives et calculer les pourcentages en excluant les manquants pour les variables qualitatives.</p>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="tableaux.html#cb441-1" tabindex="-1"></a><span class="fu">table1</span>(<span class="sc">~</span> imc <span class="sc">+</span> pas <span class="sc">+</span> sexL <span class="sc">|</span> traitL, </span>
+<span id="cb441-2"><a href="tableaux.html#cb441-2" tabindex="-1"></a>       <span class="at">data =</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(df_1miss, <span class="sc">!</span><span class="fu">is.na</span>(traitL)),</span>
+<span id="cb441-3"><a href="tableaux.html#cb441-3" tabindex="-1"></a>       <span class="at">render.continuous =</span> render_var_quanti, </span>
+<span id="cb441-4"><a href="tableaux.html#cb441-4" tabindex="-1"></a>       <span class="at">render.categorical =</span> render_var_quali) </span></code></pre></div>
+<div class="Rtable1"><table class="Rtable1">
+<thead>
+<tr>
+<th class='rowlabel firstrow lastrow'></th>
+<th class='firstrow lastrow'><span class='stratlabel'>Placebo<br/><span class='stratn'>(N=104)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>Traitement A<br/><span class='stratn'>(N=84)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>Traitement B<br/><span class='stratn'>(N=79)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>Overall<br/><span class='stratn'>(N=267)</span></span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>IMC (kg/m²)</span></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>24.4 (2.8)</td>
+<td>24.7 (3.0)</td>
+<td>24.2 (3.5)</td>
+<td>24.4 (3.1)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>11 (10.6%)</td>
+<td class='lastrow'>11 (13.1%)</td>
+<td class='lastrow'>9 (11.4%)</td>
+<td class='lastrow'>31 (11.6%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>PAS (mmHg)</span></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Mean (SD)</td>
+<td>143.1 (15.8)</td>
+<td>130.5 (16.2)</td>
+<td>137.2 (17.0)</td>
+<td>137.2 (17.1)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>17 (16.3%)</td>
+<td class='lastrow'>9 (10.7%)</td>
+<td class='lastrow'>7 (8.9%)</td>
+<td class='lastrow'>33 (12.4%)</td>
+</tr>
+<tr>
+<td class='rowlabel firstrow'><span class='varlabel'>Sexe</span></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+<td class='firstrow'></td>
+</tr>
+<tr>
+<td class='rowlabel'>Féminin</td>
+<td>40 (40.8%)</td>
+<td>40 (50.0%)</td>
+<td>37 (55.2%)</td>
+<td>117 (47.8%)</td>
+</tr>
+<tr>
+<td class='rowlabel'>Masculin</td>
+<td>58 (59.2%)</td>
+<td>40 (50.0%)</td>
+<td>30 (44.8%)</td>
+<td>128 (52.2%)</td>
+</tr>
+<tr>
+<td class='rowlabel lastrow'>Missing</td>
+<td class='lastrow'>6 (5.8%)</td>
+<td class='lastrow'>4 (4.8%)</td>
+<td class='lastrow'>12 (15.2%)</td>
+<td class='lastrow'>22 (8.2%)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Une des limites du package <code>table1</code> est qu’il ne permet pas d’afficher une colonne de p-values pour donner les résultats de tests de comparaison bivariés.</p>
+</div>
+</div>
 </div>
             </section>
 
@@ -332,7 +906,7 @@ tinytable</p>
         </div>
       </div>
 <a href="package-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="reporting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="méthodes-plus-flexibles.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

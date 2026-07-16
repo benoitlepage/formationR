@@ -14,14 +14,138 @@ for (i in 2:ncol(df_1miss)) {
 }
 summary(df_1miss)
 
+# pour compter les cases avec des effectifs nuls, le format "factor" est utile
+# on va donc d'abord créer des variables qualitatives au format factor
+df_1miss$sexL <- factor(df_1miss$sex,
+                        labels = meta_df_1$labs[meta_df_1$var == "sex"])
+df_1miss$traitL <- factor(df_1miss$trait,
+                          labels = meta_df_1$labs[meta_df_1$var == "trait"])
+
+# pensez à vérifier que le recodage est correct
+table(df_1miss$sexL, df_1miss$sex)
+table(df_1miss$traitL, df_1miss$trait)
+
+# mise à jour de la base de méta données
+meta_df_1 <- rbind(meta_df_1, 
+                   data.frame(var = "sexL", 
+                              label = meta_df_1$label[meta_df_1$var == "sex"],
+                              id_labs = names(table(as.numeric(df_1miss$sexL))),
+                              code_labs = as.numeric(names(table(as.numeric(df_1miss$sexL)))),
+                              labs = levels(df_1miss$sexL)))
+meta_df_1 <- rbind(meta_df_1, 
+                   data.frame(var = "traitL", 
+                              label = meta_df_1$label[meta_df_1$var == "trait"],
+                              id_labs = names(table(as.numeric(df_1miss$traitL))),
+                              code_labs = as.numeric(names(table(as.numeric(df_1miss$traitL)))),
+                              labs = levels(df_1miss$traitL)))
+summary(df_1miss)
+
+
 # On souhaite présenter sous forme de tableau mise en forme pour être inclus dans un rapport d'analyse : 
 # - 1 table descriptive univariée des 4 variables (sex, imc, traitement et PAS)
 # - 1 table bivariée comparant les distribution de sex, imc et PAS en fonction des groupes de traitement
 
 # ---------------------------------------------------------------------------- #
-# 1) Création d'une base de données correspondant au tableau à présenter ----
+# 1) Package table1 ----
 # ---------------------------------------------------------------------------- #
-# 1.1) variable quantitative ----
+library(table1)
+# pour réaliser une analyse descriptive univariée
+table1(~ imc + pas + traitL + sexL, data = df_1miss)
+
+# le package table1 permet d'ajouter un nom de variable plus explicites aux variables
+# le label est ajouté en "attribute" de la variable
+label(df_1miss$sexL) <- meta_df_1$label[meta_df_1$var == "sexL"][1]
+label(df_1miss$traitL) <- meta_df_1$label[meta_df_1$var == "traitL"][1]
+label(df_1miss$imc) <- meta_df_1$label[meta_df_1$var == "imc"]
+label(df_1miss$pas) <- meta_df_1$label[meta_df_1$var == "pas"]
+
+attributes(df_1miss$sexL)
+attributes(df_1miss$imc)
+
+table1(~ imc + pas + traitL + sexL, data = df_1miss)
+# le label apparaît à présent 
+
+# il est possible de choisir quels paramètres afficher : 
+# pour plus d'information sur les paramètres des distributions statistiques disponibles
+# avec table1 : 
+?stats.default
+# par défaut, les variables continues sont présentés avec cet argument
+render.continuous.default
+# function (x, ...) 
+# {
+#   with(stats.apply.rounding(stats.default(x, ...), ...), 
+#        c("", 
+#          `Mean (SD)` = sprintf("%s (%s)", MEAN, SD), 
+#          `Median [Min, Max]` = sprintf("%s [%s, %s]", MEDIAN, MIN, MAX)))
+# }
+
+# les variables en classes sont présentés avec cet argument
+render.categorical.default
+# function (x, ..., na.is.category = TRUE) 
+# {
+#   c("", 
+#     sapply(stats.apply.rounding(stats.default(x, ...), ...), 
+#            function(y) with(y, 
+#                             sprintf("%s (%s%%)", 
+#                                     FREQ, 
+#                                     if (na.is.category) PCT else PCTnoNA))))
+# }
+
+# on peut créer de nouvelles fonctions en s'inspirant de ces deux fonctions 
+# utilisées par défaut pour afficher les paramètres que l'on souhaite ++
+render_var_quanti <- function(x) {   # fonction permettant de customiser les paramètres à récupérer et le format d'affichage
+  with(stats.default(x), 
+       c("", 
+         "Mean &plusmn SD" = sprintf("%0.1f &plusmn %0.1f", MEAN, SD)))
+}
+
+# Ci dessous on créé une nouvelle fonction de rendu des variables 
+render_var_quali <- function (x, ..., na.is.category = FALSE) { # TRUE passe en FALSE
+  # en cas de données manuantes, les pourcentages sont calculés en excluants les manquants
+    c("",
+      sapply(stats.apply.rounding(stats.default(x, ...), ...),
+             function(y) with(y, sprintf("%s (%s%%)", FREQ,
+                                         if (na.is.category) PCT else PCTnoNA)))) 
+  }
+
+table1(~ imc + pas + traitL + sexL, 
+       data = df_1miss, 
+       render.continuous = render_var_quanti, 
+       render.categorical = render_var_quali)
+
+# table bivariée
+table1(~ imc + pas + sexL | traitL, 
+       data = df_1miss)
+# cela ne fonctionne pas car la variable de stratification (le traitement)
+# ne doit pas contenir de données manquantes +++
+table1(~ imc + pas + sexL | traitL, 
+       data = subset(df_1miss, subset = !is.na(traitL))) 
+# à noter que les attributs de labels ont été supprimés lors de la sélection 
+# des non-manquants par la fonction subset. Si on veut voir les labels de 
+# variables dans la table, il faut créer une nouvelle base de données 
+# et réattribuer les labels ou bien utiliser les fonctions du tidyverse
+# qui permet de sélectionner des sous-ensemble sans supprimer les attributs
+table1(~ imc + pas + sexL | traitL, 
+       data = dplyr::filter(df_1miss, !is.na(traitL))) 
+
+# Comme pour l'analyse bivariée, on peut choisir de n'afficher que la moyenne 
+# et l'écart type pour les variables quanti et calculer les pourcentages
+# en excluant les manquants pour les variables qualitatives
+table1(~ imc + pas + sexL | traitL, 
+       data = dplyr::filter(df_1miss, !is.na(traitL)),
+       render.continuous = render_var_quanti, 
+       render.categorical = render_var_quali) 
+# comme pour les tables bivariées, 
+
+# Une des limites du package table1 est qu'il ne permet pas d'ajouter
+# les résultats de test de comparaison dans la sortie de la table
+# bivariée
+
+
+# ---------------------------------------------------------------------------- #
+# 2) Création d'une base de données correspondant au tableau à présenter ----
+# ---------------------------------------------------------------------------- #
+# 2.1) variable quantitative ----
 # ---------------------------------------------------------------------------- #
 
 # on va faire une fonction qui crée une table où : 
@@ -84,32 +208,32 @@ tab_quanti <- tab_univ_quanti(data = df_1miss, # le data frame
 tab_quanti
 
 # ---------------------------------------------------------------------------- #
-# 1.2) variable qualitative ----
+# 2.2) variable qualitative ----
 # ---------------------------------------------------------------------------- #
-# pour compter les cases avec des effectifs nuls, le format "factor" est utile
-# on va donc d'abord créer des variables qualitatives au format factor
-df_1miss$sexL <- factor(df_1miss$sex,
-                        labels = meta_df_1$labs[meta_df_1$var == "sex"])
-df_1miss$traitL <- factor(df_1miss$trait,
-                          labels = meta_df_1$labs[meta_df_1$var == "trait"])
-
-# pensez à vérifier que le recodage est correct
-table(df_1miss$sexL, df_1miss$sex)
-table(df_1miss$traitL, df_1miss$trait)
-
-# mise à jour de la base de méta données
-meta_df_1 <- rbind(meta_df_1, 
-                   data.frame(var = "sexL", 
-                              label = meta_df_1$label[meta_df_1$var == "sex"],
-                              id_labs = names(table(as.numeric(df_1miss$sexL))),
-                              code_labs = as.numeric(names(table(as.numeric(df_1miss$sexL)))),
-                              labs = levels(df_1miss$sexL)))
-meta_df_1 <- rbind(meta_df_1, 
-                   data.frame(var = "traitL", 
-                              label = meta_df_1$label[meta_df_1$var == "trait"],
-                              id_labs = names(table(as.numeric(df_1miss$traitL))),
-                              code_labs = as.numeric(names(table(as.numeric(df_1miss$traitL)))),
-                              labs = levels(df_1miss$traitL)))
+# # pour compter les cases avec des effectifs nuls, le format "factor" est utile
+# # on va donc d'abord créer des variables qualitatives au format factor
+# df_1miss$sexL <- factor(df_1miss$sex,
+#                         labels = meta_df_1$labs[meta_df_1$var == "sex"])
+# df_1miss$traitL <- factor(df_1miss$trait,
+#                           labels = meta_df_1$labs[meta_df_1$var == "trait"])
+# 
+# # pensez à vérifier que le recodage est correct
+# table(df_1miss$sexL, df_1miss$sex)
+# table(df_1miss$traitL, df_1miss$trait)
+# 
+# # mise à jour de la base de méta données
+# meta_df_1 <- rbind(meta_df_1, 
+#                    data.frame(var = "sexL", 
+#                               label = meta_df_1$label[meta_df_1$var == "sex"],
+#                               id_labs = names(table(as.numeric(df_1miss$sexL))),
+#                               code_labs = as.numeric(names(table(as.numeric(df_1miss$sexL)))),
+#                               labs = levels(df_1miss$sexL)))
+# meta_df_1 <- rbind(meta_df_1, 
+#                    data.frame(var = "traitL", 
+#                               label = meta_df_1$label[meta_df_1$var == "trait"],
+#                               id_labs = names(table(as.numeric(df_1miss$traitL))),
+#                               code_labs = as.numeric(names(table(as.numeric(df_1miss$traitL)))),
+#                               labs = levels(df_1miss$traitL)))
 
 
 
@@ -195,7 +319,7 @@ tab_quali
 
 
 # ---------------------------------------------------------------------------- #
-# 2) Présentation de la table avec le package tinytable ----
+# 3) Présentation de la table avec le package tinytable ----
 # ---------------------------------------------------------------------------- #
 ## faire une table mise en forme pour copier-coller dans un rapport d'analyse
 
@@ -225,7 +349,7 @@ tt(tab_desc) |>
 
 
 # ---------------------------------------------------------------------------- #
-# 3) Préparation d'un tableau pour des analyses bivariées avec p-value ----
+# 4) Préparation d'un tableau pour des analyses bivariées avec p-value ----
 # ---------------------------------------------------------------------------- #
 table(df_1miss$traitL, useNA = "ifany")
 # Placebo Traitement A Traitement B         <NA> 
@@ -479,10 +603,22 @@ table_quanti_by_trait
 
 
 # + exemple d'utilisation de tinytable avec une sortie de modèle de régression ++
+reg_results <- lm(pas ~ traitL + sexL + imc, data = df_1miss)
+coef_table <- summary(reg_results)$coefficients
+IC95 <- confint.lm(reg_results)
+
+results <- data.frame(Coefficients = rownames(coef_table), 
+                      Estimate = round(coef_table[,"Estimate"], digits = 1), 
+                      lb = round(IC95[,1], digits = 3), 
+                      ub = round(IC95[,2], digits = 3), 
+                      p = round(coef_table[,"Pr(>|t|)"], digits = 4))
+names(results)[3:4] <- c("2.5 %", "97.5 %")
+tt(results)
 
 
-
-# 1) library gt ---- 
+# ---------------------------------------------------------------------------- #
+# 5) library gt ---- 
+# ---------------------------------------------------------------------------- #
 ## voir https://gt.rstudio.com/index.html
 # puis, "Get started" pour avoir une vignette de présentation générale
 #       ou "Articles > Case study: clinical table" pour des exemples de tables
@@ -491,128 +627,193 @@ table_quanti_by_trait
 ## Installer la library gt, puis la charger
 library(gt)
 
-# gt permet de transformer des bases de données (format data.frame ou tibble) 
-# en tableaux avec une mise en page propre.
+# on récupère la table descriptive créée pour le package tinytable
+tab_desc
+df_results
 
-# On va se servir de ce package pour créer des tableaux qui peuvent être inclus
-# dans des rapports d'analyse ou des articles
+# le principe du package gt est d'afficher le corps de la table
+# - pour la table tab_desc, le corps correspond à la colonne 2
+#   sans lignes vides associées aux noms de variables
+tab_desc[which(tab_desc[,2] != ""), 2] # c'est un vecteur dans notre cas
+corps <- gt(data.frame(stat = tab_desc[which(tab_desc[,2] != ""), 2]))
+corps
 
-## Importer la base df_1 et les méta-données
-rm(list = ls())
-df_1 <- read.csv2("data/df_1.csv")
-meta_df_1 <- read.csv2("data/meta_df_1.csv")
+# on peut ensuite ajouter différents éléments à ce corps de table
 
-## créer les facteurs traitement et sex
-df_1 <- within(df_1, {
-  sexL <- factor(sex, 
-                 labels = meta_df_1$labs[meta_df_1$var == "sex"])
-  traitL <- factor(trait,
-                   labels = meta_df_1$labs[meta_df_1$var == "trait"])
-  })
+# ajouter un titre et un sous-titre avec la fonction tab_header()
+corps |>
+  tab_header(title = "Titre", 
+             subtitle = "Sous-titre")
 
-## On met à jour la base de méta-données pour ces deux nouvelles variables
-# (on garde les mêmes label, id_labs, cod_labs et labs que pour les variables
-#  originales)
-meta_df_1 <- rbind(meta_df_1, 
-                   data.frame(var = "sexL", 
-                              label = meta_df_1$label[meta_df_1$var == "sex"],
-                              id_labs = names(table(as.numeric(df_1$sexL))),
-                              code_labs = as.numeric(names(table(as.numeric(df_1$sexL)))),
-                              labs = levels(df_1$sexL)))
-meta_df_1 <- rbind(meta_df_1, 
-                   data.frame(var = "traitL", 
-                              label = meta_df_1$label[meta_df_1$var == "trait"],
-                              id_labs = names(table(as.numeric(df_1$traitL))),
-                              code_labs = as.numeric(names(table(as.numeric(df_1$traitL)))),
-                              labs = levels(df_1$traitL)))
-
-## Exemple simple pour décrire la distribution du traitement (au format "factor")
-df_1$traitL |> table()
-
-df_1$traitL |> 
-  table() |>
-  prop.table() |>
-  round(digits = 1)
-
-# On veut créer un objet data.frame indiquant : 
-#  - les noms des variables, 
-#  - les noms des levels, 
-#  - les effectifs 
-#  - les % (1 chiffre après la virgule) pour la variable sex
-tb_sex <- data.frame(var_name = meta_df_1$label[meta_df_1$var == "sexL"],
-                     levels = df_1$sexL |> 
-                       table() |>
-                       names(),
-                     n = df_1$sexL |> 
-                       table() |>
-                       as.integer(), # supprime les attributs "names()" du vecteur
-                     p = df_1$sexL |> 
-                       table() |>
-                       prop.table() |>
-                       as.double() * 100) # supprime les attributs "names()"
-                    
-# Ajouter au dessous la table décrivant le traitement
-tb_trait <- data.frame(var_name = meta_df_1$label[meta_df_1$var == "traitL"],
-                       levels = df_1$traitL |> 
-                         table() |>
-                         names(),
-                       n = df_1$traitL |> 
-                         table() |>
-                         as.integer(), # supprime les attributs "names()"
-                       p = df_1$traitL |> 
-                         table() |>
-                         prop.table() |>
-                         as.double() * 100)  # supprime les attributs "names()"
-
-tb1 <- rbind(tb_sex, tb_trait)
-
-# on va présenter les pourcentages arrondis à 1 chiffre après la virgule
-tb1$p <- with(tb1, round(p, digits = 1))
-tb1
-
-# mise en forme de la table avec la fonction gt()
-# l'objet doit être au format data.frame ou tibble
-t1 <- gt(tb1)
-t1
-class(t1)
-# l'objet t1 obtenu est à la fois une liste et une table de format "gt_tbl"
-# cette liste est constituée de plusieurs objets que vous pouvez récupérer 
-# en commançant par saisir t1$... et voir les propositions de RStudio
-t1$`_data` # données initiales
-t1$`_heading`$title # pour l'instant, aucun titre de table n'est associé
-
-## On peut ajouter un certain nombre d'arguments voir l'aide ?gt
-# "rowname_col" défini la colonne levels comme "nom de lignes"
-# "groupname_col" défini la colonne var_name comme "nom de variable"
-t1 <- gt(tb1,
-         rowname_col = "levels",
-         groupname_col = "var_name") 
-t1
-
-# ajouter un nom de colonne au dessus des noms de lignes
-t1 <- t1 |>
-  tab_stubhead(label = "Variables")
-t1
-
-# changer le nom des colonnes
-t1 <- t1 |>
-  cols_label(n = "N", # change les noms de colonnes
-             p = "%")
-t1
-
-## ajouter des titres et sous-titres
-# à noter que l'on peut utiliser des format markdown ou html pour changer
-# la police. 
-# Par exemple, en markdown, 
-#  - texte en italique = encadrer le texte par une astérisque ou un underscore 
-#  - texte en gras = encadrer le texte par 2 astérisques
-
-t1 <- t1 |>
-  tab_header(
-    title = "Indiquer votre titre ici",
-    subtitle = md("Texte en **gras** ou en *italique*")
+# ajouter des sources avec la fonction tab_source_note()
+corps |>
+  tab_header(title = "Titre", 
+             subtitle = "Sous-titre") |>
+  tab_source_note(
+    source_note = "sources que l'on souhaite citer"
   )
-t1
-# Question : comment ajouter des caractères d'équation ou des lettres grecques ? ++++++++++
+
+# ajouter une note de bas de tableau avec la fonction tab_footnote()
+# à noter qu'elle se positionne automatiquement avant les sources
+corps |>
+  tab_header(title = "Titre", 
+             subtitle = "Sous-titre") |>
+  tab_source_note(
+    source_note = "sources que l'on souhaite citer"
+  ) |>
+  tab_footnote(
+    footnote = "Note de bas de tableau"
+  )
+
+# on peut ensuite ajouter le "stub", à droite du tableau 
+# le stub décrit les paramètres du corps du tableau
+# l'argument "rowname_col" peut être utilisé pour cela
+
+# on va se servir du contenu de la table descriptive 
+# en supprimant les lignes indiquant les noms de variables
+corps_df <- tab_desc[which(tab_desc$`N = 300` != ""),]
+corps_df
+
+gt(corps_df, 
+   rowname_col = "Variables")
+
+# on peut donner un nom de colonne au "stub" avec la fonction tab_stubhead()
+gt(corps_df, 
+   rowname_col = "Variables") |>
+  tab_stubhead("Variables")
+
+# on peut finalement regrouper les lignes par variable en ajoutant un nom
+# de variable avec la fonction tab_row_group
+gt(corps_df, 
+   rowname_col = "Variables") |>
+  tab_stubhead("Variables") |>
+  tab_row_group(
+    label = meta_df_1$label[meta_df_1$var == "imc"], 
+    rows = 1:2 # indiquer les rangs correspondant à cette variable
+  ) |>
+  tab_row_group(
+    label = meta_df_1$label[meta_df_1$var == "pas"], 
+    rows = 3:4 # indiquer les rangs correspondant à cette variable
+  ) |>
+  tab_row_group(
+    label = meta_df_1$label[meta_df_1$var == "sexL"][1], 
+    rows = 5:7 # indiquer les rangs correspondant à cette variable
+  ) |>
+  tab_row_group(
+    label = meta_df_1$label[meta_df_1$var == "traitL"][1], 
+    rows = 8:11 # indiquer les rangs correspondant à cette variable
+  ) 
+
+# Une autre façon de faire est d'ajouter une colonne avec les labels de variables
+# dans le data frame utilisé pour le corps de la table
+corps_df <- tab_desc[which(tab_desc$`N = 300` != ""),]
+corps_df$label <- c(rep(meta_df_1$label[meta_df_1$var == "imc"], 2), 
+                    rep(meta_df_1$label[meta_df_1$var == "pas"], 2), 
+                    rep(meta_df_1$label[meta_df_1$var == "sexL"][1], 3),
+                    rep(meta_df_1$label[meta_df_1$var == "traitL"][1], 4))
+
+# la colonne label peut alors être déclarée dans l'argument groupname_col
+gt(corps_df, 
+   rowname_col = "Variables", 
+   groupname_col = "label") 
+
+gt(corps_df, 
+   rowname_col = "Variables", 
+   groupname_col = "label") |>
+  tab_stubhead("Variables") |>
+  tab_header(title = "Titre", 
+             subtitle = "Sous-titre") |>
+  tab_source_note(
+    source_note = "sources que l'on souhaite citer"
+  ) |>
+  tab_footnote(
+    footnote = "Note de bas de tableau"
+  )
+  
+## table bivariée
+corps_biv <- df_results
+# on va décaler d'une ligne vers le bas les p-values
+corps_biv$`p-value`[2:11] <- corps_biv$`p-value`[1:10]
+# pour l'instant, on supprime les indicateurs <sup>a et <sup>b des p-values
+# c'est à dire qu'on supprime les 6 derniers caractères
+corps_biv$`p-value` <- substr(corps_biv$`p-value`, 1, nchar(corps_biv$`p-value`) - 6)
+
+corps_biv <- corps_biv[which(!corps_biv$Placebo == ""), ]
+corps_biv$label <- c("", 
+                     rep(meta_df_1$label[meta_df_1$var == "imc"], 2), 
+                     rep(meta_df_1$label[meta_df_1$var == "pas"], 2), 
+                     rep(meta_df_1$label[meta_df_1$var == "sexL"][1], 3))
+
+gt(corps_biv, 
+   rowname_col = "Variable", 
+   groupname_col = "label") 
+
+# on peut ajouter un groupe de colonne avec la fonction tab_spanner()
+gt(corps_biv, 
+   rowname_col = "Variable", 
+   groupname_col = "label") |>
+  tab_spanner(
+    label = "Traitement", 
+    columns = c("Placebo","Traitement A","Traitement B")
+  )
+# les notes de bas de tableau peuvent être utilisées pour indiquer le type
+# de test statistique utilisé associé aux différentes p-values
+gt(corps_biv, 
+   rowname_col = "Variable", 
+   groupname_col = "label") |>
+  tab_spanner(                          # colonne de groupe de traitements
+    label = "Traitement", 
+    columns = c("Placebo","Traitement A","Traitement B")
+  ) |>
+  tab_footnote(                         # Anova en note de bas de table
+    footnote = "Anova",
+    locations = cells_body(columns = "p-value", rows = c(2,4))
+  ) |>
+  tab_footnote(                         # chi2 en note de bas de table
+    footnote = "Chi-2",
+    locations = cells_body(columns = "p-value", rows = 6)
+  ) |> 
+  tab_header(title = "Titre",           # ajouter un titre et un sous-titre
+             subtitle = md("Texte en **gras** ou en *italique*")) |>
+  tab_source_note(
+    source_note = md("$$\\mathbb{E}(Y) = \\beta_0 + \\theta_1 X$$")
+  )
+
+# on peut appliquer les format markdown avec du texte dans la fonction md()
+# (exemple dans le sous-titre)
+# ainsi que des notations mathématiques 
+# (exemple dans la source)
+
+# il est possible également de nommer les colonnes directement.
+# dans l'exemple ci-dessous, les effectifs sont ajoutés dans les noms de colonne
+# après un saut à la ligne (en format markdown, indiqué par \n)
+gt_tab <- gt(corps_biv[-1,], 
+             rowname_col = "Variable", 
+             groupname_col = "label") |>
+  tab_spanner(                          # colonne de groupe de traitements
+    label = "Traitement", 
+    columns = c("Placebo","Traitement A","Traitement B")
+  ) 
+gt_tab[[2]]$column_label <- c("Variable", 
+                              md("Placebo  N = 104"),
+                              md("Traitement A  N = 84"),
+                              md("Traitement B  N = 79"),
+                              "p-value",
+                              "Total",
+                              "label")
+gt_tab
+# non il n'y a pas de retour à la ligne 
+
+# |>
+#   cols_label(
+#     .list = list(
+#       "Variable",
+#       md("Placebo \n N = 104"),
+#       md("Traitement A \n N = 84"),
+#       md("Traitement B \n N = 79"), 
+#       "p-value",
+#       "Total",
+#       "label")
+#   ) # j'y arrive pas !
 
 
