@@ -227,6 +227,12 @@ tt(tab_desc) |>
 # ---------------------------------------------------------------------------- #
 # 3) Préparation d'un tableau pour des analyses bivariées avec p-value ----
 # ---------------------------------------------------------------------------- #
+table(df_1miss$traitL, useNA = "ifany")
+# Placebo Traitement A Traitement B         <NA> 
+#     104           84           79           33
+# pour cette analyse, on va se restreindre à la base de 267 patients
+# ayant des données observées pour le traitement,
+# et on excluera les 33 données manquantes pour le traitement
 
 # Pour croiser l'IMC et la PAS en fonction du traitement, 
 # on va créer une fonction qui récupére sous forme de vecteur :
@@ -245,7 +251,7 @@ mean_sd_fct <- function(x, dig = 1, remove_miss = TRUE) { # data = data,
 }
 
 
-mean_sd_fct(x = df_1miss$imc,  
+mean_sd_fct(x = df_1miss[!is.na(df_1miss$traitL), "imc"],  
             dig = 1, 
             remove_miss = TRUE)
 # aggregate(x = df_1miss$imc,                                 moins utile
@@ -256,8 +262,139 @@ tapply(X = df_1miss$imc,
        INDEX = df_1miss$traitL,
        FUN = mean_sd_fct, # fonction à utiliser sur X
        dig = 1, remove_miss = TRUE) # arguments de la fonction     
+# pour que tapply fonctionne, la longueur des vecteurs X et INDEX doit être la même
+# on remarque que la fonction tapply a automatiquement exclu de l'analyse les données
+# manquantes sur l'INDEX (la variable traitL)
 
-# création d'une fonction qui décrit la distribution en analyse bivariée
+# préparation d'une table croisant le traitement avec : 
+# - l'IMC
+# - la PAS
+# - le sexe
+# les effectifs totaux seront affichés sur la première ligne
+df_results <- data.frame(var = c("N total", 
+                                 meta_df_1$label[meta_df_1$var == "imc"],
+                                 "n / n missing", 
+                                 "moyenne (DS)",
+                                 meta_df_1$label[meta_df_1$var == "pas"],
+                                 "n / n missing", 
+                                 "moyenne (DS)",
+                                 paste0(meta_df_1$label[meta_df_1$var == "sexL"][1], ", n (%)"),
+                                 levels(df_1miss$sexL),
+                                 "n / n missing"))
+df_results <- data.frame(df_results, 
+                         matrix("", ncol = length(levels(df_1miss$traitL)) + 2,
+                                nrow = nrow(df_results)))
+names(df_results) <- c("Variable", levels(df_1miss$traitL), "p-value", "Total")
+
+## on remplit le contenu du tableau: 
+# à noter que pour ce tableau, on va exclure de l'analyse les données manquantes
+# concernant le traitement
+
+## Ligne N total 
+n_obs_tot <- table(df_1miss$traitL, useNA = "no")
+df_results[1,c("Placebo", 
+               "Traitement A", 
+               "Traitement B")] <- paste0("N = ", n_obs_tot)
+df_results[1, "Total"] <- paste0("N = ", sum(n_obs_tot))
+
+## Lignes de l'IMC en fonction du traitement
+imc_by_trait <- tapply(X = df_1miss$imc, 
+                       INDEX = df_1miss$traitL,
+                       FUN = mean_sd_fct, # fonction à utiliser sur X
+                       dig = 1, remove_miss = TRUE)
+      
+df_results[3:4, c("Placebo")] <- imc_by_trait$Placebo
+df_results[3:4, c("Traitement A")] <- imc_by_trait$`Traitement A`
+df_results[3:4, c("Traitement B")] <- imc_by_trait$`Traitement B`
+# note : pour avoir des effectifs cohérents dans la colonne total, 
+# les analyses doivent être réalisée dans le sous-ensemble de données 
+# sans manquants concernant le traitement +++
+df_results[3:4, c("Total")] <- mean_sd_fct(x = subset(df_1miss,
+                                                      subset = !is.na(traitL))$imc,  
+                                           dig = 1, 
+                                           remove_miss = TRUE)
+anova_imc_by_traitL <- anova(aov(imc ~ traitL, data = df_1miss))
+anova_imc_by_traitL$`Pr(>F)` # [1] 0.5259026        NA
+df_results[2,"p-value"] <- paste0(round(anova_imc_by_traitL$`Pr(>F)`[1], digits = 2),
+                                  "<sup>a")
+
+# lignes de la PAS en fonction du traitement
+pas_by_trait <- tapply(X = df_1miss$pas, 
+                       INDEX = df_1miss$traitL,
+                       FUN = mean_sd_fct, # fonction à utiliser sur X
+                       dig = 1, remove_miss = TRUE)
+df_results[6:7, c("Placebo")] <- pas_by_trait$Placebo
+df_results[6:7, c("Traitement A")] <- pas_by_trait$`Traitement A`
+df_results[6:7, c("Traitement B")] <- pas_by_trait$`Traitement B`
+df_results[6:7, c("Total")] <- mean_sd_fct(x = subset(df_1miss, 
+                                                      subset = !is.na(traitL))$pas,  
+                                           dig = 1, 
+                                           remove_miss = TRUE)
+anova_pas_by_traitL <- anova(aov(pas ~ traitL, data = df_1miss))
+anova_pas_by_traitL$`Pr(>F)` # [1] 1.079829e-05           NA
+df_results[5,"p-value"] <- "<0.0001<sup>a"
+
+## on complète la table pour le sexe
+## on commence par décrire les effectifs avec les manquants 
+## pour calculer les effectifs par groupe de traitement
+table(df_1miss$sexL, df_1miss$traitL, useNA = "ifany")
+#          Placebo Traitement A Traitement B <NA>
+# Féminin       40           40           37   20
+# Masculin      58           40           30   12
+# <NA>           6            4           12    1
+
+# total des 3 premières colonnes, en comptant les manquants
+tot_trait <- colSums(table(df_1miss$sexL, df_1miss$traitL, useNA = "ifany")[,1:3])
+# nombre de manquants
+n_miss_sex <- table(df_1miss$sexL, df_1miss$traitL, useNA = "ifany")[3,1:3]
+# total des effectifs non-manquants
+n_obs_sex <- colSums(table(df_1miss$sexL, df_1miss$traitL, useNA = "no"))
+
+# effectifs et pourcentages calculés en excluant les manquants (hypothèse MCAR)
+tab_sex_n <- table(df_1miss$sexL, df_1miss$traitL, useNA = "no")
+tab_sex_pct <- prop.table(table(df_1miss$sexL, df_1miss$traitL, useNA = "no"),
+                          margin = 2) # pour les pourcentages en colonnes
+tab_sexL_by_traitL <- paste0(tab_sex_n, 
+                             " (", 
+                             round(tab_sex_pct * 100, digits = 1),
+                             "%)")
+dim(tab_sexL_by_traitL) <- dim(tab_sex_n)
+tab_sexL_by_traitL
+
+# on complète la table bivariée
+df_results[9:10,2:4] <- tab_sexL_by_traitL
+df_results[11, 2:4] <- paste0(n_obs_sex, " / ", n_miss_sex)
+# colonne Total
+df_results[9:10,"Total"] <- paste0(rowSums(tab_sex_n), 
+                                  " (",
+                                  round(prop.table(rowSums(tab_sex_n)) * 100, 
+                                        digits = 1),
+                                  "%)")
+df_results[11,"Total"] <- paste0(sum(n_obs_sex), " / ", sum(n_miss_sex))
+# colonne p-value
+chi2_sex_trait <- chisq.test(table(df_1miss$sexL, df_1miss$traitL, useNA = "no"))
+df_results[8, "p-value"] <- paste0(round(chi2_sex_trait$p.value, digits = 2), 
+                                   "<sup>b")
+
+## présentation de la table bivariée ----
+tt(df_results, 
+   cap = "Table 1 : Analyses bivariées", 
+   notes = list(a = "Anova", b = "Chi-2")) |>
+  style_tt( # affiche les noms de variables en gras
+    i = which(df_results[,2] == ""),
+    j = 1,
+    bold = TRUE) |> 
+  style_tt( # ajoute une indentation vers la droite d'une unité
+    i = which(df_results[,2] != ""), 
+    j = 1,
+    indent = 1) |>
+  group_tt( # ajoute un nom de variable pour les 3 colonnes de traitements
+    j = list("Traitements" = 2:4))
+  
+
+
+
+### création d'une fonction qui décrit la distribution en analyse bivariée ----
 # pour les variables quanti
 
 # data = df_1miss
@@ -333,9 +470,10 @@ table_quanti_by_trait <- tab_biv_quanti(data = df_1miss, # le data frame
                                         variables = c("imc", "pas"), # vecteur de noms de variables quanti
                                         dig = 1) # nb de chiffres après la virgule
 table_quanti_by_trait
-  
-  # la table associée à chaque variable sera stockée dans une liste
-  tab_list <- list() # créée une liste vide
+
+
+
+
 
 
 
