@@ -188,7 +188,7 @@ nrow(df_1)
 length(df_1$imc)
 
 # compter les effectifs non-manquants
-length(df_1$imc[!is.na(df_1$imc)])
+length(which(!is.na(df_1$imc))) # 300
 table(!is.na(df_1$imc))["TRUE"] # tabuler l'évaluation logique d'IMC non-manquant
                                 # et ne garder que la valeur associée à la réponse TRUE
                                 # qui correspond au nombre de non-manquants

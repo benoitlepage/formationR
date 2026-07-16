@@ -78,6 +78,7 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -117,7 +118,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2025-10-17}
+\date{2026-07-16}
 
 \begin{document}
 \maketitle
@@ -612,6 +613,7 @@ Par exemple, les nombres réels (\texttt{double}) et les nombres entiers (\textt
 \end{Highlighting}
 \end{Shaded}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3205}}
   >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2308}}
@@ -637,6 +639,7 @@ Par exemple, les nombres réels (\texttt{double}) et les nombres entiers (\textt
 \texttt{TRUE} & \texttt{"logical"} & \texttt{"logical"} & \texttt{"logical"} \\
 \texttt{as.Date("2025-07-01")} & \texttt{"double"} & \texttt{"numeric"} & \texttt{"double"} \\
 \end{longtable}
+}
 
 Les fonctions \texttt{as.double}, \texttt{as.integer}, \texttt{as.character}, \texttt{as.logical} permettent de forcer par coercition le type d'un objet \emph{en tant que} réel, entier, chaîne de caractères, logique.
 
@@ -844,7 +847,7 @@ Plusieurs fonctions sont disponibles dans R pour arrondir une valeur (cf.~\textt
 \FunctionTok{signif}\NormalTok{(}\FloatTok{123.456789}\NormalTok{, }\AttributeTok{digits =} \DecValTok{2}\NormalTok{) }\CommentTok{\# 120}
 \FunctionTok{signif}\NormalTok{(}\FloatTok{123.456789}\NormalTok{, }\AttributeTok{digits =} \DecValTok{3}\NormalTok{) }\CommentTok{\# 123}
 \FunctionTok{signif}\NormalTok{(}\FloatTok{123.456789}\NormalTok{, }\AttributeTok{digits =} \DecValTok{4}\NormalTok{) }\CommentTok{\# 123.5}
-\FunctionTok{signif}\NormalTok{(}\FloatTok{123.456789}\NormalTok{, }\AttributeTok{digits =} \DecValTok{5}\NormalTok{) }\CommentTok{\# 123.46 arrondit au chiffre pair le plus proche }
+\FunctionTok{signif}\NormalTok{(}\FloatTok{123.456789}\NormalTok{, }\AttributeTok{digits =} \DecValTok{5}\NormalTok{) }\CommentTok{\# 123.46 }
 \FunctionTok{signif}\NormalTok{(}\FloatTok{4.45}\NormalTok{, }\AttributeTok{digits =} \DecValTok{3}\NormalTok{) }\CommentTok{\# 4.45}
 \FunctionTok{signif}\NormalTok{(}\FloatTok{4.45}\NormalTok{, }\AttributeTok{digits =} \DecValTok{2}\NormalTok{) }\CommentTok{\# 4.4 ; arrondit au chiffre pair le plus proche }
 \FunctionTok{signif}\NormalTok{(}\FloatTok{4.75}\NormalTok{, }\AttributeTok{digits =} \DecValTok{3}\NormalTok{) }\CommentTok{\# 4.75}
@@ -1005,6 +1008,7 @@ Les résultats attendus d'une combinaison d'opérateurs logiques sont résumés 
   Opérateur ET
 \end{itemize}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}ccc@{}}
 \toprule\noalign{}
 a & b & a ET b \\
@@ -1017,6 +1021,7 @@ a & b & a ET b \\
 \texttt{FALSE} & \texttt{TRUE} & \texttt{FALSE} \\
 \texttt{FALSE} & \texttt{FALSE} & \texttt{FALSE} \\
 \end{longtable}
+}
 
 \begin{itemize}
 \tightlist
@@ -1024,6 +1029,7 @@ a & b & a ET b \\
   Opérateur OU
 \end{itemize}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}ccc@{}}
 \toprule\noalign{}
 a & b & a OU b \\
@@ -1036,6 +1042,7 @@ a & b & a OU b \\
 \texttt{FALSE} & \texttt{TRUE} & \texttt{TRUE} \\
 \texttt{FALSE} & \texttt{FALSE} & \texttt{FALSE} \\
 \end{longtable}
+}
 
 \begin{itemize}
 \tightlist
@@ -1043,6 +1050,7 @@ a & b & a OU b \\
   Opérateur NON
 \end{itemize}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}cc@{}}
 \toprule\noalign{}
 a & NON a \\
@@ -1053,6 +1061,7 @@ a & NON a \\
 \texttt{TRUE} & \texttt{FALSE} \\
 \texttt{FALSE} & \texttt{TRUE} \\
 \end{longtable}
+}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1109,6 +1118,7 @@ Il existe également un opérateur \texttt{xor()} correspondant au OU EXCLUSIF (
   Opérateur OU EXCLUSIF
 \end{itemize}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}ccc@{}}
 \toprule\noalign{}
 a & b & a OU EXCLUSIF b \\
@@ -1121,6 +1131,7 @@ a & b & a OU EXCLUSIF b \\
 \texttt{FALSE} & \texttt{TRUE} & \texttt{TRUE} \\
 \texttt{FALSE} & \texttt{FALSE} & \texttt{FALSE} \\
 \end{longtable}
+}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3555,7 +3566,7 @@ Pour décrire des variables quantitatives, on peut s'intéresser aux paramètres
 \FunctionTok{length}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc) }\CommentTok{\# 300}
 
 \DocumentationTok{\#\#\# Pour compter les effectifs non{-}manquants, de manière explicite :}
-\FunctionTok{length}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc)]) }\CommentTok{\# 300}
+\FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{imc))) }\CommentTok{\# 300}
 
 \DocumentationTok{\#\#\# moyennes}
 \FunctionTok{mean}\NormalTok{(df\_1}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 24.481}
@@ -4584,7 +4595,9 @@ Le modèle linéaire indique que :
 ## [1] 2.015778e-05           NA
 \end{verbatim}
 
-On peut vérifier la condition d'égalité des variances avec un test de Levenne :
+La p-value est très petite (\(p = 2.10^{-5}\)), on rejette l'hypothèse nulle d'égalité des moyennes de PAS entre les 3 groupes de traitements.
+
+On peut vérifier la condition d'application d'égalité des variances avec un test de Levenne :
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5661,12 +5674,40 @@ Pour pouvoir utiliser les fonctions de ces packages, il faudra les charger avec 
 \end{Shaded}
 
 \begin{verbatim}
+## Warning: le package 'tidyverse' a été compilé avec la version R 4.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: le package 'tibble' a été compilé avec la version R 4.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: le package 'readr' a été compilé avec la version R 4.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: le package 'purrr' a été compilé avec la version R 4.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: le package 'dplyr' a été compilé avec la version R 4.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: le package 'forcats' a été compilé avec la version R 4.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: le package 'lubridate' a été compilé avec la version R 4.5.3
+\end{verbatim}
+
+\begin{verbatim}
 ## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
-## v dplyr     1.1.4     v readr     2.1.5
-## v forcats   1.0.1     v stringr   1.5.2
-## v ggplot2   4.0.0     v tibble    3.3.0
-## v lubridate 1.9.4     v tidyr     1.3.1
-## v purrr     1.0.4     
+## v dplyr     1.2.1     v readr     2.2.0
+## v forcats   1.0.1     v stringr   1.6.0
+## v ggplot2   4.0.1     v tibble    3.3.1
+## v lubridate 1.9.5     v tidyr     1.3.2
+## v purrr     1.2.2     
 ## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
@@ -5688,6 +5729,7 @@ Nous allons voir quelques exemples à partir de l'objet :
 
 Comme pour le pipe natif, l'élément à gauche du pipe est transféré comme 1er argument dans la fonction à droite du pipe. La table suivante indique l'équivalence entre les 3 syntaxes. \emph{Notez que la fonction dans son expression la plus simple n'a pas besoin de parenthèses avec le pipe du Tidyverse}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2955}}
   >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3295}}
@@ -5708,6 +5750,7 @@ pipe du Tidyverse
 \texttt{quantile(x,\ c(0,0.5,1))} & \texttt{x\ \textbar{}\textgreater{}\ quantile(c(0,0.5,1))} & \texttt{x\ \%\textgreater{}\%\ quantile(c(0,0.5,1))} \\
 \texttt{round(mean(x))} & \texttt{x\ \textbar{}\textgreater{}\ mean()\ \textbar{}\textgreater{}\ round()} & \texttt{x\ \%\textgreater{}\%\ mean\ \%\textgreater{}\%\ round} \\
 \end{longtable}
+}
 
 Il est possible de transférer l'élément à gauche du pipe vers n'importe quel argument à droite du pipe à l'aide du ``placeholder'' \texttt{.}. La table ci-dessous indique l'équivalence entre les 3 syntaxes.
 
@@ -5721,6 +5764,7 @@ Si l'argument doit apparaître dans une expression nichée,
   il faut enchaîner les fonctions avec le pipe natif (\emph{A vérifier : y a t'il d'autre solution ?})
 \end{itemize}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2752}}
   >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3670}}
@@ -5741,6 +5785,7 @@ pipe du Tidyverse (placeholder = \texttt{.})
 \texttt{seq(1,100,\ along.with=x)} & \texttt{x\ \textbar{}\textgreater{}\ seq(1,100,\ along.with=\_)} & \texttt{x\ \%\textgreater{}\%\ seq(1,100,\ along.with=.)} \\
 \texttt{seq(1,100,\ by=length(x))} & \texttt{x\ \textbar{}\textgreater{}\ length()\ \textbar{}\textgreater{}\ seq(1,100,\ by=\_)} & \texttt{x\ \%\textgreater{}\%\ \{seq(1,100,\ by=length(.))\}} \\
 \end{longtable}
+}
 
 \section{Importer une base de données}\label{importer-une-base-de-donnuxe9es-1}
 

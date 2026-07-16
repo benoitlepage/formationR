@@ -863,8 +863,10 @@ anova_pas_trait
 ## on peut récupérer des résultats spécifiques avec l'opérateur dollar
 anova_pas_trait$`Pr(>F)` # récupère uniquement la p-value
 ```
+La p-value est très petite ($p = 2.10^{-5}$), on rejette l'hypothèse nulle d'égalité des moyennes de PAS entre les 3 groupes de traitements.
 
-On peut vérifier la condition d'égalité des variances avec un test de Levenne : 
+
+On peut vérifier la condition d'application d'égalité des variances avec un test de Levenne : 
 ```{r bivarie11, echo=TRUE}
 car::leveneTest(data = df_1, pas ~ traitL) # p = 0.4703   OK
 ```
