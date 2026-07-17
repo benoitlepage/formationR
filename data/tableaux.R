@@ -113,6 +113,11 @@ table1(~ imc + pas + traitL + sexL,
        render.continuous = render_var_quanti, 
        render.categorical = render_var_quali)
 
+table1(~ imc + pas + traitL + sexL, 
+       data = df_1miss, 
+       render.continuous = render_var_quanti, 
+       render.categorical = render.categorical.default(df_1miss, na.is.category = FALSE))
+
 # table bivariée
 table1(~ imc + pas + sexL | traitL, 
        data = df_1miss)
@@ -388,7 +393,7 @@ tapply(X = df_1miss$imc,
        dig = 1, remove_miss = TRUE) # arguments de la fonction     
 # pour que tapply fonctionne, la longueur des vecteurs X et INDEX doit être la même
 # on remarque que la fonction tapply a automatiquement exclu de l'analyse les données
-# manquantes sur l'INDEX (la variable traitL)
+# manquantes sur l'INDEX (la variable traitL) ??
 
 # préparation d'une table croisant le traitement avec : 
 # - l'IMC
@@ -519,6 +524,7 @@ tt(df_results,
 
 
 ### création d'une fonction qui décrit la distribution en analyse bivariée ----
+# A COMPLETER MAIS PEUT ETRE PAS POUR LA FORMATION, TROP COMPLEXE +++
 # pour les variables quanti
 
 # data = df_1miss
@@ -531,32 +537,32 @@ tab_biv_quanti <- function(data, # le data frame
                            by, # variable facteur en colonnes
                            variables, # vecteur de noms de variables quanti
                            dig = dig) { # nb de chiffres après la virgule
-  
+
   # on intègre la fonction "mean_sd_fct" définie plus haut
-  mean_sd_fct <- function(x, dig = dig, remove_miss = TRUE) { # data = data, 
+  mean_sd_fct <- function(x, dig = dig, remove_miss = TRUE) { # data = data,
     # v <- data[[x]]
-    n_n_miss <- paste0(length(which(!is.na(x))), 
+    n_n_miss <- paste0(length(which(!is.na(x))),
                        " / ",
                        length(which(is.na(x))))
-    mean_sd <- paste0(round(mean(x, na.rm = remove_miss), digits = dig), 
+    mean_sd <- paste0(round(mean(x, na.rm = remove_miss), digits = dig),
                       " (",
                       round(sd(x, na.rm = remove_miss), digits = dig),
                       ")")
     return(c(n_n_miss, mean_sd))
   }
-  
+
   # la variable by_var sera la variable à croiser
   by_var <- data[[by]]
-  
+
   # la table associée à chaque variable sera stockée dans une liste
   tab_list <- list() # créée une liste vide
-  
+
   for (i in variables) { # boucle pour chaque variable du vecteur var
     # on va indiquer dans une matrice : les résultats par groupe, le total, la p-value
     results <- matrix("", ncol = length(levels(by_var)) + 2,
                       nrow = 3)
     colnames(results) <- c(levels(by_var),"p-value","Total")
-    res_list <- tapply(X = data[[i]], 
+    res_list <- tapply(X = data[[i]],
                        INDEX = by_var,
                        FUN = mean_sd_fct, # fonction à utiliser sur X
                        dig = 1, remove_miss = TRUE)
@@ -565,16 +571,16 @@ tab_biv_quanti <- function(data, # le data frame
     }
     results[2:3,"Total"] <- mean_sd_fct(x = data[[i]],
                                         dig = dig)
-    
+
     # Anova pour récupérer la p-value
-    anova_table <- aov(formula(paste0(i, "~", by)), 
+    anova_table <- aov(formula(paste0(i, "~", by)),
                        data = data)
     pval <- anova(anova_table)$`Pr(>F)`[1]
-    results[1 ,"p-value"] <- round(pval, digits = 2)            
-        
-    
+    results[1 ,"p-value"] <- round(pval, digits = 2)
+
+
     tab_list[[i]] <- data.frame(var = c(metadata$label[metadata$var == i],
-                                        "n / n missing", 
+                                        "n / n missing",
                                         "moyenne (DS)"),
                                 results)
   }
@@ -584,10 +590,10 @@ tab_biv_quanti <- function(data, # le data frame
   for(j in 1:length(tab_list)) {
     tab_pooled <- rbind(tab_pooled, tab_list[[j]])
   }
-  
+
   return(tab_pooled)
-} 
-  
+}
+
 table_quanti_by_trait <- tab_biv_quanti(data = df_1miss, # le data frame
                                         metadata = meta_df_1, # la base de méta-données
                                         by = "traitL", # variable facteur en colonnes

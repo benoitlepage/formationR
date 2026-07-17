@@ -12,7 +12,7 @@ df_1 <- read.csv2("data/df_1.csv")
 meta_df_1 <- read.csv2("data/meta_df_1.csv")
 
 # pour chaque variable, 10% des valeurs sont remplacées au hasard par des manquants
-set.seed((6543))
+set.seed(6543)
 df_1miss <- df_1
 for (i in 2:ncol(df_1miss)) {
   df_1miss[[i]] <- ifelse(rbinom(n = nrow(df_1miss), size = 1, prob = 0.10) == 1, 
@@ -148,21 +148,371 @@ table1(~ imc + pas + sexL | traitL,
 
 Une des limites du package `table1` est qu'il ne permet pas d'afficher une colonne de p-values pour donner les résultats de tests de comparaison bivariés.
 
-# Méthodes plus flexibles
+## Méthodes plus flexibles
 Le package `table1` permet d'obtenir des tables uni- et bivariées très faciement, mais il ne donne pas beaucoup de possibilité pour adatper la table à sa guise. 
 
 Pour obtenir des tables avec une plus grande liberté de présentation, on peut créer un tableau (`data.frame`) contenant exactement les résultats que l'on veut présenter.
 
-Par exemple, on va chercher à obtenir une mise en forme comme celle de la figure ci-dessous :
+Par exemple, on va chercher à obtenir une mise en forme comme celles de la figure ci-dessous :
 ```{r figtableaux, echo=FALSE, out.width="100%", fig.align="center", fig.cap="Formats souhaités"}
 knitr::include_graphics("./images/format_tableaux.jpg")  
 ```
 
+### Création d'une base de données pour une table univariée
+
+#### Variables quantitatives
+On va créer un tableau à 2 colonnes : 
+
+  - la première colonne contiendra les noms de variables et les paramètres statistiques
+  - la deuxième colonne contiendra au format texte : les effectifs observés et manquants, ou la moyenne et l'écart type entre parenthèses.
+  
+```{r tab_univ1, echo = TRUE}
+# il faut calculer les effectifs observés (non manquants), les effectifs manquants,
+# la moyenne et l'écart type :
+N <- length(which(!is.na(df_1miss$imc)))
+N_miss <- length(which(is.na(df_1miss$imc)))
+moy <- mean(df_1miss$imc, na.rm = TRUE)
+std <- sd(df_1miss$imc, na.rm = TRUE)
+
+## puis on créé un data.frame à deux colonne contenant les résultats
+## mis en forme selon la présentation souhaitée
+tab_imc <- data.frame(var = c(meta_df_1$label[meta_df_1$var == "imc"],
+                              "n / n missing", 
+                              "moyenne (DS)"),
+                      stat= c("", # la première ligne de la colonne stat est vide
+                              paste0(N, " / ", N_miss),
+                              paste0(round(moy, digits = 1), " (",
+                                     round(std, digits = 1), ")")))
+tab_imc
+```
+
+Pour automatiser la création de cette table, on peut écrire une nouvelle fonction, comme dans l'exemple ci-dessous
+```{r tab_univ2, echo = TRUE}
+# la fonction prend 3 arguments
+tab_univ_quanti <- function(data, # le data frame
+                            metadata, # la base de méta-données
+                            variables) { # vecteur de noms de variables quanti
+  # la table associée à chaque variable sera stockée dans une liste
+  tab_list <- list() # créée une liste vide
+  
+  for (i in variables) { # boucle pour chaque variable du vecteur variables
+    N <- length(which(!is.na(data[[i]])))
+    N_miss <- length(which(is.na(data[[i]])))
+    moyenne <- mean(data[[i]], na.rm = TRUE)
+    std <- sd(data[[i]], na.rm = TRUE)
+    
+    tab_list[[i]] <- data.frame(var = c(metadata$label[metadata$var == i],
+                                  "n / n missing", 
+                                  "moyenne (DS)"),
+                          stat= c("", # la première ligne de la colonne stat est vide
+                                  paste0(N, " / ", N_miss),
+                                  paste0(round(moyenne, digits = 1), " (",
+                                         round(std, digits = 1), ")")))
+  }
+  
+  # on commence par créer une table commune vide
+  tab_pooled <- data.frame(matrix("", ncol = 2, nrow = 0))
+  # on empile chaque table stockée dans la liste les unes après les autres
+  for(j in 1:length(tab_list)) {
+    tab_pooled <- rbind(tab_pooled, tab_list[[j]])
+  }
+  
+  return(tab_pooled)
+}
+
+tab_quanti <- tab_univ_quanti(data = df_1miss, # le data frame
+                              metadata = meta_df_1, # la base de méta-données
+                              variables = c("imc", "pas")) # variables quantitatives
+tab_quanti
+```
+
+#### Variables qualitatives
+On va faire une table indiquant sur chaque ligne l'effectif et le pourcentage après exclusion des manquants. La dernière ligne contient les effectifs observés et manquants. Comme précédemment, la première colonne contiendra le nom de la variable et le nom des labels.
+```{r tab_quali1, echo = TRUE}
+# On commence avec une table à 2 colonnes indiquant les effectifs et les pourcentages.
+# Les pourcentages seront calculés en excluant les données manquantes 
+# (comme sous une hypothèse "missing completely at random" MCAR)
+tab_sex_temp <- cbind(table(df_1miss$sexL, useNA = "no"), 
+                      prop.table(table(df_1miss$sexL, useNA = "no"))) 
+tab_sex_temp
+
+# La fonction paste0 peut être utilisée pour concaténer les 2 colonnes en un seul 
+# vecteur, avec une mise en forme des pourcentages entre parenthèses et 1 chiffre
+# après la virgule
+paste0(tab_sex_temp[,1], " (", round(tab_sex_temp[,2] * 100, digits = 1), "%)")
+
+tab_sex <- data.frame(var = c(meta_df_1$label[meta_df_1$var == "sexL"][1],
+                              levels(df_1miss$sexL)),
+                      stat= c("", # la première ligne de la colonne stat est vide
+                              paste0(tab_sex_temp[,1], 
+                                     " (", 
+                                     round(tab_sex_temp[,2] * 100, digits = 1), 
+                                     "%)")))
+tab_sex <- rbind(tab_sex, 
+                 c("n / n missing", 
+                   paste0(length(which(!is.na(df_1miss$sexL))), 
+                          " / ", 
+                          length(which(is.na(df_1miss$sexL))))))
+tab_sex
+```
+
+Comme pour les variables quantitatives, on peut créer une fonction pour automatiser la création de tables pour les variables qualitatives.
+```{r tab_quali2, echo = TRUE}
+## Fonction pour automatiser la création de table pour les variables quali
+tab_univ_quali <- function(data, # le data frame
+                           metadata, # la base de méta-données
+                           variables) { # vecteur de noms de variables quanti
+  # la table associée à chaque variable sera stockée dans une liste
+  tab_list <- list() # créée une liste vide
+  
+  for (i in variables) { # boucle pour chaque variable du vecteur variables
+    N <- length(which(!is.na(data[[i]])))
+    N_miss <- length(which(is.na(data[[i]])))
+    
+    tab_temp <- cbind(table(data[[i]], useNA = "no"), 
+                          prop.table(table(data[[i]], useNA = "no"))) 
+    
+    
+    tab_list[[i]] <- data.frame(var = c(paste0(metadata$label[metadata$var == i][1],
+                                               ", n (%)"),
+                                        levels(data[[i]])),
+                                stat= c("", # la première ligne de la colonne stat est vide
+                                        paste0(tab_temp[,1], 
+                                               " (", 
+                                               round(tab_temp[,2] * 100, digits = 1), 
+                                               "%)")))
+    if (N_miss >= 1) { # s'il y a des  manquants, on ajoute les effectifs observés 
+      tab_list[[i]] <- rbind(tab_list[[i]], 
+                             c("n / n missing", 
+                               paste0(length(which(!is.na(data[[i]]))), 
+                                      " / ", 
+                                      length(which(is.na(data[[i]]))))))
+    }
+  }
+  
+  # on commence par créer une table commune vide
+  tab_pooled <- data.frame(matrix("", ncol = 2, nrow = 0))
+  # on empile chaque table stockée dans la liste les unes après les autres
+  for(j in 1:length(tab_list)) {
+    tab_pooled <- rbind(tab_pooled, tab_list[[j]])
+  }
+  
+  return(tab_pooled)
+}
+
+tab_quali <- tab_univ_quali(data = df_1miss, # le data frame
+                            metadata = meta_df_1, # la base de méta-données
+                            variables = c("sexL", "traitL"))
+tab_quali
+```
+
+
+## Package `tinytable`
+On va combiner la table univariée des variables quantitatives et qualitatives.
+```{r tinytable_uni1, echo = TRUE}
+tab_desc <- rbind(tab_quanti, tab_quali)
+
+# on va changer les noms de colonnes
+# en indiquant les effectifs totaux dans la colonne des résultats statistiques
+names(tab_desc) <- c("Variables", 
+                     paste0("N = ", nrow(df_1miss))) 
+
+tab_desc
+```
+
+Le package [`tinytable`](https://vincentarelbundock.github.io/tinytable/) permet d'obtenir rapidement et simplement des tables mises en forme pour être copiées-collées dans un rapport d'analyse (ou une sortie Rmarkdown ou Quarto).
+
+Le package est simple, avec peu de fonctions à connaître pour être utilisé et ne dépend pas d'autres packages R. 
+
+```{r tinytable_uni2, echo=TRUE, warning=FALSE}
+library(tinytable)
+tt(tab_desc)
+```
+
+On peut facilement modifier le style de certaines cellules (cf `?style_tt` pour plus d'informations).
+```{r tinytable_uni3, echo = TRUE}
+# Ci-dessous, les celulles avec les noms de variables s'affichent en gras. (bold)
+# et une indentation vers la droite est ajoutée pour les noms des paramètres
+tt(tab_desc) |>
+  style_tt(
+    i = which(tab_desc[,2] == ""), # sélectionner les lignes sans statistiques
+    j = 1, # sélectionne la 1ère colonne
+    bold = TRUE) |>
+  style_tt(
+    i = which(tab_desc[,2] != ""), # sélectionner les lignes avec statistiques
+    j = 1,
+    indent = 2 # ajoute une indentation vers la droite de 2 unités
+  )
+```
+
+## Préparation d'un tableau bivarié avec p-values
+### Préparation d'un `data.frame`
+Pour cette analyse, on va se restreindre à la base de 267 patients sans données manquantes sur le traitement.
+```{r tabbivar1, echo = TRUE}
+table(df_1miss$traitL, useNA = "ifany")
+# on voit que la variable traitement est manquante chez 33 participants :
+# on exclut ces 33 participants de l'analyse bivariée
+```
+
+Pour croiser l'IMC et la PAS en fonction du traitement, on va créer une fonction qui récupère sous forme de vecteur :
+
+  - les effectifs observés et manquants (n / n missing)
+  - la moyenne et l'écart type (moyenne (DS)).
+
+```{r tabbivar2, echo = TRUE}
+mean_sd_fct <- function(x, dig = 1, remove_miss = TRUE) {  
+  n_n_miss <- paste0(length(which(!is.na(x))), 
+                     " / ",
+                     length(which(is.na(x))))
+  mean_sd <- paste0(round(mean(x, na.rm = remove_miss), digits = dig), 
+                    " (",
+                    round(sd(x, na.rm = remove_miss), digits = dig),
+                    ")")
+  return(c(n_n_miss, mean_sd))
+}
+
+## exemples de résultat obtenu avec la fonction mean_sd_fct()
+mean_sd_fct(x = df_1miss[!is.na(df_1miss$traitL), "imc"],  
+            dig = 1, 
+            remove_miss = TRUE)
+
+tapply(X = df_1miss$imc, 
+       INDEX = df_1miss$traitL,
+       FUN = mean_sd_fct, # fonction à utiliser sur X
+       dig = 1, remove_miss = TRUE) # arguments de la fonction     
+```
+
+Préparation d'une table croisant le traitement avec :
+ 
+  - l'IMC
+  - la PAS
+  - le sexe
+```{r tabbivar3, echo = TRUE}
+# Les effectifs totaux seront affichés sur la première ligne
+df_results <- data.frame(var = c("N total", 
+                                 meta_df_1$label[meta_df_1$var == "imc"],
+                                 "n / n missing", 
+                                 "moyenne (DS)",
+                                 meta_df_1$label[meta_df_1$var == "pas"],
+                                 "n / n missing", 
+                                 "moyenne (DS)",
+                                 paste0(meta_df_1$label[meta_df_1$var == "sexL"][1], ", n (%)"),
+                                 levels(df_1miss$sexL),
+                                 "n / n missing"))
+df_results <- data.frame(df_results, 
+                         matrix("", ncol = length(levels(df_1miss$traitL)) + 2,
+                                nrow = nrow(df_results)))
+names(df_results) <- c("Variable", levels(df_1miss$traitL), "p-value", "Total")
+df_results
+```
+
+Ensuite on remplit le contenu du tableau (à noter qu'on va exclure des analyses les données manquantes concernant le traitement).
+```{r tabbivar4, echo = TRUE}
+## Ligne N total 
+n_obs_tot <- table(df_1miss$traitL, useNA = "no")
+df_results[1,c("Placebo", 
+               "Traitement A", 
+               "Traitement B")] <- paste0("N = ", n_obs_tot)
+df_results[1, "Total"] <- paste0("N = ", sum(n_obs_tot))
+df_results
+
+## Lignes de l'IMC en fonction du traitement
+imc_by_trait <- tapply(X = df_1miss$imc, 
+                       INDEX = df_1miss$traitL,
+                       FUN = mean_sd_fct, # fonction à utiliser sur X
+                       dig = 1, remove_miss = TRUE)
+      
+df_results[3:4, c("Placebo")] <- imc_by_trait$Placebo
+df_results[3:4, c("Traitement A")] <- imc_by_trait$`Traitement A`
+df_results[3:4, c("Traitement B")] <- imc_by_trait$`Traitement B`
+# note : pour avoir des effectifs cohérents dans la colonne total, 
+# les analyses doivent être réalisées dans le sous-ensemble de données 
+# sans manquants concernant le traitement +++
+df_results[3:4, c("Total")] <- mean_sd_fct(x = subset(df_1miss,
+                                                      subset = !is.na(traitL))$imc,  
+                                           dig = 1, 
+                                           remove_miss = TRUE)
+anova_imc_by_traitL <- anova(aov(imc ~ traitL, data = df_1miss))
+anova_imc_by_traitL$`Pr(>F)` 
+df_results[3,"p-value"] <- paste0(round(anova_imc_by_traitL$`Pr(>F)`[1], digits = 2),
+                                  "<sup>a") # code html pour afficher "a" en exposant
+df_results
+
+# Lignes de la PAS en fonction du traitement
+pas_by_trait <- tapply(X = df_1miss$pas, 
+                       INDEX = df_1miss$traitL,
+                       FUN = mean_sd_fct, # fonction à utiliser sur X
+                       dig = 1, remove_miss = TRUE)
+df_results[6:7, c("Placebo")] <- pas_by_trait$Placebo
+df_results[6:7, c("Traitement A")] <- pas_by_trait$`Traitement A`
+df_results[6:7, c("Traitement B")] <- pas_by_trait$`Traitement B`
+df_results[6:7, c("Total")] <- mean_sd_fct(x = subset(df_1miss, 
+                                                      subset = !is.na(traitL))$pas,  
+                                           dig = 1, 
+                                           remove_miss = TRUE)
+anova_pas_by_traitL <- anova(aov(pas ~ traitL, data = df_1miss))
+anova_pas_by_traitL$`Pr(>F)` 
+df_results[6,"p-value"] <- "<0.0001<sup>a"
+
+## On complète la table pour le sexe
+# on commence par décrire les effectifs avec les manquants 
+# pour calculer les effectifs par groupe de traitement
+table(df_1miss$sexL, df_1miss$traitL, useNA = "ifany")
+
+# total des 3 premières colonnes, en comptant les manquants
+tot_trait <- colSums(table(df_1miss$sexL, df_1miss$traitL, useNA = "ifany")[,1:3])
+# nombre de manquants
+n_miss_sex <- table(df_1miss$sexL, df_1miss$traitL, useNA = "ifany")[3,1:3]
+# total des effectifs non-manquants
+n_obs_sex <- colSums(table(df_1miss$sexL, df_1miss$traitL, useNA = "no"))
+
+# Effectifs et pourcentages calculés en excluant les manquants (hypothèse MCAR)
+tab_sex_n <- table(df_1miss$sexL, df_1miss$traitL, useNA = "no")
+tab_sex_pct <- prop.table(table(df_1miss$sexL, df_1miss$traitL, useNA = "no"),
+                          margin = 2) # pour les pourcentages en colonnes
+tab_sexL_by_traitL <- paste0(tab_sex_n, 
+                             " (", 
+                             round(tab_sex_pct * 100, digits = 1),
+                             "%)")
+dim(tab_sexL_by_traitL) <- dim(tab_sex_n)
+tab_sexL_by_traitL
+
+# On complète la table bivariée
+df_results[9:10,2:4] <- tab_sexL_by_traitL
+df_results[11, 2:4] <- paste0(n_obs_sex, " / ", n_miss_sex)
+# colonne Total
+df_results[9:10,"Total"] <- paste0(rowSums(tab_sex_n), 
+                                  " (",
+                                  round(prop.table(rowSums(tab_sex_n)) * 100, 
+                                        digits = 1),
+                                  "%)")
+df_results[11,"Total"] <- paste0(sum(n_obs_sex), " / ", sum(n_miss_sex))
+# colonne p-value
+chi2_sex_trait <- chisq.test(table(df_1miss$sexL, df_1miss$traitL, useNA = "no"))
+df_results[9, "p-value"] <- paste0(round(chi2_sex_trait$p.value, digits = 2), 
+                                   "<sup>b")
+df_results
+```
+
+### Présentation avec `tinytable`
+Comme pour la table d'analyse univarié, on peut utiliser le package `tinytable` pour présenter cette table bivariée
+```{r tabbivar5, echo = TRUE}
+tt(df_results, 
+   cap = "Table : Analyses bivariées", 
+   notes = list(a = "Anova", b = "Chi-2")) |>
+  style_tt( # affiche les noms de variables en gras
+    i = which(df_results[,2] == ""),
+    j = 1,
+    bold = TRUE) |> 
+  style_tt( # ajoute une indentation vers la droite d'une unité
+    i = which(df_results[,2] != ""), 
+    j = 1,
+    indent = 1) |>
+  group_tt( # ajoute un nom de variable pour les 3 colonnes de traitements
+    j = list("Traitements" = 2:4))
+```
+
+Dans la table finale, pensez à vérifier qu'il n'y a pas d'erreurs : les pourcentages doivent être corrects et la somme des effectifs doit toujours donner les mêmes totaux, en lignes et en colonnes.
 
 gt
 gtsummary (basé sur gt)
-table1
-
-pour présenter un data.frame sous forme de table publiable
-flextable
-tinytable

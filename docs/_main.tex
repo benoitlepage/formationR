@@ -122,6 +122,14 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\usepackage{tabularray}
+\usepackage[normalem]{ulem}
+\usepackage{graphicx}
+\usepackage{rotating}
+\UseTblrLibrary{siunitx}
+\NewTableCommand{\tinytableDefineColor}[3]{\definecolor{#1}{#2}{#3}}
+\newcommand{\tinytableTabularrayUnderline}[1]{\underline{#1}}
+\newcommand{\tinytableTabularrayStrikeout}[1]{\sout{#1}}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -133,7 +141,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2026-07-16}
+\date{2026-07-17}
 
 \begin{document}
 \maketitle
@@ -7748,7 +7756,7 @@ Nous allons utiliser la base \texttt{df\_1} déjà utilisées au sein de laquell
 \NormalTok{meta\_df\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv2}\NormalTok{(}\StringTok{"data/meta\_df\_1.csv"}\NormalTok{)}
 
 \CommentTok{\# pour chaque variable, 10\% des valeurs sont remplacées au hasard par des manquants}
-\FunctionTok{set.seed}\NormalTok{((}\DecValTok{6543}\NormalTok{))}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{6543}\NormalTok{)}
 \NormalTok{df\_1miss }\OtherTok{\textless{}{-}}\NormalTok{ df\_1}
 \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(df\_1miss)) \{}
 \NormalTok{  df\_1miss[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{rbinom}\NormalTok{(}\AttributeTok{n =} \FunctionTok{nrow}\NormalTok{(df\_1miss), }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{prob =} \FloatTok{0.10}\NormalTok{) }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, }
@@ -7942,7 +7950,7 @@ Il est possible de choisir plus spécifiquement quels paramètres afficher. Pour
 ##         `Mean (SD)` = sprintf("%s (%s)", MEAN, SD), `Median [Min, Max]` = sprintf("%s [%s, %s]", 
 ##             MEDIAN, MIN, MAX)))
 ## }
-## <bytecode: 0x000001b9c7e705b0>
+## <bytecode: 0x000001d4aa82eb30>
 ## <environment: namespace:table1>
 \end{verbatim}
 
@@ -7960,7 +7968,7 @@ Il est possible de choisir plus spécifiquement quels paramètres afficher. Pour
 ##         ...), function(y) with(y, sprintf("%s (%s%%)", FREQ, 
 ##         if (na.is.category) PCT else PCTnoNA))))
 ## }
-## <bytecode: 0x000001b9c7e6f270>
+## <bytecode: 0x000001d4aa82d700>
 ## <environment: namespace:table1>
 \end{verbatim}
 
@@ -8105,13 +8113,13 @@ Comme pour l'analyse univariée, on peut choisir de n'afficher que la moyenne et
 
 Une des limites du package \texttt{table1} est qu'il ne permet pas d'afficher une colonne de p-values pour donner les résultats de tests de comparaison bivariés.
 
-\chapter{Méthodes plus flexibles}\label{muxe9thodes-plus-flexibles}
+\section{Méthodes plus flexibles}\label{muxe9thodes-plus-flexibles}
 
 Le package \texttt{table1} permet d'obtenir des tables uni- et bivariées très faciement, mais il ne donne pas beaucoup de possibilité pour adatper la table à sa guise.
 
 Pour obtenir des tables avec une plus grande liberté de présentation, on peut créer un tableau (\texttt{data.frame}) contenant exactement les résultats que l'on veut présenter.
 
-Par exemple, on va chercher à obtenir une mise en forme comme celle de la figure ci-dessous :
+Par exemple, on va chercher à obtenir une mise en forme comme celles de la figure ci-dessous :
 
 \begin{figure}
 
@@ -8122,13 +8130,741 @@ Par exemple, on va chercher à obtenir une mise en forme comme celle de la figur
 \caption{Formats souhaités}\label{fig:figtableaux}
 \end{figure}
 
+\subsection{Création d'une base de données pour une table univariée}\label{cruxe9ation-dune-base-de-donnuxe9es-pour-une-table-univariuxe9e}
+
+\subsubsection{Variables quantitatives}\label{variables-quantitatives-2}
+
+On va créer un tableau à 2 colonnes :
+
+\begin{itemize}
+\tightlist
+\item
+  la première colonne contiendra les noms de variables et les paramètres statistiques
+\item
+  la deuxième colonne contiendra au format texte : les effectifs observés et manquants, ou la moyenne et l'écart type entre parenthèses.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# il faut calculer les effectifs observés (non manquants), les effectifs manquants,}
+\CommentTok{\# la moyenne et l\textquotesingle{}écart type :}
+\NormalTok{N }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{imc)))}
+\NormalTok{N\_miss }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{imc)))}
+\NormalTok{moy }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{std }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{imc, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+
+\DocumentationTok{\#\# puis on créé un data.frame à deux colonne contenant les résultats}
+\DocumentationTok{\#\# mis en forme selon la présentation souhaitée}
+\NormalTok{tab\_imc }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{var =} \FunctionTok{c}\NormalTok{(meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"imc"}\NormalTok{],}
+                              \StringTok{"n / n missing"}\NormalTok{, }
+                              \StringTok{"moyenne (DS)"}\NormalTok{),}
+                      \AttributeTok{stat=} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }\CommentTok{\# la première ligne de la colonne stat est vide}
+                              \FunctionTok{paste0}\NormalTok{(N, }\StringTok{" / "}\NormalTok{, N\_miss),}
+                              \FunctionTok{paste0}\NormalTok{(}\FunctionTok{round}\NormalTok{(moy, }\AttributeTok{digits =} \DecValTok{1}\NormalTok{), }\StringTok{" ("}\NormalTok{,}
+                                     \FunctionTok{round}\NormalTok{(std, }\AttributeTok{digits =} \DecValTok{1}\NormalTok{), }\StringTok{")"}\NormalTok{)))}
+\NormalTok{tab\_imc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             var     stat
+## 1   IMC (kg/m²)         
+## 2 n / n missing 263 / 37
+## 3  moyenne (DS) 24.4 (3)
+\end{verbatim}
+
+Pour automatiser la création de cette table, on peut écrire une nouvelle fonction, comme dans l'exemple ci-dessous
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# la fonction prend 3 arguments}
+\NormalTok{tab\_univ\_quanti }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data, }\CommentTok{\# le data frame}
+\NormalTok{                            metadata, }\CommentTok{\# la base de méta{-}données}
+\NormalTok{                            variables) \{ }\CommentTok{\# vecteur de noms de variables quanti}
+  \CommentTok{\# la table associée à chaque variable sera stockée dans une liste}
+\NormalTok{  tab\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{() }\CommentTok{\# créée une liste vide}
+  
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ variables) \{ }\CommentTok{\# boucle pour chaque variable du vecteur variables}
+\NormalTok{    N }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(data[[i]])))}
+\NormalTok{    N\_miss }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(data[[i]])))}
+\NormalTok{    moyenne }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(data[[i]], }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{    std }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(data[[i]], }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+    
+\NormalTok{    tab\_list[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{var =} \FunctionTok{c}\NormalTok{(metadata}\SpecialCharTok{$}\NormalTok{label[metadata}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==}\NormalTok{ i],}
+                                  \StringTok{"n / n missing"}\NormalTok{, }
+                                  \StringTok{"moyenne (DS)"}\NormalTok{),}
+                          \AttributeTok{stat=} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }\CommentTok{\# la première ligne de la colonne stat est vide}
+                                  \FunctionTok{paste0}\NormalTok{(N, }\StringTok{" / "}\NormalTok{, N\_miss),}
+                                  \FunctionTok{paste0}\NormalTok{(}\FunctionTok{round}\NormalTok{(moyenne, }\AttributeTok{digits =} \DecValTok{1}\NormalTok{), }\StringTok{" ("}\NormalTok{,}
+                                         \FunctionTok{round}\NormalTok{(std, }\AttributeTok{digits =} \DecValTok{1}\NormalTok{), }\StringTok{")"}\NormalTok{)))}
+\NormalTok{  \}}
+  
+  \CommentTok{\# on commence par créer une table commune vide}
+\NormalTok{  tab\_pooled }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\StringTok{""}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{0}\NormalTok{))}
+  \CommentTok{\# on empile chaque table stockée dans la liste les unes après les autres}
+  \ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(tab\_list)) \{}
+\NormalTok{    tab\_pooled }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(tab\_pooled, tab\_list[[j]])}
+\NormalTok{  \}}
+  
+  \FunctionTok{return}\NormalTok{(tab\_pooled)}
+\NormalTok{\}}
+
+\NormalTok{tab\_quanti }\OtherTok{\textless{}{-}} \FunctionTok{tab\_univ\_quanti}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df\_1miss, }\CommentTok{\# le data frame}
+                              \AttributeTok{metadata =}\NormalTok{ meta\_df\_1, }\CommentTok{\# la base de méta{-}données}
+                              \AttributeTok{variables =} \FunctionTok{c}\NormalTok{(}\StringTok{"imc"}\NormalTok{, }\StringTok{"pas"}\NormalTok{)) }\CommentTok{\# variables quantitatives}
+\NormalTok{tab\_quanti}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             var         stat
+## 1   IMC (kg/m²)             
+## 2 n / n missing     263 / 37
+## 3  moyenne (DS)     24.4 (3)
+## 4    PAS (mmHg)             
+## 5 n / n missing     267 / 33
+## 6  moyenne (DS) 137.2 (16.9)
+\end{verbatim}
+
+\subsubsection{Variables qualitatives}\label{variables-qualitatives-2}
+
+On va faire une table indiquant sur chaque ligne l'effectif et le pourcentage après exclusion des manquants. La dernière ligne contient les effectifs observés et manquants. Comme précédemment, la première colonne contiendra le nom de la variable et le nom des labels.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# On commence avec une table à 2 colonnes indiquant les effectifs et les pourcentages.}
+\CommentTok{\# Les pourcentages seront calculés en excluant les données manquantes }
+\CommentTok{\# (comme sous une hypothèse "missing completely at random" MCAR)}
+\NormalTok{tab\_sex\_temp }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL, }\AttributeTok{useNA =} \StringTok{"no"}\NormalTok{), }
+                      \FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL, }\AttributeTok{useNA =} \StringTok{"no"}\NormalTok{))) }
+\NormalTok{tab\_sex\_temp}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]      [,2]
+## Féminin   137 0.4945848
+## Masculin  140 0.5054152
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# La fonction paste0 peut être utilisée pour concaténer les 2 colonnes en un seul }
+\CommentTok{\# vecteur, avec une mise en forme des pourcentages entre parenthèses et 1 chiffre}
+\CommentTok{\# après la virgule}
+\FunctionTok{paste0}\NormalTok{(tab\_sex\_temp[,}\DecValTok{1}\NormalTok{], }\StringTok{" ("}\NormalTok{, }\FunctionTok{round}\NormalTok{(tab\_sex\_temp[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }\AttributeTok{digits =} \DecValTok{1}\NormalTok{), }\StringTok{"\%)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "137 (49.5%)" "140 (50.5%)"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tab\_sex }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{var =} \FunctionTok{c}\NormalTok{(meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sexL"}\NormalTok{][}\DecValTok{1}\NormalTok{],}
+                              \FunctionTok{levels}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL)),}
+                      \AttributeTok{stat=} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }\CommentTok{\# la première ligne de la colonne stat est vide}
+                              \FunctionTok{paste0}\NormalTok{(tab\_sex\_temp[,}\DecValTok{1}\NormalTok{], }
+                                     \StringTok{" ("}\NormalTok{, }
+                                     \FunctionTok{round}\NormalTok{(tab\_sex\_temp[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }\AttributeTok{digits =} \DecValTok{1}\NormalTok{), }
+                                     \StringTok{"\%)"}\NormalTok{)))}
+\NormalTok{tab\_sex }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(tab\_sex, }
+                 \FunctionTok{c}\NormalTok{(}\StringTok{"n / n missing"}\NormalTok{, }
+                   \FunctionTok{paste0}\NormalTok{(}\FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL))), }
+                          \StringTok{" / "}\NormalTok{, }
+                          \FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL))))))}
+\NormalTok{tab\_sex}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             var        stat
+## 1          Sexe            
+## 2       Féminin 137 (49.5%)
+## 3      Masculin 140 (50.5%)
+## 4 n / n missing    277 / 23
+\end{verbatim}
+
+Comme pour les variables quantitatives, on peut créer une fonction pour automatiser la création de tables pour les variables qualitatives.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Fonction pour automatiser la création de table pour les variables quali}
+\NormalTok{tab\_univ\_quali }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data, }\CommentTok{\# le data frame}
+\NormalTok{                           metadata, }\CommentTok{\# la base de méta{-}données}
+\NormalTok{                           variables) \{ }\CommentTok{\# vecteur de noms de variables quanti}
+  \CommentTok{\# la table associée à chaque variable sera stockée dans une liste}
+\NormalTok{  tab\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{() }\CommentTok{\# créée une liste vide}
+  
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ variables) \{ }\CommentTok{\# boucle pour chaque variable du vecteur variables}
+\NormalTok{    N }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(data[[i]])))}
+\NormalTok{    N\_miss }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(data[[i]])))}
+    
+\NormalTok{    tab\_temp }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{table}\NormalTok{(data[[i]], }\AttributeTok{useNA =} \StringTok{"no"}\NormalTok{), }
+                          \FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(data[[i]], }\AttributeTok{useNA =} \StringTok{"no"}\NormalTok{))) }
+    
+    
+\NormalTok{    tab\_list[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{var =} \FunctionTok{c}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(metadata}\SpecialCharTok{$}\NormalTok{label[metadata}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==}\NormalTok{ i][}\DecValTok{1}\NormalTok{],}
+                                               \StringTok{", n (\%)"}\NormalTok{),}
+                                        \FunctionTok{levels}\NormalTok{(data[[i]])),}
+                                \AttributeTok{stat=} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }\CommentTok{\# la première ligne de la colonne stat est vide}
+                                        \FunctionTok{paste0}\NormalTok{(tab\_temp[,}\DecValTok{1}\NormalTok{], }
+                                               \StringTok{" ("}\NormalTok{, }
+                                               \FunctionTok{round}\NormalTok{(tab\_temp[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }\AttributeTok{digits =} \DecValTok{1}\NormalTok{), }
+                                               \StringTok{"\%)"}\NormalTok{)))}
+    \ControlFlowTok{if}\NormalTok{ (N\_miss }\SpecialCharTok{\textgreater{}=} \DecValTok{1}\NormalTok{) \{ }\CommentTok{\# s\textquotesingle{}il y a des  manquants, on ajoute les effectifs observés }
+\NormalTok{      tab\_list[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(tab\_list[[i]], }
+                             \FunctionTok{c}\NormalTok{(}\StringTok{"n / n missing"}\NormalTok{, }
+                               \FunctionTok{paste0}\NormalTok{(}\FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(data[[i]]))), }
+                                      \StringTok{" / "}\NormalTok{, }
+                                      \FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(data[[i]]))))))}
+\NormalTok{    \}}
+\NormalTok{  \}}
+  
+  \CommentTok{\# on commence par créer une table commune vide}
+\NormalTok{  tab\_pooled }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\StringTok{""}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{0}\NormalTok{))}
+  \CommentTok{\# on empile chaque table stockée dans la liste les unes après les autres}
+  \ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(tab\_list)) \{}
+\NormalTok{    tab\_pooled }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(tab\_pooled, tab\_list[[j]])}
+\NormalTok{  \}}
+  
+  \FunctionTok{return}\NormalTok{(tab\_pooled)}
+\NormalTok{\}}
+
+\NormalTok{tab\_quali }\OtherTok{\textless{}{-}} \FunctionTok{tab\_univ\_quali}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df\_1miss, }\CommentTok{\# le data frame}
+                            \AttributeTok{metadata =}\NormalTok{ meta\_df\_1, }\CommentTok{\# la base de méta{-}données}
+                            \AttributeTok{variables =} \FunctionTok{c}\NormalTok{(}\StringTok{"sexL"}\NormalTok{, }\StringTok{"traitL"}\NormalTok{))}
+\NormalTok{tab\_quali}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 var        stat
+## 1       Sexe, n (%)            
+## 2           Féminin 137 (49.5%)
+## 3          Masculin 140 (50.5%)
+## 4     n / n missing    277 / 23
+## 5 Traitement, n (%)            
+## 6           Placebo   104 (39%)
+## 7      Traitement A  84 (31.5%)
+## 8      Traitement B  79 (29.6%)
+## 9     n / n missing    267 / 33
+\end{verbatim}
+
+\section{\texorpdfstring{Package \texttt{tinytable}}{Package tinytable}}\label{package-tinytable}
+
+On va combiner la table univariée des variables quantitatives et qualitatives.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tab\_desc }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(tab\_quanti, tab\_quali)}
+
+\CommentTok{\# on va changer les noms de colonnes}
+\CommentTok{\# en indiquant les effectifs totaux dans la colonne des résultats statistiques}
+\FunctionTok{names}\NormalTok{(tab\_desc) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Variables"}\NormalTok{, }
+                     \FunctionTok{paste0}\NormalTok{(}\StringTok{"N = "}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(df\_1miss))) }
+
+\NormalTok{tab\_desc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            Variables      N = 300
+## 1        IMC (kg/m²)             
+## 2      n / n missing     263 / 37
+## 3       moyenne (DS)     24.4 (3)
+## 4         PAS (mmHg)             
+## 5      n / n missing     267 / 33
+## 6       moyenne (DS) 137.2 (16.9)
+## 7        Sexe, n (%)             
+## 8            Féminin  137 (49.5%)
+## 9           Masculin  140 (50.5%)
+## 10     n / n missing     277 / 23
+## 11 Traitement, n (%)             
+## 12           Placebo    104 (39%)
+## 13      Traitement A   84 (31.5%)
+## 14      Traitement B   79 (29.6%)
+## 15     n / n missing     267 / 33
+\end{verbatim}
+
+Le package \href{https://vincentarelbundock.github.io/tinytable/}{\texttt{tinytable}} permet d'obtenir rapidement et simplement des tables mises en forme pour être copiées-collées dans un rapport d'analyse (ou une sortie Rmarkdown ou Quarto).
+
+Le package est simple, avec peu de fonctions à connaître pour être utilisé et ne dépend pas d'autres packages R.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tinytable)}
+\FunctionTok{tt}\NormalTok{(tab\_desc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+\centering
+\begin{tblr}[         %% tabularray outer open
+]                     %% tabularray outer close
+{                     %% tabularray inner open
+colspec={Q[]Q[]},
+hline{2}={1-2}{solid, black, 0.05em},
+hline{1}={1-2}{solid, black, 0.08em},
+hline{17}={1-2}{solid, black, 0.08em},
+}                     %% tabularray inner close
+Variables & N = 300 \\
+IMC (kg/m²) &  \\
+n / n missing & 263 / 37 \\
+moyenne (DS) & 24.4 (3) \\
+PAS (mmHg) &  \\
+n / n missing & 267 / 33 \\
+moyenne (DS) & 137.2 (16.9) \\
+Sexe, n (%) &  \\
+Féminin & 137 (49.5%) \\
+Masculin & 140 (50.5%) \\
+n / n missing & 277 / 23 \\
+Traitement, n (%) &  \\
+Placebo & 104 (39%) \\
+Traitement A & 84 (31.5%) \\
+Traitement B & 79 (29.6%) \\
+n / n missing & 267 / 33 \\
+\end{tblr}
+\end{table}
+
+On peut facilement modifier le style de certaines cellules (cf \texttt{?style\_tt} pour plus d'informations).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Ci{-}dessous, les celulles avec les noms de variables s\textquotesingle{}affichent en gras. (bold)}
+\CommentTok{\# et une indentation vers la droite est ajoutée pour les noms des paramètres}
+\FunctionTok{tt}\NormalTok{(tab\_desc) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{style\_tt}\NormalTok{(}
+    \AttributeTok{i =} \FunctionTok{which}\NormalTok{(tab\_desc[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{==} \StringTok{""}\NormalTok{), }\CommentTok{\# sélectionner les lignes sans statistiques}
+    \AttributeTok{j =} \DecValTok{1}\NormalTok{, }\CommentTok{\# sélectionne la 1ère colonne}
+    \AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{style\_tt}\NormalTok{(}
+    \AttributeTok{i =} \FunctionTok{which}\NormalTok{(tab\_desc[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{!=} \StringTok{""}\NormalTok{), }\CommentTok{\# sélectionner les lignes avec statistiques}
+    \AttributeTok{j =} \DecValTok{1}\NormalTok{,}
+    \AttributeTok{indent =} \DecValTok{2} \CommentTok{\# ajoute une indentation vers la droite de 2 unités}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+\centering
+\begin{tblr}[         %% tabularray outer open
+]                     %% tabularray outer close
+{                     %% tabularray inner open
+colspec={Q[]Q[]},
+hline{2}={1-2}{solid, black, 0.05em},
+hline{1}={1-2}{solid, black, 0.08em},
+hline{17}={1-2}{solid, black, 0.08em},
+cell{2,5,8,12}{1}={}{font=\bfseries},
+cell{3-4,6-7,9-11,13-16}{1}={}{preto={\hspace{2em}}},
+}                     %% tabularray inner close
+Variables & N = 300 \\
+IMC (kg/m²) &  \\
+n / n missing & 263 / 37 \\
+moyenne (DS) & 24.4 (3) \\
+PAS (mmHg) &  \\
+n / n missing & 267 / 33 \\
+moyenne (DS) & 137.2 (16.9) \\
+Sexe, n (%) &  \\
+Féminin & 137 (49.5%) \\
+Masculin & 140 (50.5%) \\
+n / n missing & 277 / 23 \\
+Traitement, n (%) &  \\
+Placebo & 104 (39%) \\
+Traitement A & 84 (31.5%) \\
+Traitement B & 79 (29.6%) \\
+n / n missing & 267 / 33 \\
+\end{tblr}
+\end{table}
+
+\section{Préparation d'un tableau bivarié avec p-values}\label{pruxe9paration-dun-tableau-bivariuxe9-avec-p-values}
+
+\subsection{\texorpdfstring{Préparation d'un \texttt{data.frame}}{Préparation d'un data.frame}}\label{pruxe9paration-dun-data.frame}
+
+Pour cette analyse, on va se restreindre à la base de 267 patients sans données manquantes sur le traitement.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{traitL, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##      Placebo Traitement A Traitement B         <NA> 
+##          104           84           79           33
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# on voit que la variable traitement est manquante chez 33 participants :}
+\CommentTok{\# on exclut ces 33 participants de l\textquotesingle{}analyse bivariée}
+\end{Highlighting}
+\end{Shaded}
+
+Pour croiser l'IMC et la PAS en fonction du traitement, on va créer une fonction qui récupère sous forme de vecteur :
+
+\begin{itemize}
+\tightlist
+\item
+  les effectifs observés et manquants (n / n missing)
+\item
+  la moyenne et l'écart type (moyenne (DS)).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean\_sd\_fct }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, }\AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{) \{  }
+\NormalTok{  n\_n\_miss }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(x))), }
+                     \StringTok{" / "}\NormalTok{,}
+                     \FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(x))))}
+\NormalTok{  mean\_sd }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(x, }\AttributeTok{na.rm =}\NormalTok{ remove\_miss), }\AttributeTok{digits =}\NormalTok{ dig), }
+                    \StringTok{" ("}\NormalTok{,}
+                    \FunctionTok{round}\NormalTok{(}\FunctionTok{sd}\NormalTok{(x, }\AttributeTok{na.rm =}\NormalTok{ remove\_miss), }\AttributeTok{digits =}\NormalTok{ dig),}
+                    \StringTok{")"}\NormalTok{)}
+  \FunctionTok{return}\NormalTok{(}\FunctionTok{c}\NormalTok{(n\_n\_miss, mean\_sd))}
+\NormalTok{\}}
+
+\DocumentationTok{\#\# exemples de résultat obtenu avec la fonction mean\_sd\_fct()}
+\FunctionTok{mean\_sd\_fct}\NormalTok{(}\AttributeTok{x =}\NormalTok{ df\_1miss[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{traitL), }\StringTok{"imc"}\NormalTok{],  }
+            \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }
+            \AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "236 / 31"   "24.4 (3.1)"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tapply}\NormalTok{(}\AttributeTok{X =}\NormalTok{ df\_1miss}\SpecialCharTok{$}\NormalTok{imc, }
+       \AttributeTok{INDEX =}\NormalTok{ df\_1miss}\SpecialCharTok{$}\NormalTok{traitL,}
+       \AttributeTok{FUN =}\NormalTok{ mean\_sd\_fct, }\CommentTok{\# fonction à utiliser sur X}
+       \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# arguments de la fonction     }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $Placebo
+## [1] "93 / 11"    "24.4 (2.8)"
+## 
+## $`Traitement A`
+## [1] "73 / 11"  "24.7 (3)"
+## 
+## $`Traitement B`
+## [1] "70 / 9"     "24.2 (3.5)"
+\end{verbatim}
+
+Préparation d'une table croisant le traitement avec :
+
+\begin{itemize}
+\tightlist
+\item
+  l'IMC
+\item
+  la PAS
+\item
+  le sexe
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Les effectifs totaux seront affichés sur la première ligne}
+\NormalTok{df\_results }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{var =} \FunctionTok{c}\NormalTok{(}\StringTok{"N total"}\NormalTok{, }
+\NormalTok{                                 meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"imc"}\NormalTok{],}
+                                 \StringTok{"n / n missing"}\NormalTok{, }
+                                 \StringTok{"moyenne (DS)"}\NormalTok{,}
+\NormalTok{                                 meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"pas"}\NormalTok{],}
+                                 \StringTok{"n / n missing"}\NormalTok{, }
+                                 \StringTok{"moyenne (DS)"}\NormalTok{,}
+                                 \FunctionTok{paste0}\NormalTok{(meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sexL"}\NormalTok{][}\DecValTok{1}\NormalTok{], }\StringTok{", n (\%)"}\NormalTok{),}
+                                 \FunctionTok{levels}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL),}
+                                 \StringTok{"n / n missing"}\NormalTok{))}
+\NormalTok{df\_results }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(df\_results, }
+                         \FunctionTok{matrix}\NormalTok{(}\StringTok{""}\NormalTok{, }\AttributeTok{ncol =} \FunctionTok{length}\NormalTok{(}\FunctionTok{levels}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{traitL)) }\SpecialCharTok{+} \DecValTok{2}\NormalTok{,}
+                                \AttributeTok{nrow =} \FunctionTok{nrow}\NormalTok{(df\_results)))}
+\FunctionTok{names}\NormalTok{(df\_results) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Variable"}\NormalTok{, }\FunctionTok{levels}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{traitL), }\StringTok{"p{-}value"}\NormalTok{, }\StringTok{"Total"}\NormalTok{)}
+\NormalTok{df\_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Variable Placebo Traitement A Traitement B p-value Total
+## 1        N total                                                
+## 2    IMC (kg/m²)                                                
+## 3  n / n missing                                                
+## 4   moyenne (DS)                                                
+## 5     PAS (mmHg)                                                
+## 6  n / n missing                                                
+## 7   moyenne (DS)                                                
+## 8    Sexe, n (%)                                                
+## 9        Féminin                                                
+## 10      Masculin                                                
+## 11 n / n missing
+\end{verbatim}
+
+Ensuite on remplit le contenu du tableau (à noter qu'on va exclure des analyses les données manquantes concernant le traitement).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Ligne N total }
+\NormalTok{n\_obs\_tot }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{traitL, }\AttributeTok{useNA =} \StringTok{"no"}\NormalTok{)}
+\NormalTok{df\_results[}\DecValTok{1}\NormalTok{,}\FunctionTok{c}\NormalTok{(}\StringTok{"Placebo"}\NormalTok{, }
+               \StringTok{"Traitement A"}\NormalTok{, }
+               \StringTok{"Traitement B"}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"N = "}\NormalTok{, n\_obs\_tot)}
+\NormalTok{df\_results[}\DecValTok{1}\NormalTok{, }\StringTok{"Total"}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"N = "}\NormalTok{, }\FunctionTok{sum}\NormalTok{(n\_obs\_tot))}
+\NormalTok{df\_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Variable Placebo Traitement A Traitement B p-value   Total
+## 1        N total N = 104       N = 84       N = 79         N = 267
+## 2    IMC (kg/m²)                                                  
+## 3  n / n missing                                                  
+## 4   moyenne (DS)                                                  
+## 5     PAS (mmHg)                                                  
+## 6  n / n missing                                                  
+## 7   moyenne (DS)                                                  
+## 8    Sexe, n (%)                                                  
+## 9        Féminin                                                  
+## 10      Masculin                                                  
+## 11 n / n missing
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Lignes de l\textquotesingle{}IMC en fonction du traitement}
+\NormalTok{imc\_by\_trait }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(}\AttributeTok{X =}\NormalTok{ df\_1miss}\SpecialCharTok{$}\NormalTok{imc, }
+                       \AttributeTok{INDEX =}\NormalTok{ df\_1miss}\SpecialCharTok{$}\NormalTok{traitL,}
+                       \AttributeTok{FUN =}\NormalTok{ mean\_sd\_fct, }\CommentTok{\# fonction à utiliser sur X}
+                       \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{)}
+      
+\NormalTok{df\_results[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"Placebo"}\NormalTok{)] }\OtherTok{\textless{}{-}}\NormalTok{ imc\_by\_trait}\SpecialCharTok{$}\NormalTok{Placebo}
+\NormalTok{df\_results[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"Traitement A"}\NormalTok{)] }\OtherTok{\textless{}{-}}\NormalTok{ imc\_by\_trait}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Traitement A}\StringTok{\textasciigrave{}}
+\NormalTok{df\_results[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"Traitement B"}\NormalTok{)] }\OtherTok{\textless{}{-}}\NormalTok{ imc\_by\_trait}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Traitement B}\StringTok{\textasciigrave{}}
+\CommentTok{\# note : pour avoir des effectifs cohérents dans la colonne total, }
+\CommentTok{\# les analyses doivent être réalisée dans le sous{-}ensemble de données }
+\CommentTok{\# sans manquants concernant le traitement +++}
+\NormalTok{df\_results[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"Total"}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{mean\_sd\_fct}\NormalTok{(}\AttributeTok{x =} \FunctionTok{subset}\NormalTok{(df\_1miss,}
+                                                      \AttributeTok{subset =} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(traitL))}\SpecialCharTok{$}\NormalTok{imc,  }
+                                           \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }
+                                           \AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{anova\_imc\_by\_traitL }\OtherTok{\textless{}{-}} \FunctionTok{anova}\NormalTok{(}\FunctionTok{aov}\NormalTok{(imc }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitL, }\AttributeTok{data =}\NormalTok{ df\_1miss))}
+\NormalTok{anova\_imc\_by\_traitL}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} \CommentTok{\# [1] 0.5259026        NA}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5259026        NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_results[}\DecValTok{3}\NormalTok{,}\StringTok{"p{-}value"}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{round}\NormalTok{(anova\_imc\_by\_traitL}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{[}\DecValTok{1}\NormalTok{], }\AttributeTok{digits =} \DecValTok{2}\NormalTok{),}
+                                  \StringTok{"\textless{}sup\textgreater{}a"}\NormalTok{) }\CommentTok{\# code html pour afficher "a" en exposant}
+\NormalTok{df\_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Variable    Placebo Traitement A Traitement B    p-value      Total
+## 1        N total    N = 104       N = 84       N = 79               N = 267
+## 2    IMC (kg/m²)                                                           
+## 3  n / n missing    93 / 11      73 / 11       70 / 9 0.53<sup>a   236 / 31
+## 4   moyenne (DS) 24.4 (2.8)     24.7 (3)   24.2 (3.5)            24.4 (3.1)
+## 5     PAS (mmHg)                                                           
+## 6  n / n missing                                                           
+## 7   moyenne (DS)                                                           
+## 8    Sexe, n (%)                                                           
+## 9        Féminin                                                           
+## 10      Masculin                                                           
+## 11 n / n missing
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Lignes de la PAS en fonction du traitement}
+\NormalTok{pas\_by\_trait }\OtherTok{\textless{}{-}} \FunctionTok{tapply}\NormalTok{(}\AttributeTok{X =}\NormalTok{ df\_1miss}\SpecialCharTok{$}\NormalTok{pas, }
+                       \AttributeTok{INDEX =}\NormalTok{ df\_1miss}\SpecialCharTok{$}\NormalTok{traitL,}
+                       \AttributeTok{FUN =}\NormalTok{ mean\_sd\_fct, }\CommentTok{\# fonction à utiliser sur X}
+                       \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }\AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{df\_results[}\DecValTok{6}\SpecialCharTok{:}\DecValTok{7}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"Placebo"}\NormalTok{)] }\OtherTok{\textless{}{-}}\NormalTok{ pas\_by\_trait}\SpecialCharTok{$}\NormalTok{Placebo}
+\NormalTok{df\_results[}\DecValTok{6}\SpecialCharTok{:}\DecValTok{7}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"Traitement A"}\NormalTok{)] }\OtherTok{\textless{}{-}}\NormalTok{ pas\_by\_trait}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Traitement A}\StringTok{\textasciigrave{}}
+\NormalTok{df\_results[}\DecValTok{6}\SpecialCharTok{:}\DecValTok{7}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"Traitement B"}\NormalTok{)] }\OtherTok{\textless{}{-}}\NormalTok{ pas\_by\_trait}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Traitement B}\StringTok{\textasciigrave{}}
+\NormalTok{df\_results[}\DecValTok{6}\SpecialCharTok{:}\DecValTok{7}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"Total"}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{mean\_sd\_fct}\NormalTok{(}\AttributeTok{x =} \FunctionTok{subset}\NormalTok{(df\_1miss, }
+                                                      \AttributeTok{subset =} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(traitL))}\SpecialCharTok{$}\NormalTok{pas,  }
+                                           \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }
+                                           \AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{anova\_pas\_by\_traitL }\OtherTok{\textless{}{-}} \FunctionTok{anova}\NormalTok{(}\FunctionTok{aov}\NormalTok{(pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitL, }\AttributeTok{data =}\NormalTok{ df\_1miss))}
+\NormalTok{anova\_pas\_by\_traitL}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} \CommentTok{\# [1] 1.079829e{-}05           NA}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.079829e-05           NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_results[}\DecValTok{6}\NormalTok{,}\StringTok{"p{-}value"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"\textless{}0.0001\textless{}sup\textgreater{}a"}
+
+\DocumentationTok{\#\# On complète la table pour le sexe}
+\CommentTok{\# on commence par décrire les effectifs avec les manquants }
+\CommentTok{\# pour calculer les effectifs par groupe de traitement}
+\FunctionTok{table}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL, df\_1miss}\SpecialCharTok{$}\NormalTok{traitL, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           
+##            Placebo Traitement A Traitement B <NA>
+##   Féminin       40           40           37   20
+##   Masculin      58           40           30   12
+##   <NA>           6            4           12    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# total des 3 premières colonnes, en comptant les manquants}
+\NormalTok{tot\_trait }\OtherTok{\textless{}{-}} \FunctionTok{colSums}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL, df\_1miss}\SpecialCharTok{$}\NormalTok{traitL, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{])}
+\CommentTok{\# nombre de manquants}
+\NormalTok{n\_miss\_sex }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL, df\_1miss}\SpecialCharTok{$}\NormalTok{traitL, }\AttributeTok{useNA =} \StringTok{"ifany"}\NormalTok{)[}\DecValTok{3}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{]}
+\CommentTok{\# total des effectifs non{-}manquants}
+\NormalTok{n\_obs\_sex }\OtherTok{\textless{}{-}} \FunctionTok{colSums}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL, df\_1miss}\SpecialCharTok{$}\NormalTok{traitL, }\AttributeTok{useNA =} \StringTok{"no"}\NormalTok{))}
+
+\CommentTok{\# Effectifs et pourcentages calculés en excluant les manquants (hypothèse MCAR)}
+\NormalTok{tab\_sex\_n }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL, df\_1miss}\SpecialCharTok{$}\NormalTok{traitL, }\AttributeTok{useNA =} \StringTok{"no"}\NormalTok{)}
+\NormalTok{tab\_sex\_pct }\OtherTok{\textless{}{-}} \FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL, df\_1miss}\SpecialCharTok{$}\NormalTok{traitL, }\AttributeTok{useNA =} \StringTok{"no"}\NormalTok{),}
+                          \AttributeTok{margin =} \DecValTok{2}\NormalTok{) }\CommentTok{\# pour les pourcentages en colonnes}
+\NormalTok{tab\_sexL\_by\_traitL }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(tab\_sex\_n, }
+                             \StringTok{" ("}\NormalTok{, }
+                             \FunctionTok{round}\NormalTok{(tab\_sex\_pct }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }\AttributeTok{digits =} \DecValTok{1}\NormalTok{),}
+                             \StringTok{"\%)"}\NormalTok{)}
+\FunctionTok{dim}\NormalTok{(tab\_sexL\_by\_traitL) }\OtherTok{\textless{}{-}} \FunctionTok{dim}\NormalTok{(tab\_sex\_n)}
+\NormalTok{tab\_sexL\_by\_traitL}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]         [,2]       [,3]        
+## [1,] "40 (40.8%)" "40 (50%)" "37 (55.2%)"
+## [2,] "58 (59.2%)" "40 (50%)" "30 (44.8%)"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# On complète la table bivariée}
+\NormalTok{df\_results[}\DecValTok{9}\SpecialCharTok{:}\DecValTok{10}\NormalTok{,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ tab\_sexL\_by\_traitL}
+\NormalTok{df\_results[}\DecValTok{11}\NormalTok{, }\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(n\_obs\_sex, }\StringTok{" / "}\NormalTok{, n\_miss\_sex)}
+\CommentTok{\# colonne Total}
+\NormalTok{df\_results[}\DecValTok{9}\SpecialCharTok{:}\DecValTok{10}\NormalTok{,}\StringTok{"Total"}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{rowSums}\NormalTok{(tab\_sex\_n), }
+                                  \StringTok{" ("}\NormalTok{,}
+                                  \FunctionTok{round}\NormalTok{(}\FunctionTok{prop.table}\NormalTok{(}\FunctionTok{rowSums}\NormalTok{(tab\_sex\_n)) }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }
+                                        \AttributeTok{digits =} \DecValTok{1}\NormalTok{),}
+                                  \StringTok{"\%)"}\NormalTok{)}
+\NormalTok{df\_results[}\DecValTok{11}\NormalTok{,}\StringTok{"Total"}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{sum}\NormalTok{(n\_obs\_sex), }\StringTok{" / "}\NormalTok{, }\FunctionTok{sum}\NormalTok{(n\_miss\_sex))}
+\CommentTok{\# colonne p{-}value}
+\NormalTok{chi2\_sex\_trait }\OtherTok{\textless{}{-}} \FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL, df\_1miss}\SpecialCharTok{$}\NormalTok{traitL, }\AttributeTok{useNA =} \StringTok{"no"}\NormalTok{))}
+\NormalTok{df\_results[}\DecValTok{8}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{round}\NormalTok{(chi2\_sex\_trait}\SpecialCharTok{$}\NormalTok{p.value, }\AttributeTok{digits =} \DecValTok{2}\NormalTok{), }
+                                   \StringTok{"\textless{}sup\textgreater{}b"}\NormalTok{)}
+\NormalTok{df\_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Variable      Placebo Traitement A Traitement B       p-value
+## 1        N total      N = 104       N = 84       N = 79              
+## 2    IMC (kg/m²)                                                     
+## 3  n / n missing      93 / 11      73 / 11       70 / 9    0.53<sup>a
+## 4   moyenne (DS)   24.4 (2.8)     24.7 (3)   24.2 (3.5)              
+## 5     PAS (mmHg)                                                     
+## 6  n / n missing      87 / 17       75 / 9       72 / 7 <0.0001<sup>a
+## 7   moyenne (DS) 143.1 (15.8) 130.5 (16.2)   137.2 (17)              
+## 8    Sexe, n (%)                                           0.17<sup>b
+## 9        Féminin   40 (40.8%)     40 (50%)   37 (55.2%)              
+## 10      Masculin   58 (59.2%)     40 (50%)   30 (44.8%)              
+## 11 n / n missing       98 / 6       80 / 4      67 / 12              
+##           Total
+## 1       N = 267
+## 2              
+## 3      236 / 31
+## 4    24.4 (3.1)
+## 5              
+## 6      234 / 33
+## 7  137.2 (17.1)
+## 8              
+## 9   117 (47.8%)
+## 10  128 (52.2%)
+## 11     245 / 22
+\end{verbatim}
+
+\subsection{\texorpdfstring{Présentation avec \texttt{tinytable}}{Présentation avec tinytable}}\label{pruxe9sentation-avec-tinytable}
+
+Comme pour la table d'analyse univarié, on peut utiliser le package \texttt{tinytable} pour présenter cette table bivariée
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tt}\NormalTok{(df\_results, }
+   \AttributeTok{cap =} \StringTok{"Table : Analyses bivariées"}\NormalTok{, }
+   \AttributeTok{notes =} \FunctionTok{list}\NormalTok{(}\AttributeTok{a =} \StringTok{"Anova"}\NormalTok{, }\AttributeTok{b =} \StringTok{"Chi{-}2"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{style\_tt}\NormalTok{( }\CommentTok{\# affiche les noms de variables en gras}
+    \AttributeTok{i =} \FunctionTok{which}\NormalTok{(df\_results[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{==} \StringTok{""}\NormalTok{),}
+    \AttributeTok{j =} \DecValTok{1}\NormalTok{,}
+    \AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{style\_tt}\NormalTok{( }\CommentTok{\# ajoute une indentation vers la droite d\textquotesingle{}une unité}
+    \AttributeTok{i =} \FunctionTok{which}\NormalTok{(df\_results[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{!=} \StringTok{""}\NormalTok{), }
+    \AttributeTok{j =} \DecValTok{1}\NormalTok{,}
+    \AttributeTok{indent =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{group\_tt}\NormalTok{( }\CommentTok{\# ajoute un nom de variable pour les 3 colonnes de traitements}
+    \AttributeTok{j =} \FunctionTok{list}\NormalTok{(}\StringTok{"Traitements"} \OtherTok{=} \DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+\centering
+\begin{talltblr}[         %% tabularray outer open
+caption={Table : Analyses bivariées},
+note{a}={Anova},
+note{b}={Chi-2},
+]                     %% tabularray outer close
+{                     %% tabularray inner open
+colspec={Q[]Q[]Q[]Q[]Q[]Q[]},
+hline{2}={3}{solid, black, 0.03em},
+hline{2}={2}{solid, black, 0.03em, l=-0.5},
+hline{2}={4}{solid, black, 0.03em, r=-0.5},
+hline{3}={1-6}{solid, black, 0.05em},
+hline{1}={1-6}{solid, black, 0.08em},
+hline{14}={1-6}{solid, black, 0.08em},
+cell{1}{1}={}{halign=c},
+cell{1}{2}={c=3}{halign=c},
+cell{1}{3}={}{halign=c},
+cell{1}{4}={}{halign=c},
+cell{1}{5}={}{halign=c},
+cell{1}{6}={}{halign=c},
+cell{3,5-6,8-9,11-13}{1}={}{preto={\hspace{1em}}},
+cell{4,7,10}{1}={}{font=\bfseries},
+}                     %% tabularray inner close
+& Traitements &  &  &  &  \\
+Variable & Placebo & Traitement A & Traitement B & p-value & Total \\
+N total & N = 104 & N = 84 & N = 79 &  & N = 267 \\
+IMC (kg/m²) &  &  &  &  &  \\
+n / n missing & 93 / 11 & 73 / 11 & 70 / 9 & 0.53<sup>a & 236 / 31 \\
+moyenne (DS) & 24.4 (2.8) & 24.7 (3) & 24.2 (3.5) &  & 24.4 (3.1) \\
+PAS (mmHg) &  &  &  &  &  \\
+n / n missing & 87 / 17 & 75 / 9 & 72 / 7 & <0.0001<sup>a & 234 / 33 \\
+moyenne (DS) & 143.1 (15.8) & 130.5 (16.2) & 137.2 (17) &  & 137.2 (17.1) \\
+Sexe, n (%) &  &  &  & 0.17<sup>b &  \\
+Féminin & 40 (40.8%) & 40 (50%) & 37 (55.2%) &  & 117 (47.8%) \\
+Masculin & 58 (59.2%) & 40 (50%) & 30 (44.8%) &  & 128 (52.2%) \\
+n / n missing & 98 / 6 & 80 / 4 & 67 / 12 &  & 245 / 22 \\
+\end{talltblr}
+\end{table}
+
 gt
 gtsummary (basé sur gt)
-table1
-
-pour présenter un data.frame sous forme de table publiable
-flextable
-tinytable
 
 \chapter{Reporting}\label{reporting}
 

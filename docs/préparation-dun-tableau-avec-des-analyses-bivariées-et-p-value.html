@@ -4,20 +4,20 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Méthodes plus flexibles | Formation R</title>
-  <meta name="description" content="Chapter 8 Méthodes plus flexibles | Formation R" />
+  <title>Chapter 8 Préparation d’un tableau avec des analyses bivariées et p-value | Formation R</title>
+  <meta name="description" content="Chapter 8 Préparation d’un tableau avec des analyses bivariées et p-value | Formation R" />
   <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Méthodes plus flexibles | Formation R" />
+  <meta property="og:title" content="Chapter 8 Préparation d’un tableau avec des analyses bivariées et p-value | Formation R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Chapter 8 Méthodes plus flexibles | Formation R" />
+  <meta property="og:description" content="Chapter 8 Préparation d’un tableau avec des analyses bivariées et p-value | Formation R" />
   <meta name="github-repo" content="formationR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Méthodes plus flexibles | Formation R" />
+  <meta name="twitter:title" content="Chapter 8 Préparation d’un tableau avec des analyses bivariées et p-value | Formation R" />
   
-  <meta name="twitter:description" content="Chapter 8 Méthodes plus flexibles | Formation R" />
+  <meta name="twitter:description" content="Chapter 8 Préparation d’un tableau avec des analyses bivariées et p-value | Formation R" />
   
 
 <meta name="author" content="Benoît Lepage" />
@@ -302,8 +302,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.1" data-path="tableaux.html"><a href="tableaux.html#tables-univari%C3%A9es"><i class="fa fa-check"></i><b>7.2.1</b> Tables univariées</a></li>
 <li class="chapter" data-level="7.2.2" data-path="tableaux.html"><a href="tableaux.html#tables-bivari%C3%A9es"><i class="fa fa-check"></i><b>7.2.2</b> Tables bivariées</a></li>
 </ul></li>
+<li class="chapter" data-level="7.3" data-path="tableaux.html"><a href="tableaux.html#m%C3%A9thodes-plus-flexibles"><i class="fa fa-check"></i><b>7.3</b> Méthodes plus flexibles</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="tableaux.html"><a href="tableaux.html#cr%C3%A9ation-dune-base-de-donn%C3%A9es-pour-une-table-univari%C3%A9e"><i class="fa fa-check"></i><b>7.3.1</b> Création d’une base de données pour une table univariée</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="méthodes-plus-flexibles.html"><a href="méthodes-plus-flexibles.html"><i class="fa fa-check"></i><b>8</b> Méthodes plus flexibles</a></li>
+<li class="chapter" data-level="7.4" data-path="tableaux.html"><a href="tableaux.html#package-tinytable"><i class="fa fa-check"></i><b>7.4</b> Package <code>tinytable</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html"><i class="fa fa-check"></i><b>8</b> Préparation d’un tableau avec des analyses bivariées et p-value</a></li>
 <li class="chapter" data-level="9" data-path="reporting.html"><a href="reporting.html"><i class="fa fa-check"></i><b>9</b> Reporting</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -325,23 +330,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="méthodes-plus-flexibles" class="section level1 hasAnchor" number="8">
-<h1><span class="header-section-number">Chapter 8</span> Méthodes plus flexibles<a href="méthodes-plus-flexibles.html#m%C3%A9thodes-plus-flexibles" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Le package <code>table1</code> permet d’obtenir des tables uni- et bivariées très faciement, mais il ne donne pas beaucoup de possibilité pour adatper la table à sa guise.</p>
-<p>Pour obtenir des tables avec une plus grande liberté de présentation, on peut créer un tableau (<code>data.frame</code>) contenant exactement les résultats que l’on veut présenter.</p>
-Par exemple, on va chercher à obtenir une mise en forme comme celle de la figure ci-dessous :
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figtableaux"></span>
-<img src="images/format_tableaux.jpg" alt="Formats souhaités" width="100%" />
-<p class="caption">
-Figure 8.1: Formats souhaités
-</p>
-</div>
+<div id="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Préparation d’un tableau avec des analyses bivariées et p-value<a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#pr%C3%A9paration-dun-tableau-avec-des-analyses-bivari%C3%A9es-et-p-value" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Pour cette analyse, on va se restreindre à la base de 267 patients sans données manquantes sur le traitement.</p>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb458-1" tabindex="-1"></a><span class="fu">table</span>(df_1miss<span class="sc">$</span>traitL, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##      Placebo Traitement A Traitement B         &lt;NA&gt; 
+##          104           84           79           33</code></pre>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb460-1" tabindex="-1"></a><span class="co"># on voit que la variable traitement est manquante chez 33 participants :</span></span>
+<span id="cb460-2"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb460-2" tabindex="-1"></a><span class="co"># on exclut ces 33 participants de l&#39;analyse bivariée</span></span></code></pre></div>
+<p>Pour croiser l’IMC et la PAS en fonction du traitement, on va créer une fonction qui récupère sous forme de vecteur :</p>
+<ul>
+<li>les effectifs observés et manquants (n / n missing)</li>
+<li>la moyenne et l’écart type (moyenne (DS)).</li>
+</ul>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-1" tabindex="-1"></a>mean_sd_fct <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>) {  </span>
+<span id="cb461-2"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-2" tabindex="-1"></a>  n_n_miss <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))), </span>
+<span id="cb461-3"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-3" tabindex="-1"></a>                     <span class="st">&quot; / &quot;</span>,</span>
+<span id="cb461-4"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-4" tabindex="-1"></a>                     <span class="fu">length</span>(<span class="fu">which</span>(<span class="fu">is.na</span>(x))))</span>
+<span id="cb461-5"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-5" tabindex="-1"></a>  mean_sd <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">mean</span>(x, <span class="at">na.rm =</span> remove_miss), <span class="at">digits =</span> dig), </span>
+<span id="cb461-6"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-6" tabindex="-1"></a>                    <span class="st">&quot; (&quot;</span>,</span>
+<span id="cb461-7"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-7" tabindex="-1"></a>                    <span class="fu">round</span>(<span class="fu">sd</span>(x, <span class="at">na.rm =</span> remove_miss), <span class="at">digits =</span> dig),</span>
+<span id="cb461-8"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-8" tabindex="-1"></a>                    <span class="st">&quot;)&quot;</span>)</span>
+<span id="cb461-9"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-9" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(n_n_miss, mean_sd))</span>
+<span id="cb461-10"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-10" tabindex="-1"></a>}</span>
+<span id="cb461-11"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-11" tabindex="-1"></a></span>
+<span id="cb461-12"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-12" tabindex="-1"></a><span class="do">## exemples de résultat obtenu avec la fonction mean_sd_fct()</span></span>
+<span id="cb461-13"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-13" tabindex="-1"></a><span class="fu">mean_sd_fct</span>(<span class="at">x =</span> df_1miss[<span class="sc">!</span><span class="fu">is.na</span>(df_1miss<span class="sc">$</span>traitL), <span class="st">&quot;imc&quot;</span>],  </span>
+<span id="cb461-14"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-14" tabindex="-1"></a>            <span class="at">dig =</span> <span class="dv">1</span>, </span>
+<span id="cb461-15"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb461-15" tabindex="-1"></a>            <span class="at">remove_miss =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;236 / 31&quot;   &quot;24.4 (3.1)&quot;</code></pre>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb463-1" tabindex="-1"></a><span class="fu">tapply</span>(<span class="at">X =</span> df_1miss<span class="sc">$</span>imc, </span>
+<span id="cb463-2"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb463-2" tabindex="-1"></a>       <span class="at">INDEX =</span> df_1miss<span class="sc">$</span>traitL,</span>
+<span id="cb463-3"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb463-3" tabindex="-1"></a>       <span class="at">FUN =</span> mean_sd_fct, <span class="co"># fonction à utiliser sur X</span></span>
+<span id="cb463-4"><a href="préparation-dun-tableau-avec-des-analyses-bivariées-et-p-value.html#cb463-4" tabindex="-1"></a>       <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>) <span class="co"># arguments de la fonction     </span></span></code></pre></div>
+<pre><code>## $Placebo
+## [1] &quot;93 / 11&quot;    &quot;24.4 (2.8)&quot;
+## 
+## $`Traitement A`
+## [1] &quot;73 / 11&quot;  &quot;24.7 (3)&quot;
+## 
+## $`Traitement B`
+## [1] &quot;70 / 9&quot;     &quot;24.2 (3.5)&quot;</code></pre>
 <p>gt
-gtsummary (basé sur gt)
-table1</p>
-<p>pour présenter un data.frame sous forme de table publiable
-flextable
-tinytable</p>
+gtsummary (basé sur gt)</p>
+<p>tinytable</p>
 
 </div>
             </section>

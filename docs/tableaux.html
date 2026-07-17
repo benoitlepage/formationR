@@ -23,7 +23,7 @@
 <meta name="author" content="Benoît Lepage" />
 
 
-<meta name="date" content="2026-07-16" />
+<meta name="date" content="2026-07-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="package-data.html"/>
-<link rel="next" href="méthodes-plus-flexibles.html"/>
+<link rel="next" href="reporting.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -302,9 +302,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.1" data-path="tableaux.html"><a href="tableaux.html#tables-univari%C3%A9es"><i class="fa fa-check"></i><b>7.2.1</b> Tables univariées</a></li>
 <li class="chapter" data-level="7.2.2" data-path="tableaux.html"><a href="tableaux.html#tables-bivari%C3%A9es"><i class="fa fa-check"></i><b>7.2.2</b> Tables bivariées</a></li>
 </ul></li>
+<li class="chapter" data-level="7.3" data-path="tableaux.html"><a href="tableaux.html#m%C3%A9thodes-plus-flexibles"><i class="fa fa-check"></i><b>7.3</b> Méthodes plus flexibles</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="tableaux.html"><a href="tableaux.html#cr%C3%A9ation-dune-base-de-donn%C3%A9es-pour-une-table-univari%C3%A9e"><i class="fa fa-check"></i><b>7.3.1</b> Création d’une base de données pour une table univariée</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="méthodes-plus-flexibles.html"><a href="méthodes-plus-flexibles.html"><i class="fa fa-check"></i><b>8</b> Méthodes plus flexibles</a></li>
-<li class="chapter" data-level="9" data-path="reporting.html"><a href="reporting.html"><i class="fa fa-check"></i><b>9</b> Reporting</a></li>
+<li class="chapter" data-level="7.4" data-path="tableaux.html"><a href="tableaux.html#package-tinytable"><i class="fa fa-check"></i><b>7.4</b> Package <code>tinytable</code></a></li>
+<li class="chapter" data-level="7.5" data-path="tableaux.html"><a href="tableaux.html#pr%C3%A9paration-dun-tableau-bivari%C3%A9-avec-p-values"><i class="fa fa-check"></i><b>7.5</b> Préparation d’un tableau bivarié avec p-values</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="tableaux.html"><a href="tableaux.html#pr%C3%A9paration-dun-data.frame"><i class="fa fa-check"></i><b>7.5.1</b> Préparation d’un <code>data.frame</code></a></li>
+<li class="chapter" data-level="7.5.2" data-path="tableaux.html"><a href="tableaux.html#pr%C3%A9sentation-avec-tinytable"><i class="fa fa-check"></i><b>7.5.2</b> Présentation avec <code>tinytable</code></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="reporting.html"><a href="reporting.html"><i class="fa fa-check"></i><b>8</b> Reporting</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -337,7 +346,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb425-4"><a href="tableaux.html#cb425-4" tabindex="-1"></a>meta_df_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/meta_df_1.csv&quot;</span>)</span>
 <span id="cb425-5"><a href="tableaux.html#cb425-5" tabindex="-1"></a></span>
 <span id="cb425-6"><a href="tableaux.html#cb425-6" tabindex="-1"></a><span class="co"># pour chaque variable, 10% des valeurs sont remplacées au hasard par des manquants</span></span>
-<span id="cb425-7"><a href="tableaux.html#cb425-7" tabindex="-1"></a><span class="fu">set.seed</span>((<span class="dv">6543</span>))</span>
+<span id="cb425-7"><a href="tableaux.html#cb425-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6543</span>)</span>
 <span id="cb425-8"><a href="tableaux.html#cb425-8" tabindex="-1"></a>df_1miss <span class="ot">&lt;-</span> df_1</span>
 <span id="cb425-9"><a href="tableaux.html#cb425-9" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(df_1miss)) {</span>
 <span id="cb425-10"><a href="tableaux.html#cb425-10" tabindex="-1"></a>  df_1miss[[i]] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">rbinom</span>(<span class="at">n =</span> <span class="fu">nrow</span>(df_1miss), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.10</span>) <span class="sc">==</span> <span class="dv">1</span>, </span>
@@ -584,7 +593,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##         `Mean (SD)` = sprintf(&quot;%s (%s)&quot;, MEAN, SD), `Median [Min, Max]` = sprintf(&quot;%s [%s, %s]&quot;, 
 ##             MEDIAN, MIN, MAX)))
 ## }
-## &lt;bytecode: 0x0000020b5c51bab8&gt;
+## &lt;bytecode: 0x000001c606e972a0&gt;
 ## &lt;environment: namespace:table1&gt;</code></pre>
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="tableaux.html#cb436-1" tabindex="-1"></a><span class="co"># les variables catégorielles sont présentése avec cet argument</span></span>
 <span id="cb436-2"><a href="tableaux.html#cb436-2" tabindex="-1"></a>render.categorical.default</span></code></pre></div>
@@ -594,7 +603,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##         ...), function(y) with(y, sprintf(&quot;%s (%s%%)&quot;, FREQ, 
 ##         if (na.is.category) PCT else PCTnoNA))))
 ## }
-## &lt;bytecode: 0x0000020b5c50c158&gt;
+## &lt;bytecode: 0x000001c606ec3508&gt;
 ## &lt;environment: namespace:table1&gt;</code></pre>
 <p>On peut créer de nouvelles fonctions de rendu en prenant ces deux fonctions pour modèle.
 Ci-dessous, on va créer une fonction de rendu pour les variables quantitatives qui ne donne que la moyenne et la déviation standard entre parenthèses.</p>
@@ -899,6 +908,845 @@ Ci-dessous, on va créer une fonction de rendu pour les variables quantitatives 
 <p>Une des limites du package <code>table1</code> est qu’il ne permet pas d’afficher une colonne de p-values pour donner les résultats de tests de comparaison bivariés.</p>
 </div>
 </div>
+<div id="méthodes-plus-flexibles" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Méthodes plus flexibles<a href="tableaux.html#m%C3%A9thodes-plus-flexibles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Le package <code>table1</code> permet d’obtenir des tables uni- et bivariées très faciement, mais il ne donne pas beaucoup de possibilité pour adatper la table à sa guise.</p>
+<p>Pour obtenir des tables avec une plus grande liberté de présentation, on peut créer un tableau (<code>data.frame</code>) contenant exactement les résultats que l’on veut présenter.</p>
+Par exemple, on va chercher à obtenir une mise en forme comme celles de la figure ci-dessous :
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figtableaux"></span>
+<img src="images/format_tableaux.jpg" alt="Formats souhaités" width="100%" />
+<p class="caption">
+Figure 7.1: Formats souhaités
+</p>
+</div>
+<div id="création-dune-base-de-données-pour-une-table-univariée" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Création d’une base de données pour une table univariée<a href="tableaux.html#cr%C3%A9ation-dune-base-de-donn%C3%A9es-pour-une-table-univari%C3%A9e" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="variables-quantitatives-2" class="section level4 hasAnchor" number="7.3.1.1">
+<h4><span class="header-section-number">7.3.1.1</span> Variables quantitatives<a href="tableaux.html#variables-quantitatives-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>On va créer un tableau à 2 colonnes :</p>
+<ul>
+<li>la première colonne contiendra les noms de variables et les paramètres statistiques</li>
+<li>la deuxième colonne contiendra au format texte : les effectifs observés et manquants, ou la moyenne et l’écart type entre parenthèses.</li>
+</ul>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="tableaux.html#cb442-1" tabindex="-1"></a><span class="co"># il faut calculer les effectifs observés (non manquants), les effectifs manquants,</span></span>
+<span id="cb442-2"><a href="tableaux.html#cb442-2" tabindex="-1"></a><span class="co"># la moyenne et l&#39;écart type :</span></span>
+<span id="cb442-3"><a href="tableaux.html#cb442-3" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(df_1miss<span class="sc">$</span>imc)))</span>
+<span id="cb442-4"><a href="tableaux.html#cb442-4" tabindex="-1"></a>N_miss <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">which</span>(<span class="fu">is.na</span>(df_1miss<span class="sc">$</span>imc)))</span>
+<span id="cb442-5"><a href="tableaux.html#cb442-5" tabindex="-1"></a>moy <span class="ot">&lt;-</span> <span class="fu">mean</span>(df_1miss<span class="sc">$</span>imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb442-6"><a href="tableaux.html#cb442-6" tabindex="-1"></a>std <span class="ot">&lt;-</span> <span class="fu">sd</span>(df_1miss<span class="sc">$</span>imc, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb442-7"><a href="tableaux.html#cb442-7" tabindex="-1"></a></span>
+<span id="cb442-8"><a href="tableaux.html#cb442-8" tabindex="-1"></a><span class="do">## puis on créé un data.frame à deux colonne contenant les résultats</span></span>
+<span id="cb442-9"><a href="tableaux.html#cb442-9" tabindex="-1"></a><span class="do">## mis en forme selon la présentation souhaitée</span></span>
+<span id="cb442-10"><a href="tableaux.html#cb442-10" tabindex="-1"></a>tab_imc <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">var =</span> <span class="fu">c</span>(meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;imc&quot;</span>],</span>
+<span id="cb442-11"><a href="tableaux.html#cb442-11" tabindex="-1"></a>                              <span class="st">&quot;n / n missing&quot;</span>, </span>
+<span id="cb442-12"><a href="tableaux.html#cb442-12" tabindex="-1"></a>                              <span class="st">&quot;moyenne (DS)&quot;</span>),</span>
+<span id="cb442-13"><a href="tableaux.html#cb442-13" tabindex="-1"></a>                      <span class="at">stat=</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="co"># la première ligne de la colonne stat est vide</span></span>
+<span id="cb442-14"><a href="tableaux.html#cb442-14" tabindex="-1"></a>                              <span class="fu">paste0</span>(N, <span class="st">&quot; / &quot;</span>, N_miss),</span>
+<span id="cb442-15"><a href="tableaux.html#cb442-15" tabindex="-1"></a>                              <span class="fu">paste0</span>(<span class="fu">round</span>(moy, <span class="at">digits =</span> <span class="dv">1</span>), <span class="st">&quot; (&quot;</span>,</span>
+<span id="cb442-16"><a href="tableaux.html#cb442-16" tabindex="-1"></a>                                     <span class="fu">round</span>(std, <span class="at">digits =</span> <span class="dv">1</span>), <span class="st">&quot;)&quot;</span>)))</span>
+<span id="cb442-17"><a href="tableaux.html#cb442-17" tabindex="-1"></a>tab_imc</span></code></pre></div>
+<pre><code>##             var     stat
+## 1   IMC (kg/m²)         
+## 2 n / n missing 263 / 37
+## 3  moyenne (DS) 24.4 (3)</code></pre>
+<p>Pour automatiser la création de cette table, on peut écrire une nouvelle fonction, comme dans l’exemple ci-dessous</p>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="tableaux.html#cb444-1" tabindex="-1"></a><span class="co"># la fonction prend 3 arguments</span></span>
+<span id="cb444-2"><a href="tableaux.html#cb444-2" tabindex="-1"></a>tab_univ_quanti <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="co"># le data frame</span></span>
+<span id="cb444-3"><a href="tableaux.html#cb444-3" tabindex="-1"></a>                            metadata, <span class="co"># la base de méta-données</span></span>
+<span id="cb444-4"><a href="tableaux.html#cb444-4" tabindex="-1"></a>                            variables) { <span class="co"># vecteur de noms de variables quanti</span></span>
+<span id="cb444-5"><a href="tableaux.html#cb444-5" tabindex="-1"></a>  <span class="co"># la table associée à chaque variable sera stockée dans une liste</span></span>
+<span id="cb444-6"><a href="tableaux.html#cb444-6" tabindex="-1"></a>  tab_list <span class="ot">&lt;-</span> <span class="fu">list</span>() <span class="co"># créée une liste vide</span></span>
+<span id="cb444-7"><a href="tableaux.html#cb444-7" tabindex="-1"></a>  </span>
+<span id="cb444-8"><a href="tableaux.html#cb444-8" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> variables) { <span class="co"># boucle pour chaque variable du vecteur variables</span></span>
+<span id="cb444-9"><a href="tableaux.html#cb444-9" tabindex="-1"></a>    N <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(data[[i]])))</span>
+<span id="cb444-10"><a href="tableaux.html#cb444-10" tabindex="-1"></a>    N_miss <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">which</span>(<span class="fu">is.na</span>(data[[i]])))</span>
+<span id="cb444-11"><a href="tableaux.html#cb444-11" tabindex="-1"></a>    moyenne <span class="ot">&lt;-</span> <span class="fu">mean</span>(data[[i]], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb444-12"><a href="tableaux.html#cb444-12" tabindex="-1"></a>    std <span class="ot">&lt;-</span> <span class="fu">sd</span>(data[[i]], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb444-13"><a href="tableaux.html#cb444-13" tabindex="-1"></a>    </span>
+<span id="cb444-14"><a href="tableaux.html#cb444-14" tabindex="-1"></a>    tab_list[[i]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">var =</span> <span class="fu">c</span>(metadata<span class="sc">$</span>label[metadata<span class="sc">$</span>var <span class="sc">==</span> i],</span>
+<span id="cb444-15"><a href="tableaux.html#cb444-15" tabindex="-1"></a>                                  <span class="st">&quot;n / n missing&quot;</span>, </span>
+<span id="cb444-16"><a href="tableaux.html#cb444-16" tabindex="-1"></a>                                  <span class="st">&quot;moyenne (DS)&quot;</span>),</span>
+<span id="cb444-17"><a href="tableaux.html#cb444-17" tabindex="-1"></a>                          <span class="at">stat=</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="co"># la première ligne de la colonne stat est vide</span></span>
+<span id="cb444-18"><a href="tableaux.html#cb444-18" tabindex="-1"></a>                                  <span class="fu">paste0</span>(N, <span class="st">&quot; / &quot;</span>, N_miss),</span>
+<span id="cb444-19"><a href="tableaux.html#cb444-19" tabindex="-1"></a>                                  <span class="fu">paste0</span>(<span class="fu">round</span>(moyenne, <span class="at">digits =</span> <span class="dv">1</span>), <span class="st">&quot; (&quot;</span>,</span>
+<span id="cb444-20"><a href="tableaux.html#cb444-20" tabindex="-1"></a>                                         <span class="fu">round</span>(std, <span class="at">digits =</span> <span class="dv">1</span>), <span class="st">&quot;)&quot;</span>)))</span>
+<span id="cb444-21"><a href="tableaux.html#cb444-21" tabindex="-1"></a>  }</span>
+<span id="cb444-22"><a href="tableaux.html#cb444-22" tabindex="-1"></a>  </span>
+<span id="cb444-23"><a href="tableaux.html#cb444-23" tabindex="-1"></a>  <span class="co"># on commence par créer une table commune vide</span></span>
+<span id="cb444-24"><a href="tableaux.html#cb444-24" tabindex="-1"></a>  tab_pooled <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="st">&quot;&quot;</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">0</span>))</span>
+<span id="cb444-25"><a href="tableaux.html#cb444-25" tabindex="-1"></a>  <span class="co"># on empile chaque table stockée dans la liste les unes après les autres</span></span>
+<span id="cb444-26"><a href="tableaux.html#cb444-26" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(tab_list)) {</span>
+<span id="cb444-27"><a href="tableaux.html#cb444-27" tabindex="-1"></a>    tab_pooled <span class="ot">&lt;-</span> <span class="fu">rbind</span>(tab_pooled, tab_list[[j]])</span>
+<span id="cb444-28"><a href="tableaux.html#cb444-28" tabindex="-1"></a>  }</span>
+<span id="cb444-29"><a href="tableaux.html#cb444-29" tabindex="-1"></a>  </span>
+<span id="cb444-30"><a href="tableaux.html#cb444-30" tabindex="-1"></a>  <span class="fu">return</span>(tab_pooled)</span>
+<span id="cb444-31"><a href="tableaux.html#cb444-31" tabindex="-1"></a>}</span>
+<span id="cb444-32"><a href="tableaux.html#cb444-32" tabindex="-1"></a></span>
+<span id="cb444-33"><a href="tableaux.html#cb444-33" tabindex="-1"></a>tab_quanti <span class="ot">&lt;-</span> <span class="fu">tab_univ_quanti</span>(<span class="at">data =</span> df_1miss, <span class="co"># le data frame</span></span>
+<span id="cb444-34"><a href="tableaux.html#cb444-34" tabindex="-1"></a>                              <span class="at">metadata =</span> meta_df_1, <span class="co"># la base de méta-données</span></span>
+<span id="cb444-35"><a href="tableaux.html#cb444-35" tabindex="-1"></a>                              <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;imc&quot;</span>, <span class="st">&quot;pas&quot;</span>)) <span class="co"># variables quantitatives</span></span>
+<span id="cb444-36"><a href="tableaux.html#cb444-36" tabindex="-1"></a>tab_quanti</span></code></pre></div>
+<pre><code>##             var         stat
+## 1   IMC (kg/m²)             
+## 2 n / n missing     263 / 37
+## 3  moyenne (DS)     24.4 (3)
+## 4    PAS (mmHg)             
+## 5 n / n missing     267 / 33
+## 6  moyenne (DS) 137.2 (16.9)</code></pre>
+</div>
+<div id="variables-qualitatives-2" class="section level4 hasAnchor" number="7.3.1.2">
+<h4><span class="header-section-number">7.3.1.2</span> Variables qualitatives<a href="tableaux.html#variables-qualitatives-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>On va faire une table indiquant sur chaque ligne l’effectif et le pourcentage après exclusion des manquants. La dernière ligne contient les effectifs observés et manquants. Comme précédemment, la première colonne contiendra le nom de la variable et le nom des labels.</p>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="tableaux.html#cb446-1" tabindex="-1"></a><span class="co"># On commence avec une table à 2 colonnes indiquant les effectifs et les pourcentages.</span></span>
+<span id="cb446-2"><a href="tableaux.html#cb446-2" tabindex="-1"></a><span class="co"># Les pourcentages seront calculés en excluant les données manquantes </span></span>
+<span id="cb446-3"><a href="tableaux.html#cb446-3" tabindex="-1"></a><span class="co"># (comme sous une hypothèse &quot;missing completely at random&quot; MCAR)</span></span>
+<span id="cb446-4"><a href="tableaux.html#cb446-4" tabindex="-1"></a>tab_sex_temp <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">table</span>(df_1miss<span class="sc">$</span>sexL, <span class="at">useNA =</span> <span class="st">&quot;no&quot;</span>), </span>
+<span id="cb446-5"><a href="tableaux.html#cb446-5" tabindex="-1"></a>                      <span class="fu">prop.table</span>(<span class="fu">table</span>(df_1miss<span class="sc">$</span>sexL, <span class="at">useNA =</span> <span class="st">&quot;no&quot;</span>))) </span>
+<span id="cb446-6"><a href="tableaux.html#cb446-6" tabindex="-1"></a>tab_sex_temp</span></code></pre></div>
+<pre><code>##          [,1]      [,2]
+## Féminin   137 0.4945848
+## Masculin  140 0.5054152</code></pre>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="tableaux.html#cb448-1" tabindex="-1"></a><span class="co"># La fonction paste0 peut être utilisée pour concaténer les 2 colonnes en un seul </span></span>
+<span id="cb448-2"><a href="tableaux.html#cb448-2" tabindex="-1"></a><span class="co"># vecteur, avec une mise en forme des pourcentages entre parenthèses et 1 chiffre</span></span>
+<span id="cb448-3"><a href="tableaux.html#cb448-3" tabindex="-1"></a><span class="co"># après la virgule</span></span>
+<span id="cb448-4"><a href="tableaux.html#cb448-4" tabindex="-1"></a><span class="fu">paste0</span>(tab_sex_temp[,<span class="dv">1</span>], <span class="st">&quot; (&quot;</span>, <span class="fu">round</span>(tab_sex_temp[,<span class="dv">2</span>] <span class="sc">*</span> <span class="dv">100</span>, <span class="at">digits =</span> <span class="dv">1</span>), <span class="st">&quot;%)&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;137 (49.5%)&quot; &quot;140 (50.5%)&quot;</code></pre>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="tableaux.html#cb450-1" tabindex="-1"></a>tab_sex <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">var =</span> <span class="fu">c</span>(meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;sexL&quot;</span>][<span class="dv">1</span>],</span>
+<span id="cb450-2"><a href="tableaux.html#cb450-2" tabindex="-1"></a>                              <span class="fu">levels</span>(df_1miss<span class="sc">$</span>sexL)),</span>
+<span id="cb450-3"><a href="tableaux.html#cb450-3" tabindex="-1"></a>                      <span class="at">stat=</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="co"># la première ligne de la colonne stat est vide</span></span>
+<span id="cb450-4"><a href="tableaux.html#cb450-4" tabindex="-1"></a>                              <span class="fu">paste0</span>(tab_sex_temp[,<span class="dv">1</span>], </span>
+<span id="cb450-5"><a href="tableaux.html#cb450-5" tabindex="-1"></a>                                     <span class="st">&quot; (&quot;</span>, </span>
+<span id="cb450-6"><a href="tableaux.html#cb450-6" tabindex="-1"></a>                                     <span class="fu">round</span>(tab_sex_temp[,<span class="dv">2</span>] <span class="sc">*</span> <span class="dv">100</span>, <span class="at">digits =</span> <span class="dv">1</span>), </span>
+<span id="cb450-7"><a href="tableaux.html#cb450-7" tabindex="-1"></a>                                     <span class="st">&quot;%)&quot;</span>)))</span>
+<span id="cb450-8"><a href="tableaux.html#cb450-8" tabindex="-1"></a>tab_sex <span class="ot">&lt;-</span> <span class="fu">rbind</span>(tab_sex, </span>
+<span id="cb450-9"><a href="tableaux.html#cb450-9" tabindex="-1"></a>                 <span class="fu">c</span>(<span class="st">&quot;n / n missing&quot;</span>, </span>
+<span id="cb450-10"><a href="tableaux.html#cb450-10" tabindex="-1"></a>                   <span class="fu">paste0</span>(<span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(df_1miss<span class="sc">$</span>sexL))), </span>
+<span id="cb450-11"><a href="tableaux.html#cb450-11" tabindex="-1"></a>                          <span class="st">&quot; / &quot;</span>, </span>
+<span id="cb450-12"><a href="tableaux.html#cb450-12" tabindex="-1"></a>                          <span class="fu">length</span>(<span class="fu">which</span>(<span class="fu">is.na</span>(df_1miss<span class="sc">$</span>sexL))))))</span>
+<span id="cb450-13"><a href="tableaux.html#cb450-13" tabindex="-1"></a>tab_sex</span></code></pre></div>
+<pre><code>##             var        stat
+## 1          Sexe            
+## 2       Féminin 137 (49.5%)
+## 3      Masculin 140 (50.5%)
+## 4 n / n missing    277 / 23</code></pre>
+<p>Comme pour les variables quantitatives, on peut créer une fonction pour automatiser la création de tables pour les variables qualitatives.</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="tableaux.html#cb452-1" tabindex="-1"></a><span class="do">## Fonction pour automatiser la création de table pour les variables quali</span></span>
+<span id="cb452-2"><a href="tableaux.html#cb452-2" tabindex="-1"></a>tab_univ_quali <span class="ot">&lt;-</span> <span class="cf">function</span>(data, <span class="co"># le data frame</span></span>
+<span id="cb452-3"><a href="tableaux.html#cb452-3" tabindex="-1"></a>                           metadata, <span class="co"># la base de méta-données</span></span>
+<span id="cb452-4"><a href="tableaux.html#cb452-4" tabindex="-1"></a>                           variables) { <span class="co"># vecteur de noms de variables quanti</span></span>
+<span id="cb452-5"><a href="tableaux.html#cb452-5" tabindex="-1"></a>  <span class="co"># la table associée à chaque variable sera stockée dans une liste</span></span>
+<span id="cb452-6"><a href="tableaux.html#cb452-6" tabindex="-1"></a>  tab_list <span class="ot">&lt;-</span> <span class="fu">list</span>() <span class="co"># créée une liste vide</span></span>
+<span id="cb452-7"><a href="tableaux.html#cb452-7" tabindex="-1"></a>  </span>
+<span id="cb452-8"><a href="tableaux.html#cb452-8" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> variables) { <span class="co"># boucle pour chaque variable du vecteur variables</span></span>
+<span id="cb452-9"><a href="tableaux.html#cb452-9" tabindex="-1"></a>    N <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(data[[i]])))</span>
+<span id="cb452-10"><a href="tableaux.html#cb452-10" tabindex="-1"></a>    N_miss <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">which</span>(<span class="fu">is.na</span>(data[[i]])))</span>
+<span id="cb452-11"><a href="tableaux.html#cb452-11" tabindex="-1"></a>    </span>
+<span id="cb452-12"><a href="tableaux.html#cb452-12" tabindex="-1"></a>    tab_temp <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">table</span>(data[[i]], <span class="at">useNA =</span> <span class="st">&quot;no&quot;</span>), </span>
+<span id="cb452-13"><a href="tableaux.html#cb452-13" tabindex="-1"></a>                          <span class="fu">prop.table</span>(<span class="fu">table</span>(data[[i]], <span class="at">useNA =</span> <span class="st">&quot;no&quot;</span>))) </span>
+<span id="cb452-14"><a href="tableaux.html#cb452-14" tabindex="-1"></a>    </span>
+<span id="cb452-15"><a href="tableaux.html#cb452-15" tabindex="-1"></a>    </span>
+<span id="cb452-16"><a href="tableaux.html#cb452-16" tabindex="-1"></a>    tab_list[[i]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">var =</span> <span class="fu">c</span>(<span class="fu">paste0</span>(metadata<span class="sc">$</span>label[metadata<span class="sc">$</span>var <span class="sc">==</span> i][<span class="dv">1</span>],</span>
+<span id="cb452-17"><a href="tableaux.html#cb452-17" tabindex="-1"></a>                                               <span class="st">&quot;, n (%)&quot;</span>),</span>
+<span id="cb452-18"><a href="tableaux.html#cb452-18" tabindex="-1"></a>                                        <span class="fu">levels</span>(data[[i]])),</span>
+<span id="cb452-19"><a href="tableaux.html#cb452-19" tabindex="-1"></a>                                <span class="at">stat=</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="co"># la première ligne de la colonne stat est vide</span></span>
+<span id="cb452-20"><a href="tableaux.html#cb452-20" tabindex="-1"></a>                                        <span class="fu">paste0</span>(tab_temp[,<span class="dv">1</span>], </span>
+<span id="cb452-21"><a href="tableaux.html#cb452-21" tabindex="-1"></a>                                               <span class="st">&quot; (&quot;</span>, </span>
+<span id="cb452-22"><a href="tableaux.html#cb452-22" tabindex="-1"></a>                                               <span class="fu">round</span>(tab_temp[,<span class="dv">2</span>] <span class="sc">*</span> <span class="dv">100</span>, <span class="at">digits =</span> <span class="dv">1</span>), </span>
+<span id="cb452-23"><a href="tableaux.html#cb452-23" tabindex="-1"></a>                                               <span class="st">&quot;%)&quot;</span>)))</span>
+<span id="cb452-24"><a href="tableaux.html#cb452-24" tabindex="-1"></a>    <span class="cf">if</span> (N_miss <span class="sc">&gt;=</span> <span class="dv">1</span>) { <span class="co"># s&#39;il y a des  manquants, on ajoute les effectifs observés </span></span>
+<span id="cb452-25"><a href="tableaux.html#cb452-25" tabindex="-1"></a>      tab_list[[i]] <span class="ot">&lt;-</span> <span class="fu">rbind</span>(tab_list[[i]], </span>
+<span id="cb452-26"><a href="tableaux.html#cb452-26" tabindex="-1"></a>                             <span class="fu">c</span>(<span class="st">&quot;n / n missing&quot;</span>, </span>
+<span id="cb452-27"><a href="tableaux.html#cb452-27" tabindex="-1"></a>                               <span class="fu">paste0</span>(<span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(data[[i]]))), </span>
+<span id="cb452-28"><a href="tableaux.html#cb452-28" tabindex="-1"></a>                                      <span class="st">&quot; / &quot;</span>, </span>
+<span id="cb452-29"><a href="tableaux.html#cb452-29" tabindex="-1"></a>                                      <span class="fu">length</span>(<span class="fu">which</span>(<span class="fu">is.na</span>(data[[i]]))))))</span>
+<span id="cb452-30"><a href="tableaux.html#cb452-30" tabindex="-1"></a>    }</span>
+<span id="cb452-31"><a href="tableaux.html#cb452-31" tabindex="-1"></a>  }</span>
+<span id="cb452-32"><a href="tableaux.html#cb452-32" tabindex="-1"></a>  </span>
+<span id="cb452-33"><a href="tableaux.html#cb452-33" tabindex="-1"></a>  <span class="co"># on commence par créer une table commune vide</span></span>
+<span id="cb452-34"><a href="tableaux.html#cb452-34" tabindex="-1"></a>  tab_pooled <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="st">&quot;&quot;</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">0</span>))</span>
+<span id="cb452-35"><a href="tableaux.html#cb452-35" tabindex="-1"></a>  <span class="co"># on empile chaque table stockée dans la liste les unes après les autres</span></span>
+<span id="cb452-36"><a href="tableaux.html#cb452-36" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(tab_list)) {</span>
+<span id="cb452-37"><a href="tableaux.html#cb452-37" tabindex="-1"></a>    tab_pooled <span class="ot">&lt;-</span> <span class="fu">rbind</span>(tab_pooled, tab_list[[j]])</span>
+<span id="cb452-38"><a href="tableaux.html#cb452-38" tabindex="-1"></a>  }</span>
+<span id="cb452-39"><a href="tableaux.html#cb452-39" tabindex="-1"></a>  </span>
+<span id="cb452-40"><a href="tableaux.html#cb452-40" tabindex="-1"></a>  <span class="fu">return</span>(tab_pooled)</span>
+<span id="cb452-41"><a href="tableaux.html#cb452-41" tabindex="-1"></a>}</span>
+<span id="cb452-42"><a href="tableaux.html#cb452-42" tabindex="-1"></a></span>
+<span id="cb452-43"><a href="tableaux.html#cb452-43" tabindex="-1"></a>tab_quali <span class="ot">&lt;-</span> <span class="fu">tab_univ_quali</span>(<span class="at">data =</span> df_1miss, <span class="co"># le data frame</span></span>
+<span id="cb452-44"><a href="tableaux.html#cb452-44" tabindex="-1"></a>                            <span class="at">metadata =</span> meta_df_1, <span class="co"># la base de méta-données</span></span>
+<span id="cb452-45"><a href="tableaux.html#cb452-45" tabindex="-1"></a>                            <span class="at">variables =</span> <span class="fu">c</span>(<span class="st">&quot;sexL&quot;</span>, <span class="st">&quot;traitL&quot;</span>))</span>
+<span id="cb452-46"><a href="tableaux.html#cb452-46" tabindex="-1"></a>tab_quali</span></code></pre></div>
+<pre><code>##                 var        stat
+## 1       Sexe, n (%)            
+## 2           Féminin 137 (49.5%)
+## 3          Masculin 140 (50.5%)
+## 4     n / n missing    277 / 23
+## 5 Traitement, n (%)            
+## 6           Placebo   104 (39%)
+## 7      Traitement A  84 (31.5%)
+## 8      Traitement B  79 (29.6%)
+## 9     n / n missing    267 / 33</code></pre>
+</div>
+</div>
+</div>
+<div id="package-tinytable" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Package <code>tinytable</code><a href="tableaux.html#package-tinytable" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>On va combiner la table univariée des variables quantitatives et qualitatives.</p>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="tableaux.html#cb454-1" tabindex="-1"></a>tab_desc <span class="ot">&lt;-</span> <span class="fu">rbind</span>(tab_quanti, tab_quali)</span>
+<span id="cb454-2"><a href="tableaux.html#cb454-2" tabindex="-1"></a></span>
+<span id="cb454-3"><a href="tableaux.html#cb454-3" tabindex="-1"></a><span class="co"># on va changer les noms de colonnes</span></span>
+<span id="cb454-4"><a href="tableaux.html#cb454-4" tabindex="-1"></a><span class="co"># en indiquant les effectifs totaux dans la colonne des résultats statistiques</span></span>
+<span id="cb454-5"><a href="tableaux.html#cb454-5" tabindex="-1"></a><span class="fu">names</span>(tab_desc) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Variables&quot;</span>, </span>
+<span id="cb454-6"><a href="tableaux.html#cb454-6" tabindex="-1"></a>                     <span class="fu">paste0</span>(<span class="st">&quot;N = &quot;</span>, <span class="fu">nrow</span>(df_1miss))) </span>
+<span id="cb454-7"><a href="tableaux.html#cb454-7" tabindex="-1"></a></span>
+<span id="cb454-8"><a href="tableaux.html#cb454-8" tabindex="-1"></a>tab_desc</span></code></pre></div>
+<pre><code>##            Variables      N = 300
+## 1        IMC (kg/m²)             
+## 2      n / n missing     263 / 37
+## 3       moyenne (DS)     24.4 (3)
+## 4         PAS (mmHg)             
+## 5      n / n missing     267 / 33
+## 6       moyenne (DS) 137.2 (16.9)
+## 7        Sexe, n (%)             
+## 8            Féminin  137 (49.5%)
+## 9           Masculin  140 (50.5%)
+## 10     n / n missing     277 / 23
+## 11 Traitement, n (%)             
+## 12           Placebo    104 (39%)
+## 13      Traitement A   84 (31.5%)
+## 14      Traitement B   79 (29.6%)
+## 15     n / n missing     267 / 33</code></pre>
+<p>Le package <a href="https://vincentarelbundock.github.io/tinytable/"><code>tinytable</code></a> permet d’obtenir rapidement et simplement des tables mises en forme pour être copiées-collées dans un rapport d’analyse (ou une sortie Rmarkdown ou Quarto).</p>
+<p>Le package est simple, avec peu de fonctions à connaître pour être utilisé et ne dépend pas d’autres packages R.</p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="tableaux.html#cb456-1" tabindex="-1"></a><span class="fu">library</span>(tinytable)</span>
+<span id="cb456-2"><a href="tableaux.html#cb456-2" tabindex="-1"></a><span class="fu">tt</span>(tab_desc)</span></code></pre></div>
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_7i0np3f35gewrvv7z4r1 = TinyTable.createTableFunctions("tinytable_7i0np3f35gewrvv7z4r1");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '15', j: 1 }, { i: '15', j: 2 } ], css_id: 'tinytable_css_nyhn1x31pcgwhzmi98li',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_oq5bq0l14suazb5my1nk',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_7i0np3f35gewrvv7z4r1.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_7i0np3f35gewrvv7z4r1 td.tinytable_css_nyhn1x31pcgwhzmi98li, #tinytable_7i0np3f35gewrvv7z4r1 th.tinytable_css_nyhn1x31pcgwhzmi98li {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_7i0np3f35gewrvv7z4r1 td.tinytable_css_oq5bq0l14suazb5my1nk, #tinytable_7i0np3f35gewrvv7z4r1 th.tinytable_css_oq5bq0l14suazb5my1nk {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_7i0np3f35gewrvv7z4r1" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'>
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">Variables</th>
+                <th scope="col" data-row="0" data-col="2">N = 300</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">IMC (kg/m²)</td>
+                  <td data-row="1" data-col="2"></td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1">n / n missing</td>
+                  <td data-row="2" data-col="2">263 / 37</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">moyenne (DS)</td>
+                  <td data-row="3" data-col="2">24.4 (3)</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1">PAS (mmHg)</td>
+                  <td data-row="4" data-col="2"></td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">n / n missing</td>
+                  <td data-row="5" data-col="2">267 / 33</td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1">moyenne (DS)</td>
+                  <td data-row="6" data-col="2">137.2 (16.9)</td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="1">Sexe, n (%)</td>
+                  <td data-row="7" data-col="2"></td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="1">Féminin</td>
+                  <td data-row="8" data-col="2">137 (49.5%)</td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="1">Masculin</td>
+                  <td data-row="9" data-col="2">140 (50.5%)</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="1">n / n missing</td>
+                  <td data-row="10" data-col="2">277 / 23</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="1">Traitement, n (%)</td>
+                  <td data-row="11" data-col="2"></td>
+                </tr>
+                <tr>
+                  <td data-row="12" data-col="1">Placebo</td>
+                  <td data-row="12" data-col="2">104 (39%)</td>
+                </tr>
+                <tr>
+                  <td data-row="13" data-col="1">Traitement A</td>
+                  <td data-row="13" data-col="2">84 (31.5%)</td>
+                </tr>
+                <tr>
+                  <td data-row="14" data-col="1">Traitement B</td>
+                  <td data-row="14" data-col="2">79 (29.6%)</td>
+                </tr>
+                <tr>
+                  <td data-row="15" data-col="1">n / n missing</td>
+                  <td data-row="15" data-col="2">267 / 33</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+<p>On peut facilement modifier le style de certaines cellules (cf <code>?style_tt</code> pour plus d’informations).</p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="tableaux.html#cb457-1" tabindex="-1"></a><span class="co"># Ci-dessous, les celulles avec les noms de variables s&#39;affichent en gras. (bold)</span></span>
+<span id="cb457-2"><a href="tableaux.html#cb457-2" tabindex="-1"></a><span class="co"># et une indentation vers la droite est ajoutée pour les noms des paramètres</span></span>
+<span id="cb457-3"><a href="tableaux.html#cb457-3" tabindex="-1"></a><span class="fu">tt</span>(tab_desc) <span class="sc">|&gt;</span></span>
+<span id="cb457-4"><a href="tableaux.html#cb457-4" tabindex="-1"></a>  <span class="fu">style_tt</span>(</span>
+<span id="cb457-5"><a href="tableaux.html#cb457-5" tabindex="-1"></a>    <span class="at">i =</span> <span class="fu">which</span>(tab_desc[,<span class="dv">2</span>] <span class="sc">==</span> <span class="st">&quot;&quot;</span>), <span class="co"># sélectionner les lignes sans statistiques</span></span>
+<span id="cb457-6"><a href="tableaux.html#cb457-6" tabindex="-1"></a>    <span class="at">j =</span> <span class="dv">1</span>, <span class="co"># sélectionne la 1ère colonne</span></span>
+<span id="cb457-7"><a href="tableaux.html#cb457-7" tabindex="-1"></a>    <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb457-8"><a href="tableaux.html#cb457-8" tabindex="-1"></a>  <span class="fu">style_tt</span>(</span>
+<span id="cb457-9"><a href="tableaux.html#cb457-9" tabindex="-1"></a>    <span class="at">i =</span> <span class="fu">which</span>(tab_desc[,<span class="dv">2</span>] <span class="sc">!=</span> <span class="st">&quot;&quot;</span>), <span class="co"># sélectionner les lignes avec statistiques</span></span>
+<span id="cb457-10"><a href="tableaux.html#cb457-10" tabindex="-1"></a>    <span class="at">j =</span> <span class="dv">1</span>,</span>
+<span id="cb457-11"><a href="tableaux.html#cb457-11" tabindex="-1"></a>    <span class="at">indent =</span> <span class="dv">2</span> <span class="co"># ajoute une indentation vers la droite de 2 unités</span></span>
+<span id="cb457-12"><a href="tableaux.html#cb457-12" tabindex="-1"></a>  )</span></code></pre></div>
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_2rhbj8nsin7ks7q3wjhq = TinyTable.createTableFunctions("tinytable_2rhbj8nsin7ks7q3wjhq");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '15', j: 2 } ], css_id: 'tinytable_css_wtyx3qje74hs2k4bpxpj',}, 
+          { positions: [ { i: '15', j: 1 } ], css_id: 'tinytable_css_2ui1ym73394g7i4o592c',}, 
+          { positions: [ { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 } ], css_id: 'tinytable_css_zys4t7dlkf93gr42cmem',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '4', j: 1 }, { i: '7', j: 1 }, { i: '11', j: 1 } ], css_id: 'tinytable_css_9hkdfbgudqaljn66apb5',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_kuinfqkysofop6i9lngs',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_2rhbj8nsin7ks7q3wjhq.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_2rhbj8nsin7ks7q3wjhq td.tinytable_css_wtyx3qje74hs2k4bpxpj, #tinytable_2rhbj8nsin7ks7q3wjhq th.tinytable_css_wtyx3qje74hs2k4bpxpj {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_2rhbj8nsin7ks7q3wjhq td.tinytable_css_2ui1ym73394g7i4o592c, #tinytable_2rhbj8nsin7ks7q3wjhq th.tinytable_css_2ui1ym73394g7i4o592c {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; padding-left: 2em }
+    #tinytable_2rhbj8nsin7ks7q3wjhq td.tinytable_css_zys4t7dlkf93gr42cmem, #tinytable_2rhbj8nsin7ks7q3wjhq th.tinytable_css_zys4t7dlkf93gr42cmem { padding-left: 2em }
+    #tinytable_2rhbj8nsin7ks7q3wjhq td.tinytable_css_9hkdfbgudqaljn66apb5, #tinytable_2rhbj8nsin7ks7q3wjhq th.tinytable_css_9hkdfbgudqaljn66apb5 { font-weight: bold }
+    #tinytable_2rhbj8nsin7ks7q3wjhq td.tinytable_css_kuinfqkysofop6i9lngs, #tinytable_2rhbj8nsin7ks7q3wjhq th.tinytable_css_kuinfqkysofop6i9lngs {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_2rhbj8nsin7ks7q3wjhq" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'>
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">Variables</th>
+                <th scope="col" data-row="0" data-col="2">N = 300</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">IMC (kg/m²)</td>
+                  <td data-row="1" data-col="2"></td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1">n / n missing</td>
+                  <td data-row="2" data-col="2">263 / 37</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">moyenne (DS)</td>
+                  <td data-row="3" data-col="2">24.4 (3)</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1">PAS (mmHg)</td>
+                  <td data-row="4" data-col="2"></td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">n / n missing</td>
+                  <td data-row="5" data-col="2">267 / 33</td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1">moyenne (DS)</td>
+                  <td data-row="6" data-col="2">137.2 (16.9)</td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="1">Sexe, n (%)</td>
+                  <td data-row="7" data-col="2"></td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="1">Féminin</td>
+                  <td data-row="8" data-col="2">137 (49.5%)</td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="1">Masculin</td>
+                  <td data-row="9" data-col="2">140 (50.5%)</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="1">n / n missing</td>
+                  <td data-row="10" data-col="2">277 / 23</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="1">Traitement, n (%)</td>
+                  <td data-row="11" data-col="2"></td>
+                </tr>
+                <tr>
+                  <td data-row="12" data-col="1">Placebo</td>
+                  <td data-row="12" data-col="2">104 (39%)</td>
+                </tr>
+                <tr>
+                  <td data-row="13" data-col="1">Traitement A</td>
+                  <td data-row="13" data-col="2">84 (31.5%)</td>
+                </tr>
+                <tr>
+                  <td data-row="14" data-col="1">Traitement B</td>
+                  <td data-row="14" data-col="2">79 (29.6%)</td>
+                </tr>
+                <tr>
+                  <td data-row="15" data-col="1">n / n missing</td>
+                  <td data-row="15" data-col="2">267 / 33</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+<div id="préparation-dun-tableau-bivarié-avec-p-values" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> Préparation d’un tableau bivarié avec p-values<a href="tableaux.html#pr%C3%A9paration-dun-tableau-bivari%C3%A9-avec-p-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="préparation-dun-data.frame" class="section level3 hasAnchor" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> Préparation d’un <code>data.frame</code><a href="tableaux.html#pr%C3%A9paration-dun-data.frame" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pour cette analyse, on va se restreindre à la base de 267 patients sans données manquantes sur le traitement.</p>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="tableaux.html#cb458-1" tabindex="-1"></a><span class="fu">table</span>(df_1miss<span class="sc">$</span>traitL, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##      Placebo Traitement A Traitement B         &lt;NA&gt; 
+##          104           84           79           33</code></pre>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="tableaux.html#cb460-1" tabindex="-1"></a><span class="co"># on voit que la variable traitement est manquante chez 33 participants :</span></span>
+<span id="cb460-2"><a href="tableaux.html#cb460-2" tabindex="-1"></a><span class="co"># on exclut ces 33 participants de l&#39;analyse bivariée</span></span></code></pre></div>
+<p>Pour croiser l’IMC et la PAS en fonction du traitement, on va créer une fonction qui récupère sous forme de vecteur :</p>
+<ul>
+<li>les effectifs observés et manquants (n / n missing)</li>
+<li>la moyenne et l’écart type (moyenne (DS)).</li>
+</ul>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="tableaux.html#cb461-1" tabindex="-1"></a>mean_sd_fct <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>) {  </span>
+<span id="cb461-2"><a href="tableaux.html#cb461-2" tabindex="-1"></a>  n_n_miss <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))), </span>
+<span id="cb461-3"><a href="tableaux.html#cb461-3" tabindex="-1"></a>                     <span class="st">&quot; / &quot;</span>,</span>
+<span id="cb461-4"><a href="tableaux.html#cb461-4" tabindex="-1"></a>                     <span class="fu">length</span>(<span class="fu">which</span>(<span class="fu">is.na</span>(x))))</span>
+<span id="cb461-5"><a href="tableaux.html#cb461-5" tabindex="-1"></a>  mean_sd <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">mean</span>(x, <span class="at">na.rm =</span> remove_miss), <span class="at">digits =</span> dig), </span>
+<span id="cb461-6"><a href="tableaux.html#cb461-6" tabindex="-1"></a>                    <span class="st">&quot; (&quot;</span>,</span>
+<span id="cb461-7"><a href="tableaux.html#cb461-7" tabindex="-1"></a>                    <span class="fu">round</span>(<span class="fu">sd</span>(x, <span class="at">na.rm =</span> remove_miss), <span class="at">digits =</span> dig),</span>
+<span id="cb461-8"><a href="tableaux.html#cb461-8" tabindex="-1"></a>                    <span class="st">&quot;)&quot;</span>)</span>
+<span id="cb461-9"><a href="tableaux.html#cb461-9" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(n_n_miss, mean_sd))</span>
+<span id="cb461-10"><a href="tableaux.html#cb461-10" tabindex="-1"></a>}</span>
+<span id="cb461-11"><a href="tableaux.html#cb461-11" tabindex="-1"></a></span>
+<span id="cb461-12"><a href="tableaux.html#cb461-12" tabindex="-1"></a><span class="do">## exemples de résultat obtenu avec la fonction mean_sd_fct()</span></span>
+<span id="cb461-13"><a href="tableaux.html#cb461-13" tabindex="-1"></a><span class="fu">mean_sd_fct</span>(<span class="at">x =</span> df_1miss[<span class="sc">!</span><span class="fu">is.na</span>(df_1miss<span class="sc">$</span>traitL), <span class="st">&quot;imc&quot;</span>],  </span>
+<span id="cb461-14"><a href="tableaux.html#cb461-14" tabindex="-1"></a>            <span class="at">dig =</span> <span class="dv">1</span>, </span>
+<span id="cb461-15"><a href="tableaux.html#cb461-15" tabindex="-1"></a>            <span class="at">remove_miss =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;236 / 31&quot;   &quot;24.4 (3.1)&quot;</code></pre>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="tableaux.html#cb463-1" tabindex="-1"></a><span class="fu">tapply</span>(<span class="at">X =</span> df_1miss<span class="sc">$</span>imc, </span>
+<span id="cb463-2"><a href="tableaux.html#cb463-2" tabindex="-1"></a>       <span class="at">INDEX =</span> df_1miss<span class="sc">$</span>traitL,</span>
+<span id="cb463-3"><a href="tableaux.html#cb463-3" tabindex="-1"></a>       <span class="at">FUN =</span> mean_sd_fct, <span class="co"># fonction à utiliser sur X</span></span>
+<span id="cb463-4"><a href="tableaux.html#cb463-4" tabindex="-1"></a>       <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>) <span class="co"># arguments de la fonction     </span></span></code></pre></div>
+<pre><code>## $Placebo
+## [1] &quot;93 / 11&quot;    &quot;24.4 (2.8)&quot;
+## 
+## $`Traitement A`
+## [1] &quot;73 / 11&quot;  &quot;24.7 (3)&quot;
+## 
+## $`Traitement B`
+## [1] &quot;70 / 9&quot;     &quot;24.2 (3.5)&quot;</code></pre>
+<p>Préparation d’une table croisant le traitement avec :</p>
+<ul>
+<li>l’IMC</li>
+<li>la PAS</li>
+<li>le sexe</li>
+</ul>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="tableaux.html#cb465-1" tabindex="-1"></a><span class="co"># Les effectifs totaux seront affichés sur la première ligne</span></span>
+<span id="cb465-2"><a href="tableaux.html#cb465-2" tabindex="-1"></a>df_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">var =</span> <span class="fu">c</span>(<span class="st">&quot;N total&quot;</span>, </span>
+<span id="cb465-3"><a href="tableaux.html#cb465-3" tabindex="-1"></a>                                 meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;imc&quot;</span>],</span>
+<span id="cb465-4"><a href="tableaux.html#cb465-4" tabindex="-1"></a>                                 <span class="st">&quot;n / n missing&quot;</span>, </span>
+<span id="cb465-5"><a href="tableaux.html#cb465-5" tabindex="-1"></a>                                 <span class="st">&quot;moyenne (DS)&quot;</span>,</span>
+<span id="cb465-6"><a href="tableaux.html#cb465-6" tabindex="-1"></a>                                 meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;pas&quot;</span>],</span>
+<span id="cb465-7"><a href="tableaux.html#cb465-7" tabindex="-1"></a>                                 <span class="st">&quot;n / n missing&quot;</span>, </span>
+<span id="cb465-8"><a href="tableaux.html#cb465-8" tabindex="-1"></a>                                 <span class="st">&quot;moyenne (DS)&quot;</span>,</span>
+<span id="cb465-9"><a href="tableaux.html#cb465-9" tabindex="-1"></a>                                 <span class="fu">paste0</span>(meta_df_1<span class="sc">$</span>label[meta_df_1<span class="sc">$</span>var <span class="sc">==</span> <span class="st">&quot;sexL&quot;</span>][<span class="dv">1</span>], <span class="st">&quot;, n (%)&quot;</span>),</span>
+<span id="cb465-10"><a href="tableaux.html#cb465-10" tabindex="-1"></a>                                 <span class="fu">levels</span>(df_1miss<span class="sc">$</span>sexL),</span>
+<span id="cb465-11"><a href="tableaux.html#cb465-11" tabindex="-1"></a>                                 <span class="st">&quot;n / n missing&quot;</span>))</span>
+<span id="cb465-12"><a href="tableaux.html#cb465-12" tabindex="-1"></a>df_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(df_results, </span>
+<span id="cb465-13"><a href="tableaux.html#cb465-13" tabindex="-1"></a>                         <span class="fu">matrix</span>(<span class="st">&quot;&quot;</span>, <span class="at">ncol =</span> <span class="fu">length</span>(<span class="fu">levels</span>(df_1miss<span class="sc">$</span>traitL)) <span class="sc">+</span> <span class="dv">2</span>,</span>
+<span id="cb465-14"><a href="tableaux.html#cb465-14" tabindex="-1"></a>                                <span class="at">nrow =</span> <span class="fu">nrow</span>(df_results)))</span>
+<span id="cb465-15"><a href="tableaux.html#cb465-15" tabindex="-1"></a><span class="fu">names</span>(df_results) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Variable&quot;</span>, <span class="fu">levels</span>(df_1miss<span class="sc">$</span>traitL), <span class="st">&quot;p-value&quot;</span>, <span class="st">&quot;Total&quot;</span>)</span>
+<span id="cb465-16"><a href="tableaux.html#cb465-16" tabindex="-1"></a>df_results</span></code></pre></div>
+<pre><code>##         Variable Placebo Traitement A Traitement B p-value Total
+## 1        N total                                                
+## 2    IMC (kg/m²)                                                
+## 3  n / n missing                                                
+## 4   moyenne (DS)                                                
+## 5     PAS (mmHg)                                                
+## 6  n / n missing                                                
+## 7   moyenne (DS)                                                
+## 8    Sexe, n (%)                                                
+## 9        Féminin                                                
+## 10      Masculin                                                
+## 11 n / n missing</code></pre>
+<p>Ensuite on remplit le contenu du tableau (à noter qu’on va exclure des analyses les données manquantes concernant le traitement).</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="tableaux.html#cb467-1" tabindex="-1"></a><span class="do">## Ligne N total </span></span>
+<span id="cb467-2"><a href="tableaux.html#cb467-2" tabindex="-1"></a>n_obs_tot <span class="ot">&lt;-</span> <span class="fu">table</span>(df_1miss<span class="sc">$</span>traitL, <span class="at">useNA =</span> <span class="st">&quot;no&quot;</span>)</span>
+<span id="cb467-3"><a href="tableaux.html#cb467-3" tabindex="-1"></a>df_results[<span class="dv">1</span>,<span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>, </span>
+<span id="cb467-4"><a href="tableaux.html#cb467-4" tabindex="-1"></a>               <span class="st">&quot;Traitement A&quot;</span>, </span>
+<span id="cb467-5"><a href="tableaux.html#cb467-5" tabindex="-1"></a>               <span class="st">&quot;Traitement B&quot;</span>)] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;N = &quot;</span>, n_obs_tot)</span>
+<span id="cb467-6"><a href="tableaux.html#cb467-6" tabindex="-1"></a>df_results[<span class="dv">1</span>, <span class="st">&quot;Total&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;N = &quot;</span>, <span class="fu">sum</span>(n_obs_tot))</span>
+<span id="cb467-7"><a href="tableaux.html#cb467-7" tabindex="-1"></a>df_results</span></code></pre></div>
+<pre><code>##         Variable Placebo Traitement A Traitement B p-value   Total
+## 1        N total N = 104       N = 84       N = 79         N = 267
+## 2    IMC (kg/m²)                                                  
+## 3  n / n missing                                                  
+## 4   moyenne (DS)                                                  
+## 5     PAS (mmHg)                                                  
+## 6  n / n missing                                                  
+## 7   moyenne (DS)                                                  
+## 8    Sexe, n (%)                                                  
+## 9        Féminin                                                  
+## 10      Masculin                                                  
+## 11 n / n missing</code></pre>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="tableaux.html#cb469-1" tabindex="-1"></a><span class="do">## Lignes de l&#39;IMC en fonction du traitement</span></span>
+<span id="cb469-2"><a href="tableaux.html#cb469-2" tabindex="-1"></a>imc_by_trait <span class="ot">&lt;-</span> <span class="fu">tapply</span>(<span class="at">X =</span> df_1miss<span class="sc">$</span>imc, </span>
+<span id="cb469-3"><a href="tableaux.html#cb469-3" tabindex="-1"></a>                       <span class="at">INDEX =</span> df_1miss<span class="sc">$</span>traitL,</span>
+<span id="cb469-4"><a href="tableaux.html#cb469-4" tabindex="-1"></a>                       <span class="at">FUN =</span> mean_sd_fct, <span class="co"># fonction à utiliser sur X</span></span>
+<span id="cb469-5"><a href="tableaux.html#cb469-5" tabindex="-1"></a>                       <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb469-6"><a href="tableaux.html#cb469-6" tabindex="-1"></a>      </span>
+<span id="cb469-7"><a href="tableaux.html#cb469-7" tabindex="-1"></a>df_results[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>, <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>)] <span class="ot">&lt;-</span> imc_by_trait<span class="sc">$</span>Placebo</span>
+<span id="cb469-8"><a href="tableaux.html#cb469-8" tabindex="-1"></a>df_results[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>, <span class="fu">c</span>(<span class="st">&quot;Traitement A&quot;</span>)] <span class="ot">&lt;-</span> imc_by_trait<span class="sc">$</span><span class="st">`</span><span class="at">Traitement A</span><span class="st">`</span></span>
+<span id="cb469-9"><a href="tableaux.html#cb469-9" tabindex="-1"></a>df_results[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>, <span class="fu">c</span>(<span class="st">&quot;Traitement B&quot;</span>)] <span class="ot">&lt;-</span> imc_by_trait<span class="sc">$</span><span class="st">`</span><span class="at">Traitement B</span><span class="st">`</span></span>
+<span id="cb469-10"><a href="tableaux.html#cb469-10" tabindex="-1"></a><span class="co"># note : pour avoir des effectifs cohérents dans la colonne total, </span></span>
+<span id="cb469-11"><a href="tableaux.html#cb469-11" tabindex="-1"></a><span class="co"># les analyses doivent être réalisée dans le sous-ensemble de données </span></span>
+<span id="cb469-12"><a href="tableaux.html#cb469-12" tabindex="-1"></a><span class="co"># sans manquants concernant le traitement +++</span></span>
+<span id="cb469-13"><a href="tableaux.html#cb469-13" tabindex="-1"></a>df_results[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>, <span class="fu">c</span>(<span class="st">&quot;Total&quot;</span>)] <span class="ot">&lt;-</span> <span class="fu">mean_sd_fct</span>(<span class="at">x =</span> <span class="fu">subset</span>(df_1miss,</span>
+<span id="cb469-14"><a href="tableaux.html#cb469-14" tabindex="-1"></a>                                                      <span class="at">subset =</span> <span class="sc">!</span><span class="fu">is.na</span>(traitL))<span class="sc">$</span>imc,  </span>
+<span id="cb469-15"><a href="tableaux.html#cb469-15" tabindex="-1"></a>                                           <span class="at">dig =</span> <span class="dv">1</span>, </span>
+<span id="cb469-16"><a href="tableaux.html#cb469-16" tabindex="-1"></a>                                           <span class="at">remove_miss =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb469-17"><a href="tableaux.html#cb469-17" tabindex="-1"></a>anova_imc_by_traitL <span class="ot">&lt;-</span> <span class="fu">anova</span>(<span class="fu">aov</span>(imc <span class="sc">~</span> traitL, <span class="at">data =</span> df_1miss))</span>
+<span id="cb469-18"><a href="tableaux.html#cb469-18" tabindex="-1"></a>anova_imc_by_traitL<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span> <span class="co"># [1] 0.5259026        NA</span></span></code></pre></div>
+<pre><code>## [1] 0.5259026        NA</code></pre>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="tableaux.html#cb471-1" tabindex="-1"></a>df_results[<span class="dv">3</span>,<span class="st">&quot;p-value&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">round</span>(anova_imc_by_traitL<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span>[<span class="dv">1</span>], <span class="at">digits =</span> <span class="dv">2</span>),</span>
+<span id="cb471-2"><a href="tableaux.html#cb471-2" tabindex="-1"></a>                                  <span class="st">&quot;&lt;sup&gt;a&quot;</span>) <span class="co"># code html pour afficher &quot;a&quot; en exposant</span></span>
+<span id="cb471-3"><a href="tableaux.html#cb471-3" tabindex="-1"></a>df_results</span></code></pre></div>
+<pre><code>##         Variable    Placebo Traitement A Traitement B    p-value      Total
+## 1        N total    N = 104       N = 84       N = 79               N = 267
+## 2    IMC (kg/m²)                                                           
+## 3  n / n missing    93 / 11      73 / 11       70 / 9 0.53&lt;sup&gt;a   236 / 31
+## 4   moyenne (DS) 24.4 (2.8)     24.7 (3)   24.2 (3.5)            24.4 (3.1)
+## 5     PAS (mmHg)                                                           
+## 6  n / n missing                                                           
+## 7   moyenne (DS)                                                           
+## 8    Sexe, n (%)                                                           
+## 9        Féminin                                                           
+## 10      Masculin                                                           
+## 11 n / n missing</code></pre>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="tableaux.html#cb473-1" tabindex="-1"></a><span class="co"># Lignes de la PAS en fonction du traitement</span></span>
+<span id="cb473-2"><a href="tableaux.html#cb473-2" tabindex="-1"></a>pas_by_trait <span class="ot">&lt;-</span> <span class="fu">tapply</span>(<span class="at">X =</span> df_1miss<span class="sc">$</span>pas, </span>
+<span id="cb473-3"><a href="tableaux.html#cb473-3" tabindex="-1"></a>                       <span class="at">INDEX =</span> df_1miss<span class="sc">$</span>traitL,</span>
+<span id="cb473-4"><a href="tableaux.html#cb473-4" tabindex="-1"></a>                       <span class="at">FUN =</span> mean_sd_fct, <span class="co"># fonction à utiliser sur X</span></span>
+<span id="cb473-5"><a href="tableaux.html#cb473-5" tabindex="-1"></a>                       <span class="at">dig =</span> <span class="dv">1</span>, <span class="at">remove_miss =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb473-6"><a href="tableaux.html#cb473-6" tabindex="-1"></a>df_results[<span class="dv">6</span><span class="sc">:</span><span class="dv">7</span>, <span class="fu">c</span>(<span class="st">&quot;Placebo&quot;</span>)] <span class="ot">&lt;-</span> pas_by_trait<span class="sc">$</span>Placebo</span>
+<span id="cb473-7"><a href="tableaux.html#cb473-7" tabindex="-1"></a>df_results[<span class="dv">6</span><span class="sc">:</span><span class="dv">7</span>, <span class="fu">c</span>(<span class="st">&quot;Traitement A&quot;</span>)] <span class="ot">&lt;-</span> pas_by_trait<span class="sc">$</span><span class="st">`</span><span class="at">Traitement A</span><span class="st">`</span></span>
+<span id="cb473-8"><a href="tableaux.html#cb473-8" tabindex="-1"></a>df_results[<span class="dv">6</span><span class="sc">:</span><span class="dv">7</span>, <span class="fu">c</span>(<span class="st">&quot;Traitement B&quot;</span>)] <span class="ot">&lt;-</span> pas_by_trait<span class="sc">$</span><span class="st">`</span><span class="at">Traitement B</span><span class="st">`</span></span>
+<span id="cb473-9"><a href="tableaux.html#cb473-9" tabindex="-1"></a>df_results[<span class="dv">6</span><span class="sc">:</span><span class="dv">7</span>, <span class="fu">c</span>(<span class="st">&quot;Total&quot;</span>)] <span class="ot">&lt;-</span> <span class="fu">mean_sd_fct</span>(<span class="at">x =</span> <span class="fu">subset</span>(df_1miss, </span>
+<span id="cb473-10"><a href="tableaux.html#cb473-10" tabindex="-1"></a>                                                      <span class="at">subset =</span> <span class="sc">!</span><span class="fu">is.na</span>(traitL))<span class="sc">$</span>pas,  </span>
+<span id="cb473-11"><a href="tableaux.html#cb473-11" tabindex="-1"></a>                                           <span class="at">dig =</span> <span class="dv">1</span>, </span>
+<span id="cb473-12"><a href="tableaux.html#cb473-12" tabindex="-1"></a>                                           <span class="at">remove_miss =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb473-13"><a href="tableaux.html#cb473-13" tabindex="-1"></a>anova_pas_by_traitL <span class="ot">&lt;-</span> <span class="fu">anova</span>(<span class="fu">aov</span>(pas <span class="sc">~</span> traitL, <span class="at">data =</span> df_1miss))</span>
+<span id="cb473-14"><a href="tableaux.html#cb473-14" tabindex="-1"></a>anova_pas_by_traitL<span class="sc">$</span><span class="st">`</span><span class="at">Pr(&gt;F)</span><span class="st">`</span> <span class="co"># [1] 1.079829e-05           NA</span></span></code></pre></div>
+<pre><code>## [1] 1.079829e-05           NA</code></pre>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="tableaux.html#cb475-1" tabindex="-1"></a>df_results[<span class="dv">6</span>,<span class="st">&quot;p-value&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;&lt;0.0001&lt;sup&gt;a&quot;</span></span>
+<span id="cb475-2"><a href="tableaux.html#cb475-2" tabindex="-1"></a></span>
+<span id="cb475-3"><a href="tableaux.html#cb475-3" tabindex="-1"></a><span class="do">## On complète la table pour le sexe</span></span>
+<span id="cb475-4"><a href="tableaux.html#cb475-4" tabindex="-1"></a><span class="co"># on commence par décrire les effectifs avec les manquants </span></span>
+<span id="cb475-5"><a href="tableaux.html#cb475-5" tabindex="-1"></a><span class="co"># pour calculer les effectifs par groupe de traitement</span></span>
+<span id="cb475-6"><a href="tableaux.html#cb475-6" tabindex="-1"></a><span class="fu">table</span>(df_1miss<span class="sc">$</span>sexL, df_1miss<span class="sc">$</span>traitL, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)</span></code></pre></div>
+<pre><code>##           
+##            Placebo Traitement A Traitement B &lt;NA&gt;
+##   Féminin       40           40           37   20
+##   Masculin      58           40           30   12
+##   &lt;NA&gt;           6            4           12    1</code></pre>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="tableaux.html#cb477-1" tabindex="-1"></a><span class="co"># total des 3 premières colonnes, en comptant les manquants</span></span>
+<span id="cb477-2"><a href="tableaux.html#cb477-2" tabindex="-1"></a>tot_trait <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">table</span>(df_1miss<span class="sc">$</span>sexL, df_1miss<span class="sc">$</span>traitL, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb477-3"><a href="tableaux.html#cb477-3" tabindex="-1"></a><span class="co"># nombre de manquants</span></span>
+<span id="cb477-4"><a href="tableaux.html#cb477-4" tabindex="-1"></a>n_miss_sex <span class="ot">&lt;-</span> <span class="fu">table</span>(df_1miss<span class="sc">$</span>sexL, df_1miss<span class="sc">$</span>traitL, <span class="at">useNA =</span> <span class="st">&quot;ifany&quot;</span>)[<span class="dv">3</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb477-5"><a href="tableaux.html#cb477-5" tabindex="-1"></a><span class="co"># total des effectifs non-manquants</span></span>
+<span id="cb477-6"><a href="tableaux.html#cb477-6" tabindex="-1"></a>n_obs_sex <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">table</span>(df_1miss<span class="sc">$</span>sexL, df_1miss<span class="sc">$</span>traitL, <span class="at">useNA =</span> <span class="st">&quot;no&quot;</span>))</span>
+<span id="cb477-7"><a href="tableaux.html#cb477-7" tabindex="-1"></a></span>
+<span id="cb477-8"><a href="tableaux.html#cb477-8" tabindex="-1"></a><span class="co"># Effectifs et pourcentages calculés en excluant les manquants (hypothèse MCAR)</span></span>
+<span id="cb477-9"><a href="tableaux.html#cb477-9" tabindex="-1"></a>tab_sex_n <span class="ot">&lt;-</span> <span class="fu">table</span>(df_1miss<span class="sc">$</span>sexL, df_1miss<span class="sc">$</span>traitL, <span class="at">useNA =</span> <span class="st">&quot;no&quot;</span>)</span>
+<span id="cb477-10"><a href="tableaux.html#cb477-10" tabindex="-1"></a>tab_sex_pct <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(<span class="fu">table</span>(df_1miss<span class="sc">$</span>sexL, df_1miss<span class="sc">$</span>traitL, <span class="at">useNA =</span> <span class="st">&quot;no&quot;</span>),</span>
+<span id="cb477-11"><a href="tableaux.html#cb477-11" tabindex="-1"></a>                          <span class="at">margin =</span> <span class="dv">2</span>) <span class="co"># pour les pourcentages en colonnes</span></span>
+<span id="cb477-12"><a href="tableaux.html#cb477-12" tabindex="-1"></a>tab_sexL_by_traitL <span class="ot">&lt;-</span> <span class="fu">paste0</span>(tab_sex_n, </span>
+<span id="cb477-13"><a href="tableaux.html#cb477-13" tabindex="-1"></a>                             <span class="st">&quot; (&quot;</span>, </span>
+<span id="cb477-14"><a href="tableaux.html#cb477-14" tabindex="-1"></a>                             <span class="fu">round</span>(tab_sex_pct <span class="sc">*</span> <span class="dv">100</span>, <span class="at">digits =</span> <span class="dv">1</span>),</span>
+<span id="cb477-15"><a href="tableaux.html#cb477-15" tabindex="-1"></a>                             <span class="st">&quot;%)&quot;</span>)</span>
+<span id="cb477-16"><a href="tableaux.html#cb477-16" tabindex="-1"></a><span class="fu">dim</span>(tab_sexL_by_traitL) <span class="ot">&lt;-</span> <span class="fu">dim</span>(tab_sex_n)</span>
+<span id="cb477-17"><a href="tableaux.html#cb477-17" tabindex="-1"></a>tab_sexL_by_traitL</span></code></pre></div>
+<pre><code>##      [,1]         [,2]       [,3]        
+## [1,] &quot;40 (40.8%)&quot; &quot;40 (50%)&quot; &quot;37 (55.2%)&quot;
+## [2,] &quot;58 (59.2%)&quot; &quot;40 (50%)&quot; &quot;30 (44.8%)&quot;</code></pre>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="tableaux.html#cb479-1" tabindex="-1"></a><span class="co"># On complète la table bivariée</span></span>
+<span id="cb479-2"><a href="tableaux.html#cb479-2" tabindex="-1"></a>df_results[<span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> tab_sexL_by_traitL</span>
+<span id="cb479-3"><a href="tableaux.html#cb479-3" tabindex="-1"></a>df_results[<span class="dv">11</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(n_obs_sex, <span class="st">&quot; / &quot;</span>, n_miss_sex)</span>
+<span id="cb479-4"><a href="tableaux.html#cb479-4" tabindex="-1"></a><span class="co"># colonne Total</span></span>
+<span id="cb479-5"><a href="tableaux.html#cb479-5" tabindex="-1"></a>df_results[<span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>,<span class="st">&quot;Total&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">rowSums</span>(tab_sex_n), </span>
+<span id="cb479-6"><a href="tableaux.html#cb479-6" tabindex="-1"></a>                                  <span class="st">&quot; (&quot;</span>,</span>
+<span id="cb479-7"><a href="tableaux.html#cb479-7" tabindex="-1"></a>                                  <span class="fu">round</span>(<span class="fu">prop.table</span>(<span class="fu">rowSums</span>(tab_sex_n)) <span class="sc">*</span> <span class="dv">100</span>, </span>
+<span id="cb479-8"><a href="tableaux.html#cb479-8" tabindex="-1"></a>                                        <span class="at">digits =</span> <span class="dv">1</span>),</span>
+<span id="cb479-9"><a href="tableaux.html#cb479-9" tabindex="-1"></a>                                  <span class="st">&quot;%)&quot;</span>)</span>
+<span id="cb479-10"><a href="tableaux.html#cb479-10" tabindex="-1"></a>df_results[<span class="dv">11</span>,<span class="st">&quot;Total&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">sum</span>(n_obs_sex), <span class="st">&quot; / &quot;</span>, <span class="fu">sum</span>(n_miss_sex))</span>
+<span id="cb479-11"><a href="tableaux.html#cb479-11" tabindex="-1"></a><span class="co"># colonne p-value</span></span>
+<span id="cb479-12"><a href="tableaux.html#cb479-12" tabindex="-1"></a>chi2_sex_trait <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="fu">table</span>(df_1miss<span class="sc">$</span>sexL, df_1miss<span class="sc">$</span>traitL, <span class="at">useNA =</span> <span class="st">&quot;no&quot;</span>))</span>
+<span id="cb479-13"><a href="tableaux.html#cb479-13" tabindex="-1"></a>df_results[<span class="dv">8</span>, <span class="st">&quot;p-value&quot;</span>] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">round</span>(chi2_sex_trait<span class="sc">$</span>p.value, <span class="at">digits =</span> <span class="dv">2</span>), </span>
+<span id="cb479-14"><a href="tableaux.html#cb479-14" tabindex="-1"></a>                                   <span class="st">&quot;&lt;sup&gt;b&quot;</span>)</span>
+<span id="cb479-15"><a href="tableaux.html#cb479-15" tabindex="-1"></a>df_results</span></code></pre></div>
+<pre><code>##         Variable      Placebo Traitement A Traitement B       p-value
+## 1        N total      N = 104       N = 84       N = 79              
+## 2    IMC (kg/m²)                                                     
+## 3  n / n missing      93 / 11      73 / 11       70 / 9    0.53&lt;sup&gt;a
+## 4   moyenne (DS)   24.4 (2.8)     24.7 (3)   24.2 (3.5)              
+## 5     PAS (mmHg)                                                     
+## 6  n / n missing      87 / 17       75 / 9       72 / 7 &lt;0.0001&lt;sup&gt;a
+## 7   moyenne (DS) 143.1 (15.8) 130.5 (16.2)   137.2 (17)              
+## 8    Sexe, n (%)                                           0.17&lt;sup&gt;b
+## 9        Féminin   40 (40.8%)     40 (50%)   37 (55.2%)              
+## 10      Masculin   58 (59.2%)     40 (50%)   30 (44.8%)              
+## 11 n / n missing       98 / 6       80 / 4      67 / 12              
+##           Total
+## 1       N = 267
+## 2              
+## 3      236 / 31
+## 4    24.4 (3.1)
+## 5              
+## 6      234 / 33
+## 7  137.2 (17.1)
+## 8              
+## 9   117 (47.8%)
+## 10  128 (52.2%)
+## 11     245 / 22</code></pre>
+</div>
+<div id="présentation-avec-tinytable" class="section level3 hasAnchor" number="7.5.2">
+<h3><span class="header-section-number">7.5.2</span> Présentation avec <code>tinytable</code><a href="tableaux.html#pr%C3%A9sentation-avec-tinytable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Comme pour la table d’analyse univarié, on peut utiliser le package <code>tinytable</code> pour présenter cette table bivariée</p>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="tableaux.html#cb481-1" tabindex="-1"></a><span class="fu">tt</span>(df_results, </span>
+<span id="cb481-2"><a href="tableaux.html#cb481-2" tabindex="-1"></a>   <span class="at">cap =</span> <span class="st">&quot;Table : Analyses bivariées&quot;</span>, </span>
+<span id="cb481-3"><a href="tableaux.html#cb481-3" tabindex="-1"></a>   <span class="at">notes =</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="st">&quot;Anova&quot;</span>, <span class="at">b =</span> <span class="st">&quot;Chi-2&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb481-4"><a href="tableaux.html#cb481-4" tabindex="-1"></a>  <span class="fu">style_tt</span>( <span class="co"># affiche les noms de variables en gras</span></span>
+<span id="cb481-5"><a href="tableaux.html#cb481-5" tabindex="-1"></a>    <span class="at">i =</span> <span class="fu">which</span>(df_results[,<span class="dv">2</span>] <span class="sc">==</span> <span class="st">&quot;&quot;</span>),</span>
+<span id="cb481-6"><a href="tableaux.html#cb481-6" tabindex="-1"></a>    <span class="at">j =</span> <span class="dv">1</span>,</span>
+<span id="cb481-7"><a href="tableaux.html#cb481-7" tabindex="-1"></a>    <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb481-8"><a href="tableaux.html#cb481-8" tabindex="-1"></a>  <span class="fu">style_tt</span>( <span class="co"># ajoute une indentation vers la droite d&#39;une unité</span></span>
+<span id="cb481-9"><a href="tableaux.html#cb481-9" tabindex="-1"></a>    <span class="at">i =</span> <span class="fu">which</span>(df_results[,<span class="dv">2</span>] <span class="sc">!=</span> <span class="st">&quot;&quot;</span>), </span>
+<span id="cb481-10"><a href="tableaux.html#cb481-10" tabindex="-1"></a>    <span class="at">j =</span> <span class="dv">1</span>,</span>
+<span id="cb481-11"><a href="tableaux.html#cb481-11" tabindex="-1"></a>    <span class="at">indent =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb481-12"><a href="tableaux.html#cb481-12" tabindex="-1"></a>  <span class="fu">group_tt</span>( <span class="co"># ajoute un nom de variable pour les 3 colonnes de traitements</span></span>
+<span id="cb481-13"><a href="tableaux.html#cb481-13" tabindex="-1"></a>    <span class="at">j =</span> <span class="fu">list</span>(<span class="st">&quot;Traitements&quot;</span> <span class="ot">=</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>))</span></code></pre></div>
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_bdc8k0maaqy8sil7ykch = TinyTable.createTableFunctions("tinytable_bdc8k0maaqy8sil7ykch");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '-1', j: 4 } ], css_id: 'tinytable_css_3hbg0xaf8920ym7xozc7',}, 
+          { positions: [ { i: '-1', j: 3 } ], css_id: 'tinytable_css_zx66k3f4xwajscjjxgt8',}, 
+          { positions: [ { i: '11', j: 2 }, { i: '11', j: 3 }, { i: '11', j: 4 }, { i: '11', j: 5 }, { i: '11', j: 6 } ], css_id: 'tinytable_css_6d47iryh3cdklgv0ci8w',}, 
+          { positions: [ { i: '-1', j: 2 } ], css_id: 'tinytable_css_83w0726t96l52m6j60j2',}, 
+          { positions: [ { i: '11', j: 1 } ], css_id: 'tinytable_css_zsvf6qpvbhihbhbaet4h',}, 
+          { positions: [ { i: '2', j: 1 }, { i: '5', j: 1 }, { i: '8', j: 1 } ], css_id: 'tinytable_css_nxc9u63jl541lfrhtbmm',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 } ], css_id: 'tinytable_css_o1fftjbxh4dlz1tgng57',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 }, { i: '0', j: 5 }, { i: '0', j: 6 } ], css_id: 'tinytable_css_9cmz12z1c9p2gegg8xv2',}, 
+          { positions: [ { i: '-1', j: 1 }, { i: '-1', j: 5 }, { i: '-1', j: 6 } ], css_id: 'tinytable_css_sakkjz8p3x2r7c1fsmix',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_bdc8k0maaqy8sil7ykch.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_bdc8k0maaqy8sil7ykch td.tinytable_css_3hbg0xaf8920ym7xozc7, #tinytable_bdc8k0maaqy8sil7ykch th.tinytable_css_3hbg0xaf8920ym7xozc7 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.03em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 3%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_bdc8k0maaqy8sil7ykch td.tinytable_css_zx66k3f4xwajscjjxgt8, #tinytable_bdc8k0maaqy8sil7ykch th.tinytable_css_zx66k3f4xwajscjjxgt8 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.03em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_bdc8k0maaqy8sil7ykch td.tinytable_css_6d47iryh3cdklgv0ci8w, #tinytable_bdc8k0maaqy8sil7ykch th.tinytable_css_6d47iryh3cdklgv0ci8w {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_bdc8k0maaqy8sil7ykch td.tinytable_css_83w0726t96l52m6j60j2, #tinytable_bdc8k0maaqy8sil7ykch th.tinytable_css_83w0726t96l52m6j60j2 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.03em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 3%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_bdc8k0maaqy8sil7ykch td.tinytable_css_zsvf6qpvbhihbhbaet4h, #tinytable_bdc8k0maaqy8sil7ykch th.tinytable_css_zsvf6qpvbhihbhbaet4h {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; padding-left: 1em }
+    #tinytable_bdc8k0maaqy8sil7ykch td.tinytable_css_nxc9u63jl541lfrhtbmm, #tinytable_bdc8k0maaqy8sil7ykch th.tinytable_css_nxc9u63jl541lfrhtbmm { font-weight: bold }
+    #tinytable_bdc8k0maaqy8sil7ykch td.tinytable_css_o1fftjbxh4dlz1tgng57, #tinytable_bdc8k0maaqy8sil7ykch th.tinytable_css_o1fftjbxh4dlz1tgng57 { padding-left: 1em }
+    #tinytable_bdc8k0maaqy8sil7ykch td.tinytable_css_9cmz12z1c9p2gegg8xv2, #tinytable_bdc8k0maaqy8sil7ykch th.tinytable_css_9cmz12z1c9p2gegg8xv2 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_bdc8k0maaqy8sil7ykch td.tinytable_css_sakkjz8p3x2r7c1fsmix, #tinytable_bdc8k0maaqy8sil7ykch th.tinytable_css_sakkjz8p3x2r7c1fsmix {  position: relative; --border-bottom: 0; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_bdc8k0maaqy8sil7ykch" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing='true'>
+        <caption>Table : Analyses bivariées</caption>
+        <thead>
+<tr>
+<th scope="col" align="center" colspan=1 data-row="-1" data-col="1"> </th>
+<th scope="col" align="center" colspan=3 data-row="-1" data-col="2">Traitements</th>
+<th scope="col" align="center" colspan=1 data-row="-1" data-col="5"> </th>
+<th scope="col" align="center" colspan=1 data-row="-1" data-col="6"> </th>
+</tr>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">Variable</th>
+                <th scope="col" data-row="0" data-col="2">Placebo</th>
+                <th scope="col" data-row="0" data-col="3">Traitement A</th>
+                <th scope="col" data-row="0" data-col="4">Traitement B</th>
+                <th scope="col" data-row="0" data-col="5">p-value</th>
+                <th scope="col" data-row="0" data-col="6">Total</th>
+              </tr>
+        </thead>
+        <tfoot><tr><td colspan='6'><sup>a</sup> Anova</td></tr>
+<tr><td colspan='6'><sup>b</sup> Chi-2</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">N total</td>
+                  <td data-row="1" data-col="2">N = 104</td>
+                  <td data-row="1" data-col="3">N = 84</td>
+                  <td data-row="1" data-col="4">N = 79</td>
+                  <td data-row="1" data-col="5"></td>
+                  <td data-row="1" data-col="6">N = 267</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1">IMC (kg/m²)</td>
+                  <td data-row="2" data-col="2"></td>
+                  <td data-row="2" data-col="3"></td>
+                  <td data-row="2" data-col="4"></td>
+                  <td data-row="2" data-col="5"></td>
+                  <td data-row="2" data-col="6"></td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">n / n missing</td>
+                  <td data-row="3" data-col="2">93 / 11</td>
+                  <td data-row="3" data-col="3">73 / 11</td>
+                  <td data-row="3" data-col="4">70 / 9</td>
+                  <td data-row="3" data-col="5">0.53<sup>a</td>
+                  <td data-row="3" data-col="6">236 / 31</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1">moyenne (DS)</td>
+                  <td data-row="4" data-col="2">24.4 (2.8)</td>
+                  <td data-row="4" data-col="3">24.7 (3)</td>
+                  <td data-row="4" data-col="4">24.2 (3.5)</td>
+                  <td data-row="4" data-col="5"></td>
+                  <td data-row="4" data-col="6">24.4 (3.1)</td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">PAS (mmHg)</td>
+                  <td data-row="5" data-col="2"></td>
+                  <td data-row="5" data-col="3"></td>
+                  <td data-row="5" data-col="4"></td>
+                  <td data-row="5" data-col="5"></td>
+                  <td data-row="5" data-col="6"></td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1">n / n missing</td>
+                  <td data-row="6" data-col="2">87 / 17</td>
+                  <td data-row="6" data-col="3">75 / 9</td>
+                  <td data-row="6" data-col="4">72 / 7</td>
+                  <td data-row="6" data-col="5"><0.0001<sup>a</td>
+                  <td data-row="6" data-col="6">234 / 33</td>
+                </tr>
+                <tr>
+                  <td data-row="7" data-col="1">moyenne (DS)</td>
+                  <td data-row="7" data-col="2">143.1 (15.8)</td>
+                  <td data-row="7" data-col="3">130.5 (16.2)</td>
+                  <td data-row="7" data-col="4">137.2 (17)</td>
+                  <td data-row="7" data-col="5"></td>
+                  <td data-row="7" data-col="6">137.2 (17.1)</td>
+                </tr>
+                <tr>
+                  <td data-row="8" data-col="1">Sexe, n (%)</td>
+                  <td data-row="8" data-col="2"></td>
+                  <td data-row="8" data-col="3"></td>
+                  <td data-row="8" data-col="4"></td>
+                  <td data-row="8" data-col="5">0.17<sup>b</td>
+                  <td data-row="8" data-col="6"></td>
+                </tr>
+                <tr>
+                  <td data-row="9" data-col="1">Féminin</td>
+                  <td data-row="9" data-col="2">40 (40.8%)</td>
+                  <td data-row="9" data-col="3">40 (50%)</td>
+                  <td data-row="9" data-col="4">37 (55.2%)</td>
+                  <td data-row="9" data-col="5"></td>
+                  <td data-row="9" data-col="6">117 (47.8%)</td>
+                </tr>
+                <tr>
+                  <td data-row="10" data-col="1">Masculin</td>
+                  <td data-row="10" data-col="2">58 (59.2%)</td>
+                  <td data-row="10" data-col="3">40 (50%)</td>
+                  <td data-row="10" data-col="4">30 (44.8%)</td>
+                  <td data-row="10" data-col="5"></td>
+                  <td data-row="10" data-col="6">128 (52.2%)</td>
+                </tr>
+                <tr>
+                  <td data-row="11" data-col="1">n / n missing</td>
+                  <td data-row="11" data-col="2">98 / 6</td>
+                  <td data-row="11" data-col="3">80 / 4</td>
+                  <td data-row="11" data-col="4">67 / 12</td>
+                  <td data-row="11" data-col="5"></td>
+                  <td data-row="11" data-col="6">245 / 22</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+<p>gt
+gtsummary (basé sur gt)</p>
+
+</div>
+</div>
 </div>
             </section>
 
@@ -906,7 +1754,7 @@ Ci-dessous, on va créer une fonction de rendu pour les variables quantitatives 
         </div>
       </div>
 <a href="package-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="méthodes-plus-flexibles.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="reporting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
