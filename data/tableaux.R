@@ -148,9 +148,80 @@ table1(~ imc + pas + sexL | traitL,
 
 
 # ---------------------------------------------------------------------------- #
-# 2) Création d'une base de données correspondant au tableau à présenter ----
+# 2) gtsummary ----
 # ---------------------------------------------------------------------------- #
-# 2.1) variable quantitative ----
+library(gtsummary)
+
+?gtsummary::tbl_summary
+## Par défaut : 
+## - les variables quantitatives sont décrites par médiane (Q25, Q75)
+## - les données manquantes sont indiqués par "unknown"
+## - les pourcentages sont calculés par colonne après exclusion des manquants 
+##   et sont arrondis sans chiffre après la virgule
+df_1miss |> 
+  tbl_summary(include = c(imc, pas, traitL, sexL))
+
+## On peut modifier les paramètres à présenter : 
+# - argument "statistic" : 
+#   les variables continues sont présentées par la moyenne ± SD
+#   les variables qualitatives sont présentés par l'effectif (%)
+# - argument "digits" :
+#   on arrondi la moyenne et l'écart type à 1 chiffre après la virgule
+#   et l'effectif et le pourcentage à 0 et 1 chiffre après la virgule
+# - argument "missing" : quel attitude vis à vis des manquants
+# - argument "missing_text" : texte pour la ligne des effectifs manquants
+# - argument "percent" : calcul des % en colonnes, en lignes, ou par case
+df_1miss |> 
+  tbl_summary(include = c(imc, pas, traitL, sexL), 
+              statistic = list(all_continuous() ~ "{mean} ± {sd}", 
+                                all_categorical() ~ "{n} ({p}%)"),
+              digits = list(all_continuous() ~ c(1, 1), 
+                            all_categorical() ~ c(0, 1)),
+              missing = c("ifany"), # exclude if any missing
+              missing_text = "N manquant", 
+              percent = c("column")
+              )
+
+## Table bivariée selon le traitment
+df_1miss |> 
+  tbl_summary(by = traitL,
+              include = c(imc, pas, sexL), 
+              statistic = list(all_continuous() ~ "{mean} ± {sd}", 
+                               all_categorical() ~ "{n} ({p}%)"),
+              digits = list(all_continuous() ~ c(1, 1), 
+                            all_categorical() ~ c(0, 1)),
+              missing = c("ifany"), # exclude if any missing
+              missing_text = "N manquant", 
+              percent = c("column")
+  ) |>
+  add_overall(last = TRUE, # TRUE = à la fin du tableau, FALSE = au début du tableau
+              col_label = "**Total**  \nN = {style_number(N)}") 
+
+# on peut ajouter des tests de comparaison qui vont donner des p-values, 
+# mais on n'aura pas vérifié les conditions d'application ... :-(
+df_1miss |> 
+  tbl_summary(by = traitL,
+              include = c(imc, pas, sexL), 
+              statistic = list(all_continuous() ~ "{mean} ± {sd}", 
+                               all_categorical() ~ "{n} ({p}%)"),
+              digits = list(all_continuous() ~ c(1, 1), 
+                            all_categorical() ~ c(0, 1)),
+              missing = c("ifany"), # exclude if any missing
+              missing_text = "N manquant", 
+              percent = c("column")
+  ) |>
+  add_p()
+# automatiquement, il a comparé les moyennes par un test de rang de Kruskal Wallis
+# et les pourcentage par un test du chi-2 (avec la correction de Yates)
+
+
+
+
+
+# ---------------------------------------------------------------------------- #
+# 3) Création d'une base de données correspondant au tableau à présenter ----
+# ---------------------------------------------------------------------------- #
+# 3.1) variable quantitative ----
 # ---------------------------------------------------------------------------- #
 
 # on va faire une fonction qui crée une table où : 
@@ -213,7 +284,7 @@ tab_quanti <- tab_univ_quanti(data = df_1miss, # le data frame
 tab_quanti
 
 # ---------------------------------------------------------------------------- #
-# 2.2) variable qualitative ----
+# 3.2) variable qualitative ----
 # ---------------------------------------------------------------------------- #
 # # pour compter les cases avec des effectifs nuls, le format "factor" est utile
 # # on va donc d'abord créer des variables qualitatives au format factor
@@ -324,7 +395,7 @@ tab_quali
 
 
 # ---------------------------------------------------------------------------- #
-# 3) Présentation de la table avec le package tinytable ----
+# 4) Présentation de la table avec le package tinytable ----
 # ---------------------------------------------------------------------------- #
 ## faire une table mise en forme pour copier-coller dans un rapport d'analyse
 
@@ -354,7 +425,7 @@ tt(tab_desc) |>
 
 
 # ---------------------------------------------------------------------------- #
-# 4) Préparation d'un tableau pour des analyses bivariées avec p-value ----
+# 5) Préparation d'un tableau pour des analyses bivariées avec p-value ----
 # ---------------------------------------------------------------------------- #
 table(df_1miss$traitL, useNA = "ifany")
 # Placebo Traitement A Traitement B         <NA> 
@@ -623,7 +694,7 @@ tt(results)
 
 
 # ---------------------------------------------------------------------------- #
-# 5) library gt ---- 
+# 6) library gt ---- 
 # ---------------------------------------------------------------------------- #
 ## voir https://gt.rstudio.com/index.html
 # puis, "Get started" pour avoir une vignette de présentation générale

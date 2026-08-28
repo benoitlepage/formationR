@@ -122,6 +122,8 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\usepackage{caption}
+\usepackage{anyfontsize}
 \usepackage{tabularray}
 \usepackage[normalem]{ulem}
 \usepackage{graphicx}
@@ -130,8 +132,6 @@
 \NewTableCommand{\tinytableDefineColor}[3]{\definecolor{#1}{#2}{#3}}
 \newcommand{\tinytableTabularrayUnderline}[1]{\underline{#1}}
 \newcommand{\tinytableTabularrayStrikeout}[1]{\sout{#1}}
-\usepackage{caption}
-\usepackage{anyfontsize}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -7952,7 +7952,7 @@ Il est possible de choisir plus spécifiquement quels paramètres afficher. Pour
 ##         `Mean (SD)` = sprintf("%s (%s)", MEAN, SD), `Median [Min, Max]` = sprintf("%s [%s, %s]", 
 ##             MEDIAN, MIN, MAX)))
 ## }
-## <bytecode: 0x00000278f00641c0>
+## <bytecode: 0x000002d49682ed60>
 ## <environment: namespace:table1>
 \end{verbatim}
 
@@ -7970,7 +7970,7 @@ Il est possible de choisir plus spécifiquement quels paramètres afficher. Pour
 ##         ...), function(y) with(y, sprintf("%s (%s%%)", FREQ, 
 ##         if (na.is.category) PCT else PCTnoNA))))
 ## }
-## <bytecode: 0x00000278f0072498>
+## <bytecode: 0x000002d4968318f8>
 ## <environment: namespace:table1>
 \end{verbatim}
 
@@ -8115,9 +8115,202 @@ Comme pour l'analyse univariée, on peut choisir de n'afficher que la moyenne et
 
 Une des limites du package \texttt{table1} est qu'il ne permet pas d'afficher une colonne de p-values pour donner les résultats de tests de comparaison bivariés.
 
+\section{\texorpdfstring{Package \texttt{gtsummary}}{Package gtsummary}}\label{package-gtsummary}
+
+Le package \href{https://www.danieldsjoberg.com/gtsummary/index.html}{\texttt{gtsummary}} permet de calculer des statistiques descriptives univariées ou bivariées et de les présenter facilement sous forme de tableau. Il s'agit d'une alternative au package \texttt{table1}.
+
+Ce package permet également de présenter facilement les sorties de régression sous forme tabulée que l'on peut intégrer directement dans un rapport d'analyse.
+
+La fonction principale est la fonction \texttt{gtsummary()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(gtsummary)}
+\NormalTok{?gtsummary}\SpecialCharTok{::}\NormalTok{tbl\_summary}
+\DocumentationTok{\#\# Par défaut : }
+\DocumentationTok{\#\# {-} les variables quantitatives sont décrites par médiane (Q25, Q75)}
+\DocumentationTok{\#\# {-} les données manquantes sont indiqués par "unknown"}
+\DocumentationTok{\#\# {-} les pourcentages sont calculés par colonne après exclusion des manquants }
+\DocumentationTok{\#\#   et sont arrondis sans chiffre après la virgule}
+\NormalTok{df\_1miss }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tbl\_summary}\NormalTok{(}\AttributeTok{include =} \FunctionTok{c}\NormalTok{(imc, pas, traitL, sexL))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lc}
+\toprule
+\textbf{Characteristic} & \textbf{N = 300}\textsuperscript{\textit{1}} \\ 
+\midrule\addlinespace[2.5pt]
+IMC (kg/m²) & 24.50 (22.20, 26.30) \\ 
+    Unknown & 37 \\ 
+PAS (mmHg) & 138 (125, 149) \\ 
+    Unknown & 33 \\ 
+Traitement &  \\ 
+    Placebo & 104 (39\%) \\ 
+    Traitement A & 84 (31\%) \\ 
+    Traitement B & 79 (30\%) \\ 
+    Unknown & 33 \\ 
+Sexe &  \\ 
+    Féminin & 137 (49\%) \\ 
+    Masculin & 140 (51\%) \\ 
+    Unknown & 23 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\vspace{.05em}
+\textsuperscript{\textit{1}}Median (Q1, Q3); n (\%)\\
+\end{minipage}
+\end{table}
+
+On peut modifier les paramètres à présenter :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Dans l\textquotesingle{}exemple ci{-}dessous :}
+\DocumentationTok{\#\# {-} argument "statistic" : }
+\DocumentationTok{\#\#   les variables continues sont présentées par la moyenne ± SD}
+\DocumentationTok{\#\#   les variables qualitatives sont présentés par l\textquotesingle{}effectif (\%)}
+\DocumentationTok{\#\# {-} argument "digits" :}
+\DocumentationTok{\#\#   on arrondi la moyenne et l\textquotesingle{}écart type à 1 chiffre après la virgule}
+\DocumentationTok{\#\#   et l\textquotesingle{}effectif et le pourcentage à 0 et 1 chiffre après la virgule}
+\DocumentationTok{\#\# {-} argument "missing" : quel attitude vis à vis des manquants}
+\DocumentationTok{\#\# {-} argument "missing\_text" : texte pour la ligne des effectifs manquants}
+\DocumentationTok{\#\# {-} argument "percent" : calcul des \% en colonnes, en lignes, ou par case}
+\NormalTok{df\_1miss }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tbl\_summary}\NormalTok{(}\AttributeTok{include =} \FunctionTok{c}\NormalTok{(imc, pas, traitL, sexL), }
+              \AttributeTok{statistic =} \FunctionTok{list}\NormalTok{(}\FunctionTok{all\_continuous}\NormalTok{() }\SpecialCharTok{\textasciitilde{}} \StringTok{"\{mean\} ± \{sd\}"}\NormalTok{, }
+                                \FunctionTok{all\_categorical}\NormalTok{() }\SpecialCharTok{\textasciitilde{}} \StringTok{"\{n\} (\{p\}\%)"}\NormalTok{),}
+              \AttributeTok{digits =} \FunctionTok{list}\NormalTok{(}\FunctionTok{all\_continuous}\NormalTok{() }\SpecialCharTok{\textasciitilde{}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }
+                            \FunctionTok{all\_categorical}\NormalTok{() }\SpecialCharTok{\textasciitilde{}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)),}
+              \AttributeTok{missing =} \FunctionTok{c}\NormalTok{(}\StringTok{"ifany"}\NormalTok{), }\CommentTok{\# exclude if any missing}
+              \AttributeTok{missing\_text =} \StringTok{"N manquant"}\NormalTok{, }
+              \AttributeTok{percent =} \FunctionTok{c}\NormalTok{(}\StringTok{"column"}\NormalTok{)}
+\NormalTok{              )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lc}
+\toprule
+\textbf{Characteristic} & \textbf{N = 300}\textsuperscript{\textit{1}} \\ 
+\midrule\addlinespace[2.5pt]
+IMC (kg/m²) & 24.4 ± 3.0 \\ 
+    N manquant & 37 \\ 
+PAS (mmHg) & 137.2 ± 16.9 \\ 
+    N manquant & 33 \\ 
+Traitement &  \\ 
+    Placebo & 104 (39.0\%) \\ 
+    Traitement A & 84 (31.5\%) \\ 
+    Traitement B & 79 (29.6\%) \\ 
+    N manquant & 33 \\ 
+Sexe &  \\ 
+    Féminin & 137 (49.5\%) \\ 
+    Masculin & 140 (50.5\%) \\ 
+    N manquant & 23 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\vspace{.05em}
+\textsuperscript{\textit{1}}Mean ± SD; n (\%)\\
+\end{minipage}
+\end{table}
+
+L'argument \texttt{by} permet de présenter une table bivariée :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Table bivariée selon le traitment}
+\NormalTok{df\_1miss }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tbl\_summary}\NormalTok{(}\AttributeTok{by =}\NormalTok{ traitL, }\CommentTok{\# présentation bivariée selon la variable traitL}
+              \AttributeTok{include =} \FunctionTok{c}\NormalTok{(imc, pas, sexL), }
+              \AttributeTok{statistic =} \FunctionTok{list}\NormalTok{(}\FunctionTok{all\_continuous}\NormalTok{() }\SpecialCharTok{\textasciitilde{}} \StringTok{"\{mean\} ± \{sd\}"}\NormalTok{, }
+                               \FunctionTok{all\_categorical}\NormalTok{() }\SpecialCharTok{\textasciitilde{}} \StringTok{"\{n\} (\{p\}\%)"}\NormalTok{),}
+              \AttributeTok{digits =} \FunctionTok{list}\NormalTok{(}\FunctionTok{all\_continuous}\NormalTok{() }\SpecialCharTok{\textasciitilde{}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }
+                            \FunctionTok{all\_categorical}\NormalTok{() }\SpecialCharTok{\textasciitilde{}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)),}
+              \AttributeTok{missing =} \FunctionTok{c}\NormalTok{(}\StringTok{"ifany"}\NormalTok{), }\CommentTok{\# exclude if any missing}
+              \AttributeTok{missing\_text =} \StringTok{"N manquant"}\NormalTok{, }
+              \AttributeTok{percent =} \FunctionTok{c}\NormalTok{(}\StringTok{"column"}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 33 missing rows in the "traitL" column have been removed.
+\end{verbatim}
+
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccc}
+\toprule
+\textbf{Characteristic} & \textbf{Placebo}  N = 104\textsuperscript{\textit{1}} & \textbf{Traitement A}  N = 84\textsuperscript{\textit{1}} & \textbf{Traitement B}  N = 79\textsuperscript{\textit{1}} \\ 
+\midrule\addlinespace[2.5pt]
+IMC (kg/m²) & 24.4 ± 2.8 & 24.7 ± 3.0 & 24.2 ± 3.5 \\ 
+    N manquant & 11 & 11 & 9 \\ 
+PAS (mmHg) & 143.1 ± 15.8 & 130.5 ± 16.2 & 137.2 ± 17.0 \\ 
+    N manquant & 17 & 9 & 7 \\ 
+Sexe &  &  &  \\ 
+    Féminin & 40 (40.8\%) & 40 (50.0\%) & 37 (55.2\%) \\ 
+    Masculin & 58 (59.2\%) & 40 (50.0\%) & 30 (44.8\%) \\ 
+    N manquant & 6 & 4 & 12 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\vspace{.05em}
+\textsuperscript{\textit{1}}Mean ± SD; n (\%)\\
+\end{minipage}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On peut ajouter une colonne total avec la fonction "add\_overall()"}
+\NormalTok{df\_1miss }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tbl\_summary}\NormalTok{(}\AttributeTok{by =}\NormalTok{ traitL, }\CommentTok{\# présentation bivariée selon la variable traitL}
+              \AttributeTok{include =} \FunctionTok{c}\NormalTok{(imc, pas, sexL), }
+              \AttributeTok{statistic =} \FunctionTok{list}\NormalTok{(}\FunctionTok{all\_continuous}\NormalTok{() }\SpecialCharTok{\textasciitilde{}} \StringTok{"\{mean\} ± \{sd\}"}\NormalTok{, }
+                               \FunctionTok{all\_categorical}\NormalTok{() }\SpecialCharTok{\textasciitilde{}} \StringTok{"\{n\} (\{p\}\%)"}\NormalTok{),}
+              \AttributeTok{digits =} \FunctionTok{list}\NormalTok{(}\FunctionTok{all\_continuous}\NormalTok{() }\SpecialCharTok{\textasciitilde{}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }
+                            \FunctionTok{all\_categorical}\NormalTok{() }\SpecialCharTok{\textasciitilde{}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)),}
+              \AttributeTok{missing =} \FunctionTok{c}\NormalTok{(}\StringTok{"ifany"}\NormalTok{), }\CommentTok{\# exclude if any missing}
+              \AttributeTok{missing\_text =} \StringTok{"N manquant"}\NormalTok{, }
+              \AttributeTok{percent =} \FunctionTok{c}\NormalTok{(}\StringTok{"column"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_overall}\NormalTok{(}\AttributeTok{last =} \ConstantTok{TRUE}\NormalTok{, }\CommentTok{\# TRUE = en fin du tableau, FALSE = au début du tableau}
+              \AttributeTok{col\_label =} \StringTok{"**Total**  }\SpecialCharTok{\textbackslash{}n}\StringTok{N = \{style\_number(N)\}"}\NormalTok{) }\CommentTok{\# Titre de colonne}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 33 missing rows in the "traitL" column have been removed.
+\end{verbatim}
+
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lcccc}
+\toprule
+\textbf{Characteristic} & \textbf{Placebo}  N = 104\textsuperscript{\textit{1}} & \textbf{Traitement A}  N = 84\textsuperscript{\textit{1}} & \textbf{Traitement B}  N = 79\textsuperscript{\textit{1}} & \textbf{Total}  N = 267\textsuperscript{\textit{1}} \\ 
+\midrule\addlinespace[2.5pt]
+IMC (kg/m²) & 24.4 ± 2.8 & 24.7 ± 3.0 & 24.2 ± 3.5 & 24.4 ± 3.1 \\ 
+    N manquant & 11 & 11 & 9 & 31 \\ 
+PAS (mmHg) & 143.1 ± 15.8 & 130.5 ± 16.2 & 137.2 ± 17.0 & 137.2 ± 17.1 \\ 
+    N manquant & 17 & 9 & 7 & 33 \\ 
+Sexe &  &  &  &  \\ 
+    Féminin & 40 (40.8\%) & 40 (50.0\%) & 37 (55.2\%) & 117 (47.8\%) \\ 
+    Masculin & 58 (59.2\%) & 40 (50.0\%) & 30 (44.8\%) & 128 (52.2\%) \\ 
+    N manquant & 6 & 4 & 12 & 22 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\vspace{.05em}
+\textsuperscript{\textit{1}}Mean ± SD; n (\%)\\
+\end{minipage}
+\end{table}
+
 \section{Méthodes plus flexibles}\label{muxe9thodes-plus-flexibles}
 
-Le package \texttt{table1} permet d'obtenir des tables uni- et bivariées très faciement, mais il ne donne pas beaucoup de possibilité pour adatper la table à sa guise.
+Les packages \texttt{table1} et \texttt{gtsummary} permettent d'obtenir des tables uni- et bivariées très faciement, mais ils restent en partie limités pour adapter la table à sa guise.
 
 Pour obtenir des tables avec une plus grande liberté de présentation, on peut créer un tableau (\texttt{data.frame}) contenant exactement les résultats que l'on veut présenter.
 
@@ -9633,12 +9826,6 @@ n / n missing & 98 / 6 & 80 / 4 & 67 / 12 &  & 245 / 22 \\
 $$\mathbb{E}(Y) = \beta_0 + \theta_1 X$$\\
 \end{minipage}
 \end{table}
-
-\section{\texorpdfstring{Package \texttt{gtsummary}}{Package gtsummary}}\label{package-gtsummary}
-
-Le package \href{https://www.danieldsjoberg.com/gtsummary/index.html}{\texttt{gtsummary}} permet de calculer des statistiques descriptives et de les présenter facilement sous forme de tableau (il s'agit d'une alternative au package \texttt{table1}).
-
-Ce package permet également de présenter facilement les sorties de régression sous forme tabulée que l'on peut intégrer directement dans un rapport d'analyse.
 
 \chapter{Reporting}\label{reporting}
 

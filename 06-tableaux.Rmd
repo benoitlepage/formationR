@@ -148,8 +148,85 @@ table1(~ imc + pas + sexL | traitL,
 
 Une des limites du package `table1` est qu'il ne permet pas d'afficher une colonne de p-values pour donner les résultats de tests de comparaison bivariés.
 
+
+## Package `gtsummary` 
+Le package [`gtsummary`](https://www.danieldsjoberg.com/gtsummary/index.html) permet de calculer des statistiques descriptives univariées ou bivariées et de les présenter facilement sous forme de tableau. Il s'agit d'une alternative au package `table1`.
+
+Ce package permet également de présenter facilement les sorties de régression sous forme tabulée que l'on peut intégrer directement dans un rapport d'analyse.
+
+La fonction principale est la fonction `gtsummary()`
+
+```{r gtsum1, warning=FALSE, echo=TRUE}
+library(gtsummary)
+?gtsummary::tbl_summary
+## Par défaut : 
+## - les variables quantitatives sont décrites par médiane (Q25, Q75)
+## - les données manquantes sont indiqués par "unknown"
+## - les pourcentages sont calculés par colonne après exclusion des manquants 
+##   et sont arrondis sans chiffre après la virgule
+df_1miss |> 
+  tbl_summary(include = c(imc, pas, traitL, sexL))
+```
+
+On peut modifier les paramètres à présenter :
+```{r gtsum2, warning=FALSE, echo=TRUE}
+## Dans l'exemple ci-dessous :
+## - argument "statistic" : 
+##   les variables continues sont présentées par la moyenne ± SD
+##   les variables qualitatives sont présentés par l'effectif (%)
+## - argument "digits" :
+##   on arrondi la moyenne et l'écart type à 1 chiffre après la virgule
+##   et l'effectif et le pourcentage à 0 et 1 chiffre après la virgule
+## - argument "missing" : quel attitude vis à vis des manquants
+## - argument "missing_text" : texte pour la ligne des effectifs manquants
+## - argument "percent" : calcul des % en colonnes, en lignes, ou par case
+df_1miss |> 
+  tbl_summary(include = c(imc, pas, traitL, sexL), 
+              statistic = list(all_continuous() ~ "{mean} ± {sd}", 
+                                all_categorical() ~ "{n} ({p}%)"),
+              digits = list(all_continuous() ~ c(1, 1), 
+                            all_categorical() ~ c(0, 1)),
+              missing = c("ifany"), # exclude if any missing
+              missing_text = "N manquant", 
+              percent = c("column")
+              )
+```
+
+L'argument `by` permet de présenter une table bivariée :
+```{r gtsum3, warning=FALSE, echo=TRUE}
+## Table bivariée selon le traitment
+df_1miss |> 
+  tbl_summary(by = traitL, # présentation bivariée selon la variable traitL
+              include = c(imc, pas, sexL), 
+              statistic = list(all_continuous() ~ "{mean} ± {sd}", 
+                               all_categorical() ~ "{n} ({p}%)"),
+              digits = list(all_continuous() ~ c(1, 1), 
+                            all_categorical() ~ c(0, 1)),
+              missing = c("ifany"), # exclude if any missing
+              missing_text = "N manquant", 
+              percent = c("column")
+  )
+
+## On peut ajouter une colonne total avec la fonction "add_overall()"
+df_1miss |> 
+  tbl_summary(by = traitL, # présentation bivariée selon la variable traitL
+              include = c(imc, pas, sexL), 
+              statistic = list(all_continuous() ~ "{mean} ± {sd}", 
+                               all_categorical() ~ "{n} ({p}%)"),
+              digits = list(all_continuous() ~ c(1, 1), 
+                            all_categorical() ~ c(0, 1)),
+              missing = c("ifany"), # exclude if any missing
+              missing_text = "N manquant", 
+              percent = c("column")
+  ) |>
+  add_overall(last = TRUE, # TRUE = en fin du tableau, FALSE = au début du tableau
+              col_label = "**Total**  \nN = {style_number(N)}") # Titre de colonne
+
+```
+
+
 ## Méthodes plus flexibles
-Le package `table1` permet d'obtenir des tables uni- et bivariées très faciement, mais il ne donne pas beaucoup de possibilité pour adatper la table à sa guise. 
+Les packages `table1` et `gtsummary` permettent d'obtenir des tables uni- et bivariées très facilement, mais ils restent en partie limités pour adapter la table à sa guise. 
 
 Pour obtenir des tables avec une plus grande liberté de présentation, on peut créer un tableau (`data.frame`) contenant exactement les résultats que l'on veut présenter.
 
@@ -718,8 +795,5 @@ gt(corps_biv,
 
 
 
-## Package `gtsummary` 
-Le package [`gtsummary`](https://www.danieldsjoberg.com/gtsummary/index.html) permet de calculer des statistiques descriptives et de les présenter facilement sous forme de tableau (il s'agit d'une alternative au package `table1`).
 
-Ce package permet également de présenter facilement les sorties de régression sous forme tabulée que l'on peut intégrer directement dans un rapport d'analyse.
 
