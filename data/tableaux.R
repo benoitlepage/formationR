@@ -113,13 +113,13 @@ table1(~ imc + pas + traitL + sexL,
        render.continuous = render_var_quanti, 
        render.categorical = render_var_quali)
 
-table1(~ imc + pas + traitL + sexL, 
-       data = df_1miss, 
-       render.continuous = render_var_quanti, 
-       render.categorical = render.categorical.default(df_1miss, na.is.category = FALSE))
+# table1(~ imc + pas + traitL + sexL, 
+#        data = df_1miss, 
+#        render.continuous = render_var_quanti, 
+#        render.categorical = render.categorical.default(df_1miss, na.is.category = FALSE))
 
 # table bivariée
-table1(~ imc + pas + sexL | traitL, 
+table1(~ imc + pas + sexL | traitL,
        data = df_1miss)
 # cela ne fonctionne pas car la variable de stratification (le traitement)
 # ne doit pas contenir de données manquantes +++
