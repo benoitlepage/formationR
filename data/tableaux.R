@@ -641,8 +641,9 @@ df_results
 # - pour la table tab_desc, le corps correspond à la colonne 2
 #   sans lignes vides associées aux noms de variables
 tab_desc[which(tab_desc[,2] != ""), 2] # c'est un vecteur dans notre cas
-corps <- gt(data.frame(stat = tab_desc[which(tab_desc[,2] != ""), 2]))
-corps
+
+corps_df <- data.frame(stat = tab_desc[which(tab_desc[,2] != ""), 2])
+corps <- gt(corps_df)
 
 # on peut ensuite ajouter différents éléments à ce corps de table
 
@@ -726,6 +727,8 @@ gt(corps_df,
 gt(corps_df, 
    rowname_col = "Variables", 
    groupname_col = "label") |>
+  tab_stub_indent(rows = everything(),
+                  indent = 3) |> # indentation de 3 vers la droite
   tab_stubhead("Variables") |>
   tab_header(title = "Titre", 
              subtitle = "Sous-titre") |>
@@ -785,7 +788,7 @@ gt(corps_biv,
     source_note = md("$$\\mathbb{E}(Y) = \\beta_0 + \\theta_1 X$$")
   )
 
-# on peut appliquer les format markdown avec du texte dans la fonction md()
+# on peut appliquer les formats markdown avec du texte dans la fonction md()
 # (exemple dans le sous-titre)
 # ainsi que des notations mathématiques 
 # (exemple dans la source)

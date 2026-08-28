@@ -130,6 +130,8 @@
 \NewTableCommand{\tinytableDefineColor}[3]{\definecolor{#1}{#2}{#3}}
 \newcommand{\tinytableTabularrayUnderline}[1]{\underline{#1}}
 \newcommand{\tinytableTabularrayStrikeout}[1]{\sout{#1}}
+\usepackage{caption}
+\usepackage{anyfontsize}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -141,7 +143,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2026-07-17}
+\date{2026-08-28}
 
 \begin{document}
 \maketitle
@@ -7950,7 +7952,7 @@ Il est possible de choisir plus spécifiquement quels paramètres afficher. Pour
 ##         `Mean (SD)` = sprintf("%s (%s)", MEAN, SD), `Median [Min, Max]` = sprintf("%s [%s, %s]", 
 ##             MEDIAN, MIN, MAX)))
 ## }
-## <bytecode: 0x000001d4aa82eb30>
+## <bytecode: 0x00000278f00641c0>
 ## <environment: namespace:table1>
 \end{verbatim}
 
@@ -7968,7 +7970,7 @@ Il est possible de choisir plus spécifiquement quels paramètres afficher. Pour
 ##         ...), function(y) with(y, sprintf("%s (%s%%)", FREQ, 
 ##         if (na.is.category) PCT else PCTnoNA))))
 ## }
-## <bytecode: 0x000001d4aa82d700>
+## <bytecode: 0x00000278f0072498>
 ## <environment: namespace:table1>
 \end{verbatim}
 
@@ -8646,14 +8648,14 @@ Ensuite on remplit le contenu du tableau (à noter qu'on va exclure des analyses
 \NormalTok{df\_results[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"Traitement A"}\NormalTok{)] }\OtherTok{\textless{}{-}}\NormalTok{ imc\_by\_trait}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Traitement A}\StringTok{\textasciigrave{}}
 \NormalTok{df\_results[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"Traitement B"}\NormalTok{)] }\OtherTok{\textless{}{-}}\NormalTok{ imc\_by\_trait}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Traitement B}\StringTok{\textasciigrave{}}
 \CommentTok{\# note : pour avoir des effectifs cohérents dans la colonne total, }
-\CommentTok{\# les analyses doivent être réalisée dans le sous{-}ensemble de données }
+\CommentTok{\# les analyses doivent être réalisées dans le sous{-}ensemble de données }
 \CommentTok{\# sans manquants concernant le traitement +++}
 \NormalTok{df\_results[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\StringTok{"Total"}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{mean\_sd\_fct}\NormalTok{(}\AttributeTok{x =} \FunctionTok{subset}\NormalTok{(df\_1miss,}
                                                       \AttributeTok{subset =} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(traitL))}\SpecialCharTok{$}\NormalTok{imc,  }
                                            \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }
                                            \AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{)}
 \NormalTok{anova\_imc\_by\_traitL }\OtherTok{\textless{}{-}} \FunctionTok{anova}\NormalTok{(}\FunctionTok{aov}\NormalTok{(imc }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitL, }\AttributeTok{data =}\NormalTok{ df\_1miss))}
-\NormalTok{anova\_imc\_by\_traitL}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} \CommentTok{\# [1] 0.5259026        NA}
+\NormalTok{anova\_imc\_by\_traitL}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} 
 \end{Highlighting}
 \end{Shaded}
 
@@ -8699,7 +8701,7 @@ Ensuite on remplit le contenu du tableau (à noter qu'on va exclure des analyses
                                            \AttributeTok{dig =} \DecValTok{1}\NormalTok{, }
                                            \AttributeTok{remove\_miss =} \ConstantTok{TRUE}\NormalTok{)}
 \NormalTok{anova\_pas\_by\_traitL }\OtherTok{\textless{}{-}} \FunctionTok{anova}\NormalTok{(}\FunctionTok{aov}\NormalTok{(pas }\SpecialCharTok{\textasciitilde{}}\NormalTok{ traitL, }\AttributeTok{data =}\NormalTok{ df\_1miss))}
-\NormalTok{anova\_pas\_by\_traitL}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} \CommentTok{\# [1] 1.079829e{-}05           NA}
+\NormalTok{anova\_pas\_by\_traitL}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} 
 \end{Highlighting}
 \end{Shaded}
 
@@ -8768,7 +8770,7 @@ Ensuite on remplit le contenu du tableau (à noter qu'on va exclure des analyses
 \NormalTok{df\_results[}\DecValTok{11}\NormalTok{,}\StringTok{"Total"}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{sum}\NormalTok{(n\_obs\_sex), }\StringTok{" / "}\NormalTok{, }\FunctionTok{sum}\NormalTok{(n\_miss\_sex))}
 \CommentTok{\# colonne p{-}value}
 \NormalTok{chi2\_sex\_trait }\OtherTok{\textless{}{-}} \FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(df\_1miss}\SpecialCharTok{$}\NormalTok{sexL, df\_1miss}\SpecialCharTok{$}\NormalTok{traitL, }\AttributeTok{useNA =} \StringTok{"no"}\NormalTok{))}
-\NormalTok{df\_results[}\DecValTok{8}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{round}\NormalTok{(chi2\_sex\_trait}\SpecialCharTok{$}\NormalTok{p.value, }\AttributeTok{digits =} \DecValTok{2}\NormalTok{), }
+\NormalTok{df\_results[}\DecValTok{9}\NormalTok{, }\StringTok{"p{-}value"}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{round}\NormalTok{(chi2\_sex\_trait}\SpecialCharTok{$}\NormalTok{p.value, }\AttributeTok{digits =} \DecValTok{2}\NormalTok{), }
                                    \StringTok{"\textless{}sup\textgreater{}b"}\NormalTok{)}
 \NormalTok{df\_results}
 \end{Highlighting}
@@ -8783,8 +8785,8 @@ Ensuite on remplit le contenu du tableau (à noter qu'on va exclure des analyses
 ## 5     PAS (mmHg)                                                     
 ## 6  n / n missing      87 / 17       75 / 9       72 / 7 <0.0001<sup>a
 ## 7   moyenne (DS) 143.1 (15.8) 130.5 (16.2)   137.2 (17)              
-## 8    Sexe, n (%)                                           0.17<sup>b
-## 9        Féminin   40 (40.8%)     40 (50%)   37 (55.2%)              
+## 8    Sexe, n (%)                                                     
+## 9        Féminin   40 (40.8%)     40 (50%)   37 (55.2%)    0.17<sup>b
 ## 10      Masculin   58 (59.2%)     40 (50%)   30 (44.8%)              
 ## 11 n / n missing       98 / 6       80 / 4      67 / 12              
 ##           Total
@@ -8856,15 +8858,787 @@ moyenne (DS) & 24.4 (2.8) & 24.7 (3) & 24.2 (3.5) &  & 24.4 (3.1) \\
 PAS (mmHg) &  &  &  &  &  \\
 n / n missing & 87 / 17 & 75 / 9 & 72 / 7 & <0.0001<sup>a & 234 / 33 \\
 moyenne (DS) & 143.1 (15.8) & 130.5 (16.2) & 137.2 (17) &  & 137.2 (17.1) \\
-Sexe, n (%) &  &  &  & 0.17<sup>b &  \\
-Féminin & 40 (40.8%) & 40 (50%) & 37 (55.2%) &  & 117 (47.8%) \\
+Sexe, n (%) &  &  &  &  &  \\
+Féminin & 40 (40.8%) & 40 (50%) & 37 (55.2%) & 0.17<sup>b & 117 (47.8%) \\
 Masculin & 58 (59.2%) & 40 (50%) & 30 (44.8%) &  & 128 (52.2%) \\
 n / n missing & 98 / 6 & 80 / 4 & 67 / 12 &  & 245 / 22 \\
 \end{talltblr}
 \end{table}
 
-gt
-gtsummary (basé sur gt)
+Dans la table finale, pensez à vérifier qu'il n'y a pas d'erreurs : les pourcentages doivent être corrects et la somme des effectifs doit toujours donner les mêmes totaux, en lignes et en colonnes.
+
+\section{\texorpdfstring{Package \texttt{gt}}{Package gt}}\label{package-gt}
+
+Le package \href{https://gt.rstudio.com/}{\texttt{gt}} est un autre package qui permet de présenter des tableaux et de les mettre en forme avec une grande flexibilité.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On va récupérer les data.frame univariés et bivariés crées précédemment }
+\DocumentationTok{\#\# et les mettre en forme avec le package gt}
+\NormalTok{tab\_desc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            Variables      N = 300
+## 1        IMC (kg/m²)             
+## 2      n / n missing     263 / 37
+## 3       moyenne (DS)     24.4 (3)
+## 4         PAS (mmHg)             
+## 5      n / n missing     267 / 33
+## 6       moyenne (DS) 137.2 (16.9)
+## 7        Sexe, n (%)             
+## 8            Féminin  137 (49.5%)
+## 9           Masculin  140 (50.5%)
+## 10     n / n missing     277 / 23
+## 11 Traitement, n (%)             
+## 12           Placebo    104 (39%)
+## 13      Traitement A   84 (31.5%)
+## 14      Traitement B   79 (29.6%)
+## 15     n / n missing     267 / 33
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Variable      Placebo Traitement A Traitement B       p-value
+## 1        N total      N = 104       N = 84       N = 79              
+## 2    IMC (kg/m²)                                                     
+## 3  n / n missing      93 / 11      73 / 11       70 / 9    0.53<sup>a
+## 4   moyenne (DS)   24.4 (2.8)     24.7 (3)   24.2 (3.5)              
+## 5     PAS (mmHg)                                                     
+## 6  n / n missing      87 / 17       75 / 9       72 / 7 <0.0001<sup>a
+## 7   moyenne (DS) 143.1 (15.8) 130.5 (16.2)   137.2 (17)              
+## 8    Sexe, n (%)                                                     
+## 9        Féminin   40 (40.8%)     40 (50%)   37 (55.2%)    0.17<sup>b
+## 10      Masculin   58 (59.2%)     40 (50%)   30 (44.8%)              
+## 11 n / n missing       98 / 6       80 / 4      67 / 12              
+##           Total
+## 1       N = 267
+## 2              
+## 3      236 / 31
+## 4    24.4 (3.1)
+## 5              
+## 6      234 / 33
+## 7  137.2 (17.1)
+## 8              
+## 9   117 (47.8%)
+## 10  128 (52.2%)
+## 11     245 / 22
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Installer la library gt, puis la charger}
+\FunctionTok{library}\NormalTok{(gt)}
+\end{Highlighting}
+\end{Shaded}
+
+Le principe du package \texttt{gt} est d'afficher le corps de la table (\emph{body table}), puis d'y ajouter les différents éléments (la colonne \emph{stub} à gauche indiquant les noms des rangs, les titres de colonnes, les titres et sous-titres de la table, les notes de bas de tableau, etc). Vous trouverez plus d'information sur la \href{https://gt.rstudio.com/articles/gt.html}{vignette d'introduction} du package et la vignette qui donne des exemples pour des \href{https://gt.rstudio.com/articles/case-study-clinical-tables.html}{tables d'analyses de données cliniques}.
+
+\subsection{Table univariée}\label{table-univariuxe9e}
+
+On va présenter les données du data frame \texttt{tab\_desc}.
+
+On commence par récupérer le ``corps'' du tableau (\emph{table body}). Il faut que le ``corps'' soit au format \texttt{data.frame}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Le "corps" correspond aux données de la 2ème colonne de "tab\_desc"}
+\DocumentationTok{\#\# (sans garder les lignes vides)}
+\NormalTok{tab\_desc[}\FunctionTok{which}\NormalTok{(tab\_desc[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{!=} \StringTok{""}\NormalTok{), }\DecValTok{2}\NormalTok{] }\CommentTok{\# c\textquotesingle{}est un vecteur caractère}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "263 / 37"     "24.4 (3)"     "267 / 33"     "137.2 (16.9)" "137 (49.5%)" 
+##  [6] "140 (50.5%)"  "277 / 23"     "104 (39%)"    "84 (31.5%)"   "79 (29.6%)"  
+## [11] "267 / 33"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# On stocke ce vecteur dans la variable "stat" au sein d\textquotesingle{}un data.frame}
+\NormalTok{corps\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{stat =}\NormalTok{ tab\_desc[}\FunctionTok{which}\NormalTok{(tab\_desc[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{!=} \StringTok{""}\NormalTok{), }\DecValTok{2}\NormalTok{])}
+
+\DocumentationTok{\#\# On peut alors appliquer la fonction gt() à ce data.frame}
+\NormalTok{corps }\OtherTok{\textless{}{-}} \FunctionTok{gt}\NormalTok{(corps\_df)}
+\NormalTok{corps}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}r}
+\toprule
+stat \\ 
+\midrule\addlinespace[2.5pt]
+263 / 37 \\ 
+24.4 (3) \\ 
+267 / 33 \\ 
+137.2 (16.9) \\ 
+137 (49.5\%) \\ 
+140 (50.5\%) \\ 
+277 / 23 \\ 
+104 (39\%) \\ 
+84 (31.5\%) \\ 
+79 (29.6\%) \\ 
+267 / 33 \\ 
+\bottomrule
+\end{tabular*}
+\end{table}
+
+On peut ensuite ajouter différents éléments à ce corps de table :
+
+\begin{itemize}
+\tightlist
+\item
+  titre et sous-titre avec \texttt{tab\_header},
+\item
+  notes de bas de tableaux avec \texttt{tab\_footnote},
+\item
+  sources avec \texttt{tab\_source\_note}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# ajouter un titre et un sous{-}titre avec la fonction tab\_header()}
+\NormalTok{corps }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_header}\NormalTok{(}\AttributeTok{title =} \StringTok{"Titre"}\NormalTok{, }
+             \AttributeTok{subtitle =} \StringTok{"Sous{-}titre"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\caption*{
+{\fontsize{20}{25}\selectfont  Titre\fontsize{12}{15}\selectfont } \\ 
+{\fontsize{14}{17}\selectfont  Sous-titre\fontsize{12}{15}\selectfont }
+} 
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}r}
+\toprule
+stat \\ 
+\midrule\addlinespace[2.5pt]
+263 / 37 \\ 
+24.4 (3) \\ 
+267 / 33 \\ 
+137.2 (16.9) \\ 
+137 (49.5\%) \\ 
+140 (50.5\%) \\ 
+277 / 23 \\ 
+104 (39\%) \\ 
+84 (31.5\%) \\ 
+79 (29.6\%) \\ 
+267 / 33 \\ 
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# ajouter des sources avec la fonction tab\_source\_note()}
+\NormalTok{corps }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_header}\NormalTok{(}\AttributeTok{title =} \StringTok{"Titre"}\NormalTok{, }
+             \AttributeTok{subtitle =} \StringTok{"Sous{-}titre"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_source\_note}\NormalTok{(}
+    \AttributeTok{source\_note =} \StringTok{"sources que l\textquotesingle{}on souhaite citer"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\caption*{
+{\fontsize{20}{25}\selectfont  Titre\fontsize{12}{15}\selectfont } \\ 
+{\fontsize{14}{17}\selectfont  Sous-titre\fontsize{12}{15}\selectfont }
+} 
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}r}
+\toprule
+stat \\ 
+\midrule\addlinespace[2.5pt]
+263 / 37 \\ 
+24.4 (3) \\ 
+267 / 33 \\ 
+137.2 (16.9) \\ 
+137 (49.5\%) \\ 
+140 (50.5\%) \\ 
+277 / 23 \\ 
+104 (39\%) \\ 
+84 (31.5\%) \\ 
+79 (29.6\%) \\ 
+267 / 33 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\vspace{.05em}
+sources que l'on souhaite citer\\
+\end{minipage}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# ajouter une note de bas de tableau avec la fonction tab\_footnote()}
+\CommentTok{\# à noter qu\textquotesingle{}elle se positionne automatiquement avant les sources}
+\NormalTok{corps }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_header}\NormalTok{(}\AttributeTok{title =} \StringTok{"Titre"}\NormalTok{, }
+             \AttributeTok{subtitle =} \StringTok{"Sous{-}titre"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_source\_note}\NormalTok{(}
+    \AttributeTok{source\_note =} \StringTok{"sources que l\textquotesingle{}on souhaite citer"}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_footnote}\NormalTok{(}
+    \AttributeTok{footnote =} \StringTok{"Note de bas de tableau"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\caption*{
+{\fontsize{20}{25}\selectfont  Titre\fontsize{12}{15}\selectfont } \\ 
+{\fontsize{14}{17}\selectfont  Sous-titre\fontsize{12}{15}\selectfont }
+} 
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}r}
+\toprule
+stat \\ 
+\midrule\addlinespace[2.5pt]
+263 / 37 \\ 
+24.4 (3) \\ 
+267 / 33 \\ 
+137.2 (16.9) \\ 
+137 (49.5\%) \\ 
+140 (50.5\%) \\ 
+277 / 23 \\ 
+104 (39\%) \\ 
+84 (31.5\%) \\ 
+79 (29.6\%) \\ 
+267 / 33 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\vspace{.05em}
+Note de bas de tableau\\
+sources que l'on souhaite citer\\
+\end{minipage}
+\end{table}
+
+On peut ensuite ajouter le \emph{stub} : la partie à gauche du tableau qui indique les noms des rangs. A noter que l'argument \texttt{rowname\_col} peut être utilisé pour définir le \emph{stub}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On va se servir du contenu de la table tab\_desc }
+\DocumentationTok{\#\# (en supprimant les lignes indiquant les noms de variables)}
+\NormalTok{corps\_df }\OtherTok{\textless{}{-}}\NormalTok{ tab\_desc[}\FunctionTok{which}\NormalTok{(tab\_desc}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{N = 300}\StringTok{\textasciigrave{}} \SpecialCharTok{!=} \StringTok{""}\NormalTok{),]}
+\NormalTok{corps\_df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        Variables      N = 300
+## 2  n / n missing     263 / 37
+## 3   moyenne (DS)     24.4 (3)
+## 5  n / n missing     267 / 33
+## 6   moyenne (DS) 137.2 (16.9)
+## 8        Féminin  137 (49.5%)
+## 9       Masculin  140 (50.5%)
+## 10 n / n missing     277 / 23
+## 12       Placebo    104 (39%)
+## 13  Traitement A   84 (31.5%)
+## 14  Traitement B   79 (29.6%)
+## 15 n / n missing     267 / 33
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{gt}\NormalTok{(corps\_df, }
+   \AttributeTok{rowname\_col =} \StringTok{"Variables"}\NormalTok{) }\CommentTok{\# l\textquotesingle{}argument rowname\_col définit le "stub"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l|r}
+\toprule
+ & N = 300 \\ 
+\midrule\addlinespace[2.5pt]
+n / n missing & 263 / 37 \\ 
+moyenne (DS) & 24.4 (3) \\ 
+n / n missing & 267 / 33 \\ 
+moyenne (DS) & 137.2 (16.9) \\ 
+Féminin & 137 (49.5\%) \\ 
+Masculin & 140 (50.5\%) \\ 
+n / n missing & 277 / 23 \\ 
+Placebo & 104 (39\%) \\ 
+Traitement A & 84 (31.5\%) \\ 
+Traitement B & 79 (29.6\%) \\ 
+n / n missing & 267 / 33 \\ 
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On peut donner un nom de colonne au "stub" avec la fonction tab\_stubhead()}
+\FunctionTok{gt}\NormalTok{(corps\_df, }
+   \AttributeTok{rowname\_col =} \StringTok{"Variables"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_stubhead}\NormalTok{(}\StringTok{"Variables"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l|r}
+\toprule
+Variables & N = 300 \\ 
+\midrule\addlinespace[2.5pt]
+n / n missing & 263 / 37 \\ 
+moyenne (DS) & 24.4 (3) \\ 
+n / n missing & 267 / 33 \\ 
+moyenne (DS) & 137.2 (16.9) \\ 
+Féminin & 137 (49.5\%) \\ 
+Masculin & 140 (50.5\%) \\ 
+n / n missing & 277 / 23 \\ 
+Placebo & 104 (39\%) \\ 
+Traitement A & 84 (31.5\%) \\ 
+Traitement B & 79 (29.6\%) \\ 
+n / n missing & 267 / 33 \\ 
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On peut finalement regrouper les lignes par variable en ajoutant un nom}
+\DocumentationTok{\#\# de variable avec la fonction tab\_row\_group()}
+\FunctionTok{gt}\NormalTok{(corps\_df, }
+   \AttributeTok{rowname\_col =} \StringTok{"Variables"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_stubhead}\NormalTok{(}\StringTok{"Variables"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_row\_group}\NormalTok{(}
+    \AttributeTok{label =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"imc"}\NormalTok{], }
+    \AttributeTok{rows =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2} \CommentTok{\# indiquer les rangs correspondant à cette variable}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_row\_group}\NormalTok{(}
+    \AttributeTok{label =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"pas"}\NormalTok{], }
+    \AttributeTok{rows =} \DecValTok{3}\SpecialCharTok{:}\DecValTok{4} \CommentTok{\# indiquer les rangs correspondant à cette variable}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_row\_group}\NormalTok{(}
+    \AttributeTok{label =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sexL"}\NormalTok{][}\DecValTok{1}\NormalTok{], }
+    \AttributeTok{rows =} \DecValTok{5}\SpecialCharTok{:}\DecValTok{7} \CommentTok{\# indiquer les rangs correspondant à cette variable}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_row\_group}\NormalTok{(}
+    \AttributeTok{label =}\NormalTok{ meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"traitL"}\NormalTok{][}\DecValTok{1}\NormalTok{], }
+    \AttributeTok{rows =} \DecValTok{8}\SpecialCharTok{:}\DecValTok{11} \CommentTok{\# indiquer les rangs correspondant à cette variable}
+\NormalTok{  ) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l|r}
+\toprule
+Variables & N = 300 \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{2}{l}{Traitement} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+Placebo & 104 (39\%) \\ 
+Traitement A & 84 (31.5\%) \\ 
+Traitement B & 79 (29.6\%) \\ 
+n / n missing & 267 / 33 \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{2}{l}{Sexe} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+Féminin & 137 (49.5\%) \\ 
+Masculin & 140 (50.5\%) \\ 
+n / n missing & 277 / 23 \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{2}{l}{PAS (mmHg)} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+n / n missing & 267 / 33 \\ 
+moyenne (DS) & 137.2 (16.9) \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{2}{l}{IMC (kg/m²)} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+n / n missing & 263 / 37 \\ 
+moyenne (DS) & 24.4 (3) \\ 
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Une autre façon de faire est d\textquotesingle{}ajouter une colonne avec les labels de variables}
+\DocumentationTok{\#\# dans le data frame utilisé pour le corps de la table}
+\NormalTok{corps\_df }\OtherTok{\textless{}{-}}\NormalTok{ tab\_desc[}\FunctionTok{which}\NormalTok{(tab\_desc}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{N = 300}\StringTok{\textasciigrave{}} \SpecialCharTok{!=} \StringTok{""}\NormalTok{),]}
+\NormalTok{corps\_df}\SpecialCharTok{$}\NormalTok{label }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"imc"}\NormalTok{], }\DecValTok{2}\NormalTok{), }
+                    \FunctionTok{rep}\NormalTok{(meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"pas"}\NormalTok{], }\DecValTok{2}\NormalTok{), }
+                    \FunctionTok{rep}\NormalTok{(meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sexL"}\NormalTok{][}\DecValTok{1}\NormalTok{], }\DecValTok{3}\NormalTok{),}
+                    \FunctionTok{rep}\NormalTok{(meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"traitL"}\NormalTok{][}\DecValTok{1}\NormalTok{], }\DecValTok{4}\NormalTok{))}
+\NormalTok{corps\_df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        Variables      N = 300       label
+## 2  n / n missing     263 / 37 IMC (kg/m²)
+## 3   moyenne (DS)     24.4 (3) IMC (kg/m²)
+## 5  n / n missing     267 / 33  PAS (mmHg)
+## 6   moyenne (DS) 137.2 (16.9)  PAS (mmHg)
+## 8        Féminin  137 (49.5%)        Sexe
+## 9       Masculin  140 (50.5%)        Sexe
+## 10 n / n missing     277 / 23        Sexe
+## 12       Placebo    104 (39%)  Traitement
+## 13  Traitement A   84 (31.5%)  Traitement
+## 14  Traitement B   79 (29.6%)  Traitement
+## 15 n / n missing     267 / 33  Traitement
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# La colonne label peut alors être déclarée dans l\textquotesingle{}argument "groupname\_col"}
+\FunctionTok{gt}\NormalTok{(corps\_df, }
+   \AttributeTok{rowname\_col =} \StringTok{"Variables"}\NormalTok{, }
+   \AttributeTok{groupname\_col =} \StringTok{"label"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l|r}
+\toprule
+ & N = 300 \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{2}{l}{IMC (kg/m²)} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+n / n missing & 263 / 37 \\ 
+moyenne (DS) & 24.4 (3) \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{2}{l}{PAS (mmHg)} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+n / n missing & 267 / 33 \\ 
+moyenne (DS) & 137.2 (16.9) \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{2}{l}{Sexe} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+Féminin & 137 (49.5\%) \\ 
+Masculin & 140 (50.5\%) \\ 
+n / n missing & 277 / 23 \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{2}{l}{Traitement} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+Placebo & 104 (39\%) \\ 
+Traitement A & 84 (31.5\%) \\ 
+Traitement B & 79 (29.6\%) \\ 
+n / n missing & 267 / 33 \\ 
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Table univariée complète :}
+\CommentTok{\# la fonction tab\_stub\_indent() permet d\textquotesingle{}ajouter une indentation pour le stub }
+\CommentTok{\# en gardant les noms de variable alignés à gauche}
+\FunctionTok{gt}\NormalTok{(corps\_df, }
+   \AttributeTok{rowname\_col =} \StringTok{"Variables"}\NormalTok{, }
+   \AttributeTok{groupname\_col =} \StringTok{"label"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_stub\_indent}\NormalTok{(}\AttributeTok{rows =} \FunctionTok{everything}\NormalTok{(), }\CommentTok{\# indentation pour tous les rangs du stub }
+                  \AttributeTok{indent =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}       \CommentTok{\# de 3 vers la droite}
+  \FunctionTok{tab\_stubhead}\NormalTok{(}\StringTok{"Variables"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tab\_header}\NormalTok{(}\AttributeTok{title =} \StringTok{"Titre"}\NormalTok{, }
+             \AttributeTok{subtitle =} \StringTok{"Sous{-}titre"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_source\_note}\NormalTok{(}
+    \AttributeTok{source\_note =} \StringTok{"sources que l\textquotesingle{}on souhaite citer"}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_footnote}\NormalTok{(}
+    \AttributeTok{footnote =} \StringTok{"Note de bas de tableau"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\caption*{
+{\fontsize{20}{25}\selectfont  Titre\fontsize{12}{15}\selectfont } \\ 
+{\fontsize{14}{17}\selectfont  Sous-titre\fontsize{12}{15}\selectfont }
+} 
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l|r}
+\toprule
+Variables & N = 300 \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{2}{l}{IMC (kg/m²)} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+\hspace*{11.25pt} n / n missing & 263 / 37 \\ 
+\hspace*{11.25pt} moyenne (DS) & 24.4 (3) \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{2}{l}{PAS (mmHg)} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+\hspace*{11.25pt} n / n missing & 267 / 33 \\ 
+\hspace*{11.25pt} moyenne (DS) & 137.2 (16.9) \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{2}{l}{Sexe} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+\hspace*{11.25pt} Féminin & 137 (49.5\%) \\ 
+\hspace*{11.25pt} Masculin & 140 (50.5\%) \\ 
+\hspace*{11.25pt} n / n missing & 277 / 23 \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{2}{l}{Traitement} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+\hspace*{11.25pt} Placebo & 104 (39\%) \\ 
+\hspace*{11.25pt} Traitement A & 84 (31.5\%) \\ 
+\hspace*{11.25pt} Traitement B & 79 (29.6\%) \\ 
+\hspace*{11.25pt} n / n missing & 267 / 33 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\vspace{.05em}
+Note de bas de tableau\\
+sources que l'on souhaite citer\\
+\end{minipage}
+\end{table}
+
+\subsection{Table bivariée}\label{table-bivariuxe9e}
+
+On va utiliser le data frame \texttt{df\_results}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corps\_biv }\OtherTok{\textless{}{-}}\NormalTok{ df\_results}
+\NormalTok{corps\_biv}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Variable      Placebo Traitement A Traitement B       p-value
+## 1        N total      N = 104       N = 84       N = 79              
+## 2    IMC (kg/m²)                                                     
+## 3  n / n missing      93 / 11      73 / 11       70 / 9    0.53<sup>a
+## 4   moyenne (DS)   24.4 (2.8)     24.7 (3)   24.2 (3.5)              
+## 5     PAS (mmHg)                                                     
+## 6  n / n missing      87 / 17       75 / 9       72 / 7 <0.0001<sup>a
+## 7   moyenne (DS) 143.1 (15.8) 130.5 (16.2)   137.2 (17)              
+## 8    Sexe, n (%)                                                     
+## 9        Féminin   40 (40.8%)     40 (50%)   37 (55.2%)    0.17<sup>b
+## 10      Masculin   58 (59.2%)     40 (50%)   30 (44.8%)              
+## 11 n / n missing       98 / 6       80 / 4      67 / 12              
+##           Total
+## 1       N = 267
+## 2              
+## 3      236 / 31
+## 4    24.4 (3.1)
+## 5              
+## 6      234 / 33
+## 7  137.2 (17.1)
+## 8              
+## 9   117 (47.8%)
+## 10  128 (52.2%)
+## 11     245 / 22
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# On commence par supprimer les indicateurs \textless{}sup\textgreater{}a et \textless{}sup\textgreater{}b des p{-}values}
+\CommentTok{\# c\textquotesingle{}est à dire qu\textquotesingle{}on supprime les 6 derniers caractères}
+\NormalTok{corps\_biv}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{p{-}value}\StringTok{\textasciigrave{}} \OtherTok{\textless{}{-}} \FunctionTok{substr}\NormalTok{(corps\_biv}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{p{-}value}\StringTok{\textasciigrave{}}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FunctionTok{nchar}\NormalTok{(corps\_biv}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{p{-}value}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{{-}} \DecValTok{6}\NormalTok{)}
+
+\CommentTok{\# On supprime les lignes avec les noms de variables}
+\NormalTok{corps\_biv }\OtherTok{\textless{}{-}}\NormalTok{ corps\_biv[}\FunctionTok{which}\NormalTok{(}\SpecialCharTok{!}\NormalTok{corps\_biv}\SpecialCharTok{$}\NormalTok{Placebo }\SpecialCharTok{==} \StringTok{""}\NormalTok{), ]}
+
+\CommentTok{\# On ajoute une colonne "label" au data frame pour indiquer les noms}
+\CommentTok{\# de variables}
+\NormalTok{corps\_biv}\SpecialCharTok{$}\NormalTok{label }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }
+                     \FunctionTok{rep}\NormalTok{(meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"imc"}\NormalTok{], }\DecValTok{2}\NormalTok{), }
+                     \FunctionTok{rep}\NormalTok{(meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"pas"}\NormalTok{], }\DecValTok{2}\NormalTok{), }
+                     \FunctionTok{rep}\NormalTok{(meta\_df\_1}\SpecialCharTok{$}\NormalTok{label[meta\_df\_1}\SpecialCharTok{$}\NormalTok{var }\SpecialCharTok{==} \StringTok{"sexL"}\NormalTok{][}\DecValTok{1}\NormalTok{], }\DecValTok{3}\NormalTok{))}
+
+\NormalTok{corps\_biv}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         Variable      Placebo Traitement A Traitement B p-value        Total
+## 1        N total      N = 104       N = 84       N = 79              N = 267
+## 3  n / n missing      93 / 11      73 / 11       70 / 9    0.53     236 / 31
+## 4   moyenne (DS)   24.4 (2.8)     24.7 (3)   24.2 (3.5)           24.4 (3.1)
+## 6  n / n missing      87 / 17       75 / 9       72 / 7 <0.0001     234 / 33
+## 7   moyenne (DS) 143.1 (15.8) 130.5 (16.2)   137.2 (17)         137.2 (17.1)
+## 9        Féminin   40 (40.8%)     40 (50%)   37 (55.2%)    0.17  117 (47.8%)
+## 10      Masculin   58 (59.2%)     40 (50%)   30 (44.8%)          128 (52.2%)
+## 11 n / n missing       98 / 6       80 / 4      67 / 12             245 / 22
+##          label
+## 1             
+## 3  IMC (kg/m²)
+## 4  IMC (kg/m²)
+## 6   PAS (mmHg)
+## 7   PAS (mmHg)
+## 9         Sexe
+## 10        Sexe
+## 11        Sexe
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{gt}\NormalTok{(corps\_biv, }
+   \AttributeTok{rowname\_col =} \StringTok{"Variable"}\NormalTok{, }\CommentTok{\# colonne avec les noms de rangs}
+   \AttributeTok{groupname\_col =} \StringTok{"label"}\NormalTok{)  }\CommentTok{\# colnne avec les noms de variables}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l|lllll}
+\toprule
+ & Placebo & Traitement A & Traitement B & p-value & Total \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+N total & N = 104 & N = 84 & N = 79 &  & N = 267 \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{IMC (kg/m²)} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+n / n missing & 93 / 11 & 73 / 11 & 70 / 9 & 0.53 & 236 / 31 \\ 
+moyenne (DS) & 24.4 (2.8) & 24.7 (3) & 24.2 (3.5) &  & 24.4 (3.1) \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{PAS (mmHg)} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+n / n missing & 87 / 17 & 75 / 9 & 72 / 7 & <0.0001 & 234 / 33 \\ 
+moyenne (DS) & 143.1 (15.8) & 130.5 (16.2) & 137.2 (17) &  & 137.2 (17.1) \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{Sexe} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+Féminin & 40 (40.8\%) & 40 (50\%) & 37 (55.2\%) & 0.17 & 117 (47.8\%) \\ 
+Masculin & 58 (59.2\%) & 40 (50\%) & 30 (44.8\%) &  & 128 (52.2\%) \\ 
+n / n missing & 98 / 6 & 80 / 4 & 67 / 12 &  & 245 / 22 \\ 
+\bottomrule
+\end{tabular*}
+\end{table}
+
+On peut regrouper plusieurs colonnes avec la fonction \texttt{tab\_spanner()} (dans cet exemple, on va regrouper les groupes ``Placebo'', ``Traitement A'' et ``Traitement B'' sous le nom ``Traitement'').
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# On peut ajouter un groupe de colonnes avec la fonction tab\_spanner()}
+\FunctionTok{gt}\NormalTok{(corps\_biv, }
+   \AttributeTok{rowname\_col =} \StringTok{"Variable"}\NormalTok{, }
+   \AttributeTok{groupname\_col =} \StringTok{"label"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_spanner}\NormalTok{(}
+    \AttributeTok{label =} \StringTok{"Traitement"}\NormalTok{, }
+    \AttributeTok{columns =} \FunctionTok{c}\NormalTok{(}\StringTok{"Placebo"}\NormalTok{,}\StringTok{"Traitement A"}\NormalTok{,}\StringTok{"Traitement B"}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l|lllll}
+\toprule
+ & \multicolumn{3}{c}{{Traitement}} &  &  \\ 
+\cmidrule(lr){2-4}
+ & Placebo & Traitement A & Traitement B & p-value & Total \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+N total & N = 104 & N = 84 & N = 79 &  & N = 267 \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{IMC (kg/m²)} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+n / n missing & 93 / 11 & 73 / 11 & 70 / 9 & 0.53 & 236 / 31 \\ 
+moyenne (DS) & 24.4 (2.8) & 24.7 (3) & 24.2 (3.5) &  & 24.4 (3.1) \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{PAS (mmHg)} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+n / n missing & 87 / 17 & 75 / 9 & 72 / 7 & <0.0001 & 234 / 33 \\ 
+moyenne (DS) & 143.1 (15.8) & 130.5 (16.2) & 137.2 (17) &  & 137.2 (17.1) \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{Sexe} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+Féminin & 40 (40.8\%) & 40 (50\%) & 37 (55.2\%) & 0.17 & 117 (47.8\%) \\ 
+Masculin & 58 (59.2\%) & 40 (50\%) & 30 (44.8\%) &  & 128 (52.2\%) \\ 
+n / n missing & 98 / 6 & 80 / 4 & 67 / 12 &  & 245 / 22 \\ 
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Les notes de bas de tableau peuvent être utilisées pour indiquer le type}
+\DocumentationTok{\#\# de test statistique utilisé associé aux différentes p{-}values}
+\CommentTok{\# Notes : on peut appliquer les formats markdown avec du texte dans la fonction md()}
+\CommentTok{\# (exemple dans le sous{-}titre)}
+\CommentTok{\# ainsi que des notations mathématiques (exemple dans la source)}
+\FunctionTok{gt}\NormalTok{(corps\_biv, }
+   \AttributeTok{rowname\_col =} \StringTok{"Variable"}\NormalTok{, }
+   \AttributeTok{groupname\_col =} \StringTok{"label"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_spanner}\NormalTok{(                          }\CommentTok{\# colonne de groupe de traitements}
+    \AttributeTok{label =} \StringTok{"Traitement"}\NormalTok{, }
+    \AttributeTok{columns =} \FunctionTok{c}\NormalTok{(}\StringTok{"Placebo"}\NormalTok{,}\StringTok{"Traitement A"}\NormalTok{,}\StringTok{"Traitement B"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_stub\_indent}\NormalTok{(}\AttributeTok{rows =} \FunctionTok{everything}\NormalTok{(), }\CommentTok{\# indentation de 3 vers la droite}
+                  \AttributeTok{indent =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}       
+  \FunctionTok{tab\_footnote}\NormalTok{(                         }\CommentTok{\# Anova en note de bas de table}
+    \AttributeTok{footnote =} \StringTok{"Anova"}\NormalTok{,}
+    \AttributeTok{locations =} \FunctionTok{cells\_body}\NormalTok{(}\AttributeTok{columns =} \StringTok{"p{-}value"}\NormalTok{, }\AttributeTok{rows =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{))}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_footnote}\NormalTok{(                         }\CommentTok{\# chi2 en note de bas de table}
+    \AttributeTok{footnote =} \StringTok{"Chi{-}2"}\NormalTok{,}
+    \AttributeTok{locations =} \FunctionTok{cells\_body}\NormalTok{(}\AttributeTok{columns =} \StringTok{"p{-}value"}\NormalTok{, }\AttributeTok{rows =} \DecValTok{6}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tab\_header}\NormalTok{(}\AttributeTok{title =} \StringTok{"Titre"}\NormalTok{,           }\CommentTok{\# ajouter un titre et un sous{-}titre}
+             \AttributeTok{subtitle =} \FunctionTok{md}\NormalTok{(}\StringTok{"Texte en **gras** ou en *italique*"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{tab\_source\_note}\NormalTok{(}
+    \AttributeTok{source\_note =} \FunctionTok{md}\NormalTok{(}\StringTok{"$$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{mathbb\{E\}(Y) = }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{beta\_0 + }\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{theta\_1 X$$"}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[t]
+\caption*{
+{\fontsize{20}{25}\selectfont  Titre\fontsize{12}{15}\selectfont } \\ 
+{\fontsize{14}{17}\selectfont  Texte en \textbf{gras} ou en \emph{italique}\fontsize{12}{15}\selectfont }
+} 
+\fontsize{12.0pt}{14.0pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l|lllll}
+\toprule
+ & \multicolumn{3}{c}{{Traitement}} &  &  \\ 
+\cmidrule(lr){2-4}
+ & Placebo & Traitement A & Traitement B & p-value & Total \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+\hspace*{11.25pt} N total & N = 104 & N = 84 & N = 79 &  & N = 267 \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{IMC (kg/m²)} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+\hspace*{11.25pt} n / n missing & 93 / 11 & 73 / 11 & 70 / 9 & 0.53\textsuperscript{\textit{1}} & 236 / 31 \\ 
+\hspace*{11.25pt} moyenne (DS) & 24.4 (2.8) & 24.7 (3) & 24.2 (3.5) &  & 24.4 (3.1) \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{PAS (mmHg)} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+\hspace*{11.25pt} n / n missing & 87 / 17 & 75 / 9 & 72 / 7 & <0.0001\textsuperscript{\textit{1}} & 234 / 33 \\ 
+\hspace*{11.25pt} moyenne (DS) & 143.1 (15.8) & 130.5 (16.2) & 137.2 (17) &  & 137.2 (17.1) \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{6}{l}{Sexe} \\[2.5pt] 
+\midrule\addlinespace[2.5pt]
+\hspace*{11.25pt} Féminin & 40 (40.8\%) & 40 (50\%) & 37 (55.2\%) & 0.17\textsuperscript{\textit{2}} & 117 (47.8\%) \\ 
+\hspace*{11.25pt} Masculin & 58 (59.2\%) & 40 (50\%) & 30 (44.8\%) &  & 128 (52.2\%) \\ 
+\hspace*{11.25pt} n / n missing & 98 / 6 & 80 / 4 & 67 / 12 &  & 245 / 22 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\vspace{.05em}
+\textsuperscript{\textit{1}}Anova\\
+\textsuperscript{\textit{2}}Chi-2\\
+$$\mathbb{E}(Y) = \beta_0 + \theta_1 X$$\\
+\end{minipage}
+\end{table}
+
+\section{\texorpdfstring{Package \texttt{gtsummary}}{Package gtsummary}}\label{package-gtsummary}
+
+Le package \href{https://www.danieldsjoberg.com/gtsummary/index.html}{\texttt{gtsummary}} permet de calculer des statistiques descriptives et de les présenter facilement sous forme de tableau (il s'agit d'une alternative au package \texttt{table1}).
+
+Ce package permet également de présenter facilement les sorties de régression sous forme tabulée que l'on peut intégrer directement dans un rapport d'analyse.
 
 \chapter{Reporting}\label{reporting}
 

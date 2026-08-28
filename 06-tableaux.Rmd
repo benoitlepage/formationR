@@ -514,5 +514,212 @@ tt(df_results,
 
 Dans la table finale, pensez à vérifier qu'il n'y a pas d'erreurs : les pourcentages doivent être corrects et la somme des effectifs doit toujours donner les mêmes totaux, en lignes et en colonnes.
 
-gt
-gtsummary (basé sur gt)
+
+## Package `gt`
+Le package [`gt`](https://gt.rstudio.com/) est un autre package qui permet de présenter des tableaux et de les mettre en forme avec une grande flexibilité. 
+
+```{r gt1, echo=TRUE, warning=FALSE}
+## On va récupérer les data.frame univariés et bivariés crées précédemment 
+## et les mettre en forme avec le package gt
+tab_desc
+df_results
+
+## Installer la library gt, puis la charger
+library(gt)
+```
+
+Le principe du package `gt` est d'afficher le corps de la table (_body table_), puis d'y ajouter les différents éléments (la colonne _stub_ à gauche indiquant les noms des rangs, les titres de colonnes, les titres et sous-titres de la table, les notes de bas de tableau, etc). Vous trouverez plus d'information sur la [vignette d'introduction](https://gt.rstudio.com/articles/gt.html) du package et la vignette qui donne des exemples pour des [tables d'analyses de données cliniques](https://gt.rstudio.com/articles/case-study-clinical-tables.html).
+
+### Table univariée
+On va présenter les données du data frame `tab_desc`.
+
+On commence par récupérer le "corps" du tableau (_table body_). Il faut que le "corps" soit au format `data.frame`.
+```{r gt2, echo = TRUE}
+## Le "corps" correspond aux données de la 2ème colonne de "tab_desc"
+## (sans garder les lignes vides)
+tab_desc[which(tab_desc[,2] != ""), 2] # c'est un vecteur caractère
+# On stocke ce vecteur dans la variable "stat" au sein d'un data.frame
+corps_df <- data.frame(stat = tab_desc[which(tab_desc[,2] != ""), 2])
+
+## On peut alors appliquer la fonction gt() à ce data.frame
+corps <- gt(corps_df)
+corps
+```
+
+On peut ensuite ajouter différents éléments à ce corps de table :
+
+ - titre et sous-titre avec `tab_header`, 
+ - notes de bas de tableaux avec `tab_footnote`, 
+ - sources avec `tab_source_note`
+```{r gt3, echo = TRUE}
+## ajouter un titre et un sous-titre avec la fonction tab_header()
+corps |>
+  tab_header(title = "Titre", 
+             subtitle = "Sous-titre")
+
+## ajouter des sources avec la fonction tab_source_note()
+corps |>
+  tab_header(title = "Titre", 
+             subtitle = "Sous-titre") |>
+  tab_source_note(
+    source_note = "sources que l'on souhaite citer"
+  )
+
+## ajouter une note de bas de tableau avec la fonction tab_footnote()
+# à noter qu'elle se positionne automatiquement avant les sources
+corps |>
+  tab_header(title = "Titre", 
+             subtitle = "Sous-titre") |>
+  tab_source_note(
+    source_note = "sources que l'on souhaite citer"
+  ) |>
+  tab_footnote(
+    footnote = "Note de bas de tableau"
+  )
+```
+
+On peut ensuite ajouter le _stub_ : la partie à gauche du tableau qui indique les noms des rangs. A noter que l'argument `rowname_col` peut être utilisé pour définir le _stub_.
+
+```{r gt4, echo = TRUE}
+## On va se servir du contenu de la table tab_desc 
+## (en supprimant les lignes indiquant les noms de variables)
+corps_df <- tab_desc[which(tab_desc$`N = 300` != ""),]
+corps_df
+
+gt(corps_df, 
+   rowname_col = "Variables") # l'argument rowname_col définit le "stub"
+
+## On peut donner un nom de colonne au "stub" avec la fonction tab_stubhead()
+gt(corps_df, 
+   rowname_col = "Variables") |>
+  tab_stubhead("Variables")
+
+## On peut finalement regrouper les lignes par variable en ajoutant un nom
+## de variable avec la fonction tab_row_group()
+gt(corps_df, 
+   rowname_col = "Variables") |>
+  tab_stubhead("Variables") |>
+  tab_row_group(
+    label = meta_df_1$label[meta_df_1$var == "imc"], 
+    rows = 1:2 # indiquer les rangs correspondant à cette variable
+  ) |>
+  tab_row_group(
+    label = meta_df_1$label[meta_df_1$var == "pas"], 
+    rows = 3:4 # indiquer les rangs correspondant à cette variable
+  ) |>
+  tab_row_group(
+    label = meta_df_1$label[meta_df_1$var == "sexL"][1], 
+    rows = 5:7 # indiquer les rangs correspondant à cette variable
+  ) |>
+  tab_row_group(
+    label = meta_df_1$label[meta_df_1$var == "traitL"][1], 
+    rows = 8:11 # indiquer les rangs correspondant à cette variable
+  ) 
+
+## Une autre façon de faire est d'ajouter une colonne avec les labels de variables
+## dans le data frame utilisé pour le corps de la table
+corps_df <- tab_desc[which(tab_desc$`N = 300` != ""),]
+corps_df$label <- c(rep(meta_df_1$label[meta_df_1$var == "imc"], 2), 
+                    rep(meta_df_1$label[meta_df_1$var == "pas"], 2), 
+                    rep(meta_df_1$label[meta_df_1$var == "sexL"][1], 3),
+                    rep(meta_df_1$label[meta_df_1$var == "traitL"][1], 4))
+corps_df
+
+## La colonne label peut alors être déclarée dans l'argument "groupname_col"
+gt(corps_df, 
+   rowname_col = "Variables", 
+   groupname_col = "label") 
+
+## Table univariée complète :
+# la fonction tab_stub_indent() permet d'ajouter une indentation pour le stub 
+# en gardant les noms de variable alignés à gauche
+gt(corps_df, 
+   rowname_col = "Variables", 
+   groupname_col = "label") |>
+  tab_stub_indent(rows = everything(), # indentation pour tous les rangs du stub 
+                  indent = 3) |>       # de 3 vers la droite
+  tab_stubhead("Variables") |> 
+  tab_header(title = "Titre", 
+             subtitle = "Sous-titre") |>
+  tab_source_note(
+    source_note = "sources que l'on souhaite citer"
+  ) |>
+  tab_footnote(
+    footnote = "Note de bas de tableau"
+  )
+```
+
+### Table bivariée
+On va utiliser le data frame `df_results`.
+
+```{r gt5, echo = TRUE}
+corps_biv <- df_results
+corps_biv
+# On commence par supprimer les indicateurs <sup>a et <sup>b des p-values
+# c'est à dire qu'on supprime les 6 derniers caractères
+corps_biv$`p-value` <- substr(corps_biv$`p-value`, 1, nchar(corps_biv$`p-value`) - 6)
+
+# On supprime les lignes avec les noms de variables
+corps_biv <- corps_biv[which(!corps_biv$Placebo == ""), ]
+
+# On ajoute une colonne "label" au data frame pour indiquer les noms
+# de variables
+corps_biv$label <- c("", 
+                     rep(meta_df_1$label[meta_df_1$var == "imc"], 2), 
+                     rep(meta_df_1$label[meta_df_1$var == "pas"], 2), 
+                     rep(meta_df_1$label[meta_df_1$var == "sexL"][1], 3))
+
+corps_biv
+
+gt(corps_biv, 
+   rowname_col = "Variable", # colonne avec les noms de rangs
+   groupname_col = "label")  # colnne avec les noms de variables
+```
+
+On peut regrouper plusieurs colonnes avec la fonction `tab_spanner()` (dans cet exemple, on va regrouper les groupes "Placebo", "Traitement A" et "Traitement B" sous le nom "Traitement").
+```{r gt6, echo = TRUE}
+## On peut ajouter un groupe de colonnes avec la fonction tab_spanner()
+gt(corps_biv, 
+   rowname_col = "Variable", 
+   groupname_col = "label") |>
+  tab_spanner(
+    label = "Traitement", 
+    columns = c("Placebo","Traitement A","Traitement B")
+  )
+
+## Les notes de bas de tableau peuvent être utilisées pour indiquer le type
+## de test statistique utilisé associé aux différentes p-values
+# Notes : on peut appliquer les formats markdown avec du texte dans la fonction md()
+# (exemple dans le sous-titre)
+# ainsi que des notations mathématiques (exemple dans la source)
+gt(corps_biv, 
+   rowname_col = "Variable", 
+   groupname_col = "label") |>
+  tab_spanner(                          # colonne de groupe de traitements
+    label = "Traitement", 
+    columns = c("Placebo","Traitement A","Traitement B")
+  ) |>
+  tab_stub_indent(rows = everything(), # indentation de 3 vers la droite
+                  indent = 3) |>       
+  tab_footnote(                         # Anova en note de bas de table
+    footnote = "Anova",
+    locations = cells_body(columns = "p-value", rows = c(2,4))
+  ) |>
+  tab_footnote(                         # chi2 en note de bas de table
+    footnote = "Chi-2",
+    locations = cells_body(columns = "p-value", rows = 6)
+  ) |> 
+  tab_header(title = "Titre",           # ajouter un titre et un sous-titre
+             subtitle = md("Texte en **gras** ou en *italique*")) |>
+  tab_source_note(
+    source_note = md("$$\\mathbb{E}(Y) = \\beta_0 + \\theta_1 X$$")
+  )
+```
+
+
+
+## Package `gtsummary` 
+Le package [`gtsummary`](https://www.danieldsjoberg.com/gtsummary/index.html) permet de calculer des statistiques descriptives et de les présenter facilement sous forme de tableau (il s'agit d'une alternative au package `table1`).
+
+Ce package permet également de présenter facilement les sorties de régression sous forme tabulée que l'on peut intégrer directement dans un rapport d'analyse.
+
