@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Les objets dans R | Formation R</title>
   <meta name="description" content="Chapter 2 Les objets dans R | Formation R" />
-  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Les objets dans R | Formation R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Benoît Lepage" />
 
 
-<meta name="date" content="2026-08-28" />
+<meta name="date" content="2026-09-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1361,7 +1361,7 @@ Les arguments <code>times</code>, <code>each</code>, <code>length.out</code> per
 <p>Pour sélectionner des sous-ensembles de valeurs au sein d’un vecteur, une des méthodes très utilisée dans R est <strong>l’indexation</strong>, en ajoutant des crochets <code>[]</code> à la fin d’un vecteur. L’indexation se fait principalement selon 3 approches :</p>
 <ul>
 <li>en indiquant la <strong>position</strong> des valeurs que l’on veut sélectionner</li>
-<li>en indiquant le <strong>nom</strong> des valeurs que l’on veut sélectionner (définis selon l’attribut <code>name</code> du vecteur)</li>
+<li>en indiquant le <strong>nom</strong> des valeurs que l’on veut sélectionner (définis selon l’attribut <code>names</code> du vecteur)</li>
 <li>en indiquant une <strong>condition</strong>, seules les valeurs dont la condition est “vraies” (<code>TRUE</code>) seront sélectionnées</li>
 </ul>
 <div id="indexation-sur-la-position" class="section level4 hasAnchor" number="2.5.10.1">
@@ -1402,7 +1402,7 @@ Les arguments <code>times</code>, <code>each</code>, <code>length.out</code> per
 </div>
 <div id="indexation-sur-le-nom" class="section level4 hasAnchor" number="2.5.10.2">
 <h4><span class="header-section-number">2.5.10.2</span> Indexation sur le nom<a href="les-objets-dans-r.html#indexation-sur-le-nom" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Il est également possible de sélectionner un sous-ensemble d’un vecteur en indiquant entre crochets <code>[]</code> le nom indiqué dans l’attribut <code>name</code> du vecteur.</p>
+<p>Il est également possible de sélectionner un sous-ensemble d’un vecteur en indiquant entre crochets <code>[]</code> le nom indiqué dans l’attribut <code>names</code> du vecteur.</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="les-objets-dans-r.html#cb51-1" tabindex="-1"></a><span class="do">## On reprend les deux vecteurs nommés vus précédemment :</span></span>
 <span id="cb51-2"><a href="les-objets-dans-r.html#cb51-2" tabindex="-1"></a>sex <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
 <span id="cb51-3"><a href="les-objets-dans-r.html#cb51-3" tabindex="-1"></a><span class="fu">names</span>(sex) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;homme&quot;</span>, <span class="st">&quot;homme&quot;</span>, <span class="st">&quot;femme&quot;</span>, <span class="st">&quot;homme&quot;</span>, <span class="st">&quot;femme&quot;</span>, <span class="st">&quot;femme&quot;</span>)</span>

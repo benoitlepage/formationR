@@ -108,22 +108,13 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \usepackage{booktabs}
 \usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{wrapfig}
-\usepackage{float}
-\usepackage{colortbl}
-\usepackage{pdflscape}
-\usepackage{tabularx}
-\usepackage{xltabular}
-\usepackage{threeparttable}
-\usepackage{threeparttablex}
-\usepackage[normalem]{ulem}
-\usepackage{makecell}
-\usepackage{xcolor}
 \usepackage{caption}
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{array}
 \usepackage{anyfontsize}
+\usepackage{multirow}
+\usepackage{float}
 \usepackage{tabularray}
 \usepackage[normalem]{ulem}
 \usepackage{graphicx}
@@ -135,6 +126,10 @@
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
 \hypersetup{
   pdftitle={Formation R},
   pdfauthor={Benoît Lepage},
@@ -143,7 +138,7 @@
 
 \title{Formation R}
 \author{Benoît Lepage}
-\date{2026-08-28}
+\date{2026-09-28}
 
 \begin{document}
 \maketitle
@@ -1811,7 +1806,7 @@ Pour sélectionner des sous-ensembles de valeurs au sein d'un vecteur, une des m
 \item
   en indiquant la \textbf{position} des valeurs que l'on veut sélectionner
 \item
-  en indiquant le \textbf{nom} des valeurs que l'on veut sélectionner (définis selon l'attribut \texttt{name} du vecteur)
+  en indiquant le \textbf{nom} des valeurs que l'on veut sélectionner (définis selon l'attribut \texttt{names} du vecteur)
 \item
   en indiquant une \textbf{condition}, seules les valeurs dont la condition est ``vraies'' (\texttt{TRUE}) seront sélectionnées
 \end{itemize}
@@ -1860,7 +1855,7 @@ Si vous indiquez une (ou plusieurs) positions plus grande(s) que la longueur du 
 
 \subsubsection{Indexation sur le nom}\label{indexation-sur-le-nom}
 
-Il est également possible de sélectionner un sous-ensemble d'un vecteur en indiquant entre crochets \texttt{{[}{]}} le nom indiqué dans l'attribut \texttt{name} du vecteur.
+Il est également possible de sélectionner un sous-ensemble d'un vecteur en indiquant entre crochets \texttt{{[}{]}} le nom indiqué dans l'attribut \texttt{names} du vecteur.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3387,7 +3382,7 @@ Pensez à vérifier que vous n'avez pas fait d'erreur en créant cette variable.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/create_verif2-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/create_verif2-1.pdf}}
 
 Après avoir créé ces deux nouvelles variables, nous pouvons compléter la base de méta-données pour définir les noms de variables et de labels en clair. Pour cela, nous allons ajouter des lignes supplémentaires avec la fonction \texttt{rbind()} (\emph{row bind} pour ``fusion par rang''). \emph{A noter qu'il existe aussi une fonction \texttt{cbind()} qui permet de fusionner des bases ou des matrices par colonnes}
 
@@ -3995,7 +3990,7 @@ Note : On peut modifier les paramètres des graphiques avec la fonction \texttt{
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph1-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph1-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4003,7 +3998,7 @@ Note : On peut modifier les paramètres des graphiques avec la fonction \texttt{
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph1-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph1-2.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4016,7 +4011,7 @@ Note : On peut modifier les paramètres des graphiques avec la fonction \texttt{
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph1-3.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph1-3.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4026,7 +4021,7 @@ Note : On peut modifier les paramètres des graphiques avec la fonction \texttt{
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph1-4.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph1-4.pdf}}
 
 Les distributions des variables qualitatives peuvent être représentées par des diagrammes en barres \texttt{barplot()}.
 
@@ -4043,7 +4038,7 @@ Les distributions des variables qualitatives peuvent être représentées par de
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph2-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph2-1.pdf}}
 
 \subsection{Distributions bivariées}\label{distributions-bivariuxe9es}
 
@@ -4065,7 +4060,7 @@ Une bonne pratique est d'indiquer clairement le noms des axes, les titres et lé
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph3-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph3-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4077,7 +4072,7 @@ Une bonne pratique est d'indiquer clairement le noms des axes, les titres et lé
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph3-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph3-2.pdf}}
 
 Un nuage de points peut être utilisé pour représenter le croisement de deux variables quantitatives.
 
@@ -4168,7 +4163,7 @@ La fonction exemple permet d'avoir des exemples d'utilisation paramètres graphi
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/graph4-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/graph4-1.pdf}}
 Pour trouver des informations détaillées sur l'utilisation des fonction graphiques de R base, vous pouvez lire le \href{https://github.com/karoliskoncevicius/r_notes/blob/main/baseplotting.md}{tutoriel détaillé de Karolis Koncevičius}.
 
 \section{Analyses bivariées}\label{analyses-bivariuxe9es}
@@ -4506,7 +4501,7 @@ Pour vérifier la normalité de la distribution de la PAS par sexe, on peut trac
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/bivarie7-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/bivarie7-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4662,7 +4657,7 @@ Pour vérifier la condition de normalité, on va évaluer la normalité des rés
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/bivarie12-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/bivarie12-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4797,7 +4792,7 @@ Le coefficient de corrélation de Pearson est \(\rho_1 = 0.218\), il est signfic
 
 \begin{verbatim}
 ## Warning in cor.test.default(df_1$imc, df_1$pas, method = "spearman"):
-## Impossible de calculer la p-value exacte avec des ex-aequos
+## impossible de calculer la p-value exacte avec des ex-aequos
 \end{verbatim}
 
 \begin{Shaded}
@@ -4893,7 +4888,7 @@ Pour vérifier les conditions d'application, la méthode la plus classique est d
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/multi2-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/multi2-1.pdf}}
 
 De manière encore plus automatisée, la commande \texttt{plot(model)} permet d'obtenir une série de 4 graphiques de diagnostic post-estimation d'un modèle de régression linéaire (tapez la touche ``entrée'' 4 fois pour obtenir les graphiques) :
 
@@ -5506,7 +5501,7 @@ Comparer la PAS en fonction du traitement :
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/syntax14-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/syntax14-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5616,7 +5611,7 @@ Estimation des corrélations de Pearson et de Spearman, avec test de leurs hypot
 \end{Shaded}
 
 \begin{verbatim}
-## Warning in cor.test.default(imc, pas, method = "spearman"): Impossible de
+## Warning in cor.test.default(imc, pas, method = "spearman"): impossible de
 ## calculer la p-value exacte avec des ex-aequos
 \end{verbatim}
 
@@ -5697,38 +5692,6 @@ Pour pouvoir utiliser les fonctions de ces packages, il faudra les charger avec 
 \FunctionTok{library}\NormalTok{(tidyverse)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Warning: le package 'tidyverse' a été compilé avec la version R 4.5.3
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: le package 'ggplot2' a été compilé avec la version R 4.5.3
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: le package 'tibble' a été compilé avec la version R 4.5.3
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: le package 'readr' a été compilé avec la version R 4.5.3
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: le package 'purrr' a été compilé avec la version R 4.5.3
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: le package 'dplyr' a été compilé avec la version R 4.5.3
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: le package 'forcats' a été compilé avec la version R 4.5.3
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: le package 'lubridate' a été compilé avec la version R 4.5.3
-\end{verbatim}
 
 \begin{verbatim}
 ## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
@@ -6765,7 +6728,7 @@ La fonction \texttt{walk()} fonctionne de la même manière que la fonction \tex
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy22_2-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy22_2-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7033,7 +6996,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 ## `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7057,7 +7020,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-2.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7067,7 +7030,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-3.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-3.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7079,7 +7042,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-4.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-4.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7092,7 +7055,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-5.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-5.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7106,7 +7069,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-6.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-6.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7116,7 +7079,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-7.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-7.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7134,7 +7097,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-8.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-8.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7145,7 +7108,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-9.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-9.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7157,7 +7120,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-10.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-10.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7172,7 +7135,7 @@ Puis, on peut ajouter des calques successifs avec des \texttt{+} avant chaque ca
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy24-11.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy24-11.pdf}}
 
 \subsection{Distributions bivariées}\label{distributions-bivariuxe9es-1}
 
@@ -7203,7 +7166,7 @@ Pour représenter graphiquement des distributions bi- ou multivariées, on peut 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy25-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy25-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7215,7 +7178,7 @@ Pour représenter graphiquement des distributions bi- ou multivariées, on peut 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy25-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy25-2.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7226,7 +7189,7 @@ Pour représenter graphiquement des distributions bi- ou multivariées, on peut 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy25-3.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy25-3.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7236,7 +7199,7 @@ Pour représenter graphiquement des distributions bi- ou multivariées, on peut 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy25-4.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy25-4.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7251,7 +7214,7 @@ Pour représenter graphiquement des distributions bi- ou multivariées, on peut 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy25-5.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy25-5.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7271,7 +7234,7 @@ Pour représenter graphiquement des distributions bi- ou multivariées, on peut 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy25-6.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy25-6.pdf}}
 
 \section{Analyses bivariées}\label{analyses-bivariuxe9es-2}
 
@@ -7464,7 +7427,7 @@ Le test de Student, le test de Levene, le test des rangs de Wilcoxon se font ave
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy28-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy28-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7481,7 +7444,7 @@ Le test de Student, le test de Levene, le test des rangs de Wilcoxon se font ave
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy28-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy28-2.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7492,7 +7455,7 @@ Le test de Student, le test de Levene, le test des rangs de Wilcoxon se font ave
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy28-3.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy28-3.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7549,7 +7512,7 @@ On peut utiliser le pipe pour enchaîner les analyses nécessaires à une anova.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy29-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy29-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7704,7 +7667,7 @@ Les commandes sont les mêmes qu'en Rbase, voici un exemple avec une syntaxe en 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy32-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy32-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7725,7 +7688,7 @@ Les commandes sont les mêmes qu'en Rbase, voici un exemple avec une syntaxe en 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy32-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy32-2.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7736,7 +7699,7 @@ Les commandes sont les mêmes qu'en Rbase, voici un exemple avec une syntaxe en 
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/tidy32-3.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/figure-latex/tidy32-3.pdf}}
 
 \chapter{\texorpdfstring{Package \texttt{data.table}}{Package data.table}}\label{package-data.table}
 
@@ -7776,7 +7739,7 @@ Nous allons utiliser la base \texttt{df\_1} déjà utilisées au sein de laquell
 ##  Mean   :150.50   Mean   :0.5054   Mean   :24.36   Mean   :1.906  
 ##  3rd Qu.:225.25   3rd Qu.:1.0000   3rd Qu.:26.30   3rd Qu.:3.000  
 ##  Max.   :300.00   Max.   :1.0000   Max.   :32.20   Max.   :3.000  
-##                   NA's   :23       NA's   :37      NA's   :33     
+##                   NAs    :23       NAs    :37      NAs    :33     
 ##       pas       
 ##  Min.   : 92.0  
 ##  1st Qu.:125.0  
@@ -7784,7 +7747,7 @@ Nous allons utiliser la base \texttt{df\_1} déjà utilisées au sein de laquell
 ##  Mean   :137.2  
 ##  3rd Qu.:149.0  
 ##  Max.   :177.0  
-##  NA's   :33
+##  NAs    :33
 \end{verbatim}
 
 \begin{Shaded}
@@ -7833,31 +7796,31 @@ Une table univariée peut être obtenue avec une écriture au format \texttt{for
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tabular}[t]{lc}
+\begin{tabular}{ll}
 \toprule
-\textbf{ } & \textbf{\makecell[c]{Overall\\(N=300)}}\\
+  & Overall\\
 \midrule
-\addlinespace[0.3em]
-\multicolumn{2}{l}{\textbf{imc}}\\
-\hspace{1em}Mean (SD) & 24.4 (3.04)\\
-\hspace{1em}Median [Min, Max] & 24.5 [15.4, 32.2]\\
-\hspace{1em}Missing & 37 (12.3\%)\\
-\addlinespace[0.3em]
-\multicolumn{2}{l}{\textbf{pas}}\\
-\hspace{1em}Mean (SD) & 137 (16.9)\\
-\hspace{1em}Median [Min, Max] & 138 [92.0, 177]\\
-\hspace{1em}Missing & 33 \vphantom{1} (11.0\%)\\
-\addlinespace[0.3em]
-\multicolumn{2}{l}{\textbf{traitL}}\\
-\hspace{1em}Placebo & 104 (34.7\%)\\
-\hspace{1em}Traitement A & 84 (28.0\%)\\
-\hspace{1em}Traitement B & 79 (26.3\%)\\
-\hspace{1em}Missing & 33 (11.0\%)\\
-\addlinespace[0.3em]
-\multicolumn{2}{l}{\textbf{sexL}}\\
-\hspace{1em}Féminin & 137 (45.7\%)\\
-\hspace{1em}Masculin & 140 (46.7\%)\\
-\hspace{1em}Missing & 23 (7.7\%)\\
+ & (N=300)\\
+imc & \\
+Mean (SD) & 24.4 (3.04)\\
+Median [Min, Max] & 24.5 [15.4, 32.2]\\
+Missing & 37 (12.3\%)\\
+\addlinespace
+pas & \\
+Mean (SD) & 137 (16.9)\\
+Median [Min, Max] & 138 [92.0, 177]\\
+Missing & 33 (11.0\%)\\
+traitL & \\
+\addlinespace
+Placebo & 104 (34.7\%)\\
+Traitement A & 84 (28.0\%)\\
+Traitement B & 79 (26.3\%)\\
+Missing & 33 (11.0\%)\\
+sexL & \\
+\addlinespace
+Féminin & 137 (45.7\%)\\
+Masculin & 140 (46.7\%)\\
+Missing & 23 (7.7\%)\\
 \bottomrule
 \end{tabular}
 
@@ -7908,31 +7871,31 @@ Le package \texttt{table1} permet d'ajouter un nom de variable plus explicite au
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tabular}[t]{lc}
+\begin{tabular}{ll}
 \toprule
-\textbf{ } & \textbf{\makecell[c]{Overall\\(N=300)}}\\
+  & Overall\\
 \midrule
-\addlinespace[0.3em]
-\multicolumn{2}{l}{\textbf{IMC (kg/m²)}}\\
-\hspace{1em}Mean (SD) & 24.4 (3.04)\\
-\hspace{1em}Median [Min, Max] & 24.5 [15.4, 32.2]\\
-\hspace{1em}Missing & 37 (12.3\%)\\
-\addlinespace[0.3em]
-\multicolumn{2}{l}{\textbf{PAS (mmHg)}}\\
-\hspace{1em}Mean (SD) & 137 (16.9)\\
-\hspace{1em}Median [Min, Max] & 138 [92.0, 177]\\
-\hspace{1em}Missing & 33 \vphantom{1} (11.0\%)\\
-\addlinespace[0.3em]
-\multicolumn{2}{l}{\textbf{Traitement}}\\
-\hspace{1em}Placebo & 104 (34.7\%)\\
-\hspace{1em}Traitement A & 84 (28.0\%)\\
-\hspace{1em}Traitement B & 79 (26.3\%)\\
-\hspace{1em}Missing & 33 (11.0\%)\\
-\addlinespace[0.3em]
-\multicolumn{2}{l}{\textbf{Sexe}}\\
-\hspace{1em}Féminin & 137 (45.7\%)\\
-\hspace{1em}Masculin & 140 (46.7\%)\\
-\hspace{1em}Missing & 23 (7.7\%)\\
+ & (N=300)\\
+IMC (kg/m²) & \\
+Mean (SD) & 24.4 (3.04)\\
+Median [Min, Max] & 24.5 [15.4, 32.2]\\
+Missing & 37 (12.3\%)\\
+\addlinespace
+PAS (mmHg) & \\
+Mean (SD) & 137 (16.9)\\
+Median [Min, Max] & 138 [92.0, 177]\\
+Missing & 33 (11.0\%)\\
+Traitement & \\
+\addlinespace
+Placebo & 104 (34.7\%)\\
+Traitement A & 84 (28.0\%)\\
+Traitement B & 79 (26.3\%)\\
+Missing & 33 (11.0\%)\\
+Sexe & \\
+\addlinespace
+Féminin & 137 (45.7\%)\\
+Masculin & 140 (46.7\%)\\
+Missing & 23 (7.7\%)\\
 \bottomrule
 \end{tabular}
 
@@ -7952,7 +7915,7 @@ Il est possible de choisir plus spécifiquement quels paramètres afficher. Pour
 ##         `Mean (SD)` = sprintf("%s (%s)", MEAN, SD), `Median [Min, Max]` = sprintf("%s [%s, %s]", 
 ##             MEDIAN, MIN, MAX)))
 ## }
-## <bytecode: 0x000002d49682ed60>
+## <bytecode: 0x00000238d1765660>
 ## <environment: namespace:table1>
 \end{verbatim}
 
@@ -7970,7 +7933,7 @@ Il est possible de choisir plus spécifiquement quels paramètres afficher. Pour
 ##         ...), function(y) with(y, sprintf("%s (%s%%)", FREQ, 
 ##         if (na.is.category) PCT else PCTnoNA))))
 ## }
-## <bytecode: 0x000002d4968318f8>
+## <bytecode: 0x00000238d17669d8>
 ## <environment: namespace:table1>
 \end{verbatim}
 
@@ -8005,29 +7968,33 @@ Puis, on va créer une fonction de rendu pour les variables catégorielles qui c
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tabular}[t]{lc}
+\begin{verbatim}
+## Get nicer `table1` LaTeX output by simply installing the `kableExtra` package
+\end{verbatim}
+
+\begin{tabular}{ll}
 \toprule
-\textbf{ } & \textbf{\makecell[c]{Overall\\(N=300)}}\\
+  & Overall\\
 \midrule
-\addlinespace[0.3em]
-\multicolumn{2}{l}{\textbf{IMC (kg/m²)}}\\
-\hspace{1em}Mean (SD) & 24.4 (3.0)\\
-\hspace{1em}Missing & 37 (12.3\%)\\
-\addlinespace[0.3em]
-\multicolumn{2}{l}{\textbf{PAS (mmHg)}}\\
-\hspace{1em}Mean (SD) & 137.2 (16.9)\\
-\hspace{1em}Missing & 33 \vphantom{1} (11.0\%)\\
-\addlinespace[0.3em]
-\multicolumn{2}{l}{\textbf{Traitement}}\\
-\hspace{1em}Placebo & 104 (39.0\%)\\
-\hspace{1em}Traitement A & 84 (31.5\%)\\
-\hspace{1em}Traitement B & 79 (29.6\%)\\
-\hspace{1em}Missing & 33 (11.0\%)\\
-\addlinespace[0.3em]
-\multicolumn{2}{l}{\textbf{Sexe}}\\
-\hspace{1em}Féminin & 137 (49.5\%)\\
-\hspace{1em}Masculin & 140 (50.5\%)\\
-\hspace{1em}Missing & 23 (7.7\%)\\
+ & (N=300)\\
+IMC (kg/m²) & \\
+Mean (SD) & 24.4 (3.0)\\
+Missing & 37 (12.3\%)\\
+PAS (mmHg) & \\
+\addlinespace
+Mean (SD) & 137.2 (16.9)\\
+Missing & 33 (11.0\%)\\
+Traitement & \\
+Placebo & 104 (39.0\%)\\
+Traitement A & 84 (31.5\%)\\
+\addlinespace
+Traitement B & 79 (29.6\%)\\
+Missing & 33 (11.0\%)\\
+Sexe & \\
+Féminin & 137 (49.5\%)\\
+Masculin & 140 (50.5\%)\\
+\addlinespace
+Missing & 23 (7.7\%)\\
 \bottomrule
 \end{tabular}
 
@@ -8060,25 +8027,29 @@ Pour obtenir une table bivariée, on ajoute une barre verticale suivie d'une var
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tabular}[t]{lcccc}
+\begin{verbatim}
+## Get nicer `table1` LaTeX output by simply installing the `kableExtra` package
+\end{verbatim}
+
+\begin{tabular}{lllll}
 \toprule
-\textbf{ } & \textbf{\makecell[c]{Placebo\\(N=104)}} & \textbf{\makecell[c]{Traitement A\\(N=84)}} & \textbf{\makecell[c]{Traitement B\\(N=79)}} & \textbf{\makecell[c]{Overall\\(N=267)}}\\
+  & Placebo & Traitement A & Traitement B & Overall\\
 \midrule
-\addlinespace[0.3em]
-\multicolumn{5}{l}{\textbf{IMC (kg/m²)}}\\
-\hspace{1em}Mean (SD) & 24.4 (2.84) & 24.7 (3.03) & 24.2 (3.53) & 24.4 (3.12)\\
-\hspace{1em}Median [Min, Max] & 24.5 [17.0, 31.2] & 24.8 [15.4, 30.3] & 24.1 [16.1, 32.2] & 24.6 [15.4, 32.2]\\
-\hspace{1em}Missing & 11 (10.6\%) & 11 (13.1\%) & 9 (11.4\%) & 31 (11.6\%)\\
-\addlinespace[0.3em]
-\multicolumn{5}{l}{\textbf{PAS (mmHg)}}\\
-\hspace{1em}Mean (SD) & 143 (15.8) & 130 (16.2) & 137 (17.0) & 137 (17.1)\\
-\hspace{1em}Median [Min, Max] & 142 [105, 177] & 130 [92.0, 161] & 138 [103, 177] & 138 [92.0, 177]\\
-\hspace{1em}Missing & 17 (16.3\%) & 9 (10.7\%) & 7 (8.9\%) & 33 (12.4\%)\\
-\addlinespace[0.3em]
-\multicolumn{5}{l}{\textbf{Sexe}}\\
-\hspace{1em}Féminin & 40 (38.5\%) & 40 (47.6\%) & 37 (46.8\%) & 117 (43.8\%)\\
-\hspace{1em}Masculin & 58 (55.8\%) & 40 (47.6\%) & 30 (38.0\%) & 128 (47.9\%)\\
-\hspace{1em}Missing & 6 (5.8\%) & 4 (4.8\%) & 12 (15.2\%) & 22 (8.2\%)\\
+ & (N=104) & (N=84) & (N=79) & (N=267)\\
+IMC (kg/m²) &  &  &  & \\
+Mean (SD) & 24.4 (2.84) & 24.7 (3.03) & 24.2 (3.53) & 24.4 (3.12)\\
+Median [Min, Max] & 24.5 [17.0, 31.2] & 24.8 [15.4, 30.3] & 24.1 [16.1, 32.2] & 24.6 [15.4, 32.2]\\
+Missing & 11 (10.6\%) & 11 (13.1\%) & 9 (11.4\%) & 31 (11.6\%)\\
+\addlinespace
+PAS (mmHg) &  &  &  & \\
+Mean (SD) & 143 (15.8) & 130 (16.2) & 137 (17.0) & 137 (17.1)\\
+Median [Min, Max] & 142 [105, 177] & 130 [92.0, 161] & 138 [103, 177] & 138 [92.0, 177]\\
+Missing & 17 (16.3\%) & 9 (10.7\%) & 7 (8.9\%) & 33 (12.4\%)\\
+Sexe &  &  &  & \\
+\addlinespace
+Féminin & 40 (38.5\%) & 40 (47.6\%) & 37 (46.8\%) & 117 (43.8\%)\\
+Masculin & 58 (55.8\%) & 40 (47.6\%) & 30 (38.0\%) & 128 (47.9\%)\\
+Missing & 6 (5.8\%) & 4 (4.8\%) & 12 (15.2\%) & 22 (8.2\%)\\
 \bottomrule
 \end{tabular}
 
@@ -8093,23 +8064,27 @@ Comme pour l'analyse univariée, on peut choisir de n'afficher que la moyenne et
 \end{Highlighting}
 \end{Shaded}
 
-\begin{tabular}[t]{lcccc}
+\begin{verbatim}
+## Get nicer `table1` LaTeX output by simply installing the `kableExtra` package
+\end{verbatim}
+
+\begin{tabular}{lllll}
 \toprule
-\textbf{ } & \textbf{\makecell[c]{Placebo\\(N=104)}} & \textbf{\makecell[c]{Traitement A\\(N=84)}} & \textbf{\makecell[c]{Traitement B\\(N=79)}} & \textbf{\makecell[c]{Overall\\(N=267)}}\\
+  & Placebo & Traitement A & Traitement B & Overall\\
 \midrule
-\addlinespace[0.3em]
-\multicolumn{5}{l}{\textbf{IMC (kg/m²)}}\\
-\hspace{1em}Mean (SD) & 24.4 (2.8) & 24.7 (3.0) & 24.2 (3.5) & 24.4 (3.1)\\
-\hspace{1em}Missing & 11 (10.6\%) & 11 (13.1\%) & 9 (11.4\%) & 31 (11.6\%)\\
-\addlinespace[0.3em]
-\multicolumn{5}{l}{\textbf{PAS (mmHg)}}\\
-\hspace{1em}Mean (SD) & 143.1 (15.8) & 130.5 (16.2) & 137.2 (17.0) & 137.2 (17.1)\\
-\hspace{1em}Missing & 17 (16.3\%) & 9 (10.7\%) & 7 (8.9\%) & 33 (12.4\%)\\
-\addlinespace[0.3em]
-\multicolumn{5}{l}{\textbf{Sexe}}\\
-\hspace{1em}Féminin & 40 (40.8\%) & 40 (50.0\%) & 37 (55.2\%) & 117 (47.8\%)\\
-\hspace{1em}Masculin & 58 (59.2\%) & 40 (50.0\%) & 30 (44.8\%) & 128 (52.2\%)\\
-\hspace{1em}Missing & 6 (5.8\%) & 4 (4.8\%) & 12 (15.2\%) & 22 (8.2\%)\\
+ & (N=104) & (N=84) & (N=79) & (N=267)\\
+IMC (kg/m²) &  &  &  & \\
+Mean (SD) & 24.4 (2.8) & 24.7 (3.0) & 24.2 (3.5) & 24.4 (3.1)\\
+Missing & 11 (10.6\%) & 11 (13.1\%) & 9 (11.4\%) & 31 (11.6\%)\\
+PAS (mmHg) &  &  &  & \\
+\addlinespace
+Mean (SD) & 143.1 (15.8) & 130.5 (16.2) & 137.2 (17.0) & 137.2 (17.1)\\
+Missing & 17 (16.3\%) & 9 (10.7\%) & 7 (8.9\%) & 33 (12.4\%)\\
+Sexe &  &  &  & \\
+Féminin & 40 (40.8\%) & 40 (50.0\%) & 37 (55.2\%) & 117 (47.8\%)\\
+Masculin & 58 (59.2\%) & 40 (50.0\%) & 30 (44.8\%) & 128 (52.2\%)\\
+\addlinespace
+Missing & 6 (5.8\%) & 4 (4.8\%) & 12 (15.2\%) & 22 (8.2\%)\\
 \bottomrule
 \end{tabular}
 
@@ -8310,7 +8285,7 @@ Sexe &  &  &  &  \\
 
 \section{Méthodes plus flexibles}\label{muxe9thodes-plus-flexibles}
 
-Les packages \texttt{table1} et \texttt{gtsummary} permettent d'obtenir des tables uni- et bivariées très faciement, mais ils restent en partie limités pour adapter la table à sa guise.
+Les packages \texttt{table1} et \texttt{gtsummary} permettent d'obtenir des tables uni- et bivariées très facilement, mais ils restent en partie limités pour adapter la table à sa guise.
 
 Pour obtenir des tables avec une plus grande liberté de présentation, on peut créer un tableau (\texttt{data.frame}) contenant exactement les résultats que l'on veut présenter.
 

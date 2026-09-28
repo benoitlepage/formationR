@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Analyse simple en R base | Formation R</title>
   <meta name="description" content="Chapter 3 Analyse simple en R base | Formation R" />
-  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Analyse simple en R base | Formation R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Benoît Lepage" />
 
 
-<meta name="date" content="2026-08-28" />
+<meta name="date" content="2026-09-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1463,7 +1463,7 @@ _“H0 : La répartition par sexe est la même dans les 3 groupes de traitement_
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="analyse-simple-en-r-base.html#cb194-1" tabindex="-1"></a><span class="do">### Estimer puis tester une corrélation de Pearson entre PAS et IMC</span></span>
 <span id="cb194-2"><a href="analyse-simple-en-r-base.html#cb194-2" tabindex="-1"></a>rho_spearm <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(df_1<span class="sc">$</span>imc, df_1<span class="sc">$</span>pas, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>) </span></code></pre></div>
 <pre><code>## Warning in cor.test.default(df_1$imc, df_1$pas, method = &quot;spearman&quot;):
-## Impossible de calculer la p-value exacte avec des ex-aequos</code></pre>
+## impossible de calculer la p-value exacte avec des ex-aequos</code></pre>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="analyse-simple-en-r-base.html#cb196-1" tabindex="-1"></a>rho_spearm</span></code></pre></div>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
